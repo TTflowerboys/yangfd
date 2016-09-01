@@ -38,39 +38,10 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr class="row" style="display: none;">
-                            <td>
-                                <select class="select-chosen neighborhood-select" data-placeholder="{{_('请选择街区(选填)')}}" data-change-title data-validator="" data-name="{{_('街区')}}" data-serialize="maponics_neighborhood" data-value="{{rent_intention_ticket.get('maponics_neighborhood',{}).get('id','')}}"></select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="text" placeholder="{{_('Postcode(选填)')}}" data-validator="" data-name="{{_('Postcode')}}" data-serialize="zipcode_index" value="{{rent_intention_ticket.get('zipcode_index','')}}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input style="width: 360px;" type="text" placeholder="{{_('地址(选填)')}}" data-validator="" data-name="{{_('地址')}}" data-serialize="address" value="{{rent_intention_ticket.get('address','')}}"/>
-                            </td>
-                        </tr>
                     </table>
                     <div class="step2" data-show-step="2">
                         <div class="row">
-                            <div class="col">
-                                <p class="title">{{_('居室数')}}</p>
-                                <select class="select-chosen bedroomCount" data-validator="required" data-name="{{_('居室数')}}" data-serialize="bedroom_count">
-                                    % for index,bedroom_count in enumerate(bedroom_count_list):
-                                    <option value="{{bedroom_count.get('id')}}"
-                                        %if rent_intention_ticket.get('bedroom_count',{}).get('id','') == bedroom_count.get('id') or ((not rent_intention_ticket.get('bedroom_count',{}).get('id','')) and index == 0):
-                                        selected
-                                        %end
-                                        >
-                                        {{bedroom_count.get('value')}}
-                                    </option>
-                                    % end
-                                </select>
-                            </div>
-                            <div class="col">
+                            <div class="col rentType">
                                 <p class="title">{{_('求租类型')}}</p>
                                 <select class="select-chosen rentType" data-change-title data-validator="required" data-name="{{_('求租类型')}}" data-serialize="rent_type">
                                     %for index, rent_type in enumerate(rent_type_list):
@@ -83,6 +54,12 @@
                                     </option>
                                     %end
                                 </select>
+                            </div>
+                            <div class="col bedroomCount" toggle-control data-serialize="bedroom_count" data-bind="">
+                                <p class="title">{{_('居室数')}}</p>
+                                % for bedroom_count in bedroom_count_list:
+                                    <div class="toggleTag" data-id="{{bedroom_count.get('id')}}">{{bedroom_count.get('value')}}</div>
+                                % end
                             </div>
                         </div>
                         <div class="row">
@@ -140,7 +117,50 @@
                             </div>
                         </div>
                         <div class="row">
-                            <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(100)"  data-name="{{_('求租标题')}}" data-serialize="title" data-value="{{rent_intention_ticket.get('title','')}}"/>
+                            <p class="title">{{_('入住人数')}}</p>
+                            <select class="select-chosen male" id="" data-name="{{_('男生人数')}}" data-serialize="male_roommates"  data-disable-chosen-search="true">
+                                 %for index in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
+                                    <option value="{{index}}"
+                                        >
+                                        {{index}}{{_('男')}}
+                                    </option>
+                                 %end
+                            </select>
+                            <select class="select-chosen female" id="" data-name="{{_('女生人数')}}" data-serialize="female_roommates" data-disable-chosen-search="true">
+                                %for index in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
+                                    <option value="{{index}}"
+                                        >
+                                        {{index}}{{_('女')}}
+                                    </option>
+                                 %end
+                            </select>
+                        </div>
+                        <div class="row" radio-control data-serialize="smoke"  data-bind="false">
+                            <span class="title radioTitle">{{_('是否吸烟')}}</span>
+                            <label class="radioWrap" data-bind="true">
+                                <input class="currantRadio" type="radio" name="smoke"/><label>{{_('是')}}</label>
+                            </label>
+                            <label class="radioWrap" data-bind="false">
+                                <input class="currantRadio" type="radio" name="smoke" checked/><label>{{_('否')}}</label>
+                            </label>
+                        </div>
+                        <div class="row" radio-control data-serialize="baby" data-bind="false">
+                            <span class="title radioTitle">{{_('是否会带小孩一同入住')}}</span>
+                            <label class="radioWrap" for="" data-bind="true">
+                                <input class="currantRadio" type="radio" name="baby"/><label >{{_('是')}}</label>
+                            </label>
+                            <label class="radioWrap" for="" data-bind="false">
+                                <input class="currantRadio" type="radio" name="baby" checked/><label >{{_('否')}}</label>
+                            </label>
+                        </div>
+                        <div class="row" radio-control data-serialize="pet" data-bind="false">
+                            <span class="title radioTitle">{{_('是否携宠物入住')}}</span>
+                            <label class="radioWrap" for=""  data-bind="true">
+                                <input class="currantRadio" type="radio" name="pet"/><label>{{_('是')}}</label>
+                            </label>
+                            <label class="radioWrap" for=""  data-bind="false">
+                                <input class="currantRadio" type="radio" name="pet" checked/><label>{{_('否')}}</label>
+                            </label>
                         </div>
                         <div class="row">
                             <textarea name="requirementRentDesc" id="" rows="3" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(300)" data-name="{{_('求租描述')}}" data-serialize="description">{{rent_intention_ticket.get('description','')}}</textarea>
@@ -148,16 +168,40 @@
                     </div>
                     <div class="step3" data-show-step="3">
                         <div class="row">
+                            <p class="title">{{_('姓名')}}</p>
                             <input type="text" class="requirementRentName" name="requirementRentName" placeholder="{{_('姓名')}}" data-validator="required,trim,maxLength(20)"  data-name="{{_('姓名')}}" data-serialize="nickname"/>
+                            <select class="select-chosen gender" id="" data-name="{{_('性别')}}" data-serialize="gender">
+                                <option value="male">
+                                    {{_('男')}}
+                                </option>
+                                <option value="female">
+                                    {{_('女')}}
+                                </option>
+                            </select>
+                            <select class="select-chosen occupation" id="" data-name="{{_('职业')}}" data-serialize="occupation">
+                                % for occupation in occupation_list:
+                                    <option value="{{occupation.get('id')}}"
+                                            % if occupation.get('slug') == 'student':
+                                            selected
+                                            %end
+                                            >
+                                            {{occupation.get('value')}}
+                                    </option>
+                                %end
+                            </select>
                         </div>
                         <div class="row">
+                            <p class="title">{{_('联系方式')}}</p>
                             <!-- @@include =country_code_select.html -->
                             <input type="text" class="requirementRentPhone" name="requirementRentPhone" placeholder="{{_('电话')}}" data-validator="required,trim,phone"  data-name="{{_('电话')}}"/>
                         </div>
                         <div class="row">
                             <input type="text" class="requirementRentEmail" name="requirementRentEmail" placeholder="{{_('邮箱')}}" data-validator="required,trim,email"  data-name="{{_('邮箱')}}" data-serialize="email"/>
                         </div>
-                        % if not user:                        
+                        <div class="row">
+                            <input type="text" class="requirementWechat" name="requirementWechat" placeholder="{{_('微信（选填）')}}" data-validator="trim"  data-name="{{_('微信（选填）')}}" data-serialize="wechat"/>
+                        </div>
+                        % if not user:
                         <div class="row">
                             <input type="text" class="referral" name="referral" placeholder="{{_('推荐码（选填）')}}" data-validator="trim"  data-name="{{_('推荐码（选填）')}}" data-serialize="referral"/>
                         </div>

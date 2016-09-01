@@ -46,6 +46,7 @@
         }
         .formWrap{
             float: left;
+            overflow: hidden;
             .stepWrap{
                 padding: 0 40px 68px;
                 border-bottom: 1px solid #ccc;
@@ -148,7 +149,7 @@
 
             .requirement_rent_form{
                 position: relative;
-                height: 390px;
+                height: 590px;
                 padding: 20px;
                 color: #999;
                 select,input[type=text], textarea{
@@ -163,6 +164,13 @@
                 }
                 textarea{
                     padding-top: 6px;
+                }
+                .toggleTag {
+                    color: @red;
+                    margin: 4px 4px;
+                    &.selected {
+                        color: white;
+                    }
                 }
                 .step1{
 
@@ -189,13 +197,25 @@
                             float: left;
                             margin-right: 20px;
                             .clearfix;
+
+                            &.rentType {
+                                width: 132px;
+                            }
+
+                            &.bedroomCount {
+                                width: 430px;
+                                margin-right: 0px;
+                            }
                         }
+
+
                         .title{
                             margin: 0 0 8px;
                         }
-                        .rentType,.rentBudget,.bedroomCount{
-                            width: 265px;
+                        .rentType {
+                            width: 100%;
                         }
+
                         .dateInput{
                             width: 110px;
                         }
@@ -215,6 +235,26 @@
                         > input, > textarea{
                             width: 550px;
                         }
+
+                        input.radio {
+                            width: 100px;
+                        }
+
+                        select.male, select.female {
+                            width: 132px;
+                            margin-right: 20px;
+                        }
+
+                        .radioTitle {
+                            width: 460px;
+                            display: inline-block;
+                        }
+                        .radioWrap {
+                            margin-right: 20px;
+                        }
+                    }
+                    .chosen-container-single {
+                        margin-right: 20px;
                     }
                     .chosen-container-single .chosen-single span{
                         margin-right: 12px;
@@ -236,6 +276,7 @@
                         }
                         input[type=text]{
                             width: 240px;
+                            margin-right: 20px;
                         }
                         label{
                             font-size: 13px;

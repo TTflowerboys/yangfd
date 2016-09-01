@@ -3,7 +3,11 @@
 
         <div class="top">
             <h2 class="title">
-                {=ticket.title=}
+                {_if (ticket.title) {_}
+                    {=ticket.title=}
+                {_ }else{ _}
+                    {=ticket.city.name=} {_window.i18n('求租')_}
+                {_}_}
             </h2>
             <label class="status" data-status={=ticket.status=}>{=ticket.status_presentation=}</label>
              <label class="price_phone" for="">

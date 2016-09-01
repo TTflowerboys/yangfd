@@ -198,10 +198,25 @@
                                 display: none;
                             }
                         }
+                        .bedroomCountTitle {
+                            @media @phone {
+                                display: block;
+                            }
+                        }
                         .rentType,.rentBudget{
                             width: 265px;
                             @media @phone{
                                 width: 100%;
+                            }
+                        }
+                        .toggleTag {
+                            @media @phone {
+                                color: @red;
+                            }
+                            &.selected {
+                                @media @phone {
+                                    color: white;
+                                }
                             }
                         }
                         .dateInput{

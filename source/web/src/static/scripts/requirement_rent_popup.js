@@ -263,6 +263,10 @@
             var val
             if ($(this).is('[type=checkbox]')) {
                 val = $(this).is(':checked')
+            } else if ($(this).is('[toggle-control]')) {
+                val = $(this).attr('data-bind')
+            } else if ($(this).is('[radio-control]')) {
+                val = $(this).attr('data-bind')
             } else {
                 val = $(this).val()
             }
@@ -509,6 +513,48 @@
             }
         }
 
+        $('.col.bedroomCount').on('click', '.toggleTag', function (event) {
+
+            function removeIdOfItem($item) {
+                var itemId = $item.attr('data-id')
+                var $control = $item.parents('[toggle-control]')
+                var oldIdString = $control.attr('data-bind')
+                var oldIds = oldIdString.split(',')
+                var itemIdPosistion = oldIds.indexOf(itemId)
+                oldIds.splice(itemIdPosistion, 1)
+                var newIdString = oldIds.join(',')
+                $control.attr('data-bind', newIdString)
+            }
+
+            function addIdOfItem($item) {
+                var itemId = $item.attr('data-id')
+                var $control = $item.parents('[toggle-control]')
+                var oldIdString = $control.attr('data-bind')
+                var oldIds = oldIdString.split(',')
+                oldIds.push(itemId)
+                var newIdString = oldIds.join(',')
+                $control.attr('data-bind', newIdString)
+            }
+
+            var $item = $(event.target)
+            event.stopPropagation()
+            if ($item.hasClass('selected')) {
+                $item.removeClass('selected')
+                removeIdOfItem($item)
+            }
+            else {
+                $item.addClass('selected')
+                addIdOfItem($item)
+            }
+        })
+
+        $('.radioWrap').on('click', function (e) {
+            var currentValue = $(e.currentTarget).find('.currantRadio').is(':checked')
+            $(e.currentTarget).find('.currantRadio').attr('checked', !currentValue)
+            $(e.currentTarget).siblings().find('.currantRadio').attr('checked', currentValue)
+            $(e.currentTarget).parents('[radio-control]').attr('data-bind', $(e.currentTarget).attr('data-bind'))
+        })
+
         initShowAndHide(container, option)
         $('.neighborhood-select').parents('.row').show()
         container.find('.select-chosen').add(container.find('[name=country_code]')).each(function (index, elem) {
@@ -599,3 +645,4 @@
         window.openRequirementRentForm()
     })
 })()
+ 

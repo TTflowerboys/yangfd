@@ -33,7 +33,11 @@
             </td>
             <td>
                 <div>{%$root.i18n('出租类型:')%}{%item.rent_type.value%}</div>
-                <div>{%$root.i18n('居室:')%}{%item.bedroom_count.value%}</div>
+                <div>{%$root.i18n('居室:')%}
+                    <label ng-repeat="bedroomCountType in item.bedroom_count">
+                        {%bedroomCountType.value%}
+                    </label>
+                </div>
             </td>
             <td >
                 <div>{%item.city.name%}</div>
@@ -42,7 +46,15 @@
                 <div>{%item.address%}</div>
             </td>
             <td >
-                {%item.description%}
+                <div ng-if="item.wechat">{%$root.i18n('微信：')%} {%item.wechat%}</div>
+                <div ng-if="item.occupation">{%$root.i18n('职业：')%} {%item.occupation.value%}</div>
+                <div ng-if="item.male_roommates">{%$root.i18n('男生人数：')%} {%item.male_roommates%}</div>
+                <div ng-if="item.female_roomates">{%$root.i18n('女生人数：')%} {%item.female_roommates%}</div>
+                <div ng-if="item.baby">{%$root.i18n('是否有孩子：')%} {%item.baby%}</div>
+                <div ng-if="item.pet">{%$root.i18n('是否带宠物：')%} {%item.pet%}</div>
+                <div ng-if="item.smoke">{%$root.i18n('是否吸烟：')%} {%item.smoke%}</div>
+
+                <div>{%item.description%}</div>
             </td>
             <td >
                 {%item.tags | rentIntentionTags%}
