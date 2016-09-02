@@ -21,6 +21,7 @@ class currant_ticket(f_ticket):
         user_id_set = set()
         enum_id_set = set()
         property_id_set = set()
+        hesa_university_id_set = set()
         for t in ticket_list:
             if t is not None:
                 if t.get("property_id"):
@@ -35,7 +36,11 @@ class currant_ticket(f_ticket):
                     if t.get("budget"):
                         enum_id_set.add(t["budget"]["id"])
 
+                    if t.get("hesa_university"):
+                        hesa_university_id_set.add(t["hesa_university"])
+
         property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist, permission_check=permission_check)
+        hesa_university_dict = f_app.hesa.university.get(list(hesa_university_id_set), multi_return=dict)
 
         if not location_only:
             user_id_set = filter(None, user_id_set)
@@ -94,6 +99,8 @@ class currant_ticket(f_ticket):
                         t["budget"] = enum_dict.get(t["budget"]["id"])
                     if t.get("property_id"):
                         t["property"] = property_dict.get(t.pop("property_id"))
+                    if t.get("hesa_university"):
+                        t["hesa_university"] = hesa_university_dict.get(t["hesa_university"])
                     if "interested_rent_tickets" in t:
                         t["interested_rent_tickets"] = f_app.ticket.output(
                             t["interested_rent_tickets"],
