@@ -505,6 +505,11 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "start": datetime.utcnow(),
         })
 
+    def v35(self, m):
+        ticket_database = f_app.ticket.get_database(m)
+        for ticket in ticket_database.find({"bedroom_count": {"$exists": True}, "type": "rent_intention"}, {"bedroom_count": 1}):
+            ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"bedroom_count": [ticket["bedroom_count"]]}})
+
 currant_mongo_upgrade()
 
 

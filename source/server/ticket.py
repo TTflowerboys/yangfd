@@ -325,12 +325,17 @@ class currant_ticket_plugin(f_app.plugin_base):
             if "rent_budget_min" not in intention_ticket and "rent_budget_max" not in intention_ticket or "bedroom_count" not in intention_ticket or "rent_type" not in intention_ticket or "rent_available_time" not in intention_ticket:
                 continue
 
-            bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
+            bedroom_counts = intention_ticket["bedroom_count"]
             A = True
-            if bedroom_count[0] is not None:
-                A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
-            if bedroom_count[1] is not None:
-                A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
+            for bedroom_count in bedroom_counts:
+                bedroom_count = f_app.util.parse_bedroom_count(bedroom_count)
+                if bedroom_count[0] is not None:
+                    A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
+                if bedroom_count[1] is not None:
+                    A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
+                if A:
+                    # One match is sufficient
+                    break
 
             B = True
             price = ticket["price"]["value_float"]
@@ -431,7 +436,7 @@ class currant_ticket_plugin(f_app.plugin_base):
         }
         rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), permission_check=False), _i18n=["zh_Hans_CN"])
 
-        bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
+        bedroom_counts = intention_ticket["bedroom_count"]
 
         best_matches = []
         good_matches = []
@@ -448,10 +453,15 @@ class currant_ticket_plugin(f_app.plugin_base):
                     continue
 
                 A = True
-                if bedroom_count[0] is not None:
-                    A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
-                if bedroom_count[1] is not None:
-                    A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
+                for bedroom_count in bedroom_counts:
+                    bedroom_count = f_app.util.parse_bedroom_count(bedroom_count)
+                    if bedroom_count[0] is not None:
+                        A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
+                    if bedroom_count[1] is not None:
+                        A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
+                    if A:
+                        # One match is sufficient
+                        break
 
                 B = True
                 price = ticket["price"]["value_float"]
