@@ -915,6 +915,15 @@ def user_sms_verification_verify(user_id, params):
     return result
 
 
+@f_api('/user/sms_verfication/sinch_call_check', params=dict(
+    phone=(str, True),
+    country="country",
+))
+@rate_limit("sms_verification", ip=500)
+def user_sms_verification_sinch_call_check(params):
+    return f_app.sms.verification.verify(target=params["phone"], method="sinch", verify_method="call")
+
+
 @f_api("/user/<user_id>/sms_reset_password", force_ssl=True, params=dict(
     nolog=("new_password"),
     code=(str, True),
