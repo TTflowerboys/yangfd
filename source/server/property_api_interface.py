@@ -410,7 +410,7 @@ property_params = dict(
         doogal_station=ObjectId,
         traffic_time=(list, True, dict(
             type=("enum:featured_facility_traffic_type", True),
-            time=("i18n:time_period", True),
+            time="i18n:time_period",
             default=bool,
         )),
     )),
