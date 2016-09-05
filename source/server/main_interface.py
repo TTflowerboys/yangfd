@@ -253,7 +253,7 @@ def reset_password():
 @f_get('/reset_password_phone', '/reset-password-phone')
 @currant_util.check_ip_and_redirect_domain
 def reset_password_phone():
-    title = _('使用短信验证码重置密码')
+    title = _('使用手机验证码重置密码')
     return currant_util.common_template("reset_password_phone", title=title)
 
 
