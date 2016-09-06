@@ -434,6 +434,9 @@ class currant_ticket_plugin(f_app.plugin_base):
         else:
             return
 
+        if "bedroom_count" not in intention_ticket:
+            return
+
         f_app.util.check_and_override_minimum_rent_period(intention_ticket)
 
         # Scan existing rent intention ticket
