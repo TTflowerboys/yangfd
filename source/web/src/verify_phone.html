@@ -14,8 +14,8 @@
         <li><strong>3</strong><span>{{_('完成')}}</span></li>
     </ol>
     <div class="formWrap">
-        <div class="form_row">
-            <div class="hint">{{_('包含验证码的短信已经发送至您的手机，如暂未收到，请于60秒后重新获取')}}</div>
+        <div>
+            <p id="voiceHint" class="voiceHint" style="display:none"></p>
         </div>
         <div class="form_row phoneRow">
             <div class="phoneReadonly">
@@ -28,11 +28,9 @@
             </div>
         </div>
 
-        <div class="form_row">
-            <h4 class="formsHint" style="display: none;">{{_('手机号为登录和找回密码凭证，请填写真实号码')}}</h4>
-        </div>
-        <div>
-            <p id="voiceHint" class="voiceHint" style="display:none"></p>
+        <div class="form_row verifySuccess" style="display:none;">
+            <img alt="" src="/static/images/verify_phone/verify-success.png"/>
+            <p>{{_('您的手机已经通过验证')}}</p>
         </div>
         <div class="form_row">
             <p class="errorMessage" style="display:none;color:red;"></p>
