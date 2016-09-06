@@ -1,74 +1,73 @@
+var $form = $('form[name=changePhone2]')
 
-
-$('button[name=code]').click(function (e) {
-    var $getCodeBtn = $(this)
-    var resultArea = $('form[name=changePhone2]').find('.resultMessage')
-    resultArea.text(window.i18n('发送中...'))
-    resultArea.show()
-
-    var phone = window.user.phone
-    var theParams = {'phone': '+' + window.user.country_code + phone}
-    $.betterPost('/api/1/user/sms_verification/send', theParams)
-        .done(function (val) {
-            resultArea.text(window.i18n('发送成功'))
-        })
-        .fail(function (ret) {
-            var errorMessage = window.getErrorMessageFromErrorCode(ret)
-            window.dhtmlx.message({ type:'error', text: errorMessage})            
-            resultArea.text(errorMessage)                        
-        })
-        .always(function () {
-            $('.buttonLoading').trigger('end')
-            countDown ()
-        })
-    function countDown () {
-        var text = i18n('{time}s后可用')
-        var time = 60
-        function update() {
-            if(time === 0) {
-                $getCodeBtn.prop('disabled', false).text(i18n('重新获取验证码'))
-            } else{
-                $getCodeBtn.prop('disabled', true).text(text.replace('{time}', time--))
-                setTimeout(update, 1000)
-            }
+function startVerificationTimer() {
+    $form.find('#voiceVerification').hide()
+    $form.find('#voiceHint').show()
+    var sec = 60
+    var timer = setInterval(function(){
+        if(sec === 0){
+            $form.find('#voiceHint').html(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请重试'))
+            $form.find('#voiceHint #voiceVerification').click(sendVoiceVerification)
+            clearInterval(timer)
         }
-        update()
-    }
-})
+        else {
+            $form.find('#voiceHint').text(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请') + sec + window.i18n('s 后重试'))
+            sec--
+        }
+    },1000)
+}
 
-
-$('form[name=changePhone2]').submit(function (e) {
+function sendVoiceVerification(e) {
     e.preventDefault()
+    
+    var phone = window.user.phone
+    var errorArea = $(this).find('.resultMessage')
+    
+    if (phone) {
+        $form.find('.phoneIndicator').show();
+        errorArea.text(window.i18n('发送中...'))
+        errorArea.show()
 
-    var resultArea = $(this).find('.resultMessage')
-    resultArea.hide()
-    var valid = $.validate(this, {onError: function (dom, validator, index) {
-        window.dhtmlx.message({ type:'error', text: window.getErrorMessage(dom.name, validator)})
-        resultArea.text(window.getErrorMessage(dom.name, validator))
-        resultArea.show()
-    }})
+        var params = $form.serializeObject()
+        var theParams = {}
+        theParams.phone = '+' + params.country_code + params.phone
+        theParams.verify_method = 'call'
+        $.betterPost('/api/1/user/sms_verification/send', theParams)
+            .done(function (val) {
+                errorArea.text(window.i18n('发送成功'))
+                startVerificationTimer()
+                startCheckVoiceVerfication()
+            })
+            .fail(function (ret) {
+                errorArea.text(window.getErrorMessageFromErrorCode(ret))
+            })
+            .always(function () {
+                $form.find('.phoneIndicator').hide();
+            })
+    }
+    else {
+        errorArea.text(window.i18n('手机不能为空'))
+        errorArea.show()
+    }
+}
 
-    if (!valid) {return}
-    var params = $(this).serializeObject()
-
-    $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', params)
-        .done(function (data) {
-            window.user = data
-            resultArea.text(window.i18n('验证成功'))
-            resultArea.show()
+function startCheckVoiceVerfication() {
+    var errorArea = $(this).find('.resultMessage')
+    var params = $form.serializeObject()
+    var phone = '+' + params.country_code + params.phone
+    $.betterGet('/api/1/user/sms_verfication/sinch_call_check', {phone: phone})
+        .done(function (val) {
+            errorArea.text(window.i18n('验证成功'))
+            errorArea.show()
             location.href = '/user-settings'
         })
-	.fail(function (ret) {
-            var errorMessage = window.getErrorMessageFromErrorCode(ret)
-            window.dhtmlx.message({ type:'error', text: errorMessage})            
-            resultArea.text(errorMessage)                        
-            resultArea.show()
-	})
-        .always(function () {
-
+        .fail(function (ret) {
+            startCheckVoiceVerfication()
         })
+}
 
-})
+
+$('form[name=changePhone2]').submit(sendVoiceVerification)
 
 $('.rmm-button').removeClass('rmm-button-user').addClass('rmm-button-user-settings')
 

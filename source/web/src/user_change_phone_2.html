@@ -13,13 +13,13 @@
     <form name="changePhone2" class="edit" action="">
 
         <div class="inner">
-            <div class="code row">
-                <label>{{_('短信验证码')}}</label>
-                <input name="code" data-validator="required number"/>
-                <button name="code" type="button" class="button green ajaxButton manualTriggerLoadingEnd">{{_('获取验证码')}}</button>
+            <div class="phone row">
+                <label>{{_('手机号')}}</label>
+                <!-- @@include =partials/country_code_select.html -->
+                <input name="phone" type="tel" value={{user.get('phone')}} data-validator="required number" readonly/>
             </div>
-            <p class="resultMessage" style="display:none"></p>
-            <button class="button red ajaxButton" type="submit">{{_('验证')}}</button>
+            <p id="voiceHint" class="voiceHint resultMessage" style="display:none"></p>
+            <button class="button red ajaxButton">{{_('验证')}}</button>
         </div>
     </form>
 </div>
