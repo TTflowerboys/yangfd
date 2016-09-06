@@ -570,7 +570,9 @@ class f_main_mixed_index(f_app.plugin_base):
                 if processed % 100 == 0:
                     self.logger.info("station", processed, "processed.")
 
-    def build_geonames_gazetteer(self, identifier, params={}):
+    def build_geonames_gazetteer(self, identifier, params=None):
+        if params is None:
+            params = {}
         params.setdefault("feature_code", identifier)
         params.setdefault("status", {"$ne": "deleted"})
         if params.get("feature_code") == "city":
