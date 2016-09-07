@@ -51,18 +51,28 @@ function sendVoiceVerification(e) {
     }
 }
 
+var xhr = null
 function startCheckVoiceVerfication() {
     var errorArea = $(this).find('.resultMessage')
     var params = $form.serializeObject()
     var phone = '+' + params.country_code + params.phone
-    $.betterGet('/api/1/user/sms_verfication/sinch_call_check', {phone: phone})
-        .done(function (val) {
-            errorArea.text(window.i18n('验证成功'))
-            errorArea.show()
-            location.href = '/user-settings'
-        })
-        .fail(function (ret) {
-            startCheckVoiceVerfication()
+    //abort request when user retry the verification
+    if (xhr && xhr.readyState !== 4) {
+        xhr.abort()
+    }
+    xhr = $.get('/api/1/user/sms_verfication/sinch_call_check', {phone: phone})
+        .success(function (data) {
+            if (data.ret === 0) {
+                errorArea.text(window.i18n('验证成功'))
+                errorArea.show()
+                location.href = '/user-settings'
+            } else {
+                startCheckVoiceVerfication()
+            }
+        }).fail(function (xhr) {
+            if (xhr.statusText !== 'abort') {
+                startCheckVoiceVerfication()
+            }
         })
 }
 

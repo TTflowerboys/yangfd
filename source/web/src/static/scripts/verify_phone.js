@@ -107,19 +107,29 @@
 
    $('.goToNextBtn').on('click', goToNext)
 
+    var xhr = null
     function startCheckVoiceVerfication() {
-        var params = {
-            phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
+
+        var phone = '+' + $('[name=country_code]').val() + $('[name=phone]').val() 
+        //abort request when user retry the verification
+        if (xhr && xhr.readyState !== 4) {
+            xhr.abort()
         }
-        $.betterGet('/api/1/user/sms_verfication/sinch_call_check', params)
-            .done(function (val) {
-                $('.verifySuccess').show()
-                $('.verifyBtn').hide()
-                $('.goToNextBtn').show()
+        xhr = $.get('/api/1/user/sms_verfication/sinch_call_check', {phone: phone})
+            .success(function (data) {
+                if (data.ret === 0) {
+                    $('.verifySuccess').show()
+                    $('.verifyBtn').hide()
+                    $('.goToNextBtn').show()
+                } else {
+                    startCheckVoiceVerfication()
+                }
+            }).fail(function (xhr) {
+                if (xhr.statusText !== 'abort') {
+                    startCheckVoiceVerfication()
+                }
             })
-            .fail(function (ret) {
-                startCheckVoiceVerfication()
-            })
+
     }
 
     function startVerificationTimer() {
