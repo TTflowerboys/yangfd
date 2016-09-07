@@ -53,13 +53,12 @@
                 </div>
 
                 <div class="formGroup">
-                    <label for="code">{{_('验证码')}}</label>
-                    <input type="text" id="code" name="code" data-validator="required trim"/>
+                    <label for="code">{{_('验证')}}</label>
                     <button type="button" id="requestSMSCodeBtn" class="ajaxButton manualTriggerLoadingEnd">
-                        {{_('获取验证码')}}
+                        {{_('语音验证')}}
                     </button>
                     <div class="errorMsgOfGetCode" style="display: none;"></div>
-                    <div class="sucMsg" style="display: none;"><label></label>{{_('验证码已发送到您的手机，请将验证码填写到上方输入框后再发布房产')}}</div>
+                    <div class="sucMsg" style="display: none;"></div>
                 </div>
                 <div class="formGroup">
                     <label for="email">{{_('微信号')}}</label>
@@ -226,6 +225,16 @@
                         <input type="checkbox" id="addContact-phone" checked="checked" data-addContact="phone"/><label class="addContactLabel" for="addContact-phone">{{_('希望已预订成功的租客通过此电话联系我')}}</label>
                     </p>
                 </div>
+                %if user.get('phone_verified') is None or not user.get('phone_verified'):
+                    <div class="formGroup">
+                        <label for="code">{{_('验证')}}</label>
+                        <button type="button" id="requestSMSCodeBtn" class="ajaxButton manualTriggerLoadingEnd">
+                            {{_('语音验证')}}
+                        </button>
+                        <div class="errorMsgOfGetCode" style="display: none;"></div>
+                        <div class="sucMsg" style="display: none; "></div>
+                    </div>
+                %end
                 <div class="formGroup">
                     <label for="email">{{_('微信号')}}</label>
                     <input type="text" id="wechat" name="wechat" data-validator="trim" data-addContact="wechat" value="{{user.get('wechat','')}}"/>
