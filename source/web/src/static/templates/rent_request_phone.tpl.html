@@ -140,13 +140,11 @@
                                 <div id="captcha_div" class="captchaCode"></div>
                             </div>
                             <div class="row" data-bind="visible: !user()">
-                                <button class="registerUser button red ajaxButton" data-bind="click: registerUser, disable: registerUserDisabled">{{_('获取短信验证码')}}</button>
+                                <button class="registerUser button red ajaxButton" data-bind="click: registerUser, disable: registerUserDisabled">{{_('注册')}}</button>
                             </div>
                             <div class="row" data-bind="visible: !phoneVerified() && user()">
-                                <input type="text" class="smsCode" data-bind="value: smsCode" placeholder="{{_('短信验证码')}}"/>
-                            </div>
-                            <div class="row" data-bind="visible: !phoneVerified() && user()">
-                                <button class="getSmsCode button red ajaxButton" data-bind="click: getSmsCode, text: getSmsCodeText, disable: getSmsCodeDisabled"></button>
+                                <p class="voiceHint" id="voiceHint" data-bind="html: voiceHint"></p>
+                                <button class="getSmsCode button red ajaxButton" data-bind="click: verifyButtonAction, text: verifyButtonText, disable: verifyButtonDisabled"></button>
                             </div>
                         </div>
                     </form>
