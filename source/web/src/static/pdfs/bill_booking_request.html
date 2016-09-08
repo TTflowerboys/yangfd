@@ -144,13 +144,13 @@
                         %if ticket.get('interested_rent_tickets') and ticket.get('interested_rent_tickets')[0].get('deposit') is not None:
                             <div class="field deposit">
                                 <label for="" class="hint">
-                                    DESPOSIT<br>
+                                    DEPOSIT<br>
                                     押金
                                 </label>
-                                <input class="value" name="" type="text" value="{{(ticket.get('interested_rent_tickets')[0].get('deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('desposit').get('value')) if ticket.get('interested_rent_tickets')[0].get('deposit') is not None else 'NO'}}<"/>
+                                <input class="value" name="" type="text" value="{{(ticket.get('interested_rent_tickets')[0].get('deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('deposit').get('value')) if ticket.get('interested_rent_tickets')[0].get('deposit') is not None else 'NO'}}<"/>
                               </div>
                         %end
-                        <div class="field holding_desposit">
+                        <div class="field holding_deposit">
                             <label for="" class="hint">
                                 HOLDING DEPOSIT<br>
                                 订金
