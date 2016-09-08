@@ -51,14 +51,27 @@
                         <input type="checkbox" id="addContact-phone" checked="checked" data-addContact="phone"/><label class="addContactLabel" for="addContact-phone">{{_('展示电话给注册租客')}}</label>
                     </p>
                 </div>
-
-                <div class="formGroup">
-                    <label for="code">{{_('验证')}}</label>
+                <div class="formGroup smsVerificationGroup">
+                    <label for="code">{{_('验证码')}}</label>
+                    <input type="text" id="code" name="code" data-validator="required trim"/>
                     <button type="button" id="requestSMSCodeBtn" class="ajaxButton manualTriggerLoadingEnd">
+                        {{_('获取验证码')}}
+                    </button>
+                    <div class="form_row">
+                        <p class="tryVoiceVerification" style="display:none">
+                            {{_('还未没有收到短信，试试')}} <a id="tryVoiceVerificationButton" style="color:red;font-weight: bold;">{{_('语音验证')}}</a>
+                        </p>
+                    </div>
+                    <div class="errorMsgOfGetCode sms" style="display: none;"></div>
+                    <div class="sucMsg sms" style="display: none;"><label></label>{{_('验证码已发送到您的手机，请将验证码填写到上方输入框后再发布房产')}}</div>
+                </div>
+                <div class="formGroup voiceVerificationGroup" style="display:none">
+                    <label for="code">{{_('验证')}}</label>
+                    <button type="button" id="requestVoiceBtn" class="ajaxButton manualTriggerLoadingEnd">
                         {{_('语音验证')}}
                     </button>
-                    <div class="errorMsgOfGetCode" style="display: none;"></div>
-                    <div class="sucMsg" style="display: none;"></div>
+                    <div class="errorMsgOfGetCode voice"></div>
+                    <div class="sucMsg voice" style="display: none; "></div>
                 </div>
                 <div class="formGroup">
                     <label for="email">{{_('微信号')}}</label>
@@ -226,15 +239,29 @@
                     </p>
                 </div>
                 %if user.get('phone_verified') is None or not user.get('phone_verified'):
-                    <div class="formGroup">
-                        <label for="code">{{_('验证')}}</label>
+                    <div class="formGroup smsVerificationGroup">
+                        <label for="code">{{_('验证码')}}</label>
+                        <input type="text" id="code" name="code" data-validator="required trim"/>
                         <button type="button" id="requestSMSCodeBtn" class="ajaxButton manualTriggerLoadingEnd">
+                            {{_('获取验证码')}}
+                        </button>
+                        <div class="form_row">
+                            <p class="tryVoiceVerification" style="display:none">
+                                {{_('还未没有收到短信，试试')}} <a id="tryVoiceVerificationButton" style="color:red;font-weight: bold;">{{_('语音验证')}}</a>
+                            </p>
+                        </div>
+                        <div class="errorMsgOfGetCode sms" style="display: none;"></div>
+                        <div class="sucMsg sms" style="display: none;"><label></label>{{_('验证码已发送到您的手机，请将验证码填写到上方输入框后再发布房产')}}</div>
+                    </div>
+                    <div class="formGroup voiceVerificationGroup" style="display:none">
+                        <label for="code">{{_('验证')}}</label>
+                        <button type="button" id="requestVoiceBtn" class="ajaxButton manualTriggerLoadingEnd">
                             {{_('语音验证')}}
                         </button>
-                        <div class="errorMsgOfGetCode" style="display: none;"></div>
-                        <div class="sucMsg" style="display: none; "></div>
+                        <div class="errorMsgOfGetCode voice"></div>
+                        <div class="sucMsg voice" style="display: none; "></div>
                     </div>
-                %end
+               %end
                 <div class="formGroup">
                     <label for="email">{{_('微信号')}}</label>
                     <input type="text" id="wechat" name="wechat" data-validator="trim" data-addContact="wechat" value="{{user.get('wechat','')}}"/>

@@ -2,8 +2,6 @@
 
     var $errorMsg = $('.errorMsg')
     var $errorMsg2 = $('.errorMsg2')
-    var $errorMsgOfGetCode = $('.errorMsgOfGetCode')
-    var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
     window.propertyId = $('#submit').data('propertyid') || location.hash.split('/')[3] || 'none'
     window.ticketId = $('#publish').data('ticketid') || location.hash.split('/')[2]
     var createStartTime = new Date()
@@ -1009,141 +1007,174 @@
     }
     var phoneVerified = window.user? window.user.phone_verified: false
     var userExist = false
+    var needMannuallyVerify = false
 
-    $requestSMSCodeBtn.on('click', function (e) {
+    var smsManullyVerify = window.currantModule.smsManullyVerify
+    var smsCount = 0
+    var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
+    var sendSmsVerification = window.currantModule.setupSmsVerification(function () {
+        $('.buttonLoading').trigger('end')
+        $requestSMSCodeBtn.prop('disabled', true)
+        smsCount++
+    }, function (ret) {
+        window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+        $('.errorMsgOfGetCode.sms').html(window.getErrorMessageFromErrorCode(ret)).show()
+        $('.buttonLoading').trigger('end')
+        smsCount++
+    }, function (sec) {
+        var messageArea = $('.errorMsgOfGetCode.sms')
+        messageArea.text(window.i18n('如果没有收到验证码请') + sec + window.i18n('s 后重试')).show()
+    }, function () {
+        var messageArea = $('.errorMsgOfGetCode.sms')
+        messageArea.html(window.i18n('如果没有收到验证码请，请重试')).show()
+        $requestSMSCodeBtn.prop('disabled', false).text(i18n('获取验证码'))
+        if (smsCount > 1) {
+            $('.errorMsgOfGetCode.sms').hide()
+            $requestSMSCodeBtn.siblings('.sucMsg.sms').hide()
+            //use voice 验证
+            $('.tryVoiceVerification').show()
+            $('#tryVoiceVerificationButton').click(function (e) {
+                $('.smsVerificationGroup').hide()
+                $('.voiceVerificationGroup').show()
+                needMannuallyVerify = false
+                setTimeout(function () {
+                    $requestVoiceBtn.click()
+                }, 500)
+            })
+        }
+    })
+
+
+
+    $requestSMSCodeBtn.bind('click', function (e) {
         e.preventDefault()
-        $errorMsgOfGetCode.empty().hide()
+
         var $btn = $(this)
         // Check email and phone
         var valid = $.validate($('#form2'), {
             onError: function (dom, validator, index) {
                 window.dhtmlx.message({ type:'error', text: window.getErrorMessage(dom.name, validator)})
-                $errorMsgOfGetCode.html(window.getErrorMessage(dom.name, validator)).show()
+                $('.errorMsgOfGetCode.voice').html(window.getErrorMessage(dom.name, validator)).show()
             },
             exclude: ['code']
         })
 
-        // Fast register user
-        function sendVoiceVerification() {
-            var phone = ''
-            if (window.user) {
-                phone = '+' + window.user.country_code + window.user.phone
-            }
-            else {
-                phone = '+' + $('[name=country_code]').val() + $('[name=phone]').val()
-            }
-            var params = {
-                phone: phone,
-                verify_method: 'call'
-            }
-            $.betterPost('/api/1/user/sms_verification/send', params)
-                .done(function (val) {
-                    $btn.text(i18n('语音验证'))
-                    startVerificationTimer()
-                    startCheckVoiceVerfication()
-                })
-                .fail(function (ret) {
-                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
-                    $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
-                })
-                 .always(function () {
-                      $('.buttonLoading').trigger('end')
-                })
-        }
-
-        var xhr = null
-        function startCheckVoiceVerfication() {
-            var phone = ''
-            if (window.user) {
-                phone = '+' + window.user.country_code + window.user.phone
-            }
-            else {
-                phone = '+' + $('[name=country_code]').val() + $('[name=phone]').val()
-            }
-
-            //abort request when user retry the verification
-            if (xhr && xhr.readyState !== 4) {
-                xhr.abort()
-            }
-            xhr = $.get('/api/1/user/sms_verfication/sinch_call_check', {phone: phone})
-                .success(function (data) {
-                    if (data.ret === 0) {
-                        phoneVerified = true
-                    } else {
-                        startCheckVoiceVerfication()
-                    }
-                }).fail(function (xhr) {
-                    if (xhr.statusText !== 'abort') {
-                        startCheckVoiceVerfication()
-                    }
-                })
-
-        }
-
-        function startVerificationTimer() {
-            var messageArea = $btn.siblings('.sucMsg')
-            var sec = 60
-            var timer = setInterval(function(){
-                if(sec === 0){
-                    messageArea.html(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请重试')).show()
-                    clearInterval(timer)
-                    $btn.prop('disabled', false).text(i18n('语音验证'))
-                }
-                else {
-                    messageArea.text(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请') + sec + window.i18n('s 后重试')).show()
-                    sec--
-                }
-            },1000)
-        }
-
-        //logged in
-        if (window.user) {
-            sendVoiceVerification()
+        if (!valid) {
             return
         }
 
-        if (valid && !$btn.data('register')) {
-            $btn.prop('disabled', true).text(window.i18n('发送中...'))
-            smsSendTime = new Date()
-
-            var params = $('#form2').serializeObject({
-                noEmptyString: true,
-                exclude: ['code','rent_id']
-            })
-            params.phone = '+' + params.country_code +params.phone
-            params.country = window.team.getCountryFromPhoneCode(params.country_code)
-            delete params.country_code
-            params.private_contact_methods = JSON.stringify(getPrivateContactMethods())
-            $.betterPost('/api/1/user/fast-register', params)
-                .done(function (val) {
-                    $btn.data('register', true)
-                    window.user = val
-                    $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit') // #7249 快速注册成功需要将草稿绑定给登录用户
-                    $('#nickname').prop('readonly', true)
-                    $('#email').prop('readonly', true)
-                    $('#phone').prop('readonly', true)
-                    $('#countryPhone').prop('disabled', true).trigger('chosen:updated')
-                    //$('.leftWrap').addClass('hasLogin').find('form').remove()
-                    //ga('send', 'event', 'signup', 'result', 'signup-success')
-                    // Count down 1 min to enable resend
-                    phoneVerified = false
-                    $btn.prop('disabled', false)
-                    $('.buttonLoading').trigger('end')
-
-                    //resend
-                    sendVoiceVerification()
-
-                })
-                .fail(function (ret) {
-                    $('.buttonLoading').trigger('end')
-                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
-                    $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
-                    $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
-                })
-        } else if($btn.data('register')) {
-            phoneVerified = false
-            sendVoiceVerification()
+        //logged in
+        if (window.user || $btn.data('register')) {
+            var phone = '+' + window.user.country_code + window.user.phone
+            sendSmsVerification(phone)
+            needMannuallyVerify = true
         }
+        else {
+            $btn.prop('disabled', true).text(window.i18n('发送中...'))
+            register(function () {
+                //here fast-register will trigger the sms verification no need call verification mannually
+                $('#nickname').prop('readonly', true)
+                $('#email').prop('readonly', true)
+                $('#phone').prop('readonly', true)
+                $('#countryPhone').prop('disabled', true).trigger('chosen:updated')
+                // Count down 1 min to enable resend
+                phoneVerified = window.user.phone_verified
+                $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+                $btn.data('register', true)
+                $('.buttonLoading').trigger('end')
+                needMannuallyVerify = true
+
+            }, function(ret) {
+                $('.buttonLoading').trigger('end')
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+                $('.errorMsgOfGetCode.voice').html(window.getErrorMessageFromErrorCode(ret)).show()
+                $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+            })
+        }
+    })
+
+    var $requestVoiceBtn = $('#requestVoiceBtn')
+    var sendVoiceVerification =  window.currantModule.setupVoiceVerification(function () {
+        $requestVoiceBtn.text(i18n('语音验证'))
+        $('.buttonLoading').trigger('end')
+        $requestVoiceBtn.prop('disabled', true)
+    }, function (ret) {
+        window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+        $('.errorMsgOfGetCode.voice').html(window.getErrorMessageFromErrorCode(ret)).show()
+        $('.buttonLoading').trigger('end')
+    }, function (sec) {
+        if (phoneVerified)  {
+            $('.errorMsgOfGetCode.voice').hide()
+            $requestVoiceBtn.prop('disabled', false).text(i18n('语音验证'))
+        }
+        else {
+            $('.errorMsgOfGetCode.voice').text(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请') + sec + window.i18n('s 后重试')).show()
+        }
+    }, function () {
+        if (phoneVerified)  {
+            $('.errorMsgOfGetCode.voice').hide()
+            $requestVoiceBtn.prop('disabled', false).text(i18n('语音验证'))
+        }
+        else {
+            $('.errorMsgOfGetCode.voice').html(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请重试')).show()
+            $requestVoiceBtn.prop('disabled', false).text(i18n('语音验证'))
+        }
+    }, function () {
+        smsManullyVerify(window.user.id, 'call', 'call')
+            .done(function (data) {
+                window.user.phone_verified = true
+                phoneVerified = true
+                var messageArea = $('.sucMsg.voice')
+                messageArea.html(window.i18n('验证成功')).show()
+            })
+            .fail(function (ret) {
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+                $('.errorMsgOfGetCode.voice').html(window.getErrorMessageFromErrorCode(ret)).show()
+            })
+    })
+
+    // Fast register user
+    //
+    //
+    function register(onSuccess, onFail) {
+        smsSendTime = new Date()
+        var params = $('#form2').serializeObject({
+            noEmptyString: true,
+            exclude: ['code','rent_id']
+        })
+        params.phone = '+' + params.country_code +params.phone
+        params.country = window.team.getCountryFromPhoneCode(params.country_code)
+        delete params.country_code
+        params.private_contact_methods = JSON.stringify(getPrivateContactMethods())
+        $.betterPost('/api/1/user/fast-register', params)
+            .done(function (val) {
+                window.user = val
+                $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit') // #7249 快速注册成功需要将草稿绑定给登录用户
+                onSuccess()
+            })
+            .fail(function (ret) {
+                onFail(ret)
+            })
+    }
+
+    //For voice verification, user must logged in, or user has used the fast-register to register a user and send sms
+    $requestVoiceBtn.on('click', function (e) {
+        e.preventDefault()
+        // Check email and phone
+        var valid = $.validate($('#form2'), {
+            onError: function (dom, validator, index) {
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessage(dom.name, validator)})
+                $('.errorMsgOfGetCode.voice').html(window.getErrorMessage(dom.name, validator)).show()
+            },
+            exclude: ['code']
+        })
+
+        if (!valid) {
+            return
+        }
+
+        var phone = '+' + window.user.country_code + window.user.phone
+        sendVoiceVerification(phone)
     })
 
     var $publishForm = $('#form2')
@@ -1276,13 +1307,33 @@
         }
         if(window.user){
             if(phoneVerified) {
-                if(!window.user.phone_verified) {
-                    return window.project.goToVerifyPhone()
-                }
                 publishRentTicket()
-            }  else {
-                window.dhtmlx.message({ type:'error', text: i18n('请验证手机号后再发布房产')})
-                $errorMsg2.text(i18n('请验证手机号后再发布房产')).show()
+            }
+            else {
+                
+                if (needMannuallyVerify) {
+                    if ($('#code').val()) {
+                        var code = $('#code').val()
+                        smsManullyVerify(window.user.id, code, 'sms')
+                            .done(function (data) {
+                                window.user.phone_verified = true
+                                phoneVerified = window.user.phone_verified
+                                publishRentTicket()
+                            })
+                            .fail(function (ret) {
+                                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+                                $errorMsg2.text(window.getErrorMessageFromErrorCode(ret)).show()
+                            })
+                    }
+                    else {
+                        window.dhtmlx.message({ type:'error', text: i18n('请验证手机号后再发布房产')})
+                        $errorMsg2.text(i18n('请验证手机号后再发布房产')).show()
+                    }
+                }
+                else {
+                    window.dhtmlx.message({ type:'error', text: i18n('请验证手机号后再发布房产')})
+                    $errorMsg2.text(i18n('请验证手机号后再发布房产')).show()
+                }
             }
         }
     })
