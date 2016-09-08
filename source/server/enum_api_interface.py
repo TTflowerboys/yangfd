@@ -87,6 +87,16 @@ def enum_edit(user, enum_id, params):
     return f_app.enum.update_set(enum_id, params)
 
 
+def _enum_search(params):
+    if "status" in params:
+        assert set(params["status"]) <= set(["new", "deprecated"]), abort(40000, "invalid enum status")
+        params["status"] = {"$in": params["status"]}
+
+    per_page = params.pop("per_page", 0)
+    sort = params.pop("sort", False)
+    return f_app.enum.get(f_app.enum.search(params, per_page=per_page, sort=("sort_value", "asc") if sort else ("time", "desc")))
+
+
 @f_api('/enum/search', params=dict(
     country="country",
     state="enum:state",
@@ -96,15 +106,28 @@ def enum_edit(user, enum_id, params):
     type=str,
     sort=bool,
     status=(list, ["new"], str)
-))
+), api=2)
 def enum_search(params):
-    if "status" in params:
-        assert set(params["status"]) <= set(["new", "deprecated"]), abort(40000, "invalid enum status")
-        params["status"] = {"$in": params["status"]}
+    return _enum_search(params)
 
-    per_page = params.pop("per_page", 0)
-    sort = params.pop("sort", False)
-    return f_app.enum.get(f_app.enum.search(params, per_page=per_page, sort=("sort_value", "asc") if sort else ("time", "desc")))
+
+@f_api('/enum/search', params=dict(
+    country="country",
+    state="enum:state",
+    per_page=int,
+    time=datetime,
+    currency=str,
+    type=str,
+    sort=bool,
+    status=(list, ["new"], str)
+), api=1)
+def enum_search_v1(params):
+    """
+    Deprecated! Please use the new API above.
+    """
+    enums = _enum_search(params)
+    enums = filter(lambda enum: enum["slug"] != "custom_featured_facility", enums)
+    return list(enums)
 
 
 @f_api('/enum/<enum_id>/check')

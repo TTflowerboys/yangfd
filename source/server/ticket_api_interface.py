@@ -454,6 +454,17 @@ def intention_ticket_search(user, params):
     noregister=bool,
     referrer=str,
     referral=str,
+    featured_facility=(list, None, dict(
+        type=("enum:featured_facility_type", True),
+        hesa_university=ObjectId,
+        doogal_station=ObjectId,
+        custom=str,
+        traffic_time=(list, [], dict(
+            type=("enum:featured_facility_traffic_type", True),
+            time="i18n:time_period",
+            default=bool,
+        )),
+    )),
     custom_fields=(list, None, dict(
         key=(str, True),
         value=(str, True),
@@ -562,6 +573,17 @@ def rent_intention_ticket_remove(user, ticket_id):
     address=str,
     zipcode_index=str,
     minimum_rent_period="i18n:time_period",
+    featured_facility=(list, None, dict(
+        type=("enum:featured_facility_type", True),
+        hesa_university=ObjectId,
+        doogal_station=ObjectId,
+        custom=str,
+        traffic_time=(list, [], dict(
+            type=("enum:featured_facility_traffic_type", True),
+            time="i18n:time_period",
+            default=bool,
+        )),
+    )),
     custom_fields=(list, None, dict(
         key=str,
         value=str,

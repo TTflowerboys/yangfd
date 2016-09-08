@@ -510,6 +510,17 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         for ticket in ticket_database.find({"bedroom_count": {"$exists": True}, "type": "rent_intention"}, {"bedroom_count": 1}):
             ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"bedroom_count": [ticket["bedroom_count"]]}})
 
+    def v36(self, m):
+        f_app.enum.get_database(m).insert_one({
+            "id": "56387c11571cd9061f0167cc",
+            "slug": "custom_featured_facility",
+            "status": "new",
+            "time": datetime.utcnow(),
+            "type": "featured_facility_type",
+            "sort_value": 30,
+            "value": "其它"
+        })
+
 currant_mongo_upgrade()
 
 
