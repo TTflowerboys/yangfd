@@ -6,76 +6,8 @@
         $(this).find('.phoneReadonly').hide().next('.phoneEdit').show()
     })
 
-    function sendVoiceVerification() {
-        function isPhoneEdited() {
-            var originParams
-            if(window.user && window.user.country) {
-                originParams = {
-                    phone:'+' + window.user.country_code + window.user.phone
-                }
-            }
-            var params = {
-                phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
-            }
-            return !_.isEqual(originParams, params)
 
-            if (_.isEqual(originParams, params)) {//如果电话号码没改过，则直接发验证码，否则需要重设用户的电话号码
-                sendVoice()
-            } else {
-                editUser()
-            }
-        }
-
-        function editUser() {
-            var params = {
-                phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
-            }
-            $.betterPost('/api/1/user/edit', params)
-                .done(function (val) {
-                    window.user = val
-                    sendVoice()
-                })
-                .fail(function (ret) {
-                    $('.buttonLoading').trigger('end')
-                    window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
-                    $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                })
-        }
-
-        function sendVoice() {
-            var params = {
-                phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val(),
-                verify_method: 'call'
-            }
-            $.betterPost('/api/1/user/sms_verification/send', params)
-                .done(function (val) {
-                    $errorMsg.text(window.i18n('发送成功'))
-                    $errorMsg.show()
-                    $('.verifyBtn').hide()
-                    $('.goToNextBtn').hide()
-                    startVerificationTimer()
-                    startCheckVoiceVerfication()
-                })
-                .fail(function (ret) {
-                    window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
-                    $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                })
-                .always(function () {
-                })
-        }
-
-        $errorMsg.hide()
-
-        if (isPhoneEdited()) {
-            editUser()
-        }
-        else {
-            sendVoice()
-        }
-    }
-
-    $('.verifyBtn').on('click', sendVoiceVerification)
-
+    
     function goToNext() {
         window.user.phone_verified = true
 
@@ -105,50 +37,135 @@
         }
     }
 
-   $('.goToNextBtn').on('click', goToNext)
+    $('.goToNextBtn').on('click', goToNext)
 
-    var xhr = null
-    function startCheckVoiceVerfication() {
-
-        var phone = '+' + $('[name=country_code]').val() + $('[name=phone]').val() 
-        //abort request when user retry the verification
-        if (xhr && xhr.readyState !== 4) {
-            xhr.abort()
+     function editUserAndVerification(verifyFunc) {
+        function isPhoneEdited() {
+            var originParams
+            if(window.user && window.user.country) {
+                originParams = {
+                    phone:'+' + window.user.country_code + window.user.phone
+                }
+            }
+            var params = {
+                phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
+            }
+            return !_.isEqual(originParams, params)
         }
-        xhr = $.get('/api/1/user/sms_verfication/sinch_call_check', {phone: phone})
-            .success(function (data) {
-                if (data.ret === 0) {
-                    $('.verifySuccess').show()
-                    $('.verifyBtn').hide()
-                    $('.goToNextBtn').show()
-                } else {
-                    startCheckVoiceVerfication()
-                }
-            }).fail(function (xhr) {
-                if (xhr.statusText !== 'abort') {
-                    startCheckVoiceVerfication()
-                }
+
+        function editUser() {
+            var params = {
+                phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
+            }
+            $.betterPost('/api/1/user/edit', params)
+                .done(function (val) {
+                    window.user = val
+                    verifyFunc('+' + $('[name=country_code]').val() + $('[name=phone]').val())
+                })
+                .fail(function (ret) {
+                    $('.buttonLoading').trigger('end')
+                    window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+                    $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                })
+        }
+
+        $errorMsg.hide()
+
+        if (isPhoneEdited()) {
+            editUser()
+        }
+        else {
+            verifyFunc('+' + $('[name=country_code]').val() + $('[name=phone]').val())
+        }
+    }
+
+    var smsCount = 0
+    var sendSmsVerification = window.currantModule.setupSmsVerification(function () {
+        $errorMsg.text(i18n('验证码已成功发送到您填写的手机号')).show()
+        $('.buttonLoading').trigger('end')
+        $getCodeBtn.prop('disabled', true)
+        smsCount++
+    }, function (ret) {
+        window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+        $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
+        $('.buttonLoading').trigger('end')
+        smsCount++
+    }, function (sec) {
+        var text = i18n('{time}s后可再次获取')
+        $getCodeBtn.prop('disabled', true).text(text.replace('{time}', sec--))
+    }, function () {
+        $getCodeBtn.prop('disabled', false).text(i18n('重新获取验证码'))
+        if (smsCount > 1) {
+            //use voice 验证
+            $('.tryVoiceVerification').show()
+            $('#tryVoiceVerificationButton').click(function (e) {
+                $('.smsVerificationSection').hide()
+                $('.voiceVerificationSection').show()
+                setTimeout(function () {
+                    $('.verifyBtn.voice').click()
+                }, 500)
             })
+        }
+    })
 
-    }
+    var smsManullyVerify = window.currantModule.smsManullyVerify
+    var $getCodeBtn = $('.getCode')
+    $getCodeBtn.bind('click', function () {
+        if(!$getCodeBtn.attr('disabled') && isPhoneValid) {
+            editUserAndVerification(sendSmsVerification)
+        }
+    })
 
-    function startVerificationTimer() {
+    $('.verifyBtn.sms').on('click', function (e) {
+        var code = $('[name=code]').val()
+        smsManullyVerify(window.user.id, code, 'sms')
+            .done(function (data) {
+                window.user.phone_verified = true
+                $errorMsg.text(window.i18n('验证成功'))
+                $errorMsg.show()
+                $('.verifyBtn.sms').hide()
+                $('.goToNextBtn.sms').show()
+            })
+            .fail(function (ret) {
+                window.dhtmlx.message({type:'error', text: window.i18n('验证失败')})
+                $errorMsg.text(window.i18n('验证失败'))
+                $errorMsg.show()
+            })
+    })
+
+    var sendVoiceVerification =  window.currantModule.setupVoiceVerification(function () {
+        $errorMsg.text(window.i18n('发送成功'))
+        $errorMsg.show()
+        $('.verifyBtn.voice').hide()
+        $('.goToNextBtn.voice').hide()
+    }, function (ret) {
+        window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+        $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+    }, function (sec) {
         var $form = $('.formWrap')
-        $form.find('#voiceVerification').hide()
-        $form.find('#voiceHint').show()
-        var sec = 60
-        var timer = setInterval(function(){
-            if(sec === 0){
-                $form.find('#voiceHint').html(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请重试'))
-                clearInterval(timer)
-                $('.verifyBtn').show()
-            }
-            else {
-                $form.find('#voiceHint').text(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请') + sec + window.i18n('s 后重试'))
-                sec--
-            }
-        },1000)
-    }
+        $form.find('#voiceHint').text(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请') + sec + window.i18n('s 后重试')).show()
+    }, function () {
+        var $form = $('.formWrap')
+        $form.find('#voiceHint').html(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请重试')).show()
+        $('.verifyBtn.voice').show()
+    }, function () {
+        smsManullyVerify(window.user.id, 'call', 'call')
+            .done(function (data) {
+                window.user.phone_verified = true
+                $('.verifySuccess').show()
+                $('.verifyBtn.voice').hide()
+                $('.goToNextBtn.voice').show()
+            })
+            .fail(function (ret) {
+                window.dhtmlx.message({type:'error', text: window.i18n('验证失败')})
+                $errorMsg.text(window.i18n('验证失败'))
+                $errorMsg.show()
+            })
+    })
+
+    $('.verifyBtn.voice').on('click', function(e) {
+        editUserAndVerification(sendVoiceVerification)
+    })
 
     function enableSubmitButton (enable) {
         var button = $('button[type=submit]')
@@ -189,4 +206,7 @@
         }
     }
     $phoneInupt.on('change', onPhoneNumberChange)
+
+    //start automatically
+    $getCodeBtn.click()
 })()

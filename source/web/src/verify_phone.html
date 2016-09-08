@@ -14,30 +14,65 @@
         <li><strong>3</strong><span>{{_('完成')}}</span></li>
     </ol>
     <div class="formWrap">
-        <div>
-            <p id="voiceHint" class="voiceHint" style="display:none"></p>
-        </div>
-        <div class="form_row phoneRow">
-            <div class="phoneReadonly">
-                <input type="text" value="+{{user.get('country_code')}} {{user.get('phone')}}" readonly/>
-                <label>{{_('更改')}}</label>
+        <div class="smsVerificationSection">
+             <div class="form_row smsVerificationRow">
+                 <div class="hint">{{_('包含验证码的短信已经发送至您的手机，如暂未收到，请于60秒后重新获取')}}</div>
+             </div>
+            <div class="form_row phoneRow">
+                <div class="phoneReadonly">
+                    <input type="text" value="+{{user.get('country_code')}} {{user.get('phone')}}" readonly/>
+                    <label>{{_('更改')}}</label>
+                </div>
+                <div class="phoneEdit" style="display: none;">
+                    <!-- @@include=./partials/country_code_select.html -->
+                    <input name="phone" type="tel" size=20 data-validator="required, trim, number" placeholder="{{_('手机')}}" value="{{user.get('phone')}}">
+                </div>
             </div>
-            <div class="phoneEdit" style="display: none;">
-                <!-- @@include=./partials/country_code_select.html -->
-                <input name="phone" type="tel" size=20 data-validator="required, trim, number" placeholder="{{_('手机')}}" value="{{user.get('phone')}}">
-            </div>
-        </div>
 
-        <div class="form_row verifySuccess" style="display:none;">
-            <img alt="" src="/static/images/verify_phone/verify-success.png"/>
-            <p>{{_('您的手机已经通过验证')}}</p>
+            <div class="form_row codeRow smsVerificationRow">
+                <input name="code" data-validator="required number" placeholder="{{_('手机验证码')}}">
+                <button name="code" type="button" class="button green ajaxButton getCode manualTriggerLoadingEnd">{{_('获取验证码')}}</button>
+            </div>
+            <div class="form_row">
+                <p class="tryVoiceVerification" style="display:none">
+                    {{_('还未没有收到短信，试试')}} <a id="tryVoiceVerificationButton" style="color:red;font-weight: bold;">{{_('语音验证')}}</a>
+                </p>
+            </div>
+            <div class="form_row">
+                <p class="errorMessage" style="display:none;color:red;"></p>
+            </div>
+            <div class="form_row">
+                <button type="submit" class="button red ajaxButton verifyBtn sms">{{_('验证')}}</button>
+                <button type="submit" class="button red ajaxButton goToNextBtn sms" style="display:none">{{_('下一步')}}</button>
+            </div>
         </div>
-        <div class="form_row">
-            <p class="errorMessage" style="display:none;color:red;"></p>
-        </div>
-        <div class="form_row">
-            <button type="submit" class="button red ajaxButton verifyBtn">{{_('验证')}}</button>
-            <button type="submit" class="button red ajaxButton goToNextBtn" style="display:none">{{_('下一步')}}</button>
+        <div class="voiceVerificationSection" style="display:none">
+             <div class="voiceVerificationRow">
+                 <p id="voiceHint" class="voiceHint" style="display:none"></p>
+             </div>
+            <div class="form_row phoneRow">
+                <div class="phoneReadonly">
+                    <input type="text" value="+{{user.get('country_code')}} {{user.get('phone')}}" readonly/>
+                    <label>{{_('更改')}}</label>
+                </div>
+                <div class="phoneEdit" style="display: none;">
+                    <!-- @@include=./partials/country_code_select.html -->
+                    <input name="phone" type="tel" size=20 data-validator="required, trim, number" placeholder="{{_('手机')}}" value="{{user.get('phone')}}">
+                </div>
+            </div>
+
+            <div class="form_row verifySuccess voiceVerificationRow" style="display:none;">
+                <img alt="" src="/static/images/verify_phone/verify-success.png"/>
+                <p>{{_('您的手机已经通过验证')}}</p>
+            </div>
+
+            <div class="form_row">
+                <p class="errorMessage" style="display:none;color:red;"></p>
+            </div>
+            <div class="form_row">
+                <button type="submit" class="button red ajaxButton verifyBtn voice">{{_('验证')}}</button>
+                <button type="submit" class="button red ajaxButton goToNextBtn voice" style="display:none">{{_('下一步')}}</button>
+            </div>
         </div>
         <div class="form_row logout">
             <a href="#" onclick="project.logout()">{{_('暂不验证，退出账号')}}</a>
@@ -50,6 +85,7 @@
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/verify_phone.html.js-->
+<script src="/static/scripts/phone_verification.js"></script>
 <script src="/static/scripts/verify_phone.js"></script>
 <!--endbuild-->
 <!--@@close-->
