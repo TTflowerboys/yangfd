@@ -2,56 +2,49 @@
     /*
     * 求租咨询单，大学搜索选择的控件
     * */
-    ko.components.register('university-search-box', {
+    ko.components.register('featured-facility-search-box', {
         viewModel: function(params) {      
             this.parentVM = params.parentVM
+            this.placeholder = params.placeholder
             this.activeInput = ko.observable(false) //输入框是否为激活状态，激活状态
             this.query = ko.observable() //输入框的结果
-            this.lastSearchText = ko.observable() //输入框的结果
-            
-
+            this.lastSearchText = ko.observable() //输入框的结果            
             this.suggestions = ko.observableArray() //搜索结果列表
             this.activeSuggestionIndex = ko.observable(-1) //选中状态的结果的index
             this.hint = ko.observable() //提示文字
-            this.universitySearchBoxHasFocus = ko.observable()
-            this.hesaUniversityEnum = null
-            this.getHesaUniversityEnum = _.bind(function(callback) {
-                if (this.hesaUniversityEnum) {
-                    callback(this.hesaUniversityEnum)
+            this.searchBoxHasFocus = ko.observable()
+            this.supportedEnums = null
+            this.getSupportedEnums = _.bind(function(callback) {
+                if (this.supportedEnums && this.supportedEnums.length) {
+                    callback(this.supportedEnums)
                 }
                 else {
                     window.project.getEnum('featured_facility_type')
                     .then(function (val) {
-                        this.hesaUniversityEnum = _.find(val, function (ele) {
-                            return ele.slug === 'hesa_university'
+                        this.supportedEnums = _.filter(val, function (ele) {
+                            if (typeof params.featuredFacilityType === 'string') {
+                                return ele.slug === params.featuredFacilityType
+                            }
+                            else {
+                                return _.some(params.featuredFacilityType, ele.slug)
+                            }
                         })
-                        callback(this.hesaUniversityEnum)
+                        callback(this.supportedEnums)
                     })
                 }
             })
 
-            this.university = function (university) {
-                if (university) {
-                    if (typeof university === 'string') {
-                        this.parentVM.otherUniversity(university)
-                        this.parentVM.hesaUniversity(null)
-                    }
-                    else {
-                        this.parentVM.otherUniversity(null)
-                        this.parentVM.hesaUniversity(university)
-                    }
-                }
-                else {
-                    this.parentVM.otherUniversity(null)
-                    this.parentVM.hesaUniversity(null)
-                }
+            this.searchBoxUpdateValue = function (value) {
+                if (this.parentVM && this.parentVM.onFeaturedFacilitySearchBoxUpdateValue) {
+                    this.parentVM.onFeaturedFacilitySearchBoxUpdateValue(value)
+                }                
             }
 
             this.scrollTop = ko.computed(function () {
                 return 38 * (this.activeSuggestionIndex() + 1) - 298
             }, this)
 
-            this.universitySearchBoxHasFocus.subscribe(_.bind(function (newValue) {
+            this.searchBoxHasFocus.subscribe(_.bind(function (newValue) {
                 if (newValue) {
                     this.activeInput(true)
                     if (this.query()) {
@@ -68,13 +61,13 @@
             this.query.subscribe(_.bind(function (newValue) {     
                 if(newValue !== this.lastSearchText()) {                        
                     this.lastSearchText(newValue)
-                    this.university(newValue)
+                    this.searchBoxUpdateValue(newValue)
                     this.search()
                 }                       
             }, this))
 
             this.search = _.bind(function () {
-                this.getHesaUniversityEnum(_.bind(function (hesaUniversityEnum) {                                        
+                this.getSupportedEnums(_.bind(function (supportedEnums) {                                        
                     var name = this.query()
                     this.activeInput(true)
                     if (name === undefined || !name.length) {
@@ -84,7 +77,10 @@
                         if (!this.suggestions().length) {
                             this.hint(window.i18n('载入中...'))
                         }
-                        window.geonamesApi.mixedIndexSearch({ suggestion: name, country: 'GB', type: hesaUniversityEnum.id }).
+                        var enumIds = _.map(supportedEnums, function (em) {
+                            return em.id
+                        })
+                        window.geonamesApi.mixedIndexSearch({ suggestion: name, country: 'GB', type: enumIds.join(',')}).
                             then(_.bind(function (resultsOfMixedSearch) {
                                 var suggestions = resultsOfMixedSearch                                                                                                                                                                    
                                 this.hint('')                          
@@ -118,7 +114,7 @@
             // 这里之所以添加keyPress事件是为了判断keyUp中接收的enter按键是来自于中文输入法中敲下的enter还是真的在输入框下输入的enter
             // 所以当修改location-search-box这个compent的时候，需要在input的event这个bind中同时加入keyup和keypress事件
             this.enterComfire = false
-            this.universitySearchBoxKeyPress = function (vm, ev) {
+            this.searchBoxKeyPress = function (vm, ev) {
                 if (ev.key === 'Enter') {
                     this.enterComfire = true
                 }
@@ -127,7 +123,7 @@
                 }
                 return true
             }
-            this.universitySearchBoxKeyUp = function (viewModel, e) {                
+            this.searchBoxKeyUp = function (viewModel, e) {                
                 if(!window.team.isPhone()) {
                     switch(e.keyCode) {
                         case 13: //enter
@@ -154,14 +150,14 @@
                 this.activeSuggestionIndex(-1)
                 this.query(item.name)
                 this.lastSearchText(item.name)                
-                this.university(item)
+                this.searchBoxUpdateValue(item)
                 this.activeInput(false)
                 this.hideSearchModal()
             }, this)
 
             this.clear = function () {
                 this.query('')                
-                this.university(null)
+                this.searchBoxUpdateValue(null)
             }
 
             //for mobile
@@ -192,6 +188,6 @@
                 this.hideSearchModal()                
             }
         },
-        template:  { element: window.team.isPhone() ? 'university_search_box_mobile' : 'university_search_box' }
+        template:  { element: window.team.isPhone() ? 'featured_facility_search_box_mobile' : 'featured_facility_search_box' }
     })
 })(window.ko, window.currantModule = window.currantModule || {})

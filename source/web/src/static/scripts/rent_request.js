@@ -231,6 +231,23 @@
             this.hesaUniversity = ko.observable()
             this.otherUniversity = ko.observable()
 
+            this.onFeaturedFacilitySearchBoxUpdateValue = function (value) {
+                if (value) {
+                    if (typeof value === 'string') {
+                        this.otherUniversity(value)
+                        this.hesaUniversity(null)
+                    }
+                    else {
+                        this.otherUniversity(null)
+                        this.hesaUniversity(value)
+                    }
+                }
+                else {
+                    this.otherUniversity(null)
+                    this.hesaUniversity(null)
+                }
+            }
+
 
             function generateYearList(total) {
                 total = total || 80

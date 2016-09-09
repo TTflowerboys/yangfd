@@ -1,6 +1,6 @@
 <!--@@include whether_radio.tpl.html  -->
 <!--@@include chose_referrer.tpl.html  -->
-<!--@@include university_search_box.tpl.html-->
+<!--@@include featured_facility_search_box.tpl.html-->
 <script type="text/template" id='rent-request-tpl'>
     <div id="rent_request_popup" class="requirement_popup rentRequestContainer" data-bind="visible: visible">
         <div class="requirement_popup_shadow" data-bind="click: close"></div>
@@ -104,7 +104,7 @@
                                     optionsValue: 'id',
                                     value: occupation,
                                     optionsCaption: '{{_('职业')}}'"></select>
-                                    <university-search-box params="parentVM: $data" data-bind="visible: getOccupationSlug(occupation()) === 'student'"></university-search-box>                                
+                                    <featured-facility-search-box params="parentVM: $data, featuredFacilityType: 'hesa_university', placeholder: '{{_('请输入大学名称')}}'" data-bind="visible: getOccupationSlug(occupation()) === 'student'"></featured-facility-search-box>                                
                             </div>
                             <div class="row">
                                 <p class="title">{{_('生日')}}</p>

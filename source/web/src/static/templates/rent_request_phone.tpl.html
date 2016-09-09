@@ -1,6 +1,6 @@
 <!--@@include whether_radio.tpl.html  -->
 <!--@@include chose_referrer.tpl.html  -->
-<!--@@include university_search_box.tpl.html-->
+<!--@@include featured_facility_search_box.tpl.html-->
 <textarea id="rentTicketData" style="display: none">
     {{json_dumps(rent_ticket)}}
 </textarea>
@@ -102,7 +102,7 @@
                                 </select>
                             </div>
                             <div class="row">
-                                <university-search-box params="parentVM: $data" data-bind="visible: getOccupationSlug(occupation()) === 'student'"></university-search-box>    
+                                <featured-facility-search-box params="parentVM: $data, featuredFacilityType: 'hesa_university', placeholder: '{{_('请输入大学名称')}}'" data-bind="visible: getOccupationSlug(occupation()) === 'student'"></featured-facility-search-box>    
                             </div>
                             <div class="row">
                                 <p class="inputPlaceholder">{{_('生日')}}</p>
