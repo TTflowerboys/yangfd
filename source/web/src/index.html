@@ -24,7 +24,8 @@
     --></ul>
 </div>
 <!-- @@include =./partials/location_filter_tpl.html -->
-<!-- @@include=./static/templates/location-search-box.tpl.html -->
+<!-- @@include =./static/templates/location-search-box.tpl.html -->
+<!-- @@include =./static/templates/featured_facility_search_box.tpl.html-->
 <div class="indexBanner" data-bind="css: activeTab() + (activeTab() == 'landlord' && window.team.isPhone() ? ' hiddenInNonClient' : '')">
     <h1 data-bind="visible: activeTab() == 'tenant'">{{_('全英优质房源')}} <br class="hiddenOnPCWeb">{{_('轻松搞定租房')}}</h1>
     <h1 style="display: none" data-bind="visible: activeTab() == 'studentHouse'">{{_('安全可靠的高品质学生公寓')}} <br class="hiddenOnPCWeb">{{_('您在英国温馨的家')}}</h1>
@@ -335,10 +336,9 @@
     }
 </script>
 <!--build:js /static/scripts/index.html.js-->
-<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+
 <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
 <script type="text/javascript" src="/static/vendors/Blur.js/blur.js"></script>
-<script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/filter_of_neighborhood_subway_school.js"></script>
 <script src="/static/scripts/property_to_rent_list_selectors.js"></script>
 <script src="/static/scripts/index_app_download.js"></script>

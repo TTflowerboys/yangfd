@@ -38,6 +38,20 @@
                                 </select>
                             </td>
                         </tr>
+                        <tr>
+                            <td search-box-control data-serialize="featured_facility" data-bind="">
+                                <ul class="featuredFacilityList">
+                                    <li>
+                                        <featured-facility-search-box params="parentVM: $data, featuredFacilityType: 'hesa_university', placeholder: '{{_('请输入大学名称')}}'" data-bind="">
+                                        </featured-facility-search-box>
+                                        <button class="button red delete">{{_('删除')}}</button> 
+                                    </li>
+                                </ul>
+                                <button class="button red featuredFacilityAdd" data-bind="action: addFeaturedFaciity">
+                                    {{_('添加地点')}}
+                                </button>
+                            </td>
+                        </tr>
                     </table>
                     <div class="step2" data-show-step="2">
                         <div class="row">

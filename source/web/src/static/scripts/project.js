@@ -191,7 +191,7 @@
                 if(this.cache[type]) {
                     resolve(this.cache[type])
                 } else {
-                    $.get('/api/1/enum/search', {type: type, sort: true})
+                    $.get('/api/2/enum/search', {type: type, sort: true})
                         .then(function (data) {
                             window.project.cache[type] = data.val
                             resolve(data.val)

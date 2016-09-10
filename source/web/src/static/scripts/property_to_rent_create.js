@@ -1405,6 +1405,7 @@
 
     function getSurrouding() {
         return window.Q.Promise(function(resolve, reject, notify) {
+            //TODO only two type is ok 
             window.project.getEnum('featured_facility_type')
                 .then(function (types) {
                     mixedSearch({

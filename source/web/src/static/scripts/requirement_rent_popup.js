@@ -1,3 +1,71 @@
+(function (ko, module) {
+    // ko.components.register('requirement-rent-popup', {
+    //     viewModel: function (params) {
+                       
+    //     },
+    //     template: { element: 'requirement_rent_popup'}
+    // })
+
+
+    function RequirementRentViewModel() {
+        this.supportedEnums = null
+        this.getSupportedEnums = _.bind(function (callback) {
+            if (this.supportedEnums && this.supportedEnums.length) {
+                callback(this.supportedEnums)
+            }
+            else {
+                window.project.getEnum('featured_facility_type')
+                    .then(function (val) {
+                        this.supportedEnums = val
+                        callback(this.supportedEnums)
+                    })
+            }
+        })
+
+        this.onFeaturedFacilitySearchBoxUpdateValue = function (value) {            
+            if (typeof value === 'string') {                               
+                this.getSupportedEnums(_.bind(function (supportedEnums) {                                        
+                    var targetEnum = _.find(supportedEnums, function (em) {
+                        return em.slug === 'custom_featured_facility'
+                    })
+                    if (targetEnum) {
+                        var json = {custom: value, type: targetEnum.id}
+                        $('.requirement [search-box-control]').attr('data-bind', JSON.stringify(json))
+                    }
+                }, this))                
+            } 
+            else if (typeof value === 'object') {
+                if (value.type && value.type.slug) {
+                    this.getSupportedEnums(_.bind(function (supportedEnums) {
+                        var targetEnum = _.find(supportedEnums, function (em) {
+                            return em.slug === value.type.slug
+                        })
+                        if (targetEnum) {
+                            var json = {type: targetEnum.id }
+                            if (value.hesa_university) {
+                                json.hesa_university = value.hesa_university
+                                $('.requirement [search-box-control]').attr('data-bind', JSON.stringify(json))
+                            }
+                            else if (value.doogal_station) {
+                                json.doogal_station = value.doogal_station
+                                $('.requirement [search-box-control]').attr('data-bind', JSON.stringify(json))
+                            }
+                        }
+                    }, this))
+                }
+            }
+        }
+
+        this.addFeaturedFaciity = function () {
+            $('.requirement .featuredFacilityList').append('Test')
+        }
+    }
+
+    module.appViewModel.requirementRentViewModel = new RequirementRentViewModel()
+    
+
+})(window.ko, window.currantModule = window.currantModule || {})
+;;
 (function () {
 
     window.resetRequirementRentForm = function(container, option){
@@ -267,6 +335,8 @@
                 val = $(this).attr('data-bind')
             } else if ($(this).is('[radio-control]')) {
                 val = $(this).attr('data-bind')
+            } else if ($(this).is('[search-box-control]')) {
+                val = JSON.stringify(JSON.parse($(this).attr('data-bind')))
             } else {
                 val = $(this).val()
             }
