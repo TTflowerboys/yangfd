@@ -1394,7 +1394,7 @@
 
     function mixedSearch(params) {
         var filteredType = _.filter(params.types, function(type) {
-            return type.slug === 'hesa_university' || 'doogal_station'
+            return type.slug === 'hesa_university' || type.slug === 'doogal_station'
         })
         return window.Q($.betterPost('/api/1/main_mixed_index/search', {
             type: JSON.stringify(_.map(filteredType, function (type) {

@@ -174,8 +174,7 @@
                 if (name === undefined || !name.length) {
                     this.hint(window.i18n('请输入关键字后再进行搜索'))
                 } else {
-                    this.hint(window.i18n('载入中...'))
-                    //TODO only two type is ok 
+                    this.hint(window.i18n('载入中...'))                    
                     window.project.getEnum('featured_facility_type')
                         .then(_.bind(function (types) {
                             mixedSearch(name).
