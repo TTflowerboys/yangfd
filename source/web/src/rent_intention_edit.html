@@ -7,7 +7,12 @@
 <!--@@close-->
 
 <!--@@block = main-->
-
+% if not is_mobile_client():
+<!-- @@include = ./static/templates/featured_facility_search_box.tpl.html-->
+<!-- ko with: requirementRentViewModel -->
+<!-- @@include = ./partials/requirement_rent_popup.html -->
+<!-- /ko-->
+% end
 
 <!-- @@include= ./partials/requirement_rent_phone.html-->
 <div class="editRentIntentionWrap">
@@ -16,6 +21,10 @@
 <!--@@close-->
 
 <!--@@block = scripts -->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script src="/static/scripts/featured_facility_ko.js"></script>
+<script src="/static/scripts/requirement_rent_popup.js"></script>
 
 <script>
 function getOptionFromQurey(str) {
