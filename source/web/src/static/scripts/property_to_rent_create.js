@@ -1393,8 +1393,11 @@
     module.appViewModel.propertyViewModel = new PropertyViewModel()
 
     function mixedSearch(params) {
+        var filteredType = _.filter(params.types, function(type) {
+            return type.slug === 'hesa_university' || 'doogal_station'
+        })
         return window.Q($.betterPost('/api/1/main_mixed_index/search', {
-            type: JSON.stringify(_.map(params.types, function (type) {
+            type: JSON.stringify(_.map(filteredType, function (type) {
                 return type.id
             })),
             latitude: params.latitude,
@@ -1404,8 +1407,7 @@
     }
 
     function getSurrouding() {
-        return window.Q.Promise(function(resolve, reject, notify) {
-            //TODO only two type is ok 
+        return window.Q.Promise(function(resolve, reject, notify) {            
             window.project.getEnum('featured_facility_type')
                 .then(function (types) {
                     mixedSearch({

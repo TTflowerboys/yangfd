@@ -26,7 +26,7 @@
                                 return ele.slug === params.featuredFacilityType
                             }
                             else {
-                                return _.some(params.featuredFacilityType, ele.slug)
+                                return _.contains(params.featuredFacilityType, ele.slug)
                             }
                         })
                         callback(this.supportedEnums)
