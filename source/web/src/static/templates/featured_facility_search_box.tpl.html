@@ -29,7 +29,7 @@
     <!--for mobile-->
     <div class="wrap hiddenOnPCWeb">
         <div class="inputWrapper ">
-            <input data-bind="textInput: query, click: showSearchModal" type="text" placeholder="{{_('请输入大学名称')}}"/>
+            <input data-bind="textInput: query, click: showSearchModal, attr: {placeholder: placeholder}," type="text"/>
         </div>
         <div class="searchModal" data-bind="visible: isModalShow">
             <div class="topWrap">

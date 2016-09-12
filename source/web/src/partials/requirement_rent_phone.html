@@ -38,16 +38,10 @@
                             <select dir="rtl" class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{_('城市')}}" data-hint="{{_('城市')}}" data-serialize="city" data-value="{{rent_intention_ticket.get('city',{}).get('name','')}}">
                             </select>
                         </div>
-                        <div class="row" style="display: none;">
-                            <p class="inputPlaceholder">{{_('街区')}}</p>
-                            <select class="select-chosen neighborhood-select" data-change-title data-placeholder="{{_('请选择街区(选填)')}}" data-validator="" data-name="{{_('街区')}}" data-hint="{{_('街区')}}" data-serialize="maponics_neighborhood" data-value="{{rent_intention_ticket.get('maponics_neighborhood',{}).get('id','')}}"></select>
-                        </div>
-                        <div class="row">
-                            <input type="text" placeholder="{{_('地址(选填)')}}" data-validator="" data-name="{{_('地址')}}" data-serialize="address" value="{{rent_intention_ticket.get('address','')}}"/>
-                        </div>
-                        <div class="row">
-                            <input type="text" placeholder="{{_('Postcode(选填)')}}" data-validator="" data-name="{{_('Postcode')}}" data-serialize="zipcode_index" value="{{rent_intention_ticket.get('zipcode_index','')}}"/>
-                        </div>
+                        <div class="row" search-box-control data-serialize="featured_facility" data-bind="">
+                            <featured-facility-search-box params="parentVM: $data, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
+                            </featured-facility-search-box> 
+                        </div>                       
                     </div>
                     <div class="step2" data-show-step="2">
                          <div class="row">
