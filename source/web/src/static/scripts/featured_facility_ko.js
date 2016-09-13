@@ -6,6 +6,7 @@
         viewModel: function(params) {      
             this.parentVM = params.parentVM
             this.placeholder = params.placeholder
+            this.searchBoxId = _.uniqueId('search-box-')
             this.activeInput = ko.observable(false) //输入框是否为激活状态，激活状态
             this.query = ko.observable() //输入框的结果
             this.lastSearchText = ko.observable() //输入框的结果            
@@ -36,7 +37,7 @@
 
             this.searchBoxUpdateValue = function (value) {
                 if (this.parentVM && this.parentVM.onFeaturedFacilitySearchBoxUpdateValue) {
-                    this.parentVM.onFeaturedFacilitySearchBoxUpdateValue(value)
+                    this.parentVM.onFeaturedFacilitySearchBoxUpdateValue(value, this)
                 }                
             }
 

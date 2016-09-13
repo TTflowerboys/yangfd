@@ -1,6 +1,6 @@
 <script type="text/template" id='featured_facility_search_box'>
     <!--for pc-->
-    <div class="wrap hiddenOnMobile">
+    <div class="wrap hiddenOnMobile" data-bind="attr:{id: searchBoxId}">
         <div class="inputWrapper ">
             <input
                 data-bind="
@@ -27,7 +27,7 @@
 </script>
 <script type="text/template" id='featured_facility_search_box_mobile'>
     <!--for mobile-->
-    <div class="wrap hiddenOnPCWeb">
+    <div class="wrap hiddenOnPCWeb" data-bind="attr:{data-search-box-id: searchBoxId}">
         <div class="inputWrapper ">
             <input data-bind="textInput: query, click: showSearchModal, attr: {placeholder: placeholder}," type="text"/>
         </div>

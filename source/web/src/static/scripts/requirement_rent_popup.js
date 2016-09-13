@@ -15,15 +15,50 @@
             }
         })
 
-        this.onFeaturedFacilitySearchBoxUpdateValue = function (value) {            
+        var facilityDic = {}
+        function updateData(index, item) {
+            facilityDic[index] = item
+            var array = []            
+            for (var key in facilityDic) {
+                var value = facilityDic[key]
+                if (value && !_.isEmpty(value)) {
+                    array.push(value)
+                }
+            }
+            $('.requirement [search-box-control]').attr('data-bind', JSON.stringify(array))                                    
+        }
+
+        function removeData(index) {
+            facilityDic[index] = {}
+            var array = []            
+            for (var key in facilityDic) {
+                var value = facilityDic[key]
+                if (value && !_.isEmpty(value)) {
+                    array.push(value)
+                }
+            }
+            $('.requirement [search-box-control]').attr('data-bind', JSON.stringify(array))
+        }
+
+        this.onFeaturedFacilitySearchBoxUpdateValue = function (value, vm) {        
+            var searchBoxId = vm.searchBoxId
+            var $items = $('.requirement [search-box-control] .featuredFacilityList').children()
+            var searchBoxIndex = -1
+
+            $items.each(function( index ) {
+                if ($items.eq(index).find('.wrap').attr('id') === searchBoxId) {
+                    searchBoxIndex = index                    
+                }
+            })
+            
             if (typeof value === 'string') {                               
                 this.getSupportedEnums(_.bind(function (supportedEnums) {                                        
                     var targetEnum = _.find(supportedEnums, function (em) {
                         return em.slug === 'custom_featured_facility'
                     })
                     if (targetEnum) {
-                        var json = [{custom: value, type: targetEnum.id}]
-                        $('.requirement [search-box-control]').attr('data-bind', JSON.stringify(json))
+                        var json = {custom: value, type: targetEnum.id}
+                        updateData(searchBoxIndex, json)
                     }
                 }, this))                
             } 
@@ -34,14 +69,14 @@
                             return em.slug === value.type.slug
                         })
                         if (targetEnum) {
-                            var json = [{type: targetEnum.id }]
+                            var json = {type: targetEnum.id }
                             if (value.hesa_university) {
-                                json[0].hesa_university = value.hesa_university
-                                $('.requirement [search-box-control]').attr('data-bind', JSON.stringify(json))
+                                json.hesa_university = value.hesa_university                                
+                                updateData(searchBoxIndex, json)
                             }
                             else if (value.doogal_station) {
-                                json[0].doogal_station = value.doogal_station
-                                $('.requirement [search-box-control]').attr('data-bind', JSON.stringify(json))
+                                json.doogal_station = value.doogal_station                                
+                                updateData(searchBoxIndex, json)
                             }
                         }
                     }, this))
@@ -52,8 +87,38 @@
             }
         }
 
-        this.addFeaturedFaciity = function () {
-            $('.requirement .featuredFacilityList').append('Test')
+        this.addFeaturedFacility = function () {
+            var $hiddeItems =  $('.requirement .featuredFacilityList').find('li:hidden')
+            if ($hiddeItems.size() > 0) {
+                $hiddeItems.first().show()
+            }
+            else {
+                var $errorMsg = $('.requirement .requirementRentFormError')
+                $errorMsg.empty()
+                window.dhtmlx.message({type:'error', text: window.i18n('最多只能添加5个地点')})
+                $errorMsg.append(window.i18n('最多只能添加5个地点'))
+                $errorMsg.show()
+            }
+        }
+        this.removeFeaturedFacility = function (data, event) {
+            $(event.target).parents('li').hide()
+            //clear input
+            //clear data     
+            var $searchBox = $(event.target).parents('button').siblings('featured-facility-search-box')
+            var searchBoxId = $searchBox.find('.wrap').attr('id')
+
+            var $items = $('.requirement [search-box-control] .featuredFacilityList').children()
+            var searchBoxIndex = -1
+
+            $items.each(function( index ) {
+                if ($items.eq(index).find('.wrap').attr('id') === searchBoxId) {
+                    searchBoxIndex = index                    
+                }
+            })
+
+            if (searchBoxId >= 0) {             
+                removeData(searchBoxId)    
+            }     
         }
     }
 
