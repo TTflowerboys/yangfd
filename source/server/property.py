@@ -26,6 +26,7 @@ class currant_property(f_app.module_base):
         def _format_each(property):
             if "loc" in property:
                 property["longitude"], property["latitude"] = property.pop("loc")
+            property.pop("index", None)
             return f_app.util.process_objectid(property)
 
         if isinstance(property_id_or_list, (tuple, list, set)):

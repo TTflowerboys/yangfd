@@ -112,6 +112,8 @@ class currant_ticket(f_ticket):
                             permission_check=permission_check,
                         )
 
+                    t.pop("index", None)
+
         else:
             new_ticket_list = []
             for t in ticket_list:
