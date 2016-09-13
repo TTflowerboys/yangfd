@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 import random
 from datetime import datetime
+import six
 from bson import SON
 from bson.objectid import ObjectId
 from pymongo import GEO2D
@@ -224,6 +225,9 @@ class currant_property(f_app.module_base):
         latitude = params.pop("latitude")
         longitude = params.pop("longitude")
         search_range = params.pop("search_range")
+
+        if "query" in params and isinstance(params["query"], six.string_types):
+            query, params["index"], highlight_words = f_app.mongo_index.expand_query(params.pop("query"))
 
         search_command = SON([
             ('geoNear', self.property_database),

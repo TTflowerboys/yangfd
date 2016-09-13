@@ -43,6 +43,7 @@ logger = logging.getLogger(__name__)
     latitude=float,
     longitude=float,
     search_range=(int, 5000),
+    query=str,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
