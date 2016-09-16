@@ -40,33 +40,14 @@
                         </tr>
                         <tr>
                             <td search-box-control data-serialize="featured_facility" data-bind="">
-                                <ul class="featuredFacilityList">
+                                <ul class="featuredFacilityList" data-bind="foreach: featuredFacility">
                                     <li>
-                                        <featured-facility-search-box params="parentVM: $data, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
+                                        <featured-facility-search-box params="parentVM: $parent, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
                                         </featured-facility-search-box>
-                                    </li>
-                                    <li style="display:none">
-                                        <featured-facility-search-box params="parentVM: $data, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
-                                        </featured-facility-search-box>
-                                        <button class="delete" data-bind="click: function(data, event) { removeFeaturedFacility(data, event) }"><i class="icon-delete"></i></button> 
-                                    </li>
-                                    <li  style="display:none">
-                                        <featured-facility-search-box params="parentVM: $data, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
-                                        </featured-facility-search-box>
-                                        <button class="delete" data-bind="click: function(data, event) { removeFeaturedFacility(data, event) }"><i class="icon-delete"></i></button> 
-                                    </li>
-                                    <li  style="display:none">
-                                        <featured-facility-search-box params="parentVM: $data, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
-                                        </featured-facility-search-box>
-                                        <button class="delete" data-bind="click: function(data, event) { removeFeaturedFacility(data, event) }"><i class="icon-delete"></i></button> 
-                                    </li>
-                                    <li  style="display:none">
-                                        <featured-facility-search-box params="parentVM: $data, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
-                                        </featured-facility-search-box>
-                                        <button class="delete" data-bind="click: function(data, event) { removeFeaturedFacility(data, event) }"><i class="icon-delete"></i></button> 
+                                        <button class="delete" data-bind="click: function (data, event) {$parent.removeFeaturedFacility(data, $index())}, visible: $index"><i class="icon-delete"></i></button>
                                     </li>
                                 </ul>
-                                <button class="button red featuredFacilityAdd" data-bind="click: addFeaturedFacility" >
+                                <button class="button red featuredFacilityAdd" data-bind="click: addFeaturedFacility, visible: featuredFacility().length < 5" >
                                     {{_('添加地点')}}
                                 </button>
                             </td>

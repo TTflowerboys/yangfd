@@ -1,10 +1,10 @@
 (function (ko, module) {       
     /*
     * 求租咨询单，大学搜索选择的控件
-    * */
-    ko.components.register('featured-facility-search-box', {
-        viewModel: function(params) {      
-            this.parentVM = params.parentVM
+     * */
+
+    function FeaturedFacilityViewModel(params) {
+             this.parentVM = params.parentVM
             this.placeholder = params.placeholder
             this.searchBoxId = _.uniqueId('search-box-')
             this.activeInput = ko.observable(false) //输入框是否为激活状态，激活状态
@@ -13,7 +13,8 @@
             this.suggestions = ko.observableArray() //搜索结果列表
             this.activeSuggestionIndex = ko.observable(-1) //选中状态的结果的index
             this.hint = ko.observable() //提示文字
-            this.searchBoxHasFocus = ko.observable()
+        this.searchBoxHasFocus = ko.observable()
+        this.searchBoxValue = ko.observable()
             this.supportedEnums = null
             this.getSupportedEnums = _.bind(function(callback) {
                 if (this.supportedEnums && this.supportedEnums.length) {
@@ -35,7 +36,8 @@
                 }
             })
 
-            this.searchBoxUpdateValue = function (value) {
+        this.searchBoxUpdateValue = function (value) {
+            this.searchBoxValue(value)
                 if (this.parentVM && this.parentVM.onFeaturedFacilitySearchBoxUpdateValue) {
                     this.parentVM.onFeaturedFacilitySearchBoxUpdateValue(value, this)
                 }                
@@ -185,10 +187,15 @@
                 return true
             }
 
-            this.searchModalSubmit = function () {                
-                this.hideSearchModal()                
+            this.searchModalSubmit = function () {
+                this.hideSearchModal()
             }
-        },
+    }
+
+    window.currantModule.FeaturedFacilityViewModel = FeaturedFacilityViewModel
+
+    ko.components.register('featured-facility-search-box', {
+        viewModel: FeaturedFacilityViewModel,
         template:  { element: window.team.isPhone() ? 'featured_facility_search_box_mobile' : 'featured_facility_search_box' }
     })
 })(window.ko, window.currantModule = window.currantModule || {})
