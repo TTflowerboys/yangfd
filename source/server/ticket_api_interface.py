@@ -1595,43 +1595,7 @@ def rent_ticket_contact_info(user, ticket_id):
     return user_details
 
 
-@f_api('/rent_ticket/search', params=dict(
-    status=(list, ["to rent"], str),
-    per_page=int,
-    last_modified_time=datetime,
-    sort_time=datetime,
-    time=datetime,
-    sort=(list, ["sort_time", 'desc'], str),
-    rent_type="enum:rent_type",
-    user_id=ObjectId,
-    rent_budget_min="i18n:currency",
-    rent_budget_max="i18n:currency",
-    bedroom_count="enum:bedroom_count",
-    building_area="enum:building_area",
-    rent_available_time=datetime,
-    rent_deadline_time=datetime,
-    minimum_rent_period="i18n:time_period",
-    space=("enum:building_area"),
-    property_type=(list, None, "enum:property_type"),
-    intention=(list, None, "enum:intention"),
-    landlord_type=(list, None, "enum:landlord_type"),
-    country='country',
-    city='geonames_gazetteer:city',
-    maponics_neighborhood="maponics_neighborhood",
-    hesa_university=ObjectId,
-    doogal_station=ObjectId,
-    location_only=bool,
-    latitude=float,
-    longitude=float,
-    search_range=(int, 5000),
-    partner=str,
-    short_id=str,
-    query=str,
-    partner_student_housing=bool,
-    independent_bathroom=bool,
-), log_params=["query"])
-@f_app.user.login.check(check_role=True)
-def rent_ticket_search(user, params):
+def _rent_ticket_search(user, params):
     """
     When searching nearby properties (using ``latitude``, ``longitude`` and optionally ``search_range``), ``per_page`` and ``sort`` are not supported and must not be present.
     """
@@ -1863,7 +1827,89 @@ def rent_ticket_search(user, params):
             property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field=sort[0]), fuzzy_user_info=fuzzy_user_info, location_only=location_only)
+    result = f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field=sort[0], content_only=False)
+    result["content"] = f_app.ticket.output(result["content"], fuzzy_user_info=fuzzy_user_info, location_only=location_only)
+    return result
+
+
+@f_api('/rent_ticket/search', params=dict(
+    status=(list, ["to rent"], str),
+    per_page=int,
+    last_modified_time=datetime,
+    sort_time=datetime,
+    time=datetime,
+    sort=(list, ["sort_time", 'desc'], str),
+    rent_type="enum:rent_type",
+    user_id=ObjectId,
+    rent_budget_min="i18n:currency",
+    rent_budget_max="i18n:currency",
+    bedroom_count="enum:bedroom_count",
+    building_area="enum:building_area",
+    rent_available_time=datetime,
+    rent_deadline_time=datetime,
+    minimum_rent_period="i18n:time_period",
+    space=("enum:building_area"),
+    property_type=(list, None, "enum:property_type"),
+    intention=(list, None, "enum:intention"),
+    landlord_type=(list, None, "enum:landlord_type"),
+    country='country',
+    city='geonames_gazetteer:city',
+    maponics_neighborhood="maponics_neighborhood",
+    hesa_university=ObjectId,
+    doogal_station=ObjectId,
+    location_only=bool,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
+    partner=str,
+    short_id=str,
+    query=str,
+    partner_student_housing=bool,
+    independent_bathroom=bool,
+), log_params=["query"])
+@f_app.user.login.check(check_role=True)
+def rent_ticket_search_v1(user, params):
+    return _rent_ticket_search(user, params)["content"]
+
+
+@f_api('/rent_ticket/search', params=dict(
+    status=(list, ["to rent"], str),
+    per_page=int,
+    last_modified_time=datetime,
+    sort_time=datetime,
+    time=datetime,
+    sort=(list, ["sort_time", 'desc'], str),
+    rent_type="enum:rent_type",
+    user_id=ObjectId,
+    rent_budget_min="i18n:currency",
+    rent_budget_max="i18n:currency",
+    bedroom_count="enum:bedroom_count",
+    building_area="enum:building_area",
+    rent_available_time=datetime,
+    rent_deadline_time=datetime,
+    minimum_rent_period="i18n:time_period",
+    space=("enum:building_area"),
+    property_type=(list, None, "enum:property_type"),
+    intention=(list, None, "enum:intention"),
+    landlord_type=(list, None, "enum:landlord_type"),
+    country='country',
+    city='geonames_gazetteer:city',
+    maponics_neighborhood="maponics_neighborhood",
+    hesa_university=ObjectId,
+    doogal_station=ObjectId,
+    location_only=bool,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
+    partner=str,
+    short_id=str,
+    query=str,
+    partner_student_housing=bool,
+    independent_bathroom=bool,
+), log_params=["query"], api=2)
+@f_app.user.login.check(check_role=True)
+def rent_ticket_search_v2(user, params):
+    return _rent_ticket_search(user, params)
 
 
 @f_api('/rent_ticket/<ticket_id>/generate_digest_image')
