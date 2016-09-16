@@ -38,10 +38,21 @@
                             <select dir="rtl" class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{_('城市')}}" data-hint="{{_('城市')}}" data-serialize="city" data-value="{{rent_intention_ticket.get('city',{}).get('name','')}}">
                             </select>
                         </div>
-                        <div class="row" search-box-control data-serialize="featured_facility" data-bind="">
-                            <featured-facility-search-box params="parentVM: $data, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
-                            </featured-facility-search-box> 
-                        </div>                       
+                        <div search-box-control data-serialize="featured_facility" data-bind="">
+                            <ul class="featuredFacilityList" data-bind="foreach: featuredFacility">
+                                <li class="row" >
+                                    <button class="delete" data-bind="click: function (data, event) {$parent.removeFeaturedFacility(data, $index())}, visible: $index"><i class="icon-delete"></i></button>
+                                    <featured-facility-search-box params="parentVM:$parent, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
+                                    </featured-facility-search-box>
+                                </li>
+                            </ul>
+                            <div class="row">
+                                <button class="ghostButton red featuredFacilityAdd" data-bind="click: addFeaturedFacility, visible: featuredFacility().length < 5" >
+                                    <i class="icon-add"></i>
+                                    {{_('添加地点')}}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="step2" data-show-step="2">
                          <div class="row">
@@ -67,7 +78,6 @@
                                 % end
                             </div>
                         </div>
-                       
                         <div class="row">
                             <div class="col rentBudgetMin">
                                 <select dir="rtl" class="select-chosen rentBudget" name="rentBudgetMin" data-change-title data-disable-chosen-search="true" data-name="{{_('预算下限')}}" data-hint="{{_('预算下限')}}(
