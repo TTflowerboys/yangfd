@@ -194,14 +194,31 @@
 
                             button.delete {
                                 position: absolute;
-                                left: 10px;
+                                left: 5px;
                                 z-index: 1;
-                                top: 10px;
+                                top: 15px;
+                                background: none;
+                                color: red;
+                                border: 0px;
+
+                                i {
+                                    font-size: 20px;
+                                }
                             }
                             featured-facility-search-box {
                                 div.inputWrapper {
                                     input {
                                         padding-left: 40px;
+                                    }
+                                }
+                            }
+
+                            &:first-child {
+                                featured-facility-search-box {
+                                    div.inputWrapper {
+                                        input {
+                                            padding-left: 20px;
+                                        }
                                     }
                                 }
                             }
