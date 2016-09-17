@@ -364,7 +364,7 @@ class currant_property(f_app.module_base):
                 values.remove(True)
                 index_params.extend(values)
             if "parentnid" in neighborhood:
-                neighborhood = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))
+                neighborhood = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))[0]
                 if isinstance(neighborhood["name"], six.string_types):
                     index_params.append(neighborhood["name"])
                 else:
