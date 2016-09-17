@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from collections import defaultdict
+import csv
 from bson import SON
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, GEO2D
-import csv
+import six
 from libfelix.f_common import f_app
 from libfelix.f_cache import f_cache
 from libfelix.f_interface import abort
@@ -503,7 +504,12 @@ class f_main_mixed_index(f_app.plugin_base):
                     "loc": neighborhood["loc"],
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"maponics_neighborhood": neighborhood["_id"]})["_id"]
-                f_app.mongo_index.update(self.get_database, str(index_id), neighborhood["name"], enable_suggestion=True)
+                if isinstance(neighborhood["name"], six.string_types):
+                    f_app.mongo_index.update(self.get_database, str(index_id), neighborhood["name"], enable_suggestion=True)
+                else:
+                    values = list(neighborhood["name"].values())
+                    values.remove(True)
+                    f_app.mongo_index.update(self.get_database, str(index_id), values, enable_suggestion=True)
                 processed += 1
 
                 if processed % 100 == 0:
