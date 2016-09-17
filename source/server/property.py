@@ -364,13 +364,17 @@ class currant_property(f_app.module_base):
                 values.remove(True)
                 index_params.extend(values)
             if "parentnid" in neighborhood:
-                neighborhood = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))[0]
-                if isinstance(neighborhood["name"], six.string_types):
-                    index_params.append(neighborhood["name"])
+                try:
+                    neighborhood = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))[0]
+                except:
+                    self.logger.warning("Invalid parent maponics_neighborhood found, fix this!")
                 else:
-                    values = list(neighborhood["name"].values())
-                    values.remove(True)
-                    index_params.extend(values)
+                    if isinstance(neighborhood["name"], six.string_types):
+                        index_params.append(neighborhood["name"])
+                    else:
+                        values = list(neighborhood["name"].values())
+                        values.remove(True)
+                        index_params.extend(values)
 
         if "featured_facility" in property and property["featured_facility"]:
             for featured_facility in property["featured_facility"]:
