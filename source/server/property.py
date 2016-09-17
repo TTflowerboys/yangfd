@@ -356,9 +356,21 @@ class currant_property(f_app.module_base):
             index_params.extend(geonames_gazetteer["name_index"])
 
         if "maponics_neighborhood" in property and property["maponics_neighborhood"] and "name" in property["maponics_neighborhood"]:
-            index_params.append(property["maponics_neighborhood"]["name"])
-            if "parent_name" in property["maponics_neighborhood"]:
-                index_params.append(property["maponics_neighborhood"]["parent_name"])
+            neighborhood = f_app.maponics.neighborhood.get(property["maponics_neighborhood"]["id"])
+            if isinstance(neighborhood["name"], six.string_types):
+                index_params.append(neighborhood["name"])
+            else:
+                values = list(neighborhood["name"].values())
+                values.remove(True)
+                index_params.extend(values)
+            if "parentnid" in neighborhood:
+                neighborhood = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))
+                if isinstance(neighborhood["name"], six.string_types):
+                    index_params.append(neighborhood["name"])
+                else:
+                    values = list(neighborhood["name"].values())
+                    values.remove(True)
+                    index_params.extend(values)
 
         if "featured_facility" in property and property["featured_facility"]:
             for featured_facility in property["featured_facility"]:
