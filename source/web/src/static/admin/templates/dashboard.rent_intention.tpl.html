@@ -77,6 +77,13 @@
                         <div>{%item.zipcode_index%}</div>
                         <div>{%item.maponics_neighborhood.name%}</div>
                         <div>{%item.address%}</div>
+                        <div>
+                            <label ng-repeat="featuredFacility in item.featured_facility">
+                                <span ng-if="featuredFacility.type.slug === 'custom_featured_facility'">{%featuredFacility.custom%}{%root.i18n('的附近')%}</span>
+                                <span ng-if="featuredFacility.type.slug === 'doogal_station'">{%featuredFacility.doogal_station%}{%root.i18n('的附近')%}</span>
+                                <span ng-if="featuredFacility.type.slug === 'hesa_university'">{%featuredFacility.hesa_university%}{%root.i18n('的附近')%}</span>
+                            </label>
+                        </div>
                     </td>
                     <td>
                         <a ui-sref="dashboard.users.detail.rent_intentions({ id: item.user.id })" ng-bind="item.nickname"  target="_blank"></a>
