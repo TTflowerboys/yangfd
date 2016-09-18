@@ -1079,10 +1079,13 @@
                 $('#countryPhone').prop('disabled', true).trigger('chosen:updated')
                 // Count down 1 min to enable resend
                 phoneVerified = window.user.phone_verified
+                var messageArea = $('.errorMsgOfGetCode.sms')
+                messageArea.html(window.i18n('如果没有收到验证码请，请重试')).show()                
                 $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
                 $btn.data('register', true)
                 $('.buttonLoading').trigger('end')
                 needMannuallyVerify = true
+                smsCount++ // fast register will trigger send message
 
             }, function(ret) {
                 $('.buttonLoading').trigger('end')
