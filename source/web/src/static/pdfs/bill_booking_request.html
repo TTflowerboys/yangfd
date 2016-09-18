@@ -181,7 +181,9 @@
                             NOTE<br>
                             备注
                         </label>
-                        <textarea class="value note" cols="" id="" name="" rows="" ></textarea>
+                        <textarea class="value note" cols="" id="" name="" rows="" style="display:none" ></textarea>
+                        <!-- Use a "p" to display all text in pdf http://stackoverflow.com/questions/4435906/print-when-textarea-has-overflow -->
+                        <p class="value note" style="min-height: 2em; white-space: pre-wrap;" ></p>
                     </div>
                 </div>
             %end
@@ -230,30 +232,27 @@
     <![endif]-->
     <script src="/static/bower_components/jquery-migrate/jquery-migrate.min.js"></script>
     <!-- /jQuery-->
-
+    <script src="/static/vendors/autosize.min.js"></script>
 
     <script>
      window.updateContentSize = function () {
          $('.content').outerHeight($('.watermark').height())
      }
 
+     autosize($('textarea.note'))
 
-     function adjustHeight(e) {
-         $(e).css({'height':'auto','overflow-y':'hidden'}).height(e.scrollHeight)
-     }
-
-     $('textarea.note').each(function () {
-         adjustHeight(this)
-     }).on('input', function () {
-         adjustHeight(this)
-     }).on('resize', function () {
-         adjustHeight(this)
+     $('.note p.note').click(function (e) {
+         $(e.target).hide()
+         $('textarea.note').show().focus()
      })
 
-
-    // $(window).resize(window.updateContentSize);
-    // window.updateContentSize()
-
+     $('.note textarea.note').blur(function (e){
+         var $p = $('.note p.note')
+         var $textarea = $(e.target)
+         $p.html($textarea.val())
+         $textarea.hide()
+         $p.show()
+     })
 
     </script>
 </html>
