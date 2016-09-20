@@ -197,12 +197,12 @@ $(function () {
             var status = $(this).attr('data-status')
             if (status === 'new') {
                  if (window.confirm('已经租到？')) {
-                     changeRentIntentionTicketStatus(ticketId, 'rent', function (data) {
+                     changeRentIntentionTicketStatus(ticketId, 'canceled', function (data) {
                          loadRentIntentionTicket()
                      })
                 }
             }
-            else if (status === 'rent') {
+            else if (status === 'rent' || status === 'canceled') {
                  if (window.confirm('重新发布？')) {
                      changeRentIntentionTicketStatus(ticketId, 'new', function (data) {
                          loadRentIntentionTicket()

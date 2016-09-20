@@ -79,7 +79,7 @@
             <button id="rentIntentionTicketChangeStatus" class="action ghostButton red" data-status={=ticket.status=} data-id="{=ticket.id=}">
                 {_if (ticket.status === 'new') {_}
                 {=window.i18n('我已租到')=}
-                {_} else if (ticket.status = 'rent') {_}
+                {_} else if (ticket.status === 'rent' || ticket.status === 'canceled') {_}
                 {=window.i18n('重新发布')=}
                 {_}_}
             </button>
