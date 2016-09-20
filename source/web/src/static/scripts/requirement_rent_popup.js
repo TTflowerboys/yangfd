@@ -88,7 +88,7 @@
                     }, this))
                 }
                 else {
-                    $('.requirement [search-box-control]').attr('data-bind', '')
+                    $('.requirement [search-box-control]').attr('data-bind', [])
                 }
             }
         }
@@ -373,7 +373,17 @@
             } else if ($(this).is('[radio-control]')) {
                 val = $(this).attr('data-bind')
             } else if ($(this).is('[search-box-control]')) {
-                val = JSON.stringify(JSON.parse($(this).attr('data-bind')))
+                var jsonStr = $(this).attr('data-bind')
+                if (jsonStr.length) {
+                    try {
+                        val = JSON.stringify(JSON.parse(jsonStr))
+                    } catch (e) {
+                        val = null
+                    }
+                }
+                else {
+                    val = null
+                }
             } else {
                 val = $(this).val()
             }
