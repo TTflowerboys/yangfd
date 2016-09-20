@@ -111,6 +111,12 @@ class currant_ticket(f_ticket):
                             location_only=location_only,
                             permission_check=permission_check,
                         )
+                    if "featured_facility" in t:
+                        for item in t["featured_facility"]:
+                            if "hesa_university" in item:
+                                item["hesa_university"] = f_app.hesa.university.get(item["hesa_university"])
+                            if "doogal_station" in item:
+                                item["doogal_station"] = f_app.doogal.station.get(item["doogal_station"])
 
                     t.pop("index", None)
 
