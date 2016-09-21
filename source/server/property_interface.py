@@ -117,9 +117,9 @@ def property_get(property_id, user):
 
     city_string = ''
     if 'country' in property or 'city' in property:
-        country = currant_util.get_country_name_by_code(property.get('country',{}).get('code'))
-        city = property.get('city',{}).get('name')
-        city_string = ', '.join([x for x in [country,city] if x])
+        country = currant_util.get_country_name_by_code(property.get('country', {}).get('code'))
+        city = property.get('city', {}).get('name')
+        city_string = ', '.join([x for x in [country, city] if x])
 
     keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_PROPERTY_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
