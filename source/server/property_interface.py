@@ -110,7 +110,10 @@ def property_get(property_id, user):
     if property.get('brochure') and len(property.get('brochure')) > 0:
         from six.moves.urllib.parse import quote_plus
         brochure_link = property.get('brochure')[0].get('url')
-        brochure_link = quote_plus(brochure_link.encode('utf-8'))
+        if brochure_link is not None:
+            brochure_link = quote_plus(brochure_link.encode('utf-8'))
+        else:
+            brochure_link = ''
 
     city_string = ''
     if 'country' in property or 'city' in property:
