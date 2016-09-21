@@ -27,32 +27,35 @@
                     <div class="step step3">3<p class="info">{{_('求租者联系方式')}}</p></div>
                 </div>
                 <form class="requirement_rent_form">
-                    <table class="step1" data-show-step="1">
+                    <div class="step1" data-show-step="1">
+                    <table >
                         <tr>
                             <td>
                                 <select class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-validator="required" data-name="{{_('国家')}}" data-serialize="country" data-value="{{rent_intention_ticket.get('country',{}).get('code','')}}">
 
                                 </select>
                                 <select class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{_('城市')}}" data-serialize="city" data-value="{{rent_intention_ticket.get('city',{}).get('name','')}}">
-
                                 </select>
                             </td>
-                        </tr>
-                        <tr>
-                            <td search-box-control data-serialize="featured_facility" data-bind="">
+                        </tr>                        
+                    </table>
+                    <div class="row">
+                        
+                            <p class="title">{{_('您希望租住在哪些地点附近？可以填写您的工作地点或者所读学校等')}}</p>
+                            <div search-box-control data-serialize="featured_facility" data-bind="">
                                 <ul class="featuredFacilityList" data-bind="foreach: featuredFacility">
                                     <li>
-                                        <featured-facility-search-box params="parentVM: $parent, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('您的工作单位/学校地址')}}'" data-bind="">
+                                        <featured-facility-search-box params="parentVM: $parent, featuredFacilityType: ['hesa_university', 'doogal_station', 'custom_featured_facility'], placeholder: '{{_('地点')}}'" data-bind="">
                                         </featured-facility-search-box>
                                         <button class="delete" type="button" data-bind="click: function (data, event) {$parent.removeFeaturedFacility(data, $index())}, visible: $index"><i class="icon-delete"></i></button>
                                     </li>
                                 </ul>
                                 <button class="button red featuredFacilityAdd" type="button" data-bind="click: addFeaturedFacility, visible: featuredFacility().length < 5" >
-                                    {{_('添加地点')}}
+                                    {{_('新增地点')}}
                                 </button>
-                            </td>
-                        </tr>
-                    </table>
+                            </div>                        
+                    </div>
+                    </div>
                     <div class="step2" data-show-step="2">
                         <div class="row">
                             <div class="col rentType">
