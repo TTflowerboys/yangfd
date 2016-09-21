@@ -515,7 +515,9 @@ class f_main_mixed_index(f_app.plugin_base):
                 if processed % 100 == 0:
                     self.logger.info("neighborhood", processed, "processed.")
 
-    def build_hesa_university(self, type_enum):
+    def build_hesa_university(self, type_enum=None):
+        if type_enum is None:
+            type_enum = f_app.enum.get_by_slug('hesa_university')["id"]
         processed = 0
         with f_app.mongo() as m:
             self.get_database(m).create_index([("loc", GEO2D)])
@@ -548,7 +550,9 @@ class f_main_mixed_index(f_app.plugin_base):
                 if processed % 100 == 0:
                     self.logger.info("university", processed, "processed.")
 
-    def build_doogal_station(self, type_enum):
+    def build_doogal_station(self, type_enum=None):
+        if type_enum is None:
+            type_enum = f_app.enum.get_by_slug('doogal_station')["id"]
         processed = 0
         with f_app.mongo() as m:
             self.get_database(m).create_index([("loc", GEO2D)])
@@ -576,7 +580,7 @@ class f_main_mixed_index(f_app.plugin_base):
                 if processed % 100 == 0:
                     self.logger.info("station", processed, "processed.")
 
-    def build_geonames_gazetteer(self, identifier, params=None):
+    def build_geonames_gazetteer(self, identifier="city", params=None):
         if params is None:
             params = {}
         params.setdefault("feature_code", identifier)
