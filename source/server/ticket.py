@@ -576,7 +576,12 @@ class currant_ticket_plugin(f_app.plugin_base):
             f_app.ticket.update_set(task["ticket_id"], {"digest_image": b.get_public_url(filename), "digest_image_generate_time": datetime.utcnow()})
 
     def task_on_rent_ticket_reminder(self, task):
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}, per_page=0), permission_check=False, ignore_nonexist=True)
+        tickets = f_app.ticket.output(f_app.ticket.search({
+            "type": "rent",
+            "status": "to rent",
+            "last_modified_time": {
+                "$gte": datetime.utcnow() - timedelta(days=90)
+            }}, per_page=0), permission_check=False, ignore_nonexist=True)
 
         for rent_ticket in tickets:
             ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
@@ -586,7 +591,13 @@ class currant_ticket_plugin(f_app.plugin_base):
             if "rent_ticket_reminder" not in ticket_email_user.get("email_message_type", []):
                 continue
 
-            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": "is_rent_success", "ticket_id": rent_ticket["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=7)}})
+            last_email = f_app.task.search({
+                "status": {"$exists": True},
+                "type": "email_send",
+                "rent_ticket_reminder": "is_rent_success",
+                "ticket_id": rent_ticket["id"],
+                "start": {"$gte": datetime.utcnow() - timedelta(days=7)}
+            })
 
             if last_email:
                 # Sent within 7 days, skipping
@@ -621,7 +632,13 @@ class currant_ticket_plugin(f_app.plugin_base):
                 tag="rent_notice",
             )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), permission_check=False, ignore_nonexist=True)
+        tickets = f_app.ticket.output(f_app.ticket.search({
+            "type": "rent",
+            "status": "draft",
+            "last_modified_time": {
+                "$lte": datetime.utcnow() - timedelta(days=7),
+                "$gte": datetime.utcnow() - timedelta(days=90)
+            }}, per_page=0, notime=True), permission_check=False, ignore_nonexist=True)
 
         for rent_ticket in tickets:
             ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
@@ -631,7 +648,12 @@ class currant_ticket_plugin(f_app.plugin_base):
             if "rent_ticket_reminder" not in ticket_email_user.get("email_message_type", []):
                 continue
 
-            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_id": rent_ticket["id"], "rent_ticket_reminder": "draft_7day"})
+            last_email = f_app.task.search({
+                "status": {"$exists": True},
+                "type": "email_send",
+                "ticket_id": rent_ticket["id"],
+                "rent_ticket_reminder": "draft_7day"
+            })
 
             if last_email:
                 # Sent, skipping
@@ -661,7 +683,13 @@ class currant_ticket_plugin(f_app.plugin_base):
                 tag="draft_not_publish_day_7",
             )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), permission_check=False, ignore_nonexist=True)
+        tickets = f_app.ticket.output(f_app.ticket.search({
+            "type": "rent",
+            "status": "draft",
+            "last_modified_time": {
+                "$lte": datetime.utcnow() - timedelta(days=3),
+                "$gte": datetime.utcnow() - timedelta(days=90)
+            }}, per_page=0, notime=True), permission_check=False, ignore_nonexist=True)
 
         for rent_ticket in tickets:
             ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
@@ -671,7 +699,12 @@ class currant_ticket_plugin(f_app.plugin_base):
             if "rent_ticket_reminder" not in ticket_email_user.get("email_message_type", []):
                 continue
 
-            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_id": rent_ticket["id"], "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}})
+            last_email = f_app.task.search({
+                "status": {"$exists": True},
+                "type": "email_send",
+                "ticket_id": rent_ticket["id"],
+                "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}
+            })
 
             if last_email:
                 # Sent, skipping
