@@ -57,7 +57,7 @@
         this.onFeaturedFacilitySearchBoxUpdateValue = function (value, vm) {
             var searchBoxIndex = findFeaturedFacilityIndex(vm)
 
-            if (typeof value === 'string') {
+            if (typeof value === 'string' && value.length) {
                 this.getSupportedEnums(_.bind(function (supportedEnums) {
                     var targetEnum = _.find(supportedEnums, function (em) {
                         return em.slug === 'custom_featured_facility'
@@ -88,8 +88,11 @@
                     }, this))
                 }
                 else {
-                    $('.requirement [search-box-control]').attr('data-bind', [])
+                    removeData(searchBoxIndex)
                 }
+            }
+            else {
+                removeData(searchBoxIndex)
             }
         }
 
@@ -250,6 +253,21 @@
             return false
         }
         return true
+    }
+
+    function checkFeaturedFacility(container) {
+        var jsonStr = container.find('[search-box-control]').attr('data-bind')
+        if (jsonStr.length) {
+            try {
+                var json = JSON.parse(jsonStr)
+                return json && json.length
+            } catch (e) {
+                return false
+            }
+        }
+        else {
+            return false
+        }
     }
 
     function initRequirementRentTitle (container) {
@@ -573,12 +591,21 @@
                     }
                 })
             })
+            
             if(element.find('.startDate').val() && element.find('.endDate').val() && new Date(element.find('.endDate').val()) <= new Date(element.find('.startDate').val())) {
                 validate = false
                 errorMsg = i18n('结束日期需要大于开始日期')
                 highlightErrorElem(element.find('.endDate'))
             }
-            
+
+            if (element.hasClass('step1')) {
+                if (!checkFeaturedFacility(element)) {
+                    validate = false
+                    errorMsg = i18n('请填写地点')
+                }
+            }
+
+
             if (element.hasClass('step2')) {
                 if (!checkExistOfBudget(element)) {
                     validate = false
