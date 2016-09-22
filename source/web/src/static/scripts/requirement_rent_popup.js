@@ -235,6 +235,13 @@
         }
     }
 
+    function checkExistOfBudget (container) {
+        var min = (container.find('[name=rentBudgetMin]').val() || '').split(':')[0]
+        var max = (container.find('[name=rentBudgetMax]').val() || '').split(':')[0]
+        return min.length || max.length
+    }
+
+
     function checkValidateOfBudget (container) {
         var min = (container.find('[name=rentBudgetMin]').val() || '').split(':')[0]
         var max = (container.find('[name=rentBudgetMax]').val() || '').split(':')[0]
@@ -570,6 +577,13 @@
                 validate = false
                 errorMsg = i18n('结束日期需要大于开始日期')
                 highlightErrorElem(element.find('.endDate'))
+            }
+            
+            if (element.hasClass('step2')) {
+                if (!checkExistOfBudget(element)) {
+                    validate = false
+                    errorMsg = i18n('请填写预算信息')
+                }
             }
             if(!checkValidateOfBudget(element)) {
                 validate = false
