@@ -80,8 +80,8 @@
                         <div>
                             <label ng-repeat="featuredFacility in item.featured_facility">
                                 <span ng-if="featuredFacility.type.slug === 'custom_featured_facility'">{%featuredFacility.custom%}{%root.i18n('的附近')%}</span>
-                                <span ng-if="featuredFacility.type.slug === 'doogal_station'">{%featuredFacility.doogal_station%}{%root.i18n('的附近')%}</span>
-                                <span ng-if="featuredFacility.type.slug === 'hesa_university'">{%featuredFacility.hesa_university%}{%root.i18n('的附近')%}</span>
+                                <span ng-if="featuredFacility.type.slug === 'doogal_station'">{%featuredFacility.type.value%}: {%featuredFacility.doogal_station.name%}{%root.i18n('的附近')%}</span>
+                                <span ng-if="featuredFacility.type.slug === 'hesa_university'">{%featuredFacility.type.value%}: {%featuredFacility.hesa_university.name%}{%root.i18n('的附近')%}</span>
                             </label>
                         </div>
                     </td>
