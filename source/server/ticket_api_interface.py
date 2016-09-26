@@ -843,15 +843,15 @@ def rent_intention_ticket_search(user, params):
         rent_ticket_params = {"status": {"$exists": True}, "type": "rent"}
         property_params.setdefault("status", {"$exists": True})
         property_params.setdefault("user_generated", True)
-        property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+        property_id_list = list(map(ObjectId, f_app.property.search(property_params, per_page=0)))
         rent_ticket_params["property_id"] = {"$in": property_id_list}
 
-        rent_ticket_id_list = map(ObjectId, f_app.ticket.search(rent_ticket_params, per_page=0))
+        rent_ticket_id_list = list(map(ObjectId, f_app.ticket.search(rent_ticket_params, per_page=0)))
         params["interested_rent_tickets"] = {"$in": rent_ticket_id_list}
 
     if len(user_params):
         user_params.setdefault("status", {"$ne": "deleted"})
-        user_id_list = map(ObjectId, f_app.user.search(user_params))
+        user_id_list = list(map(ObjectId, f_app.user.search(user_params)))
         params["user_id"] = {"$in": user_id_list}
 
     if "status" in params:
@@ -1822,9 +1822,9 @@ def _rent_ticket_search(user, params):
         property_params.setdefault("user_generated", True)
         if "latitude" in property_params:
             # TODO: make distance available in ticket output
-            property_id_list = map(ObjectId, f_app.property.get_nearby(property_params, output=False))
+            property_id_list = list(map(ObjectId, f_app.property.get_nearby(property_params, output=False)))
         else:
-            property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+            property_id_list = list(map(ObjectId, f_app.property.search(property_params, per_page=0)))
         params["property_id"] = {"$in": property_id_list}
 
     result = f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field=sort[0], content_only=False)
@@ -2196,7 +2196,7 @@ def sale_ticket_search(user, params):
     if len(property_params):
         # property_params.setdefault("status", ["for sale", "sold out"])
         property_params.setdefault("user_generated", True)
-        property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+        property_id_list = list(map(ObjectId, f_app.property.search(property_params, per_page=0)))
         params["property_id"] = {"$in": property_id_list}
 
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), fuzzy_user_info=fuzzy_user_info)

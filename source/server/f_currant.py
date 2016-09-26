@@ -558,7 +558,7 @@ class f_currant_log(f_log):
 
         if isinstance(log_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, log_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, log_id_or_list))}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(log_id_or_list):
                 found_list = map(lambda log: str(log["_id"]), result_list)
@@ -710,7 +710,7 @@ class currant_user(f_user):
 
         if isinstance(favorite_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, favorite_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, favorite_id_or_list))}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(favorite_id_or_list):
                 found_list = map(lambda favorite: str(favorite["_id"]), result_list)

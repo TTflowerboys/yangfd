@@ -47,7 +47,7 @@ class currant_report(f_app.module_base):
 
         if isinstance(report_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, report_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, report_id_or_list))}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(report_id_or_list):
                 found_list = map(lambda report: str(report["_id"]), result_list)
@@ -134,7 +134,7 @@ class currant_zipcode(f_app.module_base):
 
         if isinstance(zipcode_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, zipcode_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, zipcode_id_or_list))}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(zipcode_id_or_list):
                 found_list = map(lambda zipcode: str(zipcode["_id"]), result_list)

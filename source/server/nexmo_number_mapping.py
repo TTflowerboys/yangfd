@@ -23,7 +23,7 @@ class nexmo_number(f_app.module_base):
 
         if isinstance(nexmo_number_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, nexmo_number_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, nexmo_number_id_or_list))}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(nexmo_number_id_or_list):
                 found_list = map(lambda nexmo_number: str(nexmo_number["_id"]), result_list)
@@ -122,7 +122,7 @@ class nexmo_number_mapping(f_app.module_base):
 
         if isinstance(nexmo_number_mapping_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, nexmo_number_mapping_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, nexmo_number_mapping_id_or_list))}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(nexmo_number_mapping_id_or_list):
                 found_list = map(lambda nexmo_number_mapping: str(nexmo_number_mapping["_id"]), result_list)

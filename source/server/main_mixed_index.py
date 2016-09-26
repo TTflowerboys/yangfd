@@ -181,7 +181,7 @@ class f_maponics(f_app.plugin_base):
 
         if f_app.util.batch_iterable(neighborhood_id_or_list):
             with f_app.mongo() as m:
-                result_list = list(self.neighborhood.get_database(m).find({"_id": {"$in": map(ObjectId, neighborhood_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.neighborhood.get_database(m).find({"_id": {"$in": list(map(ObjectId, neighborhood_id_or_list))}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(neighborhood_id_or_list):
                 found_list = map(lambda neighborhood: str(neighborhood["_id"]), result_list)
@@ -414,7 +414,7 @@ class f_main_mixed_index(f_app.plugin_base):
 
         if f_app.util.batch_iterable(main_mixed_index_id_or_list):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, main_mixed_index_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, main_mixed_index_id_or_list))}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(main_mixed_index_id_or_list):
                 found_list = map(lambda main_mixed_index: str(main_mixed_index["_id"]), result_list)

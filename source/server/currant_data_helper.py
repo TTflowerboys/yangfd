@@ -106,7 +106,7 @@ def get_related_rent_ticket_list(rent_ticket):
         property_params.setdefault("status", {"$exists": True})
         property_params.setdefault("user_generated", True)
 
-        property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+        property_id_list = list(map(ObjectId, f_app.property.search(property_params, per_page=0)))
         params["property_id"] = {"$in": property_id_list}
 
     raw_related_rent_ticket_list = f_app.ticket.output(f_app.ticket.search(params, per_page=20))
