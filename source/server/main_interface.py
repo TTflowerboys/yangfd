@@ -3159,7 +3159,7 @@ def user_rent_request(user, params):
     ws = wb.active
 
     Header = [
-        ["提交时间", "咨询单号",  "意向房源", "租期", "", "", "", "", "客户", "", "", "", "", "",
+        ["提交时间", "咨询单号", "意向房源", "租期", "", "", "", "", "客户", "", "", "", "", "",
          "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题",
          "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "POST CODE", "房屋类型", "出租类型", "房东类型", "合作房源", "免手续费", "可实地看房", "每周租金（GBP）", "short ID", "url", "来源"
          ],
@@ -3676,7 +3676,7 @@ def affiliate_get_new_user_behavior(user, params):
         if 'user_id' in params:
             request_user = f_app.user.get(params['user_id'])
             user_select_rang = [ObjectId(params['user_id'])]
-            if unicode(user['id']) not in [unicode(request_user.get('referral', '')), unicode(params['user_id'])]:
+            if six.text_type(user['id']) not in [six.text_type(request_user.get('referral', '')), six.text_type(params['user_id'])]:
                 return
         else:
             user_select_rang = f_app.user.search({
@@ -3800,7 +3800,7 @@ def affiliate_get_all_user_behavior(user, params):
         if 'user_id' in params:
             request_user = f_app.user.get(params['user_id'])
             user_select_rang = [ObjectId(params['user_id'])]
-            if unicode(user['id']) not in [unicode(request_user.get('referral', '')), unicode(params['user_id'])]:
+            if six.text_type(user['id']) not in [six.text_type(request_user.get('referral', '')), six.text_type(params['user_id'])]:
                 return
         else:
             user_select_rang = f_app.user.search({
@@ -3921,7 +3921,7 @@ def affiliate_get_invited_user_count_detail(user, params):
     elif user.get('role', None) in authority_user_role:
         is_authority_user = True
     if 'affiliate' in user.get('role', []) and not is_authority_user:
-        if unicode(user['id']) not in [unicode(single_user.get('referral', '')), unicode(user_id)]:
+        if six.text_type(user['id']) not in [six.text_type(single_user.get('referral', '')), six.text_type(user_id)]:
             return
         else:
             search_condition = {
@@ -3965,10 +3965,10 @@ def affiliate_get_invited_user_count_detail(user, params):
         for single_affiliate_user in affiliate_user_set:
             affiliate_invited_user_count = 0
             for single_user in user_list:
-                if unicode(single_user['referral']) == unicode(single_affiliate_user):
+                if six.text_type(single_user['referral']) == six.text_type(single_affiliate_user):
                     affiliate_invited_user_count += 1
             result.append({
-                'affiliate_user_id': unicode(single_affiliate_user),
+                'affiliate_user_id': six.text_type(single_affiliate_user),
                 'invited_user_count': affiliate_invited_user_count,
             })
     return {
@@ -3998,7 +3998,7 @@ def affiliate_get_sub_user_count(user, params):
     elif user.get('role', None) in authority_user_role:
         is_authority_user = True
     if 'affiliate' in user.get('role', []) and not is_authority_user:
-        if unicode(user['id']) not in [unicode(single_user.get('referral', '')), unicode(user_id)]:
+        if six.text_type(user['id']) not in [six.text_type(single_user.get('referral', '')), six.text_type(user_id)]:
             return
     if 'affiliate' in single_user.get('role', []) or 'referral_code' in single_user:
         this_level_user_list = [single_user['id']]
@@ -4012,7 +4012,7 @@ def affiliate_get_sub_user_count(user, params):
         if this_level_user_list is not None:
             this_level_count = len(this_level_user_list)
         result_level_info.update({
-            "level" + unicode(level): this_level_count
+            "level" + six.text_type(level): this_level_count
         })
         while True:
             level += 1
@@ -4030,7 +4030,7 @@ def affiliate_get_sub_user_count(user, params):
             if this_level_count == 0:
                 break
             result_level_info.update({
-                "level" + unicode(level): this_level_count
+                "level" + six.text_type(level): this_level_count
             })
             this_level_user_list = list(down_level_user_list)
     return {
@@ -4065,8 +4065,8 @@ def affiliate_get_aggregation(user, params):
         ])
         affiliate_member_count = []
         for document in cursor:
-            if unicode(document['_id']) in affiliate_user_list:
-                affiliate_user_list.remove(unicode(document['_id']))
+            if six.text_type(document['_id']) in affiliate_user_list:
+                affiliate_user_list.remove(six.text_type(document['_id']))
             else:
                 continue
             user_result = f_app.user.get(document['_id'])
@@ -4133,7 +4133,7 @@ def get_featured_facilities_around_rent(user, params):
         with f_app.mongo() as m:
             total = m.log.find({
                 "type": "route",
-                "route": {"$in": ['/wechat-poster/' + unicode(ticket['id']), "/property-to-rent/" + unicode(ticket['id'])]},
+                "route": {"$in": ['/wechat-poster/' + six.text_type(ticket['id']), "/property-to-rent/" + six.text_type(ticket['id'])]},
                 "time": {
                     "$gte": date_from,
                     "$lte": date_to
@@ -4199,7 +4199,7 @@ def get_featured_facilities_around_rent(user, params):
         'ticket_total': {}
     }
 
-    print len(tickets_id)
+    logger.debug(len(tickets_id))
     for index, rent_ticket_id in enumerate(tickets_id):
         # print index
         if rent_ticket_id is not None:
@@ -4219,7 +4219,7 @@ def get_featured_facilities_around_rent(user, params):
                     this_property = m.propertys.find_one({'_id': rent_ticket['property_id']})
                     this_property['id'] = ObjectId(this_property.pop('_id'))
             except:
-                print "property get fail"
+                logger.warning("property get fail")
                 continue
             if this_property is None:
                 continue
@@ -4302,7 +4302,7 @@ def get_featured_facilities_around_rent(user, params):
                     station = f_app.doogal.station.get(single)
                 except:
                     station = {}
-                doogal_station_result.append([unicode(station.get('name', '')), unicode(value), unicode(doogal_station_list['request_times'].get(single, 0)), unicode(doogal_station_list['ticket_total'].get(single, 0))])
+                doogal_station_result.append([six.text_type(station.get('name', '')), six.text_type(value), six.text_type(doogal_station_list['request_times'].get(single, 0)), six.text_type(doogal_station_list['ticket_total'].get(single, 0))])
                 doogal_station_list['view_times'].pop(single)
                 break
 
@@ -4315,7 +4315,7 @@ def get_featured_facilities_around_rent(user, params):
                     university = f_app.hesa.university.get(single)
                 except:
                     university = {}
-                hesa_university_result.append([unicode(university.get('name', '')), unicode(value), unicode(hesa_university_list['request_times'].get(single, 0)), unicode(hesa_university_list['ticket_total'].get(single, 0))])
+                hesa_university_result.append([six.text_type(university.get('name', '')), six.text_type(value), six.text_type(hesa_university_list['request_times'].get(single, 0)), six.text_type(hesa_university_list['ticket_total'].get(single, 0))])
                 hesa_university_list['view_times'].pop(single)
                 break
 
@@ -4328,7 +4328,7 @@ def get_featured_facilities_around_rent(user, params):
                     neighborhood = f_app.maponics.neighborhood.get(single)
                 except:
                     neighborhood = {}
-                maponics_neighborhood_result.append([unicode(neighborhood.get('name', '')), unicode(value), unicode(maponics_neighborhood_list['request_times'].get(single, 0)), unicode(maponics_neighborhood_list['ticket_total'].get(single, 0))])
+                maponics_neighborhood_result.append([six.text_type(neighborhood.get('name', '')), six.text_type(value), six.text_type(maponics_neighborhood_list['request_times'].get(single, 0)), six.text_type(maponics_neighborhood_list['ticket_total'].get(single, 0))])
                 maponics_neighborhood_list['view_times'].pop(single)
                 break
 
@@ -4341,7 +4341,7 @@ def get_featured_facilities_around_rent(user, params):
                     city = f_app.geonames.gazetteer.get(single)
                 except:
                     city = {}
-                city_result.append([unicode(city.get('name', '')), unicode(value), unicode(city_list['request_times'].get(single, 0)), unicode(city_list['ticket_total'].get(single, 0))])
+                city_result.append([six.text_type(city.get('name', '')), six.text_type(value), six.text_type(city_list['request_times'].get(single, 0)), six.text_type(city_list['ticket_total'].get(single, 0))])
                 city_list['view_times'].pop(single)
                 break
 
@@ -4668,9 +4668,9 @@ def get_users_portrait_tenants_behavior(user, params):
         if 'rent_available_time' not in ticket:
             continue
         finding_priod = ticket['rent_available_time'] - ticket['time']
-        source_finding.update({unicode(finding_priod.days): source_finding.get(unicode(finding_priod.days), 0) + 1})
+        source_finding.update({six.text_type(finding_priod.days): source_finding.get(six.text_type(finding_priod.days), 0) + 1})
         rent_priod = ticket['rent_deadline_time'] - ticket['rent_available_time']
-        source_rent.update({unicode(rent_priod.days): source_rent.get(unicode(rent_priod.days), 0) + 1})
+        source_rent.update({six.text_type(rent_priod.days): source_rent.get(six.text_type(rent_priod.days), 0) + 1})
     value.update({"want_rent_days_distribution": {
         "0~1 month": sum([source_rent[single] if -1 <= int(single) < 30 else 0 for single in source_rent]),
         "1~3 month": sum([source_rent[single] if 30 <= int(single) < 91 else 0 for single in source_rent]),
@@ -4871,7 +4871,7 @@ def get_users_portrait_landlord_behavior(user, params):
             ])
             source = {}
             for single in cursor:
-                source.update({unicode(single['_id']): single['count']})
+                source.update({six.text_type(single['_id']): single['count']})
 
             cursor = m.tickets.aggregate([
                 {'$match': {
@@ -4907,7 +4907,7 @@ def get_users_portrait_landlord_behavior(user, params):
             ])
 
             for ticket in tickets:
-                source.update({unicode(ticket['landlord_type_id']): source.get(unicode(ticket['landlord_type_id']), 0) + 1})
+                source.update({six.text_type(ticket['landlord_type_id']): source.get(six.text_type(ticket['landlord_type_id']), 0) + 1})
             return source
 
         source = get_direct_data_from_newest_ticket('rent_type._id')
@@ -5403,13 +5403,13 @@ def get_users_portrait_landlord_behavior(user, params):
                     name = f_app.doogal.station.get(single['_id']).get('name', '')
                 except:
                     pass
-                source.update({unicode(index + 1): {
+                source.update({six.text_type(index + 1): {
                     'count': single['count'],
                     'name': name
                 }})
                 index += 1
         for index in range(1, 11):
-            result.update({source[unicode(index)]['name']: source[unicode(index)]['count']})
+            result.update({source[six.text_type(index)]['name']: source[six.text_type(index)]['count']})
         result.update({source['other']['name']: source['other']['count']})
         # print "房源位置(街区):"
         # print json.dumps(result, indent=2)
@@ -5449,13 +5449,13 @@ def get_users_portrait_landlord_behavior(user, params):
                     name = f_app.doogal.station.get(single['_id']).get('name', '')
                 except:
                     pass
-                source.update({unicode(index + 1): {
+                source.update({six.text_type(index + 1): {
                     'count': single['count'],
                     'name': name
                 }})
                 index += 1
         for index in range(1, 11):
-            result.update({source[unicode(index)]['name']: source[unicode(index)]['count']})
+            result.update({source[six.text_type(index)]['name']: source[six.text_type(index)]['count']})
         result.update({source['other']['name']: source['other']['count']})
         # print "房源位置(地铁):"
         # print json.dumps(result, indent=2)
@@ -5495,13 +5495,13 @@ def get_users_portrait_landlord_behavior(user, params):
                     name = f_app.hesa.university.get(single['_id']).get('name', '')
                 except:
                     pass
-                source.update({unicode(index + 1): {
+                source.update({six.text_type(index + 1): {
                     'count': single['count'],
                     'name': name
                 }})
                 index += 1
         for index in range(1, 11):
-            result.update({source[unicode(index)]['name']: source[unicode(index)]['count']})
+            result.update({source[six.text_type(index)]['name']: source[six.text_type(index)]['count']})
         result.update({source['other']['name']: source['other']['count']})
         # print "房源位置(大学):"
         # print json.dumps(result, indent=2)
@@ -5540,13 +5540,13 @@ def get_users_portrait_landlord_behavior(user, params):
                     name = f_app.geonames.gazetteer.get(single['_id']).get('name', '')
                 except:
                     pass
-                source.update({unicode(index + 1): {
+                source.update({six.text_type(index + 1): {
                     'count': single['count'],
                     'name': name
                 }})
                 index += 1
         for index in range(1, 11):
-            result.update({source[unicode(index)]['name']: source[unicode(index)]['count']})
+            result.update({source[six.text_type(index)]['name']: source[six.text_type(index)]['count']})
         result.update({source['other']['name']: source['other']['count']})
         # print "房源位置(城市):"
         # print json.dumps(result, indent=2)
