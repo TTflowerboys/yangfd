@@ -43,7 +43,7 @@ class currant_ticket(f_ticket):
         hesa_university_dict = f_app.hesa.university.get(list(hesa_university_id_set), multi_return=dict)
 
         if not location_only:
-            user_id_set = filter(None, user_id_set)
+            user_id_set = list(filter(None, user_id_set))
             user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields, permission_check=permission_check)
             user_dict = {None: None}
             enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
