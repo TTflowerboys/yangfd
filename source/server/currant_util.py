@@ -62,7 +62,7 @@ def is_mobile_browser():
     useragent = request.get_header('User-Agent', '')
     if not isinstance(useragent, six.text_type):
         useragent = useragent.decode("utf-8")
-    return "iPhone" in useragent or b"iPod" in useragent
+    return "iPhone" in useragent or "iPod" in useragent
 
 
 def is_mobile_client():
