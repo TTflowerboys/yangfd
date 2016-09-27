@@ -304,7 +304,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             f_app.sms.nexmo.number.mapping.clean({"ticket_id": ObjectId(ticket["id"])})
 
         if {"property_id", "title", "description", "rent_type"} & set(params):
-            f_app.mongo_index.update(self.get_database, ticket_id, self.get_index_fields(ticket_id))
+            f_app.mongo_index.update(f_app.ticket.get_database, ticket_id, f_app.ticket.get_index_fields(ticket_id))
 
         return ticket_id
 
