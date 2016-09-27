@@ -104,6 +104,11 @@
             this.featuredFacility.splice(index, 1)
             removeData(searchBoxIndex)
         }, this)
+
+        //pre cache the enum
+        this.getSupportedEnums(_.bind(function (supportedEnums) {
+        }, this))
+
     }
 
     module.appViewModel.requirementRentViewModel = new RequirementRentViewModel()
