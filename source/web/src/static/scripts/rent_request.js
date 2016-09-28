@@ -298,13 +298,64 @@
             this.referral = ko.observable(window.team.getQuery('referral', location.href))
 
             this.phoneVerified = ko.observable(this.user() ? this.user().phone_verified : false)
+            this.verificationCount = ko.observable(0)
+            this.useSmsVerification = ko.observable(true)
+            this.needMannuallyVerify = ko.observable(false)
+
+            this.smsCode = ko.observable()
+            this.getSmsCodeText = ko.observable(window.i18n('发送短信验证码'))
+            this.getSmsCodeDisabled = ko.observable()
+
+            this.getSmsCode = function () {
+                this.getSmsCodeDisabled(true)
+                this.getSmsCodeText(window.i18n('发送中...'))
+                this.errorMsg('')
+                $.betterPost('/api/1/user/sms_verification/send', {phone: this.params().phone})
+                    .done(_.bind(function (data) {
+                        this.errorMsg(window.i18n('验证码发送成功'))
+                    }, this))
+                    .fail(_.bind(function (ret) {
+                        this.errorMsg(window.i18n('验证码发送失败'))
+                    }, this))
+                    .always(_.bind(function () {
+                        this.countdown()
+                        this.needMannuallyVerify(true)
+                    }, this))
+            }
+            this.countdown = function () {
+                var text = i18n('{time}s后可再次获取')
+                var time = 60
+                function update() {
+                    if(time === 0) {
+                        this.getSmsCodeDisabled(false)
+                        this.getSmsCodeText(window.i18n('重新获取验证码'))
+                        this.verificationCount(this.verificationCount() + 1)
+                    } else {
+                        this.getSmsCodeText(text.replace('{time}', time--))
+                        setTimeout(_.bind(update, this), 1000)
+                    }
+                }
+                update.call(this)
+            }
+
+            this.smsVerifyPhone = function () {
+                return window.Q($.betterPost('/api/1/user/' + this.user().id + '/sms_verification/verify', {code: this.smsCode()}))
+            }
+
+            this.tryVoiceVerification = function () {
+                this.useSmsVerification(false)
+                this.needMannuallyVerify(false)
+                //use voice verification
+                this.voiceVerifyButtonAction()
+            }
 
             this.voiceHint = ko.observable()
-            this.verifyButtonText = ko.observable(window.i18n('语音验证手机号'))
-            this.verifyButtonDisabled = ko.observable()
-            this.verifyButtonAction = function () {
-                this.verifyButtonDisabled(true)
-                this.verifyButtonText(window.i18n('发送中...'))
+            this.voiceVerifyButtonText = ko.observable(window.i18n('语音验证手机号'))
+            this.voiceVerifyButtonDisabled = ko.observable()
+            this.voiceVerifyButtonAction = function () {
+                this.voiceVerifyButtonDisabled(true)
+                this.voiceVerifyButtonText(window.i18n('发送中...'))
+                this.errorMsg('')
                 var params = {
                     phone: this.params().phone,
                     verify_method: 'call'
@@ -312,14 +363,14 @@
                 $.betterPost('/api/1/user/sms_verification/send', params)
                     .done(_.bind(function (data) {
                         this.errorMsg(window.i18n('发送成功'))
-                        this.verifyButtonText(window.i18n('语音验证手机号'))
+                        this.voiceVerifyButtonText(window.i18n('语音验证手机号'))
                         this.startVerificationTimer()
                         this.startCheckVoiceVerfication()
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.i18n('发送失败'))
-                        this.verifyButtonDisabled(false)
-                        this.verifyButtonText(window.i18n('语音验证手机号'))
+                        this.voiceVerifyButtonDisabled(false)
+                        this.voiceVerifyButtonText(window.i18n('语音验证手机号'))
                     }, this))
             }
 
@@ -348,15 +399,15 @@
 
             this.startVerificationTimer = function () {
                 var voiceHint = this.voiceHint
-                var verifyButtonDisabled = this.verifyButtonDisabled
-                var verifyButtonText = this.verifyButtonText
+                var voiceVerifyButtonDisabled = this.voiceVerifyButtonDisabled
+                var voiceVerifyButtonText = this.voiceVerifyButtonText
                 var sec = 60
                 var timer = setInterval(function(){
                     if(sec === 0){
                         voiceHint(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请重试'))
                         clearInterval(timer)
-                        verifyButtonDisabled(false)
-                        verifyButtonText(window.i18n('语音验证手机号'))
+                        voiceVerifyButtonDisabled(false)
+                        voiceVerifyButtonText(window.i18n('语音验证手机号'))
                     }
                     else {
                         voiceHint(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请') + sec + window.i18n('s 后重试'))
@@ -584,6 +635,11 @@
                             return errorList.push(window.i18n('请填写验证码'))
                         }
                     },
+                    smsCode: function () {
+                        if(this.useSmsVerification() &&!this.phoneVerified() && !this.smsCode()) {
+                            return errorList.push(window.i18n('请填写短信验证码'))
+                        }
+                    },
                     uploading: function () {
                         if(this.uploading()) {
                             return errorList.push(window.i18n('图片还在上传中，请稍后再提交'))
@@ -627,6 +683,7 @@
                         .done(_.bind(function (val) {
                             window.user = val
                             this.user(val)
+                            this.getSmsCode()
                             ga('send', 'event', 'rent-request', 'result', 'signup-success')
                         }, this))
                         .fail(_.bind(function (ret, data) {
@@ -743,17 +800,30 @@
             }, this)
             this.submit = function () {
                 ga('send', 'event', 'rentRequestIntention', 'click', 'submit-button')
-                if(!this.validate('rentTime', 'description', 'nickname', 'gender', 'occupation', 'university', 'birthday', 'phone', 'email', 'captchaCode', 'uploading')) {
+                if(!this.validate('rentTime', 'description', 'nickname', 'gender', 'occupation', 'university', 'birthday', 'phone', 'email', 'captchaCode', 'smsCode',  'uploading')) {
                     return
                 }
 
                 if (!this.phoneVerified()) {
-                    this.errorMsg(window.i18n('请使用语音验证手机号码'))
-                    return
+                    if (this.needMannuallyVerify()) {
+                        this.smsVerifyPhone()
+                            .then(_.bind(function () {
+                                this.phoneVerified(true)
+                                this.submitTicket()
+                            }, this))
+                            .fail(_.bind(function (ret) {
+                                this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                            }, this))
+                    }
+                    else {
+                        this.errorMsg(window.i18n('请使用语音验证手机号码'))
+                    }
                 }
-
-                this.submitTicket()
+                else {
+                    this.submitTicket()
+                }
             }
+
 
             this.submitDisabled = ko.observable()
             this.requestTicketId = ko.observable()

@@ -141,9 +141,17 @@
                                 <div id="captcha_div" class="captchaCode"></div><!--
                                 --><button class="registerUser button red ajaxButton" data-bind="click: registerUser, disable: registerUserDisabled">{{_('注册')}}</button>
                             </div>
-                            <div class="row" data-bind="visible: !phoneVerified() && user()">
+                            <div class="row" data-bind="visible: !phoneVerified() && user() && useSmsVerification()">
+                                <p class="title"></p>
+                                <input type="text" class="smsCode" data-bind="value: smsCode" placeholder="{{_('短信验证码')}}"/><!--
+                                --><button class="getSmsCode button red ajaxButton" data-bind="click: getSmsCode, text: getSmsCodeText, disable: getSmsCodeDisabled"></button>
+                                <p class="tryVoiceVerification" data-bind="visible: verificationCount() > 1">
+                                    {{_('还未没有收到短信，试试')}} <a id="tryVoiceVerificationButton" style="color:red;font-weight: bold;" data-bind="click: tryVoiceVerification">{{_('语音验证')}}</a>
+                                </p>
+                            </div>
+                            <div class="row" data-bind="visible: !phoneVerified() && user()  && !useSmsVerification()">
                                 <p class="voiceHint" id="voiceHint" data-bind="html: voiceHint"></p>
-                                <button class="getSmsCode button red ajaxButton" data-bind="click: verifyButtonAction, text: verifyButtonText, disable: verifyButtonDisabled"></button>
+                                <button class="getSmsCode button red ajaxButton" data-bind="click: voiceVerifyButtonAction, text: voiceVerifyButtonText, disable: voiceVerifyButtonDisabled"></button>
                             </div>
 
                         </div>
