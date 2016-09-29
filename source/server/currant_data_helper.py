@@ -110,7 +110,7 @@ def get_related_rent_ticket_list(rent_ticket):
         params["property_id"] = {"$in": property_id_list}
 
     raw_related_rent_ticket_list = f_app.ticket.output(f_app.ticket.search(params, per_page=20))
-    raw_related_rent_ticket_list = filter(lambda ticket: ticket["id"] != rent_ticket["id"], raw_related_rent_ticket_list)
+    raw_related_rent_ticket_list = list(filter(lambda ticket: ticket["id"] != rent_ticket["id"], raw_related_rent_ticket_list))
     random.shuffle(raw_related_rent_ticket_list)
     related_rent_ticket_list = raw_related_rent_ticket_list[:3]
     return related_rent_ticket_list
