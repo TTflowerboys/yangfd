@@ -148,11 +148,11 @@ def rent_ticket_get(rent_ticket_id, user):
 
     weixin = f_app.wechat.get_jsapi_signature()
 
-    contact_info_already_fetched = len(f_app.order.search({
+    contact_info_already_fetched = len(list(f_app.order.search({
         "items.id": f_app.common.view_rent_ticket_contact_info_id,
         "ticket_id": rent_ticket_id,
         "user.id": user["id"],
-    })) > 0 if user else False
+    }))) > 0 if user else False
 
     display_location_mobile = currant_util.get_rent_property_address(rent_ticket, True)
     display_location_pc = currant_util.get_rent_property_address(rent_ticket)
