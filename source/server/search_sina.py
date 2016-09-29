@@ -1,5 +1,5 @@
 # coding: utf-8
-from __future__ import unicode_literals
+from __future__ import unicode_literals  # , print_function
 import sys
 from app import f_app
 from datetime import datetime, timedelta
@@ -48,12 +48,12 @@ def get_weibo_search_result(keywords_list):
     analyze_keyword_count_final = {}
 
     def get_correct_col_index(num):
-        if num > 26*26:
+        if num > 26 * 26:
             return "ZZ"
         if num >= 26:
-            return get_correct_col_index(num/26-1)+chr(num-26+65)
+            return get_correct_col_index(num / 26 - 1) + chr(num - 26 + 65)
         else:
-            return chr(num+65)
+            return chr(num + 65)
 
     def add_link(sheet, target, link=None):
         if target is None:
@@ -61,7 +61,7 @@ def get_weibo_search_result(keywords_list):
         if f_app.util.batch_iterable(target):
             pass
         else:
-            for index in range(2, len(sheet.rows)+1):
+            for index in range(2, len(sheet.rows) + 1):
                 cell = sheet[target + unicode(index)]
                 if len(cell.value):
                     if link is None:
@@ -93,8 +93,8 @@ def get_weibo_search_result(keywords_list):
                 if lencur > lenmax:
                     lenmax = lencur
 
-            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
-            # print "col "+get_correct_col_index(num)+" fit."
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax * 0.86
+            # print("col "+get_correct_col_index(num)+" fit.")
 
     def simplify(keywords):
         # get weibo into a list
@@ -114,7 +114,7 @@ def get_weibo_search_result(keywords_list):
                         result_search = ss.search(keyword, page=page)
                         search_times += 1
                     except:
-                        # print "page " + unicode(page) + " fail"
+                        # print("page " + unicode(page) + " fail")
                         continue
                     else:
                         if 'ok' not in result_search or result_search['ok'] != 1:
@@ -127,7 +127,7 @@ def get_weibo_search_result(keywords_list):
                         search_count += count
                         analyze_keyword_count_orign[keyword] += count
                         # print "page " + unicode(page) + " count " + unicode(count)
-                print "count " + unicode(search_count) + " times " + unicode(search_times)
+                print("count " + unicode(search_count) + " times " + unicode(search_times))
         return result_list
 
     def reduce_weibo(weibo_list):
@@ -179,7 +179,7 @@ def get_weibo_search_result(keywords_list):
                 if index == single_weibo or index in result_extra:
                     continue
                 step = Levenshtein.distance(single_weibo['text'], index['text'])
-                if step*1.0/len(unicode(single_weibo['text'])) < 0.17 and step*1.0/len(unicode(index['text'])) < 0.17:
+                if step * 1.0 / len(unicode(single_weibo['text'])) < 0.17 and step * 1.0 / len(unicode(index['text'])) < 0.17:
                     result_extra.append(index)
                     cur_keyword_list.append(index['keyword'])
             if single_weibo['keyword'] in analyze_keyword_count_final:
@@ -194,10 +194,10 @@ def get_weibo_search_result(keywords_list):
                 "link": single_weibo['link'],
                 "keyword": cur_keyword_list
             })
-        print "after remove overlaping " + unicode(count) + '/' + unicode(total) + " left."
+        print("after remove overlaping " + unicode(count) + '/' + unicode(total) + " left.")
         for single in result_extra:
-            print single['time']
-            print single['text']
+            print(single['time'])
+            print(single['text'])
         return result
 
     def crawler_powerapple(forum_id=None):
@@ -209,7 +209,7 @@ def get_weibo_search_result(keywords_list):
         today = date.today()
         time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
         while(page <= 8):
-            print 'page: '+unicode(page)
+            print('page: ' + unicode(page))
             target_url = list_url + '?page=' + unicode(page)
             page += 1
             max_time = datetime(1970, 1, 1)
@@ -243,7 +243,7 @@ def get_weibo_search_result(keywords_list):
                         except:
                             continue
                         time = datetime.strptime(topic_page_dom('div.post-list li').eq(1)('div.post-main div.posttime').text(), '%Y-%m-%d %H:%M')
-                        print time
+                        print(time)
                         result.update({'time': unicode(time)})
                         max_time = max(time, max_time)
                         for i in re.split('\.|。|\n', text):
@@ -357,7 +357,7 @@ def get_weibo_search_result(keywords_list):
 
     def get_ybirds_city_list(session, select_city):
         now = datetime.now()
-        timestamp = int(time.mktime(now.timetuple())*1e3 + now.microsecond/1e3)
+        timestamp = int(time.mktime(now.timetuple()) * 1e3 + now.microsecond / 1e3)
         url = 'http://www.ybirds.com/Home-Class-getHotCity.html?country=1&_=' + unicode(timestamp)
         page = session.get(
             url,
@@ -388,7 +388,7 @@ def get_weibo_search_result(keywords_list):
             })
 
         now = datetime.now()
-        timestamp = int(time.mktime(now.timetuple())*1e3 + now.microsecond/1e3)
+        timestamp = int(time.mktime(now.timetuple()) * 1e3 + now.microsecond / 1e3)
         url = 'http://www.ybirds.com/Home-Class-ajaxGetCity.html?countyID=1&_=' + unicode(timestamp)
         page = session.get(
             url,
