@@ -71,7 +71,7 @@ def get_related_property_list(property):
             "status": {"$in": ["selling", "sold out"]},
             "user_generated": {"$ne": True},
         }, per_page=20, time_field="mtime"))
-        raw_related_property_list = filter(lambda ticket: ticket["id"] != property["id"], raw_related_property_list)
+        raw_related_property_list = list(filter(lambda ticket: ticket["id"] != property["id"], raw_related_property_list))
         random.shuffle(raw_related_property_list)
         related_property_list = raw_related_property_list[:3]
         return related_property_list
