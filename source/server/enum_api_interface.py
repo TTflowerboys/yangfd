@@ -126,7 +126,7 @@ def enum_search_v1(params):
     Deprecated! Please use the new API above.
     """
     enums = _enum_search(params)
-    enums = filter(lambda enum: enum["slug"] != "custom_featured_facility", enums)
+    enums = filter(lambda enum: "slug" not in enum or enum["slug"] != "custom_featured_facility", enums)
     return list(enums)
 
 
