@@ -866,7 +866,7 @@ def _user_sms_verification_send(params):
     if user_id is None:
         abort(40324)
 
-    f_app.user.sms.request(user_id, allow_verified=True, method="simple" if params["verify_method"] == "sms" else "sinch", verify_method=params["verify_method"])
+    f_app.user.sms.request(user_id, allow_verified=True, verify_method=params["verify_method"])
     return user_id
 
 
@@ -907,7 +907,7 @@ def user_sms_verification_send_v2(params):
 ))
 @rate_limit("sms_verification", ip=10)
 def user_sms_verification_verify(user_id, params):
-    f_app.user.sms.verify(user_id, params["code"], method="simple" if params["verify_method"] == "sms" else "sinch", verify_method=params["verify_method"])
+    f_app.user.sms.verify(user_id, params["code"], verify_method=params["verify_method"])
     user = f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
 
@@ -932,7 +932,7 @@ def user_sms_verification_sinch_call_check(params):
 ))
 @rate_limit("sms_reset", ip=5)
 def user_sms_reset_password(user_id, params):
-    f_app.user.sms.verify(user_id, params["code"], method="simple" if params["verify_method"] == "sms" else "sinch", verify_method=params["verify_method"])
+    f_app.user.sms.verify(user_id, params["code"], verify_method=params["verify_method"])
     f_app.user.update_set_key(user_id, "password", params["new_password"])
 
     user = f_app.user.login.success(user_id)

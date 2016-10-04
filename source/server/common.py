@@ -141,6 +141,10 @@ class common(f_common):
     sinch_api_key = "6608a0fb-719c-4167-8e5e-2bfe44c88346"
     sinch_api_secret = "NWobeaXMlESbOtEVlS3tBA=="
 
+    sms_verification_provider_smart = {
+        "call": {"default": "sinch"},
+        "sms": {"default": "simple"},
+    }
     sms_verification_default_method = "sinch"
     user_sms_verification_msg = "%s 为您的洋房东手机验证码，1小时内有效。感谢您使用洋房东的服务。"
 
