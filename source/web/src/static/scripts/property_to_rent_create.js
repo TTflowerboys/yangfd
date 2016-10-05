@@ -680,7 +680,7 @@
         var defaultTitle = ($('#community').val() ? $('#community').val() : ($('#neighborhood-select').val() ? $('#neighborhood-select').find(':selected').text().replace(/,.+$/,'') : $('#street').val())) + ' ' + ($('#bedroom_count').children('option:selected').val() > 0 ? $('#bedroom_count').children('option:selected').val() + window.i18n('居室') : 'Studio')  + ' ' +  $('#rentalType .selected').text().trim()  + ' ' +  window.i18n('出租')
         $title.attr('placeholder', defaultTitle)
 
-        if ($title.val() && $title !== $title.attr('placeholder')) {
+        if ($title.val() && $title.val() !== $title.attr('placeholder')) {
             titlePendingUpdate = true                    
         }
     }
