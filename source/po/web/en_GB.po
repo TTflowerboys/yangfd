@@ -587,7 +587,7 @@ msgstr "Favourite"
 #: ../web/src/crowdfunding.html:750 ../web/src/property.html:1003
 #: ../web/src/property_to_rent.html:574
 msgid "取消收藏"
-msgstr "Cancel bookmark"
+msgstr "Unfavorite"
 
 #: ../web/src/crowdfunding.html:756 ../web/src/property.html:1009
 #: ../web/src/property_to_rent.html:580
@@ -1343,7 +1343,7 @@ msgstr "Your home from home"
 #: ../web/src/index.html:31 ../web/src/partials/index_landlord.html:4
 #: ../web/src/partials/index_landlord.html:23
 msgid "有英国房源要出租？"
-msgstr "Have propertyto rent?"
+msgstr "Have property to rent?"
 
 #: ../web/src/index.html:32 ../web/src/index_en.html:23
 msgid "您身边的英国房产置业专家"
@@ -1414,7 +1414,7 @@ msgstr "List Your Space"
 
 #: ../web/src/index.html:234 ../web/src/index_en.html:66
 msgid "单间出租"
-msgstr "Single Room to Rent"
+msgstr "Single room to rent"
 
 #: ../web/src/index.html:238 ../web/src/index_en.html:70
 msgid "整套出租"
@@ -3641,7 +3641,7 @@ msgstr "Deposit & Withdrawal"
 
 #: ../web/src/user_favorites.html:18 ../web/src/user_favorites.html:29
 msgid "海外房产"
-msgstr "Overseas Property"
+msgstr "Property"
 
 #: ../web/src/user_favorites.html:41
 msgid "没有收藏的房产"
@@ -3975,12 +3975,12 @@ msgstr "Confirm investment info"
 #: ../web/src/partials/requirement_rent_popup.html:13
 #: ../web/src/partials/requirement_rent_popup.html:195
 msgid "求租意向单"
-msgstr "Rent Requirement Ticket"
+msgstr "Rent Requirement Tickets"
 
 #: ../web/src/user_intentions.html:16 ../web/src/user_intentions.html:26
 #: ../web/src/partials/i18n_admin.html:47
 msgid "投资意向单"
-msgstr "Intentions"
+msgstr "Investment Intentions"
 
 #: ../web/src/user_intentions.html:39
 msgid "没有求租意向单"
@@ -4012,7 +4012,7 @@ msgstr ""
 #: ../web/src/user_invite.html:21
 #, fuzzy
 msgid "您的邀请码"
-msgstr "Your registration invitation code are as follows :"
+msgstr "Your registration invitation code :"
 
 #: ../web/src/user_invite.html:27
 msgid "邮件分享"
@@ -4317,7 +4317,7 @@ msgstr "My Tickets"
 
 #: ../web/src/masters/master.html:82
 msgid "退出"
-msgstr "Logot"
+msgstr "Logout"
 
 #: ../web/src/masters/master.html:92
 msgid "登出"
@@ -8955,7 +8955,7 @@ msgstr "Neighbourhood Introduction"
 
 #: ../web/src/partials/property_to_rent_edit.html:705
 msgid "合作平台名字: "
-msgstr ""
+msgstr "Partner Name: "
 
 #: ../web/src/partials/property_to_rent_edit.html:710
 msgid "是否免服务费"
@@ -11395,6 +11395,19 @@ msgstr "YoungFunding"
 #: ../server/libfelix/f_push/f_http_streaming.py:51
 msgid "ssl"
 msgstr ""
+
+msgid "今天"
+msgstr "today"
+
+msgid "昨天"
+msgstr "yesterday"
+
+msgid "天前"
+msgstr " day(s) ago"
+
+msgid "上周"
+msgstr "last week"
+
 
 #~ msgid "中国 +86"
 #~ msgstr "China +86"
