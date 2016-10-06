@@ -61,7 +61,7 @@ def get_weibo_search_result(keywords_list):
         if f_app.util.batch_iterable(target):
             pass
         else:
-            for index in range(2, len(sheet.rows) + 1):
+            for index in range(2, len(list(sheet.rows)) + 1):
                 cell = sheet[target + unicode(index)]
                 if len(cell.value):
                     if link is None:
