@@ -122,13 +122,16 @@
                         % else:
                             <a href="/"><img class="logo" src="/static/images/logo/logo_header_en.png" alt=""/></a>
                         % end
-                        % if _.lang != "en_GB":
+                        % if _.lang == "en_GB":
                             <ul class="navbar">
                                 <li><a href="/">{{_('首页')}}</a></li>
                                 <li><a href="/property-list">{{_('置业投资')}}</a></li>
-                                <!-- @if ENV!='production' -->
-                                <!--<li><a href="/crowdfunding-introduce">{{_('海外众筹')}}</a></li>-->
-                                <!-- @endif -->
+                                <li><a href="/property-to-rent-list">{{_('英国租房')}}</a></li>
+                            </ul>
+                        % else:
+                            <ul class="navbar">
+                                <li><a href="/">{{_('首页')}}</a></li>
+                                <li><a href="/property-list">{{_('置业投资')}}</a></li>
                                 <li><a href="/property-to-rent-list">{{_('英国租房')}}</a></li>
                                 <li><a href="/news-list">{{_('投资资讯')}}</a></li>
                             </ul>

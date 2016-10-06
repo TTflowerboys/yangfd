@@ -15,81 +15,27 @@
 <!--endbuild-->
 <!--@@close-->
 <!--@@block=main -->
+
+% if not is_mobile_client():
+<!-- @@include = ./static/templates/featured_facility_search_box.tpl.html-->
+<!-- ko with: requirementRentViewModel -->
+<!-- @@include = ./partials/requirement_rent_popup.html -->
+<!-- /ko-->
+% end
+
 <!-- ko with: indexViewModel -->
 <!-- @@include =./partials/location_filter_tpl.html -->
 <div class="indexBanner" data-bind="css: {hiddenInNonClient: activeTab() == 'landlord' && window.team.isPhone()}">
-    <h1 style="display: none" data-bind="visible: activeTab() == 'tenant'">{{_('全英优质房源')}} <br class="hiddenOnPCWeb">{{_('轻松搞定租房')}}</h1>
-    <h1 data-bind="visible: activeTab() == 'landlord'">{{_('有英国房源要出租')}}</h1>
-    <h1 style="display: none" data-bind="visible: activeTab() == 'investor'">{{_('您身边的英国房产置业专家')}}</h1>
-    <div class="tabBox">
-        <div style="display: none" class="content" data-bind="visible: activeTab() == 'tenant'">
-            <div class="category three hiddenOnMobile">
-                <location-filter class="tenantFilterWrapper" params="wrapper: '.tenantFilterWrapper', searchUrl: '/property-to-rent-list'"></location-filter>
-                <ul class="entrance hiddenOnMobile">
-                    <li>
-                        <a href="/user-favorites">
-                            <i class="icon-faver"></i>
-                            <span>{{_('我的收藏')}}</span>
-                        </a>
-                    </li><!--
-                    --><li>
-                    <a href="/user-properties#request">
-                        <i class="icon-phone_line"></i>
-                        <span>{{_('已咨询的房源')}}</span>
-                    </a>
-                </li><!--
-                    --><li>
-                    <a data-action="requirementRent">
-                        <i class="icon-requirement_line"></i>
-                        <span>{{_('提交求租意向单')}}</span>
-                    </a>
-                </li>
-                </ul>
-            </div>
-        </div>
-        <div style="display: none" class="content" data-bind="visible: activeTab() == 'landlord'">
-            <div class="hiddenInNonClient">
-                %if is_mobile_client_version('>=', '1.1.2'):
-                <a class="button publishButton whole" href="yangfd://property-to-rent/create">
-                    <i class="icon-cellphone"></i>
-                    <span>{{_('出租发布')}}</span>
-                </a>
-                %else:
-                <a class="button publishButton whole" href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;" data-need-bridge>
-                    <i class="icon-cellphone"></i>
-                    <span>{{_('出租发布')}}</span>
-                </a>
-                %end
-            </div>
-            <a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:single').get('id')}}" class="button bigButton blue hiddenInClient">
-                <i class="icon-door"></i>
-                <span>{{_('单间出租')}}</span>
-            </a><!--
-            --><a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:whole').get('id')}}" class="button bigButton red hiddenInClient">
-            <i class="icon-house"></i>
-            <span>{{_('整套出租')}}</span>
-        </a>
-        </a>
-        </div>
-        <div style="display: none" class="content" data-bind="visible: activeTab() == 'investor'">
-            <div class="category three hiddenOnMobile">
-                <location-filter class="investorFilterWrapper" params="wrapper: '.investorFilterWrapper', searchUrl: '/property-list'"></location-filter>
-            </div>
-        </div>
-    </div>
+    <h1 data-bind="visible: activeTab() == 'tenant'">{{_('Want to find a house in UK？')}}</h1>
+    <a class="button startButton white" data-action="requirementRent" data-need-bridge>
+        <span>{{_('Start')}}</span>
+    </a>
 </div>
-
 
 <div class="roleChooser">
     <ul class="content">
-        <li data-bind="visible: activeTab() == 'tenant'" style="display:none;">
+        <li data-bind="visible: activeTab() == 'tenant'" style="">
             <!-- @@include =./partials/index_renter.html -->
-        </li>
-        <li data-bind="visible: activeTab() == 'landlord'" style="display:none;">
-            <!-- @@include =./partials/index_landlord.html -->
-        </li>
-        <li data-bind="visible: activeTab() == 'investor'" style="display:none;">
-            <!-- @@include =./partials/index_buyer.html -->
         </li>
     </ul>
 </div>
@@ -125,9 +71,8 @@
 <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
 <script type="text/javascript" src="/static/vendors/Blur.js/blur.js"></script>
 <script src="/static/scripts/common_ko.js"></script>
-<script src="/static/scripts/filter_of_neighborhood_subway_school.js"></script>
-<script src="/static/scripts/property_to_rent_list_selectors.js"></script>
-<script src="/static/scripts/index_app_download.js"></script>
+<script src="/static/scripts/featured_facility_ko.js"></script>
+<script src="/static/scripts/requirement_rent_popup.js"></script>
 <script src="/static/scripts/index_renter.js"></script>
 <script src="/static/scripts/index_intention.js"></script>
 <script src="/static/scripts/index_delegate_rent.js"></script>

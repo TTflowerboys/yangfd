@@ -11396,19 +11396,6 @@ msgstr "YoungFunding"
 msgid "ssl"
 msgstr ""
 
-msgid "今天"
-msgstr "today"
-
-msgid "昨天"
-msgstr "yesterday"
-
-msgid "天前"
-msgstr " day(s) ago"
-
-msgid "上周"
-msgstr "last week"
-
-
 #~ msgid "中国 +86"
 #~ msgstr "China +86"
 

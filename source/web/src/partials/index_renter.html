@@ -40,17 +40,19 @@
             <h3>{{_('入住确认')}}</h3>
         </a>
     </section>
-    <a class="flow" href="/how-it-works/tenant">{{_('查看详细流程')}} <span class="hiddenOnMobile">></span></a>
-    % if not is_mobile_client() and not is_mobile_browser():
-        <div class="hotCities hiddenOnMobile">
-            <h2>{{_('热门城市')}}</h2>
-            <ul>
-                % for item in hot_city_list:
-                    <li style="background-image: url('/static/images/index/image_{{item.get('name_ascii','').lower()}}.png')">
-                        <a href="/property-to-rent-list?city={{item.get('id', '')}}&queryName={{item.get('name', '')}}"><p>{{item.get('name').upper()}}</p></a>
-                    </li>
-                % end
-            </ul>
-        </div>
+    % if _.lang != "en_GB":
+        <a class="flow" href="/how-it-works/tenant">{{_('查看详细流程')}} <span class="hiddenOnMobile">></span></a>
+        % if not is_mobile_client() and not is_mobile_browser():
+            <div class="hotCities hiddenOnMobile">
+                <h2>{{_('热门城市')}}</h2>
+                <ul>
+                    % for item in hot_city_list:
+                        <li style="background-image: url('/static/images/index/image_{{item.get('name_ascii','').lower()}}.png')">
+                            <a href="/property-to-rent-list?city={{item.get('id', '')}}&queryName={{item.get('name', '')}}"><p>{{item.get('name').upper()}}</p></a>
+                        </li>
+                    % end
+                </ul>
+            </div>
+        % end
     % end
 </div>

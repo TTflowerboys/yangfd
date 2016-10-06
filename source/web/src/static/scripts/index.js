@@ -668,16 +668,9 @@
         }
 
         this.init = function () {
-            if(window.lang === 'en_GB') {
-                this.activeTab('landlord')
-                setTimeout(function () {
-                    initRoleChooserContent('landlord')
-                }, 50)
-            } else {
-                //show tenant tab as default
-                this.activeTab('tenant')
-                initRoleChooserContent('tenant')
-            }
+            //show tenant tab as default
+            this.activeTab('tenant')
+            initRoleChooserContent('tenant')
         }
         this.init()
 
