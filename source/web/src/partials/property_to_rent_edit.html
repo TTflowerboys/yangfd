@@ -42,7 +42,7 @@
                             <div class="text">{{_('房东类型')}}</div>
                         </td>
                         <td>
-                            <select id="landlordType" data-validator="required" data-name="{{_('房东类型')}}" style="width: 230px;">
+                            <select id="landlordType" data-validator="required" data-name="{{_('房东类型')}}" style="width: 300px;">
                                 %for index, landlord_type in enumerate(landlord_type_list):
                                     %if (rent.get('landlord_type',{}).get('id','')==landlord_type.get('id')):
                                     <option selected value="{{landlord_type.get('id')}}" data-slug="{{landlord_type.get('slug')}}">{{landlord_type.get('value')}}</option>

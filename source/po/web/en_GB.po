@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-10-06 16:40+0800\n"
+"POT-Creation-Date: 2016-10-07 15:23+0800\n"
 "PO-Revision-Date: 2016-08-17 09:41+0100\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
@@ -8932,11 +8932,11 @@ msgstr "Current occupants"
 
 #: ../web/src/partials/property_to_rent_edit.html:384
 msgid "男室友数量"
-msgstr "Existing male tenants"
+msgstr "Male tenants"
 
 #: ../web/src/partials/property_to_rent_edit.html:389
 msgid "女室友数量"
-msgstr "Existing female tenants"
+msgstr "Female tenants"
 
 #: ../web/src/partials/property_to_rent_edit.html:395
 msgid "入住限制"
@@ -9010,9 +9010,7 @@ msgstr ""
 
 #: ../web/src/partials/property_to_rent_edit.html:479
 msgid "更详尽的房源及周边描述能增加租客的询问"
-msgstr ""
-"More detailed descriptions of the property and its surroundings will "
-"increase tenant requests"
+msgstr "More detailed descriptions of the property increase tenant requests"
 
 #: ../web/src/partials/property_to_rent_edit.html:488
 #: ../web/src/partials/property_to_rent_edit.html:492
