@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-10-07 16:50+0800\n"
+"POT-Creation-Date: 2016-10-07 18:54+0800\n"
 "PO-Revision-Date: 2016-08-17 09:41+0100\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
@@ -6407,7 +6407,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:346
 msgid "重新获取"
-msgstr ""
+msgstr "Resend"
 
 #: ../web/src/partials/i18n.html:347
 #, fuzzy
@@ -6420,19 +6420,19 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:349
 msgid "个字符"
-msgstr ""
+msgstr "characters"
 
 #: ../web/src/partials/i18n.html:350
 msgid "过短，请至少填写"
-msgstr ""
+msgstr "is too short, please enter at least"
 
 #: ../web/src/partials/i18n.html:351
 msgid "个字"
-msgstr ""
+msgstr "words"
 
 #: ../web/src/partials/i18n.html:352
 msgid "超长，请最多填写"
-msgstr ""
+msgstr "exceeded length limit, up to"
 
 #: ../web/src/partials/i18n.html:353
 msgid "必须大于"
@@ -6519,12 +6519,13 @@ msgid "保存中..."
 msgstr "Loading"
 
 #: ../web/src/partials/i18n.html:372
+#, fuzzy
 msgid "如果没有收到验证码请"
-msgstr ""
+msgstr "If you do not receive the SMS code, please retry"
 
 #: ../web/src/partials/i18n.html:373
 msgid "如果没有收到验证码请，请重试"
-msgstr ""
+msgstr "If you do not receive the SMS code, please retry"
 
 #: ../web/src/partials/i18n.html:376
 #, fuzzy
@@ -15713,7 +15714,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "有英国房源要出租"
-#~ msgstr "Have UK property to rent??"
+#~ msgstr "Have UK property to rent?"
 
 #~ msgid "地址(选填)"
 #~ msgstr "Address (optional)"
@@ -15726,4 +15727,7 @@ msgstr ""
 
 #~ msgid "获取短信验证码"
 #~ msgstr "Send Code"
+
+#~ msgid "如果没有收到验证码请{sec}后重试"
+#~ msgstr "If you do not receive the SMS code, please retry after {sec}"
 

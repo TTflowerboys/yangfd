@@ -471,7 +471,7 @@
                 validate = false
                 errorArr.push({
                     elem: $this,
-                    msg: $(this).data('name') + i18n('不能为空')
+                    msg: $(this).data('name') + ' ' + i18n('不能为空')
                 })
                 //return false
             }
@@ -480,7 +480,7 @@
                     validate = false
                     errorArr.push({
                         elem: $this,
-                        msg: $(this).data('name') + i18n('格式不正确')
+                        msg: $(this).data('name') + ' ' + i18n('格式不正确')
                     })
                     //return false
                 }
@@ -493,7 +493,7 @@
                         validate = false
                         errorArr.push({
                             elem: $this,
-                            msg: $this.data('name') + i18n('超出长度限制(最多') + maxLength + i18n('个字符')
+                            msg: $this.data('name') + ' ' + i18n('超长，请最多填写') + ' ' + maxLength + i18n('个字符')
                         })
                     }
                 }
@@ -504,14 +504,14 @@
                         validate = false
                         errorArr.push({
                             elem: $this,
-                            msg: $this.data('name') + i18n('过短，请至少填写') + minLength + i18n('个字')
+                            msg: $this.data('name') + ' ' + i18n('过短，请至少填写') + ' ' + minLength + ' ' + i18n('个字符')
                         })
                     }
                     if(value.length > maxLength){
                         validate = false
                         errorArr.push({
                             elem: $this,
-                            msg: $this.data('name') + i18n('超长，请最多填写') + maxLength + i18n('个字')
+                            msg: $this.data('name') + ' ' + i18n('超长，请最多填写') + ' ' + maxLength + ' ' + i18n('个字符')
                         })
                     }
                 }
@@ -524,7 +524,7 @@
                                 validate = false
                                 errorArr.push({
                                     elem: $this,
-                                    msg: $this.data('name') + i18n('必须大于') + reference
+                                    msg: $this.data('name') + ' ' + i18n('必须大于') + ' ' + reference
                                 })
                             }
                             break;
@@ -533,7 +533,7 @@
                                 validate = false
                                 errorArr.push({
                                     elem: $this,
-                                    msg: $this.data('name') + i18n('必须大于或等于') + reference
+                                    msg: $this.data('name') + ' ' + i18n('必须大于或等于') + ' ' + reference
                                 })
                             }
                             break;
@@ -542,7 +542,7 @@
                                 validate = false
                                 errorArr.push({
                                     elem: $this,
-                                    msg: $this.data('name') + i18n('必须小于') + reference
+                                    msg: $this.data('name') + ' ' + i18n('必须小于') + ' ' + reference
                                 })
                             }
                             break;
@@ -551,7 +551,7 @@
                                 validate = false
                                 errorArr.push({
                                     elem: $this,
-                                    msg: $this.data('name') + i18n('必须小于或等于') + reference
+                                    msg: $this.data('name') + ' ' + i18n('必须小于或等于') + ' ' + reference
                                 })
                             }
                             break;
@@ -1023,7 +1023,8 @@
         smsCount++
     }, function (sec) {
         var messageArea = $('.errorMsgOfGetCode.sms')
-        messageArea.text(window.i18n('如果没有收到验证码请') + sec + window.i18n('s 后重试')).show()
+        var tpl = window.i18n('如果没有收到验证码请{sec}后重试') 
+        messageArea.text(tpl.replace('{sec}', sec + 's')).show()
     }, function () {
         var messageArea = $('.errorMsgOfGetCode.sms')
         messageArea.html(window.i18n('如果没有收到验证码请，请重试')).show()
