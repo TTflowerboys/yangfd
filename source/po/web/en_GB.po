@@ -6367,7 +6367,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:335
 msgid "分钟"
-msgstr ""
+msgstr "mins"
 
 #: ../web/src/partials/i18n.html:336
 msgid "googleapis发生了一个错误，请输入正确的postcode后重试"
@@ -6379,7 +6379,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:338
 msgid "请输入关键字后再进行搜索"
-msgstr ""
+msgstr "Enter keywords to search"
 
 #: ../web/src/partials/i18n.html:339 ../web/src/partials/i18n_admin.html:54
 msgid "无结果"
@@ -6530,7 +6530,7 @@ msgstr "If you do not receive the SMS code, please retry"
 #: ../web/src/partials/i18n.html:376
 #, fuzzy
 msgid "发布中..."
-msgstr "Loading"
+msgstr "Publishing..."
 
 #: ../web/src/partials/i18n.html:377
 msgid "请至少展示一种联系方式给租客"
@@ -8458,7 +8458,7 @@ msgstr ""
 #: ../web/src/partials/i18n_admin.html:344
 #, fuzzy
 msgid "发布中"
-msgstr "Publish"
+msgstr "Publishing"
 
 #: ../web/src/partials/i18n_admin.html:346
 #, fuzzy
@@ -13200,7 +13200,7 @@ msgstr ""
 #~ msgstr "{time}s"
 
 #~ msgid "发布中..."
-#~ msgstr "Posting"
+#~ msgstr "Publishing..."
 
 #~ msgid "请至少展示一种联系方式给租客"
 #~ msgstr "Please show at least a contact for tenants"
@@ -13596,7 +13596,7 @@ msgstr ""
 #~ msgstr "Draft"
 
 #~ msgid "发布中"
-#~ msgstr "Posting"
+#~ msgstr "Publishing"
 
 #~ msgid "已刷新过"
 #~ msgstr "Refreshed"
@@ -14958,7 +14958,7 @@ msgstr ""
 #~ msgstr "Rent Type:"
 
 #~ msgid "居室:"
-#~ msgstr "Bedroom(s)"
+#~ msgstr "Bedroom:"
 
 #~ msgid "移除咨询单"
 #~ msgstr ""
