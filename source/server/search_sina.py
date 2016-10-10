@@ -373,7 +373,7 @@ def get_weibo_search_result(keywords_list):
                 "Connection": "keep-alive",
             }
         )
-        match = re.compile(r'href=\"\.\\(.*?)\">(.*?)<')
+        match = re.compile(r'href=\"\\(.*?)\">(.*?)<')
         source = match.findall(unicode(page.content, 'unicode-escape'))
         city_list = {}
         for single in source:
@@ -781,7 +781,7 @@ def get_weibo_search_result(keywords_list):
     format_fit(ws_weibo_block_list)
 
     if day_shift:
-        weibo_wb.save('weibo_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
+        weibo_wb.save('weibo_search' + unicode(today - timedelta(days=day_shift - 1)) + '~' + unicode(today) + '.xlsx')
     else:
         weibo_wb.save('weibo_search' + unicode(today) + '.xlsx')
 
