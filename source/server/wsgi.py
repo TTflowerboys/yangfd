@@ -10,15 +10,22 @@ if len(sys.argv) > 1 and sys.argv[1] == "-u":
 import qiniu.config
 
 try:
-    # Old configuration
+    # Older configuration
     qiniu.config.set_default(
         default_up_host="qiniu-proxy.bbtechgroup.com",
         connection_timeout=1800)
 except TypeError:
-    zone_custom = qiniu.config.Zone("qiniu-proxy.bbtechgroup.com", "upload.qiniu.com")
-    qiniu.config.set_default(
-        default_zone=zone_custom,
-        connection_timeout=1800)
+    try:
+        # Old configuration
+        zone_custom = qiniu.config.Zone("qiniu-proxy.bbtechgroup.com", "upload.qiniu.com")
+        qiniu.config.set_default(
+            default_zone=zone_custom,
+            connection_timeout=1800)
+    except AttributeError:
+        zone_custom = qiniu.zone.Zone("qiniu-proxy.bbtechgroup.com", "upload.qiniu.com")
+        qiniu.config.set_default(
+            default_zone=zone_custom,
+            connection_timeout=1800)
 
 import os
 import sys
