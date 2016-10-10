@@ -22,7 +22,7 @@ import currant_data_helper
 from libfelix.f_interface import f_experiment
 from openpyxl import Workbook
 import six
-from openpyxl.cell import ILLEGAL_CHARACTERS_RE
+from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.writer.excel import save_virtual_workbook
 from pytz import timezone
