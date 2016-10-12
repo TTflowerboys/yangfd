@@ -43,6 +43,10 @@ main {
     .selectWrap {
         display: inline-block;
         width: 120px;
+        body[lang=en_GB] & {
+            width: 130px;
+        }
+
         text-align: left;
         &.rentType {
             @media @phone{
@@ -51,6 +55,15 @@ main {
         }
         &.propertyType {
             width: 170px;
+            body[lang=en_GB] & {
+                width: 220px;
+            }
+
+        }
+        &.rentType {
+            body[lang=en_GB] & {
+                width: 150px;
+            }
         }
         select{
             visibility: hidden;

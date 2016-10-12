@@ -96,7 +96,7 @@
                         <div class="field checkout">
                             <label for="" class="hint">
                                 AGREED LEASE END DATE/<br>
-                                CHECK OUT DATE 迁出日期                            
+                                CHECK OUT DATE 迁出日期
                             </label>
                             %if ticket.get('rent_deadline_time'):
                                 <input class="value" name="" type="text" value="{{ticket.get('rent_deadline_time').strftime('%b %d, %Y')}}"/>
@@ -105,7 +105,7 @@
                         <div class="field address">
                             <label for="" class="hint">
                                 PROPERTY DETAILS<br>
-                                住宅详情                            
+                                住宅详情
                             </label>
                             %if ticket.get('interested_rent_tickets'):
                                 <textarea class="value address" cols="" id="" name="" rows="" >{{get_rent_property_address(ticket.get('interested_rent_tickets')[0])}}</textarea>
@@ -114,21 +114,21 @@
                         <div class="field pet">
                             <label for="" class="hint">
                                 IS TENANT BRING A PET?<br>
-                                租客是否携带宠物入住？                         
+                                租客是否携带宠物入住？
                             </label>
                             <input class="value" name="" type="text" value="{{'YES' if ticket.get('pet') else 'NO'}}"/>
                         </div>
                         <div class="field smoke">
                             <label for="" class="hint">
                                 IS TENANT SMOKING?<br>
-                                租客是否吸烟？                   
+                                租客是否吸烟？
                             </label>
                             <input class="value" name="" type="text" value="{{'YES' if ticket.get('smoke') else 'NO'}}"/>
                         </div>
                         <div class="field children">
                             <label for="" class="hint">
                                 IS TENANT BRING CHILDREN?<br>
-                                租客是否带儿童入住？ 
+                                租客是否带儿童入住？
                             </label>
                             <input class="value" name="" type="text" value="{{'YES' if ticket.get('baby') else 'NO'}}"/>
                         </div>
@@ -220,7 +220,6 @@
                     </p>
                 </div>
             </div>
-            
         </div>
     </body>
     <!-- jQuery-->

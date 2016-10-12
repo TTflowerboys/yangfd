@@ -2017,7 +2017,7 @@ msgstr "updated %s"
 #: ../web/src/property_to_rent.html:154 ../web/src/property_to_rent.html:471
 #, python-format
 msgid "%s发布"
-msgstr "published %s"
+msgstr "Published %s"
 
 #: ../web/src/property_to_rent.html:165 ../web/src/property_to_rent.html:491
 #: ../web/src/property_to_rent.html:793
@@ -5211,7 +5211,7 @@ msgstr "Server is busy, please try again later"
 
 #: ../web/src/partials/i18n.html:31
 msgid "加载中"
-msgstr ""
+msgstr "Loading"
 
 #: ../web/src/partials/i18n.html:32
 #, fuzzy
@@ -6229,9 +6229,7 @@ msgstr ""
 #: ../web/src/static/templates/location-search-box.tpl.html:60
 #, fuzzy
 msgid "请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL..."
-msgstr ""
-"Please enter location like E14, E14 9AQ, Isle of dogs, Crouch Hill "
-"Station, UCL..."
+msgstr "Please enter location like sle of dogs,UCL..."
 
 #: ../web/src/partials/i18n.html:293
 msgid "输入您想去的城市或学校，比如London, UCL..."
@@ -11030,9 +11028,7 @@ msgstr "View Details"
 
 #: ../web/src/static/templates/location-search-box.tpl.html:17
 msgid "请输入位置，比如E14, E14 3GH, Isle of dogs, Waterloo, UCL..."
-msgstr ""
-"Please enter location like E14, E14 9AQ, Isle of dogs, Crouch Hill "
-"Station, UCL..."
+msgstr "Please enter location like sle of dogs,UCL..."
 
 #: ../web/src/static/templates/location-search-box.tpl.html:32
 #: ../web/src/static/templates/location-search-box.tpl.html:76
