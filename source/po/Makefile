@@ -14,7 +14,7 @@ PYBABEL = $(shell [ -x /usr/bin/pybabel2 ] && echo python2 ./pybabel || echo ./p
 GREP = /usr/bin/env grep
 DESTDIR = generated
 
-all:
+all: generate extract update install
 
 # generate js i18n keys to a html style like "{{_('xxx')}}", so the js key can be extracted
 generate:
