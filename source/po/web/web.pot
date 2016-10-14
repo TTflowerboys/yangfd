@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-10-07 18:54+0800\n"
+"POT-Creation-Date: 2016-10-14 17:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4553,11 +4553,6 @@ msgstr ""
 
 #: ../web/src/partials/get_area_unit.html:9
 msgid "km<sup>2</sup>"
-msgstr ""
-
-#: ../web/src/partials/get_reference_price.html:12
-#, python-format
-msgid "约%s起"
 msgstr ""
 
 #: ../web/src/partials/get_rent_min_period.html:6

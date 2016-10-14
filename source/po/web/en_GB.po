@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-10-07 18:54+0800\n"
+"POT-Creation-Date: 2016-10-14 17:43+0800\n"
 "PO-Revision-Date: 2016-08-17 09:41+0100\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
@@ -1905,7 +1905,7 @@ msgstr "Underground"
 #: ../web/src/partials/location_filter_tpl.html:32
 #: ../web/src/partials/property_to_rent_selectors.html:32
 msgid "学校"
-msgstr "Nearby Schools"
+msgstr "Schools"
 
 #: ../web/src/property_list.html:78 ../web/src/partials/i18n.html:345
 #: ../web/src/partials/location_filter_tpl.html:34
@@ -2007,7 +2007,7 @@ msgstr "Free Service"
 #: ../web/src/property_to_rent.html:145 ../web/src/property_to_rent.html:462
 #: ../web/src/partials/property_to_rent_edit.html:714
 msgid "可实地看房"
-msgstr "View in person"
+msgstr "Site Viewing"
 
 #: ../web/src/property_to_rent.html:151 ../web/src/property_to_rent.html:468
 #, python-format
@@ -4730,7 +4730,7 @@ msgstr "Transport"
 
 #: ../web/src/partials/bing_map.html:18
 msgid "周边学校"
-msgstr "Nearby Schools"
+msgstr "Schools"
 
 #: ../web/src/partials/bing_map.html:23
 msgid "便民设施"
@@ -4952,11 +4952,6 @@ msgstr "m<sup>2</sup>"
 #: ../web/src/partials/get_area_unit.html:9
 msgid "km<sup>2</sup>"
 msgstr "km<sup>2</sup>"
-
-#: ../web/src/partials/get_reference_price.html:12
-#, python-format
-msgid "约%s起"
-msgstr "From about %"
 
 #: ../web/src/partials/get_rent_min_period.html:6
 #: ../web/src/partials/i18n.html:500
@@ -6808,7 +6803,7 @@ msgstr "No Max Age"
 #: ../web/src/partials/i18n.html:445 ../web/src/partials/i18n_admin.html:114
 #: ../web/src/static/emails/new_rent_request_intention_ticket.html:9
 msgid "入住人数："
-msgstr "No. of tenants"
+msgstr "Tenants"
 
 #: ../web/src/partials/i18n.html:446 ../web/src/partials/i18n_admin.html:115
 msgid "人"
@@ -6859,7 +6854,7 @@ msgstr "Verify Phone Number"
 #: ../web/src/partials/requirement_rent_popup.html:166
 #: ../web/src/partials/requirement_rent_popup.html:175
 msgid "是"
-msgstr ""
+msgstr "YES"
 
 #: ../web/src/partials/i18n.html:458 ../web/src/partials/i18n_admin.html:141
 #: ../web/src/partials/requirement_rent_phone.html:157
@@ -6869,7 +6864,7 @@ msgstr ""
 #: ../web/src/partials/requirement_rent_popup.html:169
 #: ../web/src/partials/requirement_rent_popup.html:178
 msgid "否"
-msgstr ""
+msgstr "NO"
 
 #: ../web/src/partials/i18n.html:459
 #, fuzzy
@@ -8163,12 +8158,12 @@ msgstr ""
 #: ../web/src/partials/i18n_admin.html:255
 #, fuzzy
 msgid "学校类型"
-msgstr "Nearby Schools"
+msgstr "Schools"
 
 #: ../web/src/partials/i18n_admin.html:256
 #, fuzzy
 msgid "学校年级"
-msgstr "Nearby Schools"
+msgstr "Schools"
 
 #: ../web/src/partials/i18n_admin.html:257
 msgid "生活设施"
@@ -9591,13 +9586,13 @@ msgstr "Budget"
 #: ../web/src/static/templates/rent_request_phone.tpl.html:41
 #: ../web/src/static/templates/rent_request_phone.tpl.html:201
 msgid "入住人数"
-msgstr "No. of tentants"
+msgstr "Tenants"
 
 #: ../web/src/partials/requirement_rent_popup.html:210
 #: ../web/src/static/templates/rent_request.tpl.html:124
 #, fuzzy
 msgid "联系方式"
-msgstr "Contact the landlord"
+msgstr "Contact"
 
 #: ../web/src/partials/requirement_rent_popup.html:254
 msgid "让满足您求租需求的房源第一时间主动找到你，找房再也不用临时抱佛脚"
@@ -11098,11 +11093,11 @@ msgstr ""
 
 #: ../web/src/static/templates/rent_request.tpl.html:73
 msgid "护照或身份信息"
-msgstr ""
+msgstr "Upload passport or ID"
 
 #: ../web/src/static/templates/rent_request.tpl.html:75
 msgid "护照或身份信息（可选）"
-msgstr ""
+msgstr "Upload passport or ID (optional)"
 
 #: ../web/src/static/templates/rent_request.tpl.html:79
 msgid "直接将照片文件拖拽至框中"
@@ -14192,7 +14187,7 @@ msgstr ""
 #~ msgstr "School type"
 
 #~ msgid "学校年级"
-#~ msgstr "Nearby Schools"
+#~ msgstr "Schools"
 
 #~ msgid "生活设施"
 #~ msgstr "Living Facilities"
@@ -15726,4 +15721,7 @@ msgstr ""
 
 #~ msgid "如果没有收到验证码请{sec}后重试"
 #~ msgstr "If you do not receive the SMS code, please retry after {sec}"
+
+#~ msgid "约%s起"
+#~ msgstr "From about %s"
 

@@ -9,7 +9,7 @@
     <div class="price_reference">
         % string = """<span>""" + minPrice.get('localized_unit_symbol') + """</span><span data-type="formatted_currency">""" + minPrice.get('localized_value') + """</span><span class="mute">
             """
-        {{!_('约%s起') %string}}</span>
+        {{!_('约%s起' % string)}}</span>
     </div>
     %end
 % else :

@@ -831,7 +831,7 @@
             this.shortIdStatus = ko.observable('loading')
             this.getShortId = function (ticketId) {
                 $.betterGet('/api/1/rent_intention_ticket/' + ticketId)
-                .done(_.bind(function (val) {
+                    .done(_.bind(function (val) {
                         if(val.short_id) {
                             this.shortIdStatus('success')
                             this.shortId(val.short_id)
@@ -839,7 +839,7 @@
                             this.getShortId(ticketId)
                         }
                     }, this))
-                .fail(_.bind(function () {
+                    .fail(_.bind(function () {
                         this.shortIdStatus('fail')
                     }, this))
             }

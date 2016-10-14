@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-10-07 18:54+0800\n"
+"POT-Creation-Date: 2016-10-14 17:43+0800\n"
 "PO-Revision-Date: 2016-02-03 15:32+0800\n"
 "Last-Translator: ffang <ffang@bbtechgroup.com>\n"
 "Language: zh_Hans_CN\n"
@@ -4556,11 +4556,6 @@ msgstr ""
 
 #: ../web/src/partials/get_area_unit.html:9
 msgid "km<sup>2</sup>"
-msgstr ""
-
-#: ../web/src/partials/get_reference_price.html:12
-#, python-format
-msgid "约%s起"
 msgstr ""
 
 #: ../web/src/partials/get_rent_min_period.html:6
@@ -15450,5 +15445,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "使用短信验证码重置密码"
+#~ msgstr ""
+
+#~ msgid "约%s起"
 #~ msgstr ""
 
