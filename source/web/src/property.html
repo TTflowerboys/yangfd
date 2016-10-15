@@ -586,11 +586,8 @@
                                                                 <span class="name">{{_('面积')}}</span>
                                                                 <span class="value">
                                                                     % if 'value' in item.get('building_area_min',{}) and 'unit' in item.get('building_area_min',{}):
-                                                                        <strong>
-                                                                        {{float("{0:.2f}".format(float(item.get('building_area_min',{}).get('value'))))}}
-                                                                        {{!format_unit(item.get('building_area_min',{}).get('unit',''))}}
-                                                                        </strong>
-                                                                        <span>{{!_('%s起') % ''}}</span>
+                                                                        % string = """<strong>""" + str(int(float("{0:.2f}".format(float(item.get('building_area_min',{}).get('value')))))) + format_unit(item.get('building_area_min',{}).get('unit','')) + """</strong>"""
+                                                                        <span>{{!_(u'%s起') % string}}</span>
                                                                     % end
                                                                 </span>
                                                             </td>
