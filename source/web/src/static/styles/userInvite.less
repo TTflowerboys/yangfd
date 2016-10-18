@@ -86,6 +86,15 @@ div.content {
                 line-height: 40px;
                 text-align: right;
 
+                body[lang=en_GB] & {
+                    font-size: 15px;
+                    line-height: 1.2em;
+                    height: 60px;
+                    padding-top: 10px;
+                    margin-top: 12px;
+                    float: left;
+                }
+
                 @media @phone {
                     width: 40px;
                     height: 40px;
@@ -167,6 +176,10 @@ div.content {
                     width: 190px;
                     font-size: 18px;
 
+                    body[lang=en_GB] & {
+	                font-size: 15px;
+                    }
+
                     @media @phone {
                         display: none;
                     }
@@ -181,6 +194,11 @@ div.content {
                     width: 190px;
                     font-size: 18px;
                     padding: 10px;
+
+                    body[lang=en_GB] & {
+	                font-size: 15px;
+                    }
+
 
                     @media @phone {
                         font-size: 15px;
