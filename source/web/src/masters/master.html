@@ -216,7 +216,9 @@
                                 <a href="mailto:services@youngfunding.co.uk?subject=Feedback">services@youngfunding.co.uk</a>
                             </p>
                             <p class="address">{{_('英国总部')}}: Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
-                            <p class="address">{{_('中国总部')}}：湖北省武汉市群光中心22楼</p>
+                            %if _.lang == 'zh_Hans_CN':
+                                <p class="address">{{_('中国总部')}}：湖北省武汉市群光中心22楼</p>
+                            %end
                             <!--Only for baidu approval-->
                             <p class="aboutus" ><a href="/about">关于我们</a></p>
                         </div>
@@ -273,12 +275,14 @@
                         </div>
                     </footer>
                 </div>
-                <div id="copyright" class="copyright hiddenInClient">
-                    <p>&copy;<script>document.write(new Date().getFullYear())</script>
-                        {{_('鄂ICP备14015315号-1')}} <br>
-                        {{_('洋房东乃英国正式登记注册商标，为武汉兄弟桥科技发展有限公司直属企业')}}
-                    </p>
-                </div>
+                %if _.lang == 'zh_Hans_CN':
+                    <div id="copyright" class="copyright hiddenInClient">
+                        <p>&copy;<script>document.write(new Date().getFullYear())</script>
+                            {{_('鄂ICP备14015315号-1')}} <br>
+                            {{_('洋房东乃英国正式登记注册商标，为武汉兄弟桥科技发展有限公司直属企业')}}
+                        </p>
+                    </div>
+                %end
         </div>
         % end
 
