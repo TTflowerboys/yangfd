@@ -5098,7 +5098,7 @@ msgstr "Property not as described? Refund!"
 
 #: ../web/src/partials/i18n.html:1
 msgid "邮件格式不正确，请重新填写"
-msgstr ""
+msgstr "E-mail in wrong format, please try again"
 
 #: ../web/src/partials/i18n.html:2
 #, fuzzy
@@ -5112,11 +5112,11 @@ msgstr "Click on the pop-up menu, select [Share to Wechat Moments]"
 
 #: ../web/src/partials/i18n.html:5
 msgid "发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！"
-msgstr ""
+msgstr "Just found an excellent overseas letting and renting app, check it out!"
 
 #: ../web/src/partials/i18n.html:6
 msgid "距离"
-msgstr ""
+msgstr "Distance"
 
 #: ../web/src/partials/i18n.html:8
 #, fuzzy
@@ -5133,7 +5133,7 @@ msgstr " from"
 
 #: ../web/src/partials/i18n.html:10
 msgid "请填入新邮箱"
-msgstr ""
+msgstr "Please input new E-mail address"
 
 #: ../web/src/partials/i18n.html:11
 #, fuzzy
@@ -5222,7 +5222,7 @@ msgstr "Property Value"
 
 #: ../web/src/partials/i18n.html:36
 msgid "的房产，投资意向为"
-msgstr ""
+msgstr "properties, and intention tags are"
 
 #: ../web/src/partials/i18n.html:37 ../web/src/partials/i18n_admin.html:52
 #, fuzzy
@@ -5241,11 +5241,11 @@ msgstr "Please select"
 
 #: ../web/src/partials/i18n.html:42
 msgid "姓名不能为空"
-msgstr ""
+msgstr "Name should not be empty"
 
 #: ../web/src/partials/i18n.html:43
 msgid "电话不能为空"
-msgstr ""
+msgstr "Phone should not be empty"
 
 #: ../web/src/partials/i18n.html:44
 msgid "电话格式不正确"
@@ -5253,7 +5253,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:45
 msgid "邮箱不能为空"
-msgstr ""
+msgstr "Email should not be empty"
 
 #: ../web/src/partials/i18n.html:46
 msgid "用户来源不能为空"
@@ -5261,7 +5261,7 @@ msgstr "Referral channel cannot be left blank"
 
 #: ../web/src/partials/i18n.html:47
 msgid "邮箱格式不合法"
-msgstr ""
+msgstr "Email is invalid"
 
 #: ../web/src/partials/i18n.html:48
 #, fuzzy
@@ -5270,7 +5270,7 @@ msgstr "verification code"
 
 #: ../web/src/partials/i18n.html:49
 msgid "密码不能为空"
-msgstr ""
+msgstr "Password should not be empty"
 
 #: ../web/src/partials/i18n.html:50
 #, fuzzy
@@ -5303,11 +5303,11 @@ msgstr "Terms Of Services"
 
 #: ../web/src/partials/i18n.html:56
 msgid "遇到了一个网络问题，请检查网络连接正常后重试。"
-msgstr ""
+msgstr "Network error, please check your connection and try again."
 
 #: ../web/src/partials/i18n.html:57
 msgid "输入错误，请检查后重试。"
-msgstr ""
+msgstr "Input error, please check and try again."
 
 #: ../web/src/partials/i18n.html:58
 #, fuzzy
@@ -5324,31 +5324,31 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:61
 msgid "账户或密码错误。"
-msgstr ""
+msgstr "Account not found or password is wrong"
 
 #: ../web/src/partials/i18n.html:62
 msgid "对不起，您的权限不够。"
-msgstr ""
+msgstr "Sorry, you don't have enough permissions."
 
 #: ../web/src/partials/i18n.html:63
 msgid "对不起，不能操作他人的订单。"
-msgstr ""
+msgstr "Sorry, cannot manipulate the order of others."
 
 #: ../web/src/partials/i18n.html:64
 msgid "对不起，不能查看他人的订单。"
-msgstr ""
+msgstr "Sorry, can't view others ' orders."
 
 #: ../web/src/partials/i18n.html:65
 msgid "没有权限！"
-msgstr ""
+msgstr "No permissions!"
 
 #: ../web/src/partials/i18n.html:66 ../web/src/partials/i18n_admin.html:9
 msgid "帐号已被禁用，请致电联系平台工作人员"
-msgstr ""
+msgstr "Account has been disabled, please call the contact platform staff"
 
 #: ../web/src/partials/i18n.html:67
 msgid "账户不存在"
-msgstr ""
+msgstr "Account not exists"
 
 #: ../web/src/partials/i18n.html:68
 msgid ""
@@ -5374,7 +5374,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:72
 msgid "请求太频繁，请稍后再试"
-msgstr ""
+msgstr "Request exceeds the limit, please try this later"
 
 #: ../web/src/partials/i18n.html:73
 #, fuzzy
@@ -5383,15 +5383,15 @@ msgstr "Verify"
 
 #: ../web/src/partials/i18n.html:74
 msgid "错误的验证码，请检查后重试"
-msgstr ""
+msgstr "Wrong validation code, please check and try again"
 
 #: ../web/src/partials/i18n.html:75
 msgid "过期或已验证过的验证码，请重新验证"
-msgstr ""
+msgstr "Expired or certified verification code, please verify"
 
 #: ../web/src/partials/i18n.html:76
 msgid "错误的邀请码，请检查后重试"
-msgstr ""
+msgstr "Wrong invitation code, please check and try again"
 
 #: ../web/src/partials/i18n.html:77
 msgid "过期或已验证过的邀请码，请重新申请"
@@ -5399,19 +5399,19 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:78
 msgid "权限错误。"
-msgstr ""
+msgstr "No permissions"
 
 #: ../web/src/partials/i18n.html:79
 msgid "对不起，没有找到您要的资源"
-msgstr ""
+msgstr "Sorry, the page you were looking for was not found."
 
 #: ../web/src/partials/i18n.html:80
 msgid "服务暂时不可用，请稍后重试"
-msgstr ""
+msgstr "Server is unavailable, please try again later"
 
 #: ../web/src/partials/i18n.html:81
 msgid "第三方服务暂时不可用，请稍后重试"
-msgstr ""
+msgstr "Third-party service is temporarily unavailable, please try again later"
 
 #: ../web/src/partials/i18n.html:82
 #, fuzzy
@@ -5420,7 +5420,7 @@ msgstr "verification code"
 
 #: ../web/src/partials/i18n.html:83
 msgid "电话号码输入错误，请检查后重试。"
-msgstr ""
+msgstr "Input error, please check and try again."
 
 #: ../web/src/partials/i18n.html:84
 msgid "Winery"
@@ -6146,27 +6146,27 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:271
 msgid "¥"
-msgstr ""
+msgstr "¥"
 
 #: ../web/src/partials/i18n.html:272
 msgid "£"
-msgstr ""
+msgstr "£"
 
 #: ../web/src/partials/i18n.html:273
 msgid "$"
-msgstr ""
+msgstr "$"
 
 #: ../web/src/partials/i18n.html:274
 msgid "€"
-msgstr ""
+msgstr "€"
 
 #: ../web/src/partials/i18n.html:275
 msgid "HK$"
-msgstr ""
+msgstr "HK$"
 
 #: ../web/src/partials/i18n.html:277
 msgid "城市列表加载中"
-msgstr ""
+msgstr "City list Loading"
 
 #: ../web/src/partials/i18n.html:279
 msgid "不能为空"
@@ -6174,7 +6174,7 @@ msgstr "Cannot be left blank"
 
 #: ../web/src/partials/i18n.html:280
 msgid "格式不正确"
-msgstr ""
+msgstr "Wrong format"
 
 #: ../web/src/partials/i18n.html:281
 msgid "超出长度限制"
@@ -6182,7 +6182,7 @@ msgstr "Too "
 
 #: ../web/src/partials/i18n.html:282
 msgid "结束日期需要大于开始日期"
-msgstr ""
+msgstr "Start Date End Date require more than"
 
 #: ../web/src/partials/i18n.html:284
 #, fuzzy
@@ -6199,7 +6199,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:287
 msgid "{time}s后可用"
-msgstr ""
+msgstr "{time}s"
 
 #: ../web/src/partials/i18n.html:288
 #, fuzzy
@@ -6217,7 +6217,7 @@ msgstr "Phone Verification Code"
 
 #: ../web/src/partials/i18n.html:291
 msgid "租期开始日期必须早于租期结束日期"
-msgstr ""
+msgstr "Rent start date should earlier than end date"
 
 #: ../web/src/partials/i18n.html:292
 #: ../web/src/static/templates/location-search-box.tpl.html:60
@@ -6239,7 +6239,7 @@ msgstr "Cancel"
 
 #: ../web/src/partials/i18n.html:299
 msgid "请您留言"
-msgstr ""
+msgstr "Please leave message"
 
 #: ../web/src/partials/i18n.html:300
 #, fuzzy
@@ -6252,7 +6252,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:302
 msgid "请填写您的地址"
-msgstr ""
+msgstr "Please enter your address"
 
 #: ../web/src/partials/i18n.html:303
 #, fuzzy
@@ -6261,7 +6261,7 @@ msgstr "Your Email Address"
 
 #: ../web/src/partials/i18n.html:304
 msgid "在线咨询"
-msgstr ""
+msgstr "Online Support"
 
 #: ../web/src/partials/i18n.html:306
 #, fuzzy
@@ -6270,7 +6270,7 @@ msgstr "Welcome"
 
 #: ../web/src/partials/i18n.html:307
 msgid "有什么可以帮助您的？"
-msgstr ""
+msgstr "How can I help you?"
 
 #: ../web/src/partials/i18n.html:310
 #, fuzzy
@@ -6283,11 +6283,11 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:312
 msgid "已读"
-msgstr ""
+msgstr "Read"
 
 #: ../web/src/partials/i18n.html:315
 msgid "点击此处可以收藏房产"
-msgstr ""
+msgstr "Click here to favourite property "
 
 #: ../web/src/partials/i18n.html:316
 msgid "小提示：看到中意的房产，可以点击此处的收藏按钮来收藏，也可以点击分享按钮将房产分享给您的朋友"
@@ -6295,7 +6295,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:318
 msgid "关闭"
-msgstr ""
+msgstr "Close"
 
 #: ../web/src/partials/i18n.html:319
 #, fuzzy
@@ -6309,11 +6309,11 @@ msgstr "Prev"
 
 #: ../web/src/partials/i18n.html:321
 msgid "下拉刷新"
-msgstr ""
+msgstr "Slide to refresh"
 
 #: ../web/src/partials/i18n.html:322
 msgid "松开刷新"
-msgstr ""
+msgstr "Release to refresh"
 
 #: ../web/src/partials/i18n.html:323
 #, fuzzy
@@ -6322,7 +6322,7 @@ msgstr "Loading"
 
 #: ../web/src/partials/i18n.html:324
 msgid "加载成功"
-msgstr ""
+msgstr "Loaded Successfully"
 
 #: ../web/src/partials/i18n.html:325
 #, fuzzy
@@ -6351,11 +6351,11 @@ msgstr "Loaded Failed"
 
 #: ../web/src/partials/i18n.html:333
 msgid "暂无结果"
-msgstr ""
+msgstr "No result"
 
 #: ../web/src/partials/i18n.html:334
 msgid "点击在地图里查看这些房源"
-msgstr ""
+msgstr "View in map"
 
 #: ../web/src/partials/i18n.html:335
 msgid "分钟"
@@ -6363,11 +6363,11 @@ msgstr "mins"
 
 #: ../web/src/partials/i18n.html:336
 msgid "googleapis发生了一个错误，请输入正确的postcode后重试"
-msgstr ""
+msgstr "Third-party error occurs, please enter the right postcode and try again"
 
 #: ../web/src/partials/i18n.html:337
 msgid "googleapis发生了一个未知错误，请检查您的网络连接，然后刷新页面后重试"
-msgstr ""
+msgstr "Network error occurs, please check your connections and try again"
 
 #: ../web/src/partials/i18n.html:338
 msgid "请输入关键字后再进行搜索"
@@ -6375,27 +6375,27 @@ msgstr "Enter keywords to search"
 
 #: ../web/src/partials/i18n.html:339 ../web/src/partials/i18n_admin.html:54
 msgid "无结果"
-msgstr ""
+msgstr "No results"
 
 #: ../web/src/partials/i18n.html:340
 msgid "该地点已经添加到周边了，请不要重复添加"
-msgstr ""
+msgstr "Already added, please do not add duplicated place"
 
 #: ../web/src/partials/i18n.html:341
 msgid "请填写正确的postcode或地址信息后再添加周边地点"
-msgstr ""
+msgstr "Please enter the right postcode before add surroundings"
 
 #: ../web/src/partials/i18n.html:342
 msgid "正在获取到该地点的交通信息..."
-msgstr ""
+msgstr "loading transport information…"
 
 #: ../web/src/partials/i18n.html:343
 msgid "无法获取到该地点的交通信息:"
-msgstr ""
+msgstr "Unable to load transport information"
 
 #: ../web/src/partials/i18n.html:344
 msgid "添加失败，无法获取到该地点的交通信息"
-msgstr ""
+msgstr "Failed to add surroundings, unable to get transport information"
 
 #: ../web/src/partials/i18n.html:346
 msgid "重新获取"
@@ -6466,19 +6466,19 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:360
 msgid "租期结束时间必须大于或等于租期开始时间"
-msgstr ""
+msgstr "End time must be greater than or equal to start time"
 
 #: ../web/src/partials/i18n.html:361
 msgid "请至少上传一张实景图"
-msgstr ""
+msgstr "Please upload at least one picture"
 
 #: ../web/src/partials/i18n.html:362
 msgid "图片正在上传中，请稍后再发布"
-msgstr ""
+msgstr "Pictures are uploading, please publish later"
 
 #: ../web/src/partials/i18n.html:363
 msgid "输入框中含有HTML标签，请重新编辑后再继续"
-msgstr ""
+msgstr "There are HTML tags in the input box, please edit before publish"
 
 #: ../web/src/partials/i18n.html:364
 #, fuzzy
@@ -6518,7 +6518,7 @@ msgstr "Publishing..."
 
 #: ../web/src/partials/i18n.html:375
 msgid "请至少展示一种联系方式给租客"
-msgstr ""
+msgstr "Please show at least a contact for tenants"
 
 #: ../web/src/partials/i18n.html:376
 #: ../web/src/partials/property_to_rent_publish.html:306
@@ -6539,7 +6539,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:382
 msgid "正在为您的房源搜索周边的学校和地铁...."
-msgstr ""
+msgstr "Searching universities and underground near your listing……"
 
 #: ../web/src/partials/i18n.html:383
 msgid "没有在您的房源周边发现学校和地铁，您可以自行搜索添加"
@@ -6551,7 +6551,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:385
 msgid "获取周边信息失败:"
-msgstr ""
+msgstr "Load surroundings failed:"
 
 #: ../web/src/partials/i18n.html:386
 msgid "不允许同时拖拽多个文件上传."
@@ -6559,7 +6559,7 @@ msgstr "Unable to drag multiple file uploads"
 
 #: ../web/src/partials/i18n.html:387
 msgid "不允许上传. 允许的文件扩展名: "
-msgstr ""
+msgstr "Upload is not allowed. Allowed file extensions:"
 
 #: ../web/src/partials/i18n.html:388
 msgid "不允许上传. 文件已存在."
@@ -6579,7 +6579,7 @@ msgstr "Upload not permitted. Maximum file size:"
 
 #: ../web/src/partials/i18n.html:392
 msgid "停止"
-msgstr ""
+msgstr "Stop"
 
 #: ../web/src/partials/i18n.html:393
 #: ../web/src/partials/property_to_rent_edit.html:648
@@ -6588,7 +6588,7 @@ msgstr "Remove"
 
 #: ../web/src/partials/i18n.html:394
 msgid "上传错误：错误代码"
-msgstr ""
+msgstr "Upload error: error code"
 
 #: ../web/src/partials/i18n.html:395 ../web/src/partials/i18n_admin.html:187
 #, fuzzy
@@ -6597,7 +6597,7 @@ msgstr "Image"
 
 #: ../web/src/partials/i18n.html:396
 msgid "上传失败("
-msgstr ""
+msgstr "Uploading"
 
 #: ../web/src/partials/i18n.html:397
 msgid ")，请重新上传"
@@ -6605,7 +6605,7 @@ msgstr "), Please re-upload"
 
 #: ../web/src/partials/i18n.html:399
 msgid "租金下限必须小于租金上限"
-msgstr ""
+msgstr "Min rental should less than max rental"
 
 #: ../web/src/partials/i18n.html:402
 #, fuzzy
@@ -6614,15 +6614,15 @@ msgstr "Find the following property to rent"
 
 #: ../web/src/partials/i18n.html:404
 msgid "复制成功:"
-msgstr ""
+msgstr "Copy Success:"
 
 #: ../web/src/partials/i18n.html:405
 msgid "点击此处可以咨询房东"
-msgstr ""
+msgstr "Click here to contact landlord"
 
 #: ../web/src/partials/i18n.html:406
 msgid "小提示：点击此处可以咨询房东"
-msgstr ""
+msgstr "Tip: click here to view full contact details of landlords"
 
 #: ../web/src/partials/i18n.html:407
 #, fuzzy
@@ -6665,7 +6665,7 @@ msgstr "End date"
 
 #: ../web/src/partials/i18n.html:415
 msgid "起租日期不能早于今天"
-msgstr ""
+msgstr "Rent start date can’t earlier than today"
 
 #: ../web/src/partials/i18n.html:416
 #, fuzzy
@@ -6678,7 +6678,7 @@ msgstr "Minimum period 1 day"
 
 #: ../web/src/partials/i18n.html:418
 msgid "请填写您入住的原因和对房东的问题"
-msgstr ""
+msgstr "Please enter your reason to move in and your questions for landlord"
 
 #: ../web/src/partials/i18n.html:419
 msgid "请不要在描述中填写任何形式的联系方式"
@@ -6692,7 +6692,7 @@ msgstr "Applications for this property require passport or ID to be uploaded"
 
 #: ../web/src/partials/i18n.html:421
 msgid "姓名中不能包含电话或者email"
-msgstr ""
+msgstr "Please don’t use email or phone as your name"
 
 #: ../web/src/partials/i18n.html:422
 #, fuzzy
@@ -6748,7 +6748,7 @@ msgstr "SMS Verification Code"
 
 #: ../web/src/partials/i18n.html:433
 msgid "图片还在上传中，请稍后再提交"
-msgstr ""
+msgstr "Image is uploading, please submit later"
 
 #: ../web/src/partials/i18n.html:434 ../web/src/partials/i18n_admin.html:103
 msgid "入住者吸烟"
@@ -6878,17 +6878,17 @@ msgstr ""
 #: ../web/src/partials/i18n.html:461
 #, python-format
 msgid "%s至%s/周的"
-msgstr ""
+msgstr "From %s to %s"
 
 #: ../web/src/partials/i18n.html:462
 #, python-format
 msgid "%s/周以上的"
-msgstr ""
+msgstr "/ week"
 
 #: ../web/src/partials/i18n.html:463
 #, python-format
 msgid "%s/周以下的"
-msgstr ""
+msgstr "/ week"
 
 #: ../web/src/partials/i18n.html:464
 #, python-format
@@ -6921,7 +6921,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:470
 msgid "密码重置成功，5s后自动返回首页"
-msgstr ""
+msgstr "Password Reset success, 5s automatically Home"
 
 #: ../web/src/partials/i18n.html:471
 #, fuzzy
@@ -6930,7 +6930,7 @@ msgstr "Reset password"
 
 #: ../web/src/partials/i18n.html:474
 msgid "获取失败"
-msgstr ""
+msgstr "Load Failed"
 
 #: ../web/src/partials/i18n.html:475
 msgid "洋房东 ' + discount + '租房优惠"
@@ -7067,7 +7067,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:506
 msgid "国家不能为空"
-msgstr ""
+msgstr "Country should not be empty"
 
 #: ../web/src/partials/i18n.html:507
 msgid "更新成功, 正在刷新页面..."
@@ -7075,7 +7075,7 @@ msgstr "Refresh successful, currently loading new page"
 
 #: ../web/src/partials/i18n.html:508
 msgid "更新失败"
-msgstr ""
+msgstr "Update failed"
 
 #: ../web/src/partials/i18n.html:509
 #, fuzzy
@@ -7084,7 +7084,7 @@ msgstr "Un-favourite"
 
 #: ../web/src/partials/i18n.html:510
 msgid "撤销失败"
-msgstr ""
+msgstr "Revert failed"
 
 #: ../web/src/partials/i18n.html:511
 #, fuzzy
@@ -7093,31 +7093,31 @@ msgstr "Phone Number"
 
 #: ../web/src/partials/i18n.html:512
 msgid "发送失败，请重试"
-msgstr ""
+msgstr "Sending failed, please try again"
 
 #: ../web/src/partials/i18n.html:513
 msgid "生日不能为空"
-msgstr ""
+msgstr "Birthday should not be empty"
 
 #: ../web/src/partials/i18n.html:514
 msgid "省份不能为空"
-msgstr ""
+msgstr "Provience should not be empty"
 
 #: ../web/src/partials/i18n.html:515
 msgid "城市不能为空"
-msgstr ""
+msgstr "City should not be empty"
 
 #: ../web/src/partials/i18n.html:516
 msgid "地址不能为空"
-msgstr ""
+msgstr "Address should not be empty"
 
 #: ../web/src/partials/i18n.html:517
 msgid "邮政编码不能为空"
-msgstr ""
+msgstr "Postcode should not be empty"
 
 #: ../web/src/partials/i18n.html:518
 msgid "更新成功"
-msgstr ""
+msgstr "Update success"
 
 #: ../web/src/partials/i18n.html:519
 #, fuzzy
@@ -7131,27 +7131,27 @@ msgstr "Senior Salesman"
 
 #: ../web/src/partials/i18n.html:521 ../web/src/partials/i18n_admin.html:272
 msgid "受理中"
-msgstr ""
+msgstr "Ongoing"
 
 #: ../web/src/partials/i18n.html:522 ../web/src/partials/i18n_admin.html:273
 msgid "定金已支付"
-msgstr ""
+msgstr "Deposit Paid"
 
 #: ../web/src/partials/i18n.html:523 ../web/src/partials/i18n_admin.html:274
 msgid "未达成定金"
-msgstr ""
+msgstr "Lose Interest"
 
 #: ../web/src/partials/i18n.html:524 ../web/src/partials/i18n_admin.html:275
 msgid "购房已成功"
-msgstr ""
+msgstr "Already Purchased"
 
 #: ../web/src/partials/i18n.html:525 ../web/src/partials/i18n_admin.html:276
 msgid "未达成购房"
-msgstr ""
+msgstr "Deal Canceled"
 
 #: ../web/src/partials/i18n.html:526
 msgid "求租中"
-msgstr ""
+msgstr "Active"
 
 #: ../web/src/partials/i18n.html:527
 #, fuzzy
@@ -7196,7 +7196,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:535
 msgid "刚刚刷新过"
-msgstr ""
+msgstr "Just refreshed"
 
 #: ../web/src/partials/i18n.html:536
 msgid "不好意思，每天只能刷新一个房源"
@@ -7204,7 +7204,7 @@ msgstr "Sorry, only one property per day can be refreshed"
 
 #: ../web/src/partials/i18n.html:537
 msgid "刷新失败，请检查后重试"
-msgstr ""
+msgstr "Cannot refresh, please check and try again"
 
 #: ../web/src/partials/i18n.html:538
 msgid ""
@@ -7221,23 +7221,23 @@ msgstr "updated %s"
 
 #: ../web/src/partials/i18n.html:541
 msgid "无法更新，请检查后重试"
-msgstr ""
+msgstr "Cannot refresh, please check and try again"
 
 #: ../web/src/partials/i18n.html:542
 msgid "确定删除该出租房吗？注意：此操作不可逆"
-msgstr ""
+msgstr "Are you sure to delete this property? This cannot be reversed."
 
 #: ../web/src/partials/i18n.html:543
 msgid "无法删除，请检查后重试"
-msgstr ""
+msgstr "Unable to remove it, please check and try again"
 
 #: ../web/src/partials/i18n.html:544
 msgid "确定删除该房产吗？"
-msgstr ""
+msgstr "Are you sure to delete this property?"
 
 #: ../web/src/partials/i18n.html:545
 msgid "移除失败，请检查后重试"
-msgstr ""
+msgstr "Unable to remove it, please check and try again"
 
 #: ../web/src/partials/i18n.html:546
 msgid "邮件已发送，如果没有收到，请在60秒后重试"
@@ -7245,7 +7245,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:547
 msgid "发送验证邮件失败"
-msgstr ""
+msgstr "Failed to send verification email"
 
 #: ../web/src/partials/i18n.html:548
 #, fuzzy
@@ -7254,7 +7254,7 @@ msgstr "Change Email"
 
 #: ../web/src/partials/i18n.html:551
 msgid "验证码已成功发送到您填写的手机号"
-msgstr ""
+msgstr "Verfication code already sent to your phone"
 
 #: ../web/src/partials/i18n_admin.html:1
 msgid "参数错误"
@@ -7266,27 +7266,27 @@ msgstr "No number to use, please apply for a new number"
 
 #: ../web/src/partials/i18n_admin.html:3
 msgid "后台仍在处理房产，请稍后再试"
-msgstr ""
+msgstr "Background still processing real estate, please try again later"
 
 #: ../web/src/partials/i18n_admin.html:4
 msgid "请先<a href=\"/admin#/signIn\">登录</a>"
-msgstr ""
+msgstr "Please <a href=\"/admin#/signIn\">login</a> first"
 
 #: ../web/src/partials/i18n_admin.html:5
 msgid "请求过于频繁，请稍后再试"
-msgstr ""
+msgstr "Request exceeds the limit, please try this later"
 
 #: ../web/src/partials/i18n_admin.html:6
 msgid "电话或密码错误"
-msgstr ""
+msgstr "Phone or password is wrong"
 
 #: ../web/src/partials/i18n_admin.html:7
 msgid "没有管理员权限或管理员级别不够"
-msgstr ""
+msgstr "Without administrator privileges or administrator level is not enough"
 
 #: ../web/src/partials/i18n_admin.html:8
 msgid "没有权限"
-msgstr ""
+msgstr "No permissions"
 
 #: ../web/src/partials/i18n_admin.html:10
 msgid "no ad in given channel"
@@ -7294,19 +7294,19 @@ msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:11
 msgid "不存在的博客文章"
-msgstr ""
+msgstr "Blog post does not exist"
 
 #: ../web/src/partials/i18n_admin.html:12
 msgid "不存在的消息"
-msgstr ""
+msgstr "No message"
 
 #: ../web/src/partials/i18n_admin.html:13
 msgid "不存在的用户"
-msgstr ""
+msgstr "The user does not exist"
 
 #: ../web/src/partials/i18n_admin.html:14
 msgid "电子邮件已存在"
-msgstr ""
+msgstr "E-mail address already exists"
 
 #: ../web/src/partials/i18n_admin.html:15
 msgid "权限已存在"
@@ -7326,7 +7326,7 @@ msgstr "Tag does not exist"
 
 #: ../web/src/partials/i18n_admin.html:19
 msgid "手机号码已被占用"
-msgstr ""
+msgstr "Phone Number is taken"
 
 #: ../web/src/partials/i18n_admin.html:20
 #, fuzzy
@@ -7335,15 +7335,15 @@ msgstr "Videos"
 
 #: ../web/src/partials/i18n_admin.html:21
 msgid "不存在的反馈"
-msgstr ""
+msgstr "There is no feedback"
 
 #: ../web/src/partials/i18n_admin.html:22
 msgid "信用额度不够"
-msgstr ""
+msgstr "Insufficient credits"
 
 #: ../web/src/partials/i18n_admin.html:23
 msgid "已存在的标签"
-msgstr ""
+msgstr "Existing tags"
 
 #: ../web/src/partials/i18n_admin.html:24
 #, fuzzy
@@ -7361,7 +7361,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:27
 msgid "服务器异常"
-msgstr ""
+msgstr "Server exception"
 
 #: ../web/src/partials/i18n_admin.html:28
 msgid "外部服务的错误"
@@ -7369,7 +7369,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:29
 msgid "SMS未知错误"
-msgstr ""
+msgstr "SMS unknown error"
 
 #: ../web/src/partials/i18n_admin.html:30
 #, fuzzy
@@ -7404,11 +7404,11 @@ msgstr "Change"
 
 #: ../web/src/partials/i18n_admin.html:37
 msgid "已恢复"
-msgstr ""
+msgstr "It has been restored"
 
 #: ../web/src/partials/i18n_admin.html:38
 msgid "原始数据中不存在："
-msgstr ""
+msgstr "The raw data does not exist:"
 
 #: ../web/src/partials/i18n_admin.html:39
 msgid "新消息"
@@ -7444,11 +7444,11 @@ msgstr "Properties"
 
 #: ../web/src/partials/i18n_admin.html:49
 msgid "此数据有"
-msgstr ""
+msgstr "This data has"
 
 #: ../web/src/partials/i18n_admin.html:50
 msgid "条引用,其中"
-msgstr ""
+msgstr "Refrences in which"
 
 #: ../web/src/partials/i18n_admin.html:51
 msgid "，"
@@ -7456,19 +7456,19 @@ msgstr ","
 
 #: ../web/src/partials/i18n_admin.html:55
 msgid "无ip地址"
-msgstr ""
+msgstr "No ip address"
 
 #: ../web/src/partials/i18n_admin.html:56
 msgid "未选择新闻"
-msgstr ""
+msgstr "No check selected"
 
 #: ../web/src/partials/i18n_admin.html:57
 msgid "同步成功"
-msgstr ""
+msgstr "Sync success."
 
 #: ../web/src/partials/i18n_admin.html:58
 msgid "暂无此街区"
-msgstr ""
+msgstr "Do not have this neighbourhood"
 
 #: ../web/src/partials/i18n_admin.html:59
 msgid "学生公寓信息"
@@ -7756,7 +7756,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:147
 msgid "已刷新"
-msgstr ""
+msgstr "Refreshed"
 
 #: ../web/src/partials/i18n_admin.html:148
 msgid "确认该房源已租出?"
@@ -7776,7 +7776,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:152
 msgid "没有结果"
-msgstr ""
+msgstr "No Results"
 
 #: ../web/src/partials/i18n_admin.html:153
 msgid "【洋房东】"
@@ -7805,7 +7805,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:159
 msgid "验证码已发送至你的手机"
-msgstr ""
+msgstr "Verfication code already sent to your phone"
 
 #: ../web/src/partials/i18n_admin.html:160
 #, fuzzy
@@ -7835,11 +7835,11 @@ msgstr "Remove"
 
 #: ../web/src/partials/i18n_admin.html:169
 msgid "投资类型"
-msgstr ""
+msgstr "Investment Type"
 
 #: ../web/src/partials/i18n_admin.html:174
 msgid "邮编"
-msgstr ""
+msgstr "Zip Code"
 
 #: ../web/src/partials/i18n_admin.html:175
 #, fuzzy
@@ -7863,7 +7863,7 @@ msgstr "Project"
 
 #: ../web/src/partials/i18n_admin.html:179
 msgid "项目总金额"
-msgstr ""
+msgstr "The total amount of the project"
 
 #: ../web/src/partials/i18n_admin.html:180
 #, fuzzy
@@ -7882,11 +7882,11 @@ msgstr "The maximum annual cash return forecast"
 
 #: ../web/src/partials/i18n_admin.html:185
 msgid "地理位置经度"
-msgstr ""
+msgstr "Longitude"
 
 #: ../web/src/partials/i18n_admin.html:186
 msgid "地理位置纬度"
-msgstr ""
+msgstr "Latitude"
 
 #: ../web/src/partials/i18n_admin.html:190
 #, fuzzy
@@ -7900,15 +7900,15 @@ msgstr "Financial analysis"
 
 #: ../web/src/partials/i18n_admin.html:193
 msgid "项目资本结构"
-msgstr ""
+msgstr "Project capital structure"
 
 #: ../web/src/partials/i18n_admin.html:194
 msgid "审核备注"
-msgstr ""
+msgstr "Review note"
 
 #: ../web/src/partials/i18n_admin.html:195
 msgid "审核附件"
-msgstr ""
+msgstr "Attachment"
 
 #: ../web/src/partials/i18n_admin.html:196
 #, fuzzy
@@ -7917,11 +7917,11 @@ msgstr "for"
 
 #: ../web/src/partials/i18n_admin.html:197
 msgid "截止时间"
-msgstr ""
+msgstr "Completion Time"
 
 #: ../web/src/partials/i18n_admin.html:198
 msgid "地图位置"
-msgstr ""
+msgstr "Location"
 
 #: ../web/src/partials/i18n_admin.html:199
 msgid "草稿"
@@ -7929,27 +7929,27 @@ msgstr "Draft"
 
 #: ../web/src/partials/i18n_admin.html:200
 msgid "待翻译"
-msgstr ""
+msgstr "Wait for translation"
 
 #: ../web/src/partials/i18n_admin.html:201
 msgid "翻译中"
-msgstr ""
+msgstr "In translation"
 
 #: ../web/src/partials/i18n_admin.html:202
 msgid "待审核"
-msgstr ""
+msgstr "Wait for approval"
 
 #: ../web/src/partials/i18n_admin.html:203
 msgid "审核失败"
-msgstr ""
+msgstr "Approval failed"
 
 #: ../web/src/partials/i18n_admin.html:204
 msgid "在售中"
-msgstr ""
+msgstr "Selling"
 
 #: ../web/src/partials/i18n_admin.html:205
 msgid "隐藏"
-msgstr ""
+msgstr "Hiden"
 
 #: ../web/src/partials/i18n_admin.html:206
 #, fuzzy
@@ -7958,11 +7958,11 @@ msgstr "Sold out"
 
 #: ../web/src/partials/i18n_admin.html:207
 msgid "审核拒绝"
-msgstr ""
+msgstr "Audit refuse"
 
 #: ../web/src/partials/i18n_admin.html:208
 msgid "审核通过"
-msgstr ""
+msgstr "Approval success"
 
 #: ../web/src/partials/i18n_admin.html:209
 msgid "百分比折扣"
@@ -7975,11 +7975,11 @@ msgstr "Amount"
 
 #: ../web/src/partials/i18n_admin.html:211
 msgid "自由填写文字"
-msgstr ""
+msgstr "Promotion text"
 
 #: ../web/src/partials/i18n_admin.html:212
 msgid "展示"
-msgstr ""
+msgstr "Display"
 
 #: ../web/src/partials/i18n_admin.html:213
 msgid "不展示"
@@ -7987,7 +7987,7 @@ msgstr "Do not display"
 
 #: ../web/src/partials/i18n_admin.html:214
 msgid "点击链接"
-msgstr ""
+msgstr "Link"
 
 #: ../web/src/partials/i18n_admin.html:215
 msgid "点击率"
@@ -8108,7 +8108,7 @@ msgstr "View Surroundings"
 
 #: ../web/src/partials/i18n_admin.html:244
 msgid "交通方式"
-msgstr ""
+msgstr "Interactive mode"
 
 #: ../web/src/partials/i18n_admin.html:245
 #, fuzzy
@@ -8140,11 +8140,11 @@ msgstr "Landlord Type"
 
 #: ../web/src/partials/i18n_admin.html:251
 msgid "平台消息类别"
-msgstr ""
+msgstr "Message Type"
 
 #: ../web/src/partials/i18n_admin.html:254
 msgid "朝向"
-msgstr ""
+msgstr "Towards"
 
 #: ../web/src/partials/i18n_admin.html:255
 #, fuzzy
@@ -8158,7 +8158,7 @@ msgstr "Schools"
 
 #: ../web/src/partials/i18n_admin.html:257
 msgid "生活设施"
-msgstr ""
+msgstr "Living Facilities"
 
 #: ../web/src/partials/i18n_admin.html:258
 #, fuzzy
@@ -8177,7 +8177,7 @@ msgstr "Intentions"
 
 #: ../web/src/partials/i18n_admin.html:261
 msgid "客服单状态"
-msgstr ""
+msgstr "Support ticket status"
 
 #: ../web/src/partials/i18n_admin.html:262
 #, fuzzy
@@ -8199,7 +8199,7 @@ msgstr "Cancel failed"
 
 #: ../web/src/partials/i18n_admin.html:266
 msgid "众筹房产"
-msgstr ""
+msgstr "The British Real Estate Crowdfunding"
 
 #: ../web/src/partials/i18n_admin.html:268
 #, fuzzy
@@ -8208,7 +8208,7 @@ msgstr "Property To Rent"
 
 #: ../web/src/partials/i18n_admin.html:269
 msgid "意向已提交"
-msgstr ""
+msgstr "Already Submit"
 
 #: ../web/src/partials/i18n_admin.html:270
 msgid "咨询申请已提交"
@@ -8216,7 +8216,7 @@ msgstr "Booking application already submitted"
 
 #: ../web/src/partials/i18n_admin.html:271
 msgid "已指派"
-msgstr ""
+msgstr "Already Assigned To Sales"
 
 #: ../web/src/partials/i18n_admin.html:277
 #, fuzzy
@@ -8225,7 +8225,7 @@ msgstr "Submit"
 
 #: ../web/src/partials/i18n_admin.html:278
 msgid "已邀请"
-msgstr ""
+msgstr "Invited"
 
 #: ../web/src/partials/i18n_admin.html:279
 #: ../web/src/partials/user_settings.html:230
@@ -8239,11 +8239,11 @@ msgstr "Deposit"
 
 #: ../web/src/partials/i18n_admin.html:281
 msgid "待支付"
-msgstr ""
+msgstr "To be paid"
 
 #: ../web/src/partials/i18n_admin.html:283
 msgid "未支付"
-msgstr ""
+msgstr "Deposit Paid"
 
 #: ../web/src/partials/i18n_admin.html:284
 #: ../web/src/static/emails/new_admin.html:14
@@ -8291,11 +8291,11 @@ msgstr "Senior Support"
 
 #: ../web/src/partials/i18n_admin.html:292
 msgid "开发商管理员"
-msgstr ""
+msgstr "Property Developer Admin"
 
 #: ../web/src/partials/i18n_admin.html:293
 msgid "中介管理员"
-msgstr ""
+msgstr "Agent Admin"
 
 #: ../web/src/partials/i18n_admin.html:294
 #, fuzzy
@@ -8309,11 +8309,11 @@ msgstr "Annualized Total Estimated Return"
 
 #: ../web/src/partials/i18n_admin.html:297
 msgid "开发商包租百分比"
-msgstr ""
+msgstr "Developer rental guarantee percent"
 
 #: ../web/src/partials/i18n_admin.html:298
 msgid "开发商包租年限"
-msgstr ""
+msgstr "Developer rental guarantee years"
 
 #: ../web/src/partials/i18n_admin.html:300
 #, fuzzy
@@ -8322,11 +8322,11 @@ msgstr "Facilities"
 
 #: ../web/src/partials/i18n_admin.html:301
 msgid "同等房产描述"
-msgstr ""
+msgstr "Similar property description"
 
 #: ../web/src/partials/i18n_admin.html:302
 msgid "历史成交价格"
-msgstr ""
+msgstr "History sale price"
 
 #: ../web/src/partials/i18n_admin.html:303
 #, fuzzy
@@ -8335,15 +8335,15 @@ msgstr "Monthly Financials"
 
 #: ../web/src/partials/i18n_admin.html:304
 msgid "估计月租金收入"
-msgstr ""
+msgstr "Estimated monthly rental income"
 
 #: ../web/src/partials/i18n_admin.html:305
 msgid "估计月平均支出"
-msgstr ""
+msgstr "Estimated average monthly fee"
 
 #: ../web/src/partials/i18n_admin.html:306
 msgid "推广资料"
-msgstr ""
+msgstr "Promotional material"
 
 #: ../web/src/partials/i18n_admin.html:307
 #, fuzzy
@@ -8387,7 +8387,7 @@ msgstr "Open House"
 
 #: ../web/src/partials/i18n_admin.html:331
 msgid "最低首付比例"
-msgstr ""
+msgstr "The minimum down payment ratio"
 
 #: ../web/src/partials/i18n_admin.html:332
 #, fuzzy
@@ -8396,11 +8396,11 @@ msgstr "Property Developer"
 
 #: ../web/src/partials/i18n_admin.html:333
 msgid "受限制"
-msgstr ""
+msgstr "Restricted"
 
 #: ../web/src/partials/i18n_admin.html:334
 msgid "完全匹配"
-msgstr ""
+msgstr "Complete Matching"
 
 #: ../web/src/partials/i18n_admin.html:335
 msgid "部分匹配"
@@ -8420,7 +8420,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:339
 msgid "已确认视频看房"
-msgstr ""
+msgstr "View by live broadcast or video"
 
 #: ../web/src/partials/i18n_admin.html:340
 msgid "预订请求，等待支付"
@@ -8428,7 +8428,7 @@ msgstr "Booking Request, Awaiting Payment"
 
 #: ../web/src/partials/i18n_admin.html:341
 msgid "定金已支付，确认入住"
-msgstr ""
+msgstr "Deposit Paid"
 
 #: ../web/src/partials/i18n_admin.html:342
 #, fuzzy
@@ -8455,11 +8455,11 @@ msgstr "No. of toilets"
 
 #: ../web/src/partials/i18n_admin.html:348
 msgid "已解决"
-msgstr ""
+msgstr "Already Solved"
 
 #: ../web/src/partials/i18n_admin.html:349
 msgid "未解决"
-msgstr ""
+msgstr "Unsolved"
 
 #: ../web/src/partials/i18n_admin.html:361
 #, fuzzy
