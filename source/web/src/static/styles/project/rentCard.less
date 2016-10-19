@@ -61,11 +61,25 @@
                 background-image: url('/static/images/placeholder/img_list_rent_image_holder.png');
                 background-size: cover;
             }
+            
             @media @phone {
                 position:static;
                 width: 100%;
                 min-height: 213px;
             }
+        }
+        .withPlaceholderTxt {
+            color: #fcfcfc;
+            font-size: 36px;
+            position: absolute;
+            top: 50%;
+            z-index: 10;
+            text-align: center;
+            display: block;
+            width: 100%;
+            line-height: 36px;
+            height: 36px;
+            margin-top: -18px;
         }
 
 
@@ -257,7 +271,7 @@
 
                 .label{
                     font-family: @font-normal;
-                    margin-bottom: 10px;
+                    margin-bottom: 5px;
                     font-size: @root-font-size * 0.9;
                     body[lang=en_GB] & {
                         line-height: 1.2;
