@@ -209,47 +209,14 @@
 
             % if not is_mobile_client():
                 <div id="footer" class="siteFooter_wrapper hiddenInClient">
-                    <footer class="siteFooter">
-                        <div class="contact">
-                            <h3>{{_('联系我们')}}</h3>
-                            <p class="phone">
-                                <a href="tel:{{get_phone_numbers('link')[0]}}">
-                                    <i class="icon-phone_icon"></i>
-                                    <span>{{get_phone_numbers('display')[0]}}</span>
-                                </a>
-                            </p>
-                            <p class="email">
-                                <a href="mailto:services@youngfunding.co.uk?subject=Feedback">services@youngfunding.co.uk</a>
-                            </p>
-                            <p class="address">{{_('英国总部')}}: Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
-                            %if _.lang == 'zh_Hans_CN':
-                                <p class="address">{{_('中国总部')}}：湖北省武汉市群光中心22楼</p>
-                            %end
-                            <!--Only for baidu approval-->
-                            <p class="aboutus" ><a href="/about">关于我们</a></p>
-                        </div>
-                        <div class="social">
-                            <h3>{{_('关注我们')}}</h3>
-                            <img class="weixin" src="/static/images/media/wechat_medium.png" alt="{{_('微信订阅号')}}"/>
-                            <a href="http://weibo.com/youngfunding" target="_blank">
-                                <i class="other icon-weibo"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/company/%E6%B4%8B%E6%88%BF%E4%B8%9C-young-funding" target="_blank">
-                                <i class="other icon-linkedin2"></i>
-                            </a>
-                        </div>
-                        <div class="support">
-                            <h3>{{_('服务支持')}}</h3>
-                            <a href="/about">{{_('关于我们')}}</a>
-                            <a href="/terms">{{_('服务声明')}}</a>
-                            <a href="/qa-rent">{{_('帮助中心')}}</a>
-                            <a href="/about/marketing">{{_('市场合作')}}</a>
-                            <a href="/about/media">{{_('媒体合作')}}</a>
-                            <a href="/partner">{{_('合作伙伴')}}</a>
-                        </div>
+                    <footer class="siteFooter clearfix">
                         <div class="localizationChanger">
                             <!-- @if ENV!='production' -->
-                            <h3>{{_('语言和货币')}}</h3>
+                            % if _.lang != "en_GB":
+                                <a href="/"><img class="logo" src="/static/images/logo/logo-footer.png" alt=""/></a>
+                            % else:
+                                <a href="/"><img class="logo" src="/static/images/logo/logo_footer_en.png" alt=""/></a>
+                            % end
                             <div class="language">
                                 <select name="language" class="ghostSelect" style="min-width: 140px;">
                                     <option value="zh_Hans_CN" selected>{{_('简体中文(中国)')}}</option>
@@ -267,7 +234,11 @@
                             </div>
                             <!-- @endif -->
                             <!-- @if ENV='production' -->
-                            <h3>{{_('货币')}}</h3>
+                            % if _.lang != "en_GB":
+                                <a href="/"><img class="logo" src="/static/images/logo/logo-footer.png" alt=""/></a>
+                            % else:
+                                <a href="/"><img class="logo" src="/static/images/logo/logo_footer_en.png" alt=""/></a>
+                            % end
                             <div class="currency">
                                 <select name="currency" class="ghostSelect" style="min-width: 140px;">
                                     <option value="CNY" selected>{{_('人民币')}}</option>
@@ -278,7 +249,52 @@
                                 </select>
                             </div>
                             <!-- @endif -->
+                        </div> <!-- localizationChanger end -->
+                        <div class="contact">
+                            <h3>{{_('联系我们')}}</h3>
+                            <p class="phone">
+                                <a href="tel:{{get_phone_numbers('link')[0]}}">
+                                    <i class="icon-phone_icon"></i>
+                                    <span>{{get_phone_numbers('display')[0]}}</span>
+                                </a>
+                            </p>
+                            <p class="email">
+                                <a href="mailto:services@youngfunding.co.uk?subject=Feedback">services@youngfunding.co.uk</a>
+                            </p>
+                            % if _.lang == "en_GB":
+                            <p class="address">Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
+                            % else:
+                            <p class="address">{{_('中国总部')}}：湖北省武汉市群光中心22楼</p>
+                            % end
+                            <!--Only for baidu approval-->
+                            <p class="aboutus" ><a href="/about">关于我们</a></p>
+                        </div> <!-- contact end -->
+                        
+                        <div class="support">
+                            <h3>{{_('服务支持')}}</h3>
+                            <a href="/about">{{_('关于我们')}}</a>
+                            <a href="/terms">{{_('服务声明')}}</a>
+                            <a href="/qa-rent">{{_('帮助中心')}}</a>
+                            <a href="/about/marketing">{{_('市场合作')}}</a>
+                            <a href="/about/media">{{_('媒体合作')}}</a>
+                            <a href="/partner">{{_('合作伙伴')}}</a>
                         </div>
+                        <div class="social">
+                            <h3>{{_('关注我们')}}</h3>
+                            <div class="socialBd">
+                                <img src="/static/images/media/wechat_medium_en.png" alt="{{_('微信订阅号')}}"/>
+                                <a href="" target="_blank">
+                                    <i class="other icon-facebook"></i>Facebook
+                                </a>
+                                <a href="" target="_blank">
+                                    <i class="other icon-twitter"></i>Twitter
+                                </a>
+                                <a href="https://www.linkedin.com/company/%E6%B4%8B%E6%88%BF%E4%B8%9C-young-funding" target="_blank">
+                                    <i class="other icon-linkedin2"></i>Linked in
+                                </a>
+                            </div>
+                        </div>
+                        
                     </footer>
                 </div>
                 %if _.lang == 'zh_Hans_CN':
