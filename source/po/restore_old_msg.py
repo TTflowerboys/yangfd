@@ -8,23 +8,27 @@ import sys
 
 file_name = sys.argv[1]
 
+
 old_msg_dic = {}
 key = ''
 value = ''
-for line in open(file_name):
-    if line.startswith('#~ msgid'):
-        key = line[3:]
-        # print key
-    elif line.startswith('#~ msgstr'):
-        value = line[3:]
-        # print value
-        if len(key) & len(value):
-            old_msg_dic[key] = value
+with open(file_name) as f:
+    for line in f:
+        if line.startswith('#~ msgid'):
+            key = line[3:]
+            # print key
+        elif line.startswith('#~ msgstr'):
+            value = line[3:]
+            # print value
+            if len(key) & len(value):
+                old_msg_dic[key] = value
 
-previous_line = ''
-for line in open(file_name):
-    if len(previous_line) and previous_line.startswith('msgid ') and line.startswith('msgstr ""') and previous_line in old_msg_dic:
-        print old_msg_dic[previous_line],
-    else:
-        print line,
-    previous_line = line
+    # reset file handle
+    f.seek(0)
+    previous_line = ''
+    for line in f:
+        if len(previous_line) and previous_line.startswith('msgid ') and line.startswith('msgstr ""') and previous_line in old_msg_dic:
+            print old_msg_dic[previous_line],
+        else:
+            print line,
+        previous_line = line
