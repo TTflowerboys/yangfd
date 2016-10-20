@@ -15,6 +15,7 @@
                         <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
                     {_ }else { _}
                         <img class="withPlaceholder"/>
+                        <span class="withPlaceholderTxt">{=window.i18n('房东稍后上传')=}</span>
                     {_ } _}
 
                 <div class="labels">
@@ -93,7 +94,7 @@
                                         <span>{=rent.property.bedroom_count=}</span>{=window.i18n('室') =}
                                     {_}_}
                                     {_if(rent.property.living_room_count) {_}
-                                        <span>{=rent.property.living_room_count=}</span>{=window.i18n('厅')=}
+                                        <span>{=rent.property.living_room_count=}</span><b>{=window.i18n('厅')=}</b>
                                     {_}_}
                                 </p>
                             </div>
