@@ -9,9 +9,21 @@
         .clearfix();
         overflow: hidden;
         background: @footer-bg;
+        .clear{clear:both;}
+        .showInMobile{
+                display:none;
+            }
         @media @phone {
             min-width: 0;
+            .showInMobile{
+                display:block;
+            }
+            @media @phone {
+            .hideInMobile{
+               display: none!important;
+            }
         }
+        
         > footer {
             margin: 0 auto; height: 100%; width: @max-width;
             @media @phone {
@@ -22,8 +34,8 @@
             }
             .contact {
                 @media @phone {
-                    float: none;
-                    display: inline-block;
+                    margin-left: 0;
+                    width: 60%;
                 }
                 float: left;
                 margin-left:80px;
@@ -41,6 +53,10 @@
                         margin-bottom: 0;
                         max-width: 306px;
                         font-size: 15px;
+                        @media @phone{
+                            margin-top: 8px;
+                            line-height: 20px;
+                        }
                     }
                     &.postalCode {
                         margin-left: @content-margin-left;
@@ -59,9 +75,6 @@
                                 color: #fff;
                                 margin-right: 5px;
                                 vertical-align: middle;
-                                @media @phone {
-                                    display: none;
-                                }
                             }
 
                             span{
@@ -71,7 +84,7 @@
 
                                 @media @phone {
                                     line-height: 14px;
-                                    font-size:14px;
+                                    font-size:24px;
                                 }
                             }
                         }
@@ -100,7 +113,6 @@
                             text-decoration: none;
                         }
                         @media @phone {
-                            display: block;
                             margin-left: @content-margin-left;
                             margin-top: 24px;
                             margin-bottom: 0;
@@ -201,13 +213,15 @@
 
             .support {
                 @media @phone {
-                    display:none;
+                    float:right;
+                    margin-left: 0;
+                    margin-top: 102px
                 }
                 float: left;
                 margin-top: @support-margin-top;
                 margin-left: 72px;
                 min-width: 80px;
-                > h3 { color: #aaaaaa; margin-top: 0;  margin-bottom: 15px; font-size: 16px;}
+                > h3 {color: #aaaaaa; margin-top: 0;  margin-bottom: 15px; font-size: 16px;}
                 > a {color: #EEEEEE; text-decoration: none; font-size: 14px; margin-bottom: 5px; display: block;}
             }
             .feature {
@@ -223,6 +237,7 @@
                     float: none;
                     display: block;
                     max-width:100%;
+                    width: auto;
                     margin: 0 auto;
                 }
                 float: left;

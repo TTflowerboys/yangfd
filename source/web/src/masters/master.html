@@ -250,6 +250,7 @@
                             </div>
                             <!-- @endif -->
                         </div> <!-- localizationChanger end -->
+                        <div class="clear showInMobile"></div>
                         <div class="contact">
                             <h3>{{_('联系我们')}}</h3>
                             <p class="phone">
@@ -271,14 +272,15 @@
                         </div> <!-- contact end -->
                         
                         <div class="support">
-                            <h3>{{_('服务支持')}}</h3>
+                            <h3 class="hideInMobile">{{_('服务支持')}}</h3>
                             <a href="/about">{{_('关于我们')}}</a>
                             <a href="/terms">{{_('服务声明')}}</a>
                             <a href="/qa-rent">{{_('帮助中心')}}</a>
-                            <a href="/about/marketing">{{_('市场合作')}}</a>
-                            <a href="/about/media">{{_('媒体合作')}}</a>
-                            <a href="/partner">{{_('合作伙伴')}}</a>
+                            <a class="hideInMobile" href="/about/marketing">{{_('市场合作')}}</a>
+                            <a class="hideInMobile" href="/about/media">{{_('媒体合作')}}</a>
+                            <a class="hideInMobile" href="/partner">{{_('合作伙伴')}}</a>
                         </div>
+                        <div class="clear showInMobile"></div>
                         <div class="social">
                             <h3>{{_('关注我们')}}</h3>
                             <div class="socialBd">
