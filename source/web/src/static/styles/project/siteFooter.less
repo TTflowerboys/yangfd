@@ -10,18 +10,11 @@
         overflow: hidden;
         background: @footer-bg;
         .clear{clear:both;}
-        .showInMobile{
-                display:none;
-            }
+        .showInMobile{ display:none; }
         @media @phone {
             min-width: 0;
-            .showInMobile{
-                display:block;
-            }
-            @media @phone {
-            .hideInMobile{
-               display: none!important;
-            }
+            .showInMobile{ display:block; }
+            .hideInMobile{ display: none!important; }
         }
         
         > footer {
@@ -138,9 +131,9 @@
                 > h3 { margin-top: 0; color: #aaaaaa; font-size: 16px; margin-bottom: 15px;}
                 
 
-                > .socialBd {
+                &_content {
                     padding-left: 122px;
-                        > a {
+                    > a {
                         color:#fff;
                         margin-bottom: 14px;
                         display: inline-block;
@@ -161,53 +154,21 @@
                         }
                     }
                     > img {
-                    @social-icon-size: 50px;
-                    @social-icon-margin: 16px;
-                    @social-icon-margin-top: 72px;
-                    @social-icon-big-margin-top: 0;
-                    margin-right: 10px;
-                    margin-left: -122px;
-                    min-width: 112px;
-                    float: left;
-                    .social-icon-size-small() {
-                        width: @social-icon-size;
+                        @social-icon-size: 50px;
+                        @social-icon-margin: 16px;
+                        @social-icon-margin-top: 72px;
+                        @social-icon-big-margin-top: 0;
+                        margin-right: 10px;
+                        margin-left: -122px;
+                        min-width: 112px;
+                        float: left;
+                        .social-icon-size-small() {
+                            width: @social-icon-size;
+                        }
+                        .social-icon-size-big() {
+                            width: 122px;
+                        }
                     }
-                    .social-icon-size-big() {
-                        width: 122px;
-                    }
-                }
-
-                
-
-
-/*                    &.weibo {
-                        position: absolute;
-                        margin-top: @social-icon-margin-top;
-                        margin-right:@social-icon-margin;
-                        .social-icon-size-small();
-                    }
-                    &.twitter {
-                        position: absolute;
-                        margin-top: @social-icon-margin-top;
-                        margin-left: @social-icon-size + @social-icon-margin;
-                        margin-right:@social-icon-margin;
-                        .social-icon-size-small();
-
-                    }
-                    &.facebook {
-                        position: absolute;
-                        margin-top: @social-icon-margin-top;
-                        margin-left: @social-icon-size * 2 + @social-icon-margin * 2;
-                        margin-right:@social-icon-margin;
-                        .social-icon-size-small();
-                    }
-                    &.weixin {
-                        position: absolute;
-                        .social-icon-size-big();
-                        margin-top: @social-icon-big-margin-top;
-                        margin-left: @social-icon-size * 3 + @social-icon-margin * 3;
-                        margin-right:@social-icon-margin;
-                    }*/
                 }
             }
 
