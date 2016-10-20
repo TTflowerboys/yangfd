@@ -32,7 +32,7 @@
                     <div class="titles">
                         {_if(rent.title) {_}
                             {_if(window.lang ==='en_GB' && team.isChinese(rent.title)) {_}
-                            <p class="name">{=team.truncate(project.getRentTicketTitle(rent), 40)=}</p>
+                            <p class="name">{=team.truncate(project.getRentTicketTitle(rent), 100)=}</p>
                             {_} else {_}
                             <p class="name">{=rent.title=}</p>
                             {_}_}
