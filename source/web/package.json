@@ -16,7 +16,7 @@
     "theme": "gulp styleless2css",
     "sprite": "gulp sprite",
     "setupCDN": "gulp setupCDN",    
-    "generate_i18n_js": "node tools/generate_i18n.js 'src/static/admin/**/*.js' 'src/partials/i18n_admin.html'; node tools/generate_i18n.js 'src/static/scripts/**/*.js' 'src/partials/i18n.html'",    
+    "generate_i18n_js": "node tools/generate_i18n.js 'src/static/admin/**/*.js' 'src/partials/i18n_admin.html'; node tools/generate_i18n.js 'src/static/scripts/**/*.js' 'src/partials/i18n.html'; node tools/generate_i18n.js 'src/static/templates/*.tpl.html' 'src/partials/i18n_templates.html'",    
     "readme": "node tools/generate_readme.js 'README.md' 'README.html'"
   },
   "repository": {
