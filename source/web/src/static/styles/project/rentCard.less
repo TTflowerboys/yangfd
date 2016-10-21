@@ -152,7 +152,7 @@
                 color: @black;
                 font-family: @font-normal;
                 max-width:75%;
-                .limitedLines(2, 30px, transparent);
+                .limitedLines(1, 30px, transparent);
                 line-height: 1.1em;
 
                 a {
@@ -163,6 +163,20 @@
                 @media @phone {
                     font-size: @root-font-size;
                     .limitedLines(2, 24px, transparent);
+                }
+            }
+            >.subHead {
+                font-size: 14/16rem;
+                font-weight: 500;
+                margin: 0;
+                color: #666;
+                font-family: @font-normal;
+                max-width:75%;
+                .limitedLines(1, 30px, transparent)
+                line-height: 1;
+
+                @media @phone {
+                    display:none;
                 }
             }
 
