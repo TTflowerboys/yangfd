@@ -49,10 +49,10 @@
 
                         {_if(rent.no_handling_fee || rent.can_visit) {_}
                             {_if (rent.no_handling_fee) {_}
-                                <p class="noServiceFee">{=window.i18n('免服务费')=}</p>                        
+                                <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
                             {_}_}
                             {_if (rent.can_visit) {_}
-                                <p class="canVisit">{=window.i18n('可实地看房')=}</p>                        
+                                <p class="canVisit">{=window.i18n('可实地看房')=}</p>
                             {_}_}
                         {_}else { _}
                             {_if(rent.last_modified_time - rent.time > 1000) {_}
@@ -131,7 +131,7 @@
                         <div class="right">
                             {_if(rent.no_handling_fee || rent.can_visit) {_}
                                 {_if (rent.no_handling_fee) {_}
-                                    <p class="noServiceFee">{=window.i18n('免服务费')=}</p
+                                    <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
                                 {_}_}
                                 {_if (rent.can_visit) {_}
                                     <p class="canVisit">{=window.i18n('可实地看房')=}</p>
