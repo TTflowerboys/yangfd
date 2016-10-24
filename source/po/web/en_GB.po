@@ -4050,7 +4050,7 @@ msgstr ""
 #: ../web/src/user_invite.html:21
 #, fuzzy
 msgid "您的邀请码"
-msgstr "Your registration invitation code :"
+msgstr "Your invitation code :"
 
 #: ../web/src/user_invite.html:27
 msgid "邮件分享"
@@ -6297,11 +6297,11 @@ msgstr "How can I help you?"
 #: ../web/src/partials/i18n.html:310
 #, fuzzy
 msgid "全部"
-msgstr "Expand"
+msgstr "All"
 
 #: ../web/src/partials/i18n.html:311
 msgid "未读"
-msgstr ""
+msgstr "Unread"
 
 #: ../web/src/partials/i18n.html:312
 msgid "已读"
@@ -9979,7 +9979,7 @@ msgstr "Already Set"
 #: ../web/src/partials/user_settings.html:91
 #: ../web/src/partials/user_settings_phone.html:78
 msgid "微信号设置"
-msgstr "WeChat settings"
+msgstr "WeChat Settings"
 
 #: ../web/src/partials/user_settings.html:92
 msgid "设置后平台将可以通过微信联系您"
