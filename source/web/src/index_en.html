@@ -27,9 +27,16 @@
 <!-- @@include =./partials/location_filter_tpl.html -->
 <div class="indexBanner" data-bind="css: {hiddenInNonClient: activeTab() == 'landlord' && window.team.isPhone()}">
     <h1 data-bind="visible: activeTab() == 'tenant'">{{_('Want to find a house in UK？')}}</h1>
-    <a class="button startButton white" data-action="requirementRent" data-need-bridge>
-        <span>{{_('Start')}}</span>
-    </a>
+    <div class="description">
+        <p>Lorem ipsum dolor sit amet,consectertur adipiscing elit.Aenean euismod bibendum laoreet.Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+        <p>Proin sodales pulvinar tempor.Cum sociis natoque penatibus et magnis dis parturient montes,nascetur ridiculus mus.Nam fermentum.</p>
+    </div>
+    <div class="indexButtonBox">
+        <a class="button startButton" data-action="requirementRent" data-need-bridge>
+            <span>{{_('Start')}}</span>
+        </a>
+        <a href="" class="button learnButton"><span>{{_('Learn More')}}</span></a>
+    </div>
 </div>
 
 <div class="roleChooser">
