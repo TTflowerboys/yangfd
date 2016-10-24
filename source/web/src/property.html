@@ -595,8 +595,8 @@
                                                                 <span class="name">{{_('参考售价')}}</span>
                                                                 <span class="value">
                                                                     %if item.get('total_price_min'):
-                                                                        % string = """<strong>""" + item.get('total_price_min',{}).get('unit_symbol') + """</strong><span data-type="formatted_currency">""" + str(int(float(item.get('total_price_min',{}).get('value')))) + """</span><span>"""
-                                                                        {{!_('%s起') %string}}</span>
+                                                                        % string = u"""<strong>""" + item.get('total_price_min',{}).get('unit_symbol') + u"""</strong><span data-type="formatted_currency">""" + str(int(float(item.get('total_price_min',{}).get('value')))) + u"""</span><span>"""
+                                                                        {{!_(u'%s起') %string}}</span>
                                                                     %end
                                                                 </span>
                                                             </td>
