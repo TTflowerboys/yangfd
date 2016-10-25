@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-10-21 17:28+0800\n"
-"PO-Revision-Date: 2016-10-24 16:23+0800\n"
+"PO-Revision-Date: 2016-10-25 15:05+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -368,12 +368,6 @@ msgstr "Videos"
 #, python-format
 msgid "%s起投"
 msgstr "From %s"
-
-#: ../web/src/crowdfunding.html:177 ../web/src/crowdfunding.html:181
-#: ../web/src/crowdfunding.html:676 ../web/src/crowdfunding.html:680
-#, fuzzy, python-format
-msgid "%s年锁定"
-msgstr "In the lock"
 
 #: ../web/src/crowdfunding.html:195 ../web/src/crowdfunding.html:663
 #: ../web/src/user_finish_investment.html:39
@@ -2038,7 +2032,7 @@ msgstr "Site Viewing"
 #: ../web/src/partials/i18n_templates.html:20
 #, python-format
 msgid "%s更新过"
-msgstr "updated %s"
+msgstr "Updated %s"
 
 #: ../web/src/property_to_rent.html:154 ../web/src/property_to_rent.html:471
 #: ../web/src/partials/i18n_templates.html:21
@@ -6900,27 +6894,27 @@ msgstr ""
 #: ../web/src/partials/i18n.html:461
 #, python-format
 msgid "%s至%s/周的"
-msgstr "From %s to %s"
+msgstr "From %s week to %s week"
 
 #: ../web/src/partials/i18n.html:462
 #, python-format
 msgid "%s/周以上的"
-msgstr "/ week"
+msgstr "Above %s week"
 
 #: ../web/src/partials/i18n.html:463
 #, python-format
 msgid "%s/周以下的"
-msgstr "/ week"
+msgstr "Below %s week"
 
 #: ../web/src/partials/i18n.html:464
 #, python-format
 msgid "我想找%s附近的%s出租房"
-msgstr ""
+msgstr "%s is where i need to rent a %s flat/House near by"
 
 #: ../web/src/partials/i18n.html:465
 #, fuzzy, python-format
 msgid "的%s"
-msgstr "From %s"
+msgstr " %s "
 
 #: ../web/src/partials/i18n.html:466
 #, fuzzy
@@ -7239,7 +7233,7 @@ msgstr ""
 #: ../web/src/partials/i18n.html:539
 #, fuzzy
 msgid "今天更新过"
-msgstr "updated %s"
+msgstr "Today updated"
 
 #: ../web/src/partials/i18n.html:541
 msgid "无法更新，请检查后重试"
@@ -8635,12 +8629,12 @@ msgstr "From %s to %s"
 #: ../web/src/partials/i18n_templates.html:64
 #, fuzzy, python-format
 msgid "%s以上"
-msgstr "/ week"
+msgstr "Above %s"
 
 #: ../web/src/partials/i18n_templates.html:65
 #, fuzzy, python-format
 msgid "%s以下"
-msgstr "/ week"
+msgstr "Below %s"
 
 #: ../web/src/partials/i18n_templates.html:66
 #, fuzzy
@@ -8655,7 +8649,7 @@ msgstr "From %s to %s"
 #: ../web/src/partials/i18n_templates.html:69
 #, fuzzy, python-format
 msgid "%s止"
-msgstr "From %s"
+msgstr "To %s"
 
 #: ../web/src/partials/i18n_templates.html:70
 #, fuzzy
