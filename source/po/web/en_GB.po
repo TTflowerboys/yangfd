@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-10-21 17:28+0800\n"
-"PO-Revision-Date: 2016-10-25 15:05+0800\n"
+"PO-Revision-Date: 2016-10-25 16:49+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -2079,7 +2079,7 @@ msgstr "About "
 #: ../web/src/wechat_poster.html:73 ../web/src/partials/i18n_templates.html:17
 #, fuzzy
 msgid "/月"
-msgstr "month(s)"
+msgstr "/month"
 
 #: ../web/src/property_to_rent.html:175
 msgid "包Bill"

@@ -393,6 +393,9 @@ body {
                 min-width: 80px;
                 padding-right: 10px;                
                 border-right: 1px solid @border-color;
+                body[lang=en_GB] & {
+	            font-size: 14px;
+                }
 
                 strong {
                     display: block;
@@ -431,6 +434,10 @@ body {
                         vertical-align:middle;
                         font-weight: bold;
                         font-size: 16px;
+
+                        body[lang=en_GB] & {
+	                    font-size: 14px;
+                        }
                         &.yes {
                             color:#0fc535;
                         }
@@ -445,7 +452,7 @@ body {
         >.currentRoommates {
             height: 48px;
             margin-bottom:30px;
-            
+
             ul {
                 float: left;
                 width: 100%;
@@ -494,6 +501,10 @@ body {
                     float: left;
                     width: 33%;
                     height: 100%;
+
+                    body[lang=en_GB] & {
+	                font-size: 14px;
+                    }
 
                     strong {
                         display: block;
