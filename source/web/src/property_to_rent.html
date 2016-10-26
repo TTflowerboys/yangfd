@@ -552,52 +552,8 @@
                             </li>
                         </ul>
                     </div>
-                %end
-
-                <table class="actions">
-                    <tr>
-                        <td style="text-align:left;">
-                            <button data-fn="addFav" data-rent-id="{{rent.get('id','')}}"
-                                    class="flatButton ajaxButton"
-                                    style="{{ 'display:none' if is_favorited else ''}}"
-                                    data-message-40090="{{_('已经收藏过了')}}">
-                                <i class="icon-faver"></i>
-                                <span class="text"> {{_('收藏')}} </span>
-                            </button>
-                            <button data-fn="removeFav"
-                                    class="flatButton ajaxButton"
-                                    style="{{ 'display:none' if not is_favorited else ''}}"
-                                    % if is_favorited:
-                                    data-rent-id="{{rent.get('id','')}}"
-                                    % end
-                                    >
-                                    <i class="icon-faveractive"></i>
-                                    <span class="text"> {{_('取消收藏') }} </span>
-                            </button>
-                        </td>
-                        <td style="text-align:center;">
-                            <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
-                                <i class="icon-wechat"></i>
-                                {{_('分享到微信')}}
-                            </button>
-                        </td>
-                        <td style="text-align:right;">
-                            % title = rent.get('title',u'').replace("\'", "\\\'")
-                            <button class="flatButton orange" onclick="team.shareToWeibo({
-                                    title:'{{_(u'房东急租，快来围观') + title}}',
-                                    url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
-                                    % if rent['property'].get('reality_images'):
-                                    ,pic:'{{rent['property'].get('reality_images')[0]}}'
-                                    % end
-                                    }) ">
-                                    <i class="icon-weibo"></i>
-                                    {{_('分享到微博')}}
-                            </button>
-                        </td>
-                    </tr>
-                </table>
+                %end                
             </div>
-            <!--租房流程-->
             <div class="rentRequestFlow">
                 %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
                     <button class="button red hiddenOnMobile ajaxButton" data-bind="click: function() { openRentRequestForm('{{rent.get('id')}}', true)}">
@@ -614,6 +570,53 @@
                     </div>
                 %end
             </div>
+            <div class="rentActions clearfix">
+                <div class="fl">
+                    <button data-fn="addFav" data-rent-id="{{rent.get('id','')}}"
+                            class="ajaxButton"
+                            style="{{ 'display:none' if is_favorited else ''}}"
+                            data-message-40090="{{_('已经收藏过了')}}">
+                        <i class="icon-faver"></i>
+                        <span class="text"> {{_('收藏')}} </span>
+                    </button>
+                    <button data-fn="removeFav"
+                            class="ajaxButton unfavorite"
+                            style="{{ 'display:none' if not is_favorited else ''}}"
+                            % if is_favorited:
+                            data-rent-id="{{rent.get('id','')}}"
+                            % end
+                            >
+                            <i class="icon-faveractive"></i>
+                            <span class="text"> {{_('取消收藏') }} </span>
+                    </button>
+                </div>
+                <div class="fr">
+                    Share to
+                    <button class="flatButton facebook">
+                            <i class="icon-facebook"></i>
+                    </button>
+                    <button class="flatButton twitter">
+                            <i class="icon-twitter"></i>
+                    </button>
+                    <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
+                            <i class="icon-wechat"></i>
+                    </button>
+                    <button class="flatButton">
+                            <i class="icon-email"></i>
+                    </button>
+                    <!--% title = rent.get('title',u'').replace("\'", "\\\'")
+                    <button class="flatButton orange" onclick="team.shareToWeibo({
+                            title:'{{_(u'房东急租，快来围观') + title}}',
+                            url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
+                            % if rent['property'].get('reality_images'):
+                            ,pic:'{{rent['property'].get('reality_images')[0]}}'
+                            % end
+                            }) ">
+                            <i class="icon-weibo"></i>
+                    </button>-->
+                </div>                
+            </div>
+            <!--租房流程-->
             <div class="seperator"></div>
             <div class="rentPreferences">
                 %if rent.get('rent_type') and rent.get('rent_type').get('slug') == "rent_type:single":

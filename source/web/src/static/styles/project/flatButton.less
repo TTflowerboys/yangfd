@@ -2,11 +2,49 @@
 @import "_imports";
 @green: #8acd24;
 @orange: #ff9800;
+@main-color: #e61919;
+@facebook-color: #4964a1;
+@twitter-color: #2aa3ef;
 
-.flatButton {
-    border: none; background: @red; color: white; padding: 4px 24px; border-radius: 6px; line-height: 32px; cursor: pointer;
-    display: inline-block; text-decoration: none;
-    &.disabled, &[disabled] { background: #ccc; }
-    &.green { background: @green; }
-    &.orange { background: @orange; }
+.rentActions{
+	>.fl{
+		float:left;
+		button{
+			width: 136px;text-align: center;border: 2px solid @main-color;color: @main-color;background:transparent;text-transform:uppercase; padding: 3px 0; border-radius: 6px; line-height: 26px; cursor: pointer;display: inline-block; text-decoration: none;
+    		&.disabled, &[disabled] { background: #ccc; }
+			&.unfavorite{background:@main-color;color:#fff;}
+		}
+	}
+	>.fr{
+		float:right;
+		margin-top: 8px;
+		line-height: 20px;
+		.flatButton{
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			border: none;
+			padding: 0;
+			margin: 0 2px;
+			background: #ccc;
+			border-radius: 3px;
+			&.green{
+				background: @green;
+			}
+			&.orange{
+				background: @orange;
+			}
+			&.facebook{
+				background: @facebook-color;
+			}
+			&.twitter{
+				background: @twitter-color;
+			}
+			i{
+				display: block;
+				font-size: 14px;
+				color: #fff;
+			}
+		}
+	}
 }

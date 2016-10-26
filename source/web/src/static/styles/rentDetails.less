@@ -352,7 +352,8 @@ body {
     .rentRequestFlow {
         display: block;
         width: 100%;
-        margin-top: 10px;
+        margin-top: 45px;
+        margin-bottom: 45px;
         .button{
             width: 100%;
             height: 60px;
@@ -362,13 +363,14 @@ body {
             text-align: center;
             font-size: 18px;
             border-radius: 4px;
+            text-transform: uppercase;
         }
 
         .shortid {
             margin-bottom: @standard-margin * 2;
             font-size: 0.938rem;
             text-align: center;
-            font-weight: bold;
+            font-weight: normal;
 
             .label {
                 color: @red;
@@ -619,6 +621,9 @@ body {
             }
             .withPlaceholderTxt{
                 position: absolute;top: 313px;left: 0;color: #b6b6b6;font-size: 32px;text-align: center;left: 50%;width: 220px;margin-left: -110px;
+                @media @phone{
+                    display: none;
+                }
             }
             .item {
                 .rentOut{
