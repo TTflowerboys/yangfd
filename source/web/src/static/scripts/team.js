@@ -224,7 +224,6 @@
 
             return false
         },
-
         isPhone: function () {
             return $(window).width() < 768
         },
