@@ -7,7 +7,7 @@
             <p style="margin:12px 0">
                 {%$root.i18n('您好，您的房源')%}
                 <a style="color: #e60012;" ng-href="{%host%}/property-to-rent/{%item.interested_rent_tickets[0].id%}">{%item.interested_rent_tickets[0].title%}</a>
-                {%$root.i18n('收到新回复：')%}
+                {%$root.i18n('收到租客 ')%}{% item.user.nickname%}{%$root.i18n('新回复：')%}
             </p>
         </div>
         <div class="noHorizolPaddingOnMobile" style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
@@ -28,7 +28,6 @@
                         <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('入住人数')%}</p>
                         <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.tenant_count%}</p>
                     </td>
-                    
                     <td style="width: 50%; padding: 10px 0;">
                         <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('性别')%}</p>
                         <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{%item.gender | capitalize%}</p>

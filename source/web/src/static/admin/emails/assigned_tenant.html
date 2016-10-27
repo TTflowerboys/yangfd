@@ -16,7 +16,7 @@
             <p style="margin:20px 0; color: #999; ">
                 {%$root.i18n('欢迎您上传您的相关身份证明、大学录取通知书或劳动合同在您的账户信息中，这样也许会让房东更容易接受您的预定请求 - 赶紧来试试吧~ ')%}
             </p>
-            <p style="margin:12px 0">                
+            <p style="margin:12px 0">
                 {%$root.i18n('回复本邮件可与房东沟通。如果您收到了洋房东平台咨询匹配的短信，您可以直接回复短信与房东进行沟通。谢谢！')%}
             </p>
             <div class="noHorizolPaddingOnMobile" style="padding: 60px 15%; ">
@@ -24,6 +24,7 @@
                     <div style="width: 100%; padding-top: 60%; background-size: cover; background-repeat: no-repeat; background-image: url('{%item.interested_rent_tickets[0].property.cover[userLanguage.value] || item.interested_rent_tickets[0].property.reality_images[0][userLanguage.value] || '/static/images/placeholder/img_rent_detail_holder.png'%}')">
                     </div>
                     <p style="margin:0; padding:20px; text-align: center; color: #333; font-weight: bold; background: #eee; text-decoration: none;">{%item.interested_rent_tickets[0].title%}</p>
+                    <p style="margin:0; padding:20px; text-align: center; color: #333; font-weight: bold; background: #eee; text-decoration: none;">{%$root.i18n('房东姓名 ')%}{%item.interested_rent_tickets[0].user.nickname%}</p>
                 </a>
             </div>
         </div>
