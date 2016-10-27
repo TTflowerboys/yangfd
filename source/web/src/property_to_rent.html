@@ -595,7 +595,11 @@
                     <button class="flatButton facebook" data-fn="shareToFacebook" data-url="http://127.0.0.1:8181/property-to-rent/57f7450f571cd902cbabca77">
                             <i class="icon-facebook"></i>
                     </button>
-                    <button class="flatButton twitter">
+                    % title = rent.get('title',u'').replace("\'", "\\\'")
+                    <button class="flatButton twitter" onclick="team.shareToTwitter({
+                            text:'{{_(u'房东急租，快来围观') + title}}',
+                            url: location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}'
+                            }) ">
                             <i class="icon-twitter"></i>
                     </button>
                     <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
