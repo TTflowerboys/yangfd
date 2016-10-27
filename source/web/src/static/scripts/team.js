@@ -231,7 +231,8 @@
         shareToTwitter: function (_options, _config) {
             var defaultOptions = {
                 url: location.href || '',
-                text: document.title || ''
+                text: document.title || '',
+                via: "yonger_lei"
             }
             var defaultConfig = {
                 width: 800,
