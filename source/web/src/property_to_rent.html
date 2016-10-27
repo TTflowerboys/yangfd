@@ -592,7 +592,7 @@
                 </div>
                 <div class="fr">
                     Share to
-                    <button class="flatButton facebook">
+                    <button class="flatButton facebook" data-fn="shareToFacebook" data-url="http://127.0.0.1:8181/property-to-rent/57f7450f571cd902cbabca77">
                             <i class="icon-facebook"></i>
                     </button>
                     <button class="flatButton twitter">
@@ -604,7 +604,7 @@
                     <button class="flatButton">
                             <i class="icon-email"></i>
                     </button>
-                    <!--% title = rent.get('title',u'').replace("\'", "\\\'")
+                    % title = rent.get('title',u'').replace("\'", "\\\'")
                     <button class="flatButton orange" onclick="team.shareToWeibo({
                             title:'{{_(u'房东急租，快来围观') + title}}',
                             url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
@@ -613,7 +613,7 @@
                             % end
                             }) ">
                             <i class="icon-weibo"></i>
-                    </button>-->
+                    </button>
                 </div>                
             </div>
             <!--租房流程-->
@@ -1046,6 +1046,35 @@
          %end
          window.wechatShareSDK.init(wechatShareData)
      })()
+
+     /*
+      * Facebook share sdk
+      * */
+    window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '325908124445960',
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    $('[data-fn=shareToFacebook]').on('click',function(){
+        //var shareUrl = $(this).data("url");
+        var shareUrl = location.protocol + '//' + location.host + '//{{rent.get('id')}}';
+        console.log(shareUrl);
+        FB.ui({
+                method: 'share',
+                display: 'popup',
+                href: shareUrl
+              });
+    })
     </script>
 
     <!--@@close-->
