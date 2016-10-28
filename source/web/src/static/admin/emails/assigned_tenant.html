@@ -28,48 +28,60 @@
                 </a>
             </div>
         </div>
-        <div class="noHorizolPaddingOnMobile" style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
-            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('Your Booking Request details')%}</h2>
-            <table class="smallFontSize" style="width: 100%;color:#666;">
+         <div class="noHorizolPaddingOnMobile" style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
+            <table class="smallFontSize" style="width: 100%;color: #666;">
+                <caption style="padding: 20px 0;font-weight: bold;">{%$root.i18n('Tenant(s) Information 租客信息')%}</caption>
                 <tr>
-                    <td>
-                        <div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
-                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('MOVE IN')%}</p>
-                            <p style="color: #e60012;margin: 0 0 8px; font-size: 20px;">{% item.rent_available_time * 1000 | date : 'yyyy/MM/dd'%}</p>
-                        </div><div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
-                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('MOVE OUT')%}</p>
-                            <p style="color: #e60012; margin: 0 0 8px; font-size: 20px;">{% item.rent_deadline_time * 1000 | date : 'yyyy/MM/dd'%}</p>
-                        </div><div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
-                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('NUMBER OF TENANT')%}</p>
-                            <p style="color: #e60012;margin: 0 0 8px; font-size: 20px;">{% item.tenant_count%}</p>
-                        </div>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('GENDER 性别')%}</p>
+                        <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{%item.gender | capitalize%}</p>
+                    </td>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('AGE 年龄')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{%item.age | number:0%}</p>
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 10px 0;">
-                        <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('EMAIL')%}</p>
-                        <p style="color: #e60012; margin: 0 0 8px; font-size: 20px;">{%item.creator_user.email%}</p>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('NUMBER OF TENANT 入住人数')%}</p>
+                        <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.tenant_count%}</p>
+                    </td>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('OCCUPATION 职业')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;" show-i18n="item.occupation.value"></p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
-                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('BABY')%}</p>
-                            <p style="color: #e60012; margin: 0 0 8px;  font-size: 20px;">{% item.baby | boolean | capitalize%}</p>
-                        </div><div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
-                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('PETS')%}</p>
-                            <p style="color: #e60012;margin: 0 0 8px; font-size: 20px;">{% item.pet | boolean | capitalize%}</p>
-                        </div><div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
-                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('SMOKING')%}</p>
-                            <p style="color: #e60012; margin: 0 0 8px; font-size: 20px;">{% item.smoke | boolean | capitalize%}</p>
-                        </div>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('MOVE IN 入住')%}</p>
+                        <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.rent_available_time * 1000 | date : 'yyyy/MM/dd'%}</p>
+                    </td>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('MOVE OUT 搬出')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.rent_deadline_time * 1000 | date : 'yyyy/MM/dd'%}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('BABY 是否带小孩')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.baby | boolean | capitalize%}</p>
+                    </td>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('PETS 是否携带宠物')%}</p>
+                        <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.pet | boolean | capitalize%}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('SMOKING 是否吸烟')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.smoke | boolean | capitalize%}</p>
                     </td>
                 </tr>
             </table>
         </div>
 
         <div style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
-            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('Your application details')%}</h2>
+            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('Your application details 申请原因')%}</h2>
             <div style="margin-left: -12px;">
                 <table style="width: 100%">
                     <tr>
@@ -85,15 +97,15 @@
         </div>
 
         <div style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
-            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('Payment Information')%}</h2>
+            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('费用信息')%}</h2>
             <p style="text-align: center; ">
-                {%$root.i18n('Once the host has accept your booking request, you will be asked to proceed withyour payment for the following amount')%}
+                {%$root.i18n('如果房东接受了您的预订请求，预订房源时您将需要支付以下费用')%}
             </p>
             <table style="margin: 20px 0;">
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td style="width: 70%;padding: 10px 0 10px 20px;">
-                        <p style="font-weight: bold;">{%$root.i18n('Holding Deposit')%}</p>
-                        <p style="">{%$root.i18n('note this may change respect to your move in date incorresponds with host’s occupance allocation')%}</p>
+                        <p style="font-weight: bold;">{%$root.i18n('预订金')%}</p>
+                        <p style="">{%$root.i18n('订金用来预订房源，并将在入住后作为押金或租金的一部分交给房东。')%}</p>
                     </td>
                     <td style="width: 30%;padding: 10px 20px 10px 0; text-align: right; color: #e60012; font-size: 20px;">
                         {%(item.interested_rent_tickets[0].holding_deposit.unit || 'GBP') | values : currencyTypes%} {%(item.interested_rent_tickets[0].holding_deposit.value || '500.0') | number:0%}
@@ -101,7 +113,7 @@
                 </tr>
                 <tr>
                     <td style="width: 70%;padding: 10px 0 10px 20px;">
-                        <p style="font-weight: bold;">{%$root.i18n('Service fee')%}</p>
+                        <p style="font-weight: bold;">{%$root.i18n('洋房东服务费')%}</p>
                     </td>
                     <td ng-if="!isStudentHouse(item.interested_rent_tickets[0])" style="width: 30%;padding: 10px 20px 10px 0; text-align: right; color: #e60012; font-size: 20px;">
                         {%item.interested_rent_tickets[0].price.unit | values : currencyTypes%} {%(item.payment) | number:0%}
