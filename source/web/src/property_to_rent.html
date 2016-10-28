@@ -593,7 +593,7 @@
                 <div class="actionsList">
                     Share to
                     % if _.lang == "en_GB":
-                    <button class="flatButton facebook" data-fn="shareToFacebook" data-id="{{rent.get('id','')}}">
+                    <button class="flatButton facebook" data-fn="shareToFacebook" data-url="/property-to-rent/{{rent.get('id','')}}">
                             <i class="icon-facebook"></i>
                     </button>
                     % title = rent.get('title',u'').replace("\'", "\\\'")
@@ -1065,18 +1065,15 @@
                 version: 'v2.8'
             });
             $('[data-fn=shareToFacebook]').on('click',function(){
-                window.openFacebookShare('{{rent.get('id','')}}');
+                var url = location.protocol + '//' + location.host + $(this).data('url');               
                 FB.ui({
                     method: 'share',
                     display: 'popup',
-                    href: window.location.href
+                    href: url
                 });
             })
         })
     });
-    window.openFacebookShare = function (rentId) {
-        window.location.href = location.protocol + '//' + location.host + '/property-to-rent/' + rentId;
-    }   
     </script>
 
     <!--@@close-->
