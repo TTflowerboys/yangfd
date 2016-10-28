@@ -590,21 +590,25 @@
                             <span class="text"> {{_('取消收藏') }} </span>
                     </button>
                 </div>
-                <div class="fr">
+                <div class="actionsList">
                     Share to
-                    <button class="flatButton facebook">
+                    % if _.lang == "en_GB":
+                    <button class="flatButton facebook" data-fn="shareToFacebook" data-id="{{rent.get('id','')}}">
                             <i class="icon-facebook"></i>
                     </button>
-                    <button class="flatButton twitter">
+                    % title = rent.get('title',u'').replace("\'", "\\\'")
+                    <button class="flatButton twitter" onclick="team.shareToTwitter({
+                            url: location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}',
+                            text:'{{_(u'房东急租，快来围观') + title}}'                            
+                            }) ">
                             <i class="icon-twitter"></i>
                     </button>
+                    % end
                     <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
                             <i class="icon-wechat"></i>
                     </button>
-                    <button class="flatButton">
-                            <i class="icon-email"></i>
-                    </button>
-                    <!--% title = rent.get('title',u'').replace("\'", "\\\'")
+                    % if _.lang != "en_GB":
+                    % title = rent.get('title',u'').replace("\'", "\\\'")
                     <button class="flatButton orange" onclick="team.shareToWeibo({
                             title:'{{_(u'房东急租，快来围观') + title}}',
                             url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
@@ -613,7 +617,8 @@
                             % end
                             }) ">
                             <i class="icon-weibo"></i>
-                    </button>-->
+                    </button>
+                    % end
                 </div>                
             </div>
             <!--租房流程-->
@@ -1046,6 +1051,32 @@
          %end
          window.wechatShareSDK.init(wechatShareData)
      })()
+
+     /*
+      * Facebook share sdk
+      * */
+    
+    $(function(){
+        $.ajaxSetup({ cache: true });
+        $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+            FB.init({
+                appId: '325908124445960',
+                xfbml      : true,
+                version: 'v2.8'
+            });
+            $('[data-fn=shareToFacebook]').on('click',function(){
+                window.openFacebookShare('{{rent.get('id','')}}');
+                FB.ui({
+                    method: 'share',
+                    display: 'popup',
+                    href: window.location.href
+                });
+            })
+        })
+    });
+    window.openFacebookShare = function (rentId) {
+        window.location.href = location.protocol + '//' + location.host + '/property-to-rent/' + rentId;
+    }   
     </script>
 
     <!--@@close-->

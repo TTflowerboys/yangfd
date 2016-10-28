@@ -224,7 +224,39 @@
 
             return false
         },
+        /**
+         * Share something to Weibo
+         * @param {object} {title:'',url:'',pic:''}
+         */
+        shareToTwitter: function (_options, _config) {
+            var defaultOptions = {
+                url: location.href || '',
+                text: document.title || '',
+                via: "yonger_lei"
+            }
+            var defaultConfig = {
+                width: 800,
+                height: 252
+            }
+            var options = $.extend({}, defaultOptions, _options)
+            var config = $.extend({}, defaultConfig, _config)
+            var query = _.pairs(options).map(function (item) {
+                return [encodeURIComponent(item[0]), encodeURIComponent(item[1])].join('=')
+            }).join('&')
 
+            var url = 'https://twitter.com/share?' + query
+
+            var width = config.width
+            var height = config.height
+            var left = (screen.width / 2) - (width / 2)
+            var top = (screen.height / 2) - (height / 2)
+
+            window.open(url, '_blank',
+                    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+                    width + ', height=' + height + ', top=' + top + ', left=' + left)
+
+            return false
+        },
         isPhone: function () {
             return $(window).width() < 768
         },
