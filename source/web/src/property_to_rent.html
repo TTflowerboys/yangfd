@@ -590,10 +590,10 @@
                             <span class="text"> {{_('取消收藏') }} </span>
                     </button>
                 </div>
-                <div class="fr">
+                <div class="actionsList">
                     Share to
                     % if _.lang == "en_GB":
-                    <button class="flatButton facebook" data-fn="shareToFacebook">
+                    <button class="flatButton facebook" data-fn="shareToFacebook" data-id="{{rent.get('id','')}}">
                             <i class="icon-facebook"></i>
                     </button>
                     % title = rent.get('title',u'').replace("\'", "\\\'")
@@ -1055,30 +1055,28 @@
      /*
       * Facebook share sdk
       * */
-    window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '325908124445960',
-          xfbml      : true,
-          version    : 'v2.8'
-        });
-        FB.AppEvents.logPageView();
-    };
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    $('[data-fn=shareToFacebook]').on('click',function(){
-        //var shareUrl = $(this).data("url");
-        var shareUrl = location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}';
-        FB.ui({
-                method: 'share',
-                display: 'popup',
-                href: shareUrl
-              });
-    })
+    
+    $(function(){
+        $.ajaxSetup({ cache: true });
+        $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+            FB.init({
+                appId: '325908124445960',
+                xfbml      : true,
+                version: 'v2.8'
+            });
+            $('[data-fn=shareToFacebook]').on('click',function(){
+                window.openFacebookShare('{{rent.get('id','')}}');
+                FB.ui({
+                    method: 'share',
+                    display: 'popup',
+                    href: window.location.href
+                });
+            })
+        })
+    });
+    window.openFacebookShare = function (rentId) {
+        window.location.href = location.protocol + '//' + location.host + '/property-to-rent/' + rentId;
+    }   
     </script>
 
     <!--@@close-->

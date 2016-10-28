@@ -236,7 +236,7 @@
             }
             var defaultConfig = {
                 width: 800,
-                height: 480
+                height: 252
             }
             var options = $.extend({}, defaultOptions, _options)
             var config = $.extend({}, defaultConfig, _config)
