@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 from collections import defaultdict
 import csv
+from funcy.py3 import lmap, lfilter
 from bson import SON
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, GEO2D
@@ -97,11 +98,11 @@ class f_doogal(f_app.module_base):
             result = {}
 
             with f_app.mongo() as m:
-                result_list = list(self.station.get_database(m).find({"_id": {"$in": [ObjectId(user_id) for user_id in station_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.station.get_database(m).find({"_id": {"$in": lmap(ObjectId, station_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if not force_reload and len(result_list) < len(station_id_or_list):
-                found_list = map(lambda station: str(station["_id"]), result_list)
-                abort(40400, self.logger.warning("Non-exist station:", filter(lambda station_id: station_id not in found_list, station_id_or_list), exc_info=False))
+                found_list = lmap(lambda station: str(station["_id"]), result_list)
+                abort(40400, self.logger.warning("Non-exist station:", lfilter(lambda station_id: station_id not in found_list, station_id_or_list), exc_info=False))
 
             for station in result_list:
                 result[station["id"]] = _format_each(station)
@@ -181,14 +182,14 @@ class f_maponics(f_app.plugin_base):
 
         if f_app.util.batch_iterable(neighborhood_id_or_list):
             with f_app.mongo() as m:
-                result_list = list(self.neighborhood.get_database(m).find({"_id": {"$in": list(map(ObjectId, neighborhood_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.neighborhood.get_database(m).find({"_id": {"$in": lmap(ObjectId, neighborhood_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(neighborhood_id_or_list):
-                found_list = map(lambda neighborhood: str(neighborhood["_id"]), result_list)
+                found_list = lmap(lambda neighborhood: str(neighborhood["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist neighborhood:", filter(lambda neighborhood_id: neighborhood_id not in found_list, neighborhood_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist neighborhood:", lfilter(lambda neighborhood_id: neighborhood_id not in found_list, neighborhood_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist neighborhood:", filter(lambda neighborhood_id: neighborhood_id not in found_list, neighborhood_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist neighborhood:", lfilter(lambda neighborhood_id: neighborhood_id not in found_list, neighborhood_id_or_list), exc_info=False)
 
             result = {neighborhood["id"]: _format_each(neighborhood) for neighborhood in result_list}
             return result
@@ -319,14 +320,14 @@ class f_hesa(f_app.plugin_base):
 
         if f_app.util.batch_iterable(university_id_or_list):
             with f_app.mongo() as m:
-                result_list = list(self.university.get_database(m).find({"_id": {"$in": list(map(ObjectId, university_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.university.get_database(m).find({"_id": {"$in": lmap(ObjectId, university_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(university_id_or_list):
-                found_list = map(lambda university: str(university["_id"]), result_list)
+                found_list = lmap(lambda university: str(university["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist university:", filter(lambda university_id: university_id not in found_list, university_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist university:", lfilter(lambda university_id: university_id not in found_list, university_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist university:", filter(lambda university_id: university_id not in found_list, university_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist university:", lfilter(lambda university_id: university_id not in found_list, university_id_or_list), exc_info=False)
 
             result = {university["id"]: _format_each(university) for university in result_list}
             return result
@@ -415,14 +416,14 @@ class f_main_mixed_index(f_app.plugin_base):
 
         if f_app.util.batch_iterable(main_mixed_index_id_or_list):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, main_mixed_index_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, main_mixed_index_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(main_mixed_index_id_or_list):
-                found_list = map(lambda main_mixed_index: str(main_mixed_index["_id"]), result_list)
+                found_list = lmap(lambda main_mixed_index: str(main_mixed_index["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist main_mixed_index:", filter(lambda main_mixed_index_id: main_mixed_index_id not in found_list, main_mixed_index_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist main_mixed_index:", lfilter(lambda main_mixed_index_id: main_mixed_index_id not in found_list, main_mixed_index_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist main_mixed_index:", filter(lambda main_mixed_index_id: main_mixed_index_id not in found_list, main_mixed_index_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist main_mixed_index:", lfilter(lambda main_mixed_index_id: main_mixed_index_id not in found_list, main_mixed_index_id_or_list), exc_info=False)
 
             result = {main_mixed_index["id"]: _format_each(main_mixed_index) for main_mixed_index in result_list}
             return result
@@ -470,7 +471,7 @@ class f_main_mixed_index(f_app.plugin_base):
             tmp_result = m.command(search_command)["results"]
 
         result = []
-        index_id_list = map(lambda item: str(item["obj"]["_id"]), tmp_result)
+        index_id_list = lmap(lambda item: str(item["obj"]["_id"]), tmp_result)
 
         if not output:
             return index_id_list
