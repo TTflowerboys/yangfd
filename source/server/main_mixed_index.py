@@ -207,6 +207,7 @@ class f_maponics(f_app.plugin_base):
 
             return _format_each(result)
 
+    @f_cache("maponicsneighborhoodbyid")
     def neighborhood_get_by_nid(self, nid):
         return self.neighborhood.search({"nid": nid})
 
