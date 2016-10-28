@@ -593,7 +593,7 @@
                 <div class="fr">
                     Share to
                     % if _.lang == "en_GB":
-                    <button class="flatButton facebook" data-fn="shareToFacebook" data-url="http://127.0.0.1:8181/property-to-rent/57f7450f571cd902cbabca77">
+                    <button class="flatButton facebook" data-fn="shareToFacebook">
                             <i class="icon-facebook"></i>
                     </button>
                     % title = rent.get('title',u'').replace("\'", "\\\'")
@@ -606,9 +606,6 @@
                     % end
                     <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
                             <i class="icon-wechat"></i>
-                    </button>
-                    <button class="flatButton">
-                            <i class="icon-email"></i>
                     </button>
                     % if _.lang != "en_GB":
                     % title = rent.get('title',u'').replace("\'", "\\\'")
@@ -1075,8 +1072,7 @@
     }(document, 'script', 'facebook-jssdk'));
     $('[data-fn=shareToFacebook]').on('click',function(){
         //var shareUrl = $(this).data("url");
-        var shareUrl = location.protocol + '//' + location.host + '//{{rent.get('id')}}';
-        console.log(shareUrl);
+        var shareUrl = location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}';
         FB.ui({
                 method: 'share',
                 display: 'popup',
