@@ -2,6 +2,8 @@
 from __future__ import unicode_literals, absolute_import
 import random
 from datetime import datetime
+from funcy.py3 import lmap, lfilter
+from whatever import that
 import six
 from bson import SON
 from bson.objectid import ObjectId
@@ -31,14 +33,14 @@ class currant_property(f_app.module_base):
 
         if isinstance(property_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, property_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, property_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(property_id_or_list):
-                found_list = map(lambda property: str(property["_id"]), result_list)
+                found_list = lmap(lambda property: str(property["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist property:", filter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist property:", lfilter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist property:", filter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist property:", lfilter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False)
 
             result = {property["id"]: _format_each(property) for property in result_list}
             return result
@@ -243,7 +245,7 @@ class currant_property(f_app.module_base):
             tmp_result = m.command(search_command)["results"]
 
         result = []
-        property_id_list = map(lambda item: str(item["obj"]["_id"]), tmp_result)
+        property_id_list = lmap(lambda item: str(item["obj"]["_id"]), tmp_result)
 
         if not output:
             return property_id_list
@@ -273,7 +275,7 @@ class currant_property(f_app.module_base):
 
             if not _ignore_render_pdf and "brochure" in params["$set"] and params["$set"]["brochure"]:
                 old_property = f_app.property.get(property_id)
-                old_urls = map(lambda item: item["url"], old_property.get("brochure", []))
+                old_urls = lmap(lambda item: item["url"], old_property.get("brochure", []))
                 for item in params["$set"]["brochure"]:
                     if item["url"] not in old_urls:
                         item["rendering"] = True
@@ -294,7 +296,7 @@ class currant_property(f_app.module_base):
                     ))
 
             elif not _ignore_render_pdf and "$set" in params and "brochure" in params["$set"] and params["$set"]["brochure"]:
-                old_urls = map(lambda item: item["url"], old_property.get("brochure", []))
+                old_urls = lmap(that["url"], old_property.get("brochure", []))
                 for item in params["$set"]["brochure"]:
                     if item["url"] not in old_urls:
                         f_app.task.add(dict(
@@ -482,14 +484,14 @@ class currant_plot(f_app.module_base):
 
         if isinstance(plot_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, plot_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, plot_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(plot_id_or_list):
-                found_list = map(lambda plot: str(plot["_id"]), result_list)
+                found_list = lmap(lambda plot: str(plot["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist plot:", filter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist plot:", lfilter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist plot:", filter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist plot:", lfilter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False)
 
             result = {plot["id"]: _format_each(plot) for plot in result_list}
             return result
