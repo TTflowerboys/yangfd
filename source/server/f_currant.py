@@ -9,6 +9,7 @@ from collections import Counter
 import phonenumbers
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
+from funcy.py3 import lmap, lfilter
 import six
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
@@ -558,14 +559,14 @@ class f_currant_log(f_log):
 
         if isinstance(log_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, log_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, log_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(log_id_or_list):
-                found_list = map(lambda log: str(log["_id"]), result_list)
+                found_list = lmap(lambda log: str(log["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist log:", filter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist log:", lfilter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist log:", filter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist log:", lfilter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False)
 
             result = {log["id"]: _format_each(log) for log in result_list}
             return result
@@ -710,14 +711,14 @@ class currant_user(f_user):
 
         if isinstance(favorite_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, favorite_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, favorite_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(favorite_id_or_list):
                 found_list = map(lambda favorite: str(favorite["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist favorite:", filter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist favorite:", lfilter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist favorite:", filter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist favorite:", lfilter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False)
 
             result = {favorite["id"]: _format_each(favorite) for favorite in result_list}
             return result
@@ -1362,7 +1363,7 @@ class currant_shop(f_shop):
 
     def custom_search(self, params, sort=["time", "desc"], item_filter_params=["capacity", "price"], notime=False, per_page=10, last_time_field=None):
         params.setdefault("status", "new")
-        item_filter_params = dict(zip(item_filter_params, map(lambda key: params.pop(key, None), item_filter_params)))
+        item_filter_params = dict(zip(item_filter_params, lmap(lambda key: params.pop(key, None), item_filter_params)))
         if sort is not None:
             try:
                 sort_field, sort_orientation = sort
@@ -1427,10 +1428,10 @@ class currant_comment(f_app.module_base):
                 result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(comment_id) for comment_id in comment_id_or_list]}, "status": {"$ne": "deleted"}}))
 
             if not force_reload and len(result_list) < len(comment_id_or_list) and not ignore_nonexist:
-                found_list = map(lambda comment: str(comment["_id"]), result_list)
-                abort(40495, self.logger.warning("Non-exist comment:", filter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False))
+                found_list = lmap(lambda comment: str(comment["_id"]), result_list)
+                abort(40495, self.logger.warning("Non-exist comment:", lfilter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False))
             elif ignore_nonexist:
-                self.logger.warning("Non-exist comment:", filter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False)
+                self.logger.warning("Non-exist comment:", lfilter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False)
 
             for comment in result_list:
                 result[comment["id"]] = _format_each(comment)
