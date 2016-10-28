@@ -4,8 +4,10 @@ email_validator
 wand
 Cython
 Babel
+funcy
 qiniu
 Twisted
+whatever
 sortedcontainers
 python-Levenshtein
 newrelic
@@ -20,7 +22,7 @@ gevent>0.99
 scipy
 pymongo
 mock
-pint
+raven
 PyYAML
 jieba
 matplotlib
@@ -43,5 +45,5 @@ sh
 uWSGI
 bottle
 dnspython
-raven
+pint
 pillow
