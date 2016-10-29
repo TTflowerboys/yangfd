@@ -978,44 +978,54 @@
                 </table>
 
                 <div class="seperator"></div>
-                <table class="actions">
-                    <tr>
-                        <td style="text-align:left;">
-                            <button data-fn="addFav" data-property-id="{{property.get('id','')}}"
-                                    class="flatButton ajaxButton"
-                                    style="{{ 'display:none' if is_favorited else ''}}"
-                                    data-message-40090="{{_('已经收藏过了')}}"
-                                    >
-                                <i class="icon-faver"></i>
-                                <span class="text"> {{_('收藏')}} </span>
-                            </button>
-                            <button data-fn="removeFav"
-                                    class="flatButton ajaxButton"
-                                    style="{{ 'display:none' if not is_favorited else ''}}"
-                                    % if is_favorited:
-                                    data-property-id="{{property.get('id','')}}"
-                                    % end
-                                    >
-                                <i class="icon-faveractive"></i>
-                                <span class="text"> {{_('取消收藏') }} </span>
-                            </button>
-                        </td>
-                        <td style="text-align:center;">
-                            <button data-fn="shareToWeChat" class="flatButton green">
-                                <i class="icon-wechat"></i>
-                                {{_('分享到微信')}}
-                            </button>
-                        </td>
-                        <td style="text-align:right;">
-                            % name = property.get('name','').replace("\'", "\\\'")
-                            <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
-                                <i class="icon-weibo"></i>
-                                {{_('分享到微博')}}
-                            </button>
-                        </td>
-                    </tr>
-                </table>
             </div>
+            <div class="rentActions clearfix">
+                <div class="fl">
+                     <button data-fn="addFav" data-property-id="{{property.get('id','')}}"
+                            class="flatButton ajaxButton"
+                            style="{{ 'display:none' if is_favorited else ''}}"
+                            data-message-40090="{{_('已经收藏过了')}}"
+                            >
+                        <i class="icon-faver"></i>
+                        <span class="text"> {{_('收藏')}} </span>
+                    </button>
+                    <button data-fn="removeFav"
+                            class="flatButton ajaxButton"
+                            style="{{ 'display:none' if not is_favorited else ''}}"
+                            % if is_favorited:
+                            data-property-id="{{property.get('id','')}}"
+                            % end
+                            >
+                        <i class="icon-faveractive"></i>
+                        <span class="text"> {{_('取消收藏') }} </span>
+                    </button>
+                </div>
+                <div class="actionsList">
+                    Share to
+                    % if _.lang == "en_GB":
+                    <button class="flatButton facebook" data-fn="shareToFacebook" data-url="/property/{{property.get('id','')}}">
+                            <i class="icon-facebook"></i>
+                    </button>
+                    % name = property.get('name','').replace("\'", "\\\'")
+                    <button class="flatButton twitter" onclick="team.shareToTwitter({
+                            url: location.protocol + '//' + location.host + '/property/{{property.get(\'id\')}}',
+                            text:'{{name}}'                            
+                            }) ">
+                            <i class="icon-twitter"></i>
+                    </button>
+                    % end
+                    <button data-fn="shareToWeChat" class="flatButton green">
+                            <i class="icon-wechat"></i>
+                    </button>
+                    % if _.lang != "en_GB":
+                    % name = property.get('name','').replace("\'", "\\\'")
+                    <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
+                            <i class="icon-weibo"></i>
+                    </button>
+                    % end
+                </div>                
+            </div>
+            <div class="seperator"></div>
 
             <form class="intentionForm" name="intentionForm"
                   data-message-success="{{_('提交成功')}}"
@@ -1393,7 +1403,28 @@
             }
             window.wechatShareSDK.init(wechatShareData)
         })()
-
+        /*
+          * Facebook share sdk
+          * */
+        
+        $(function(){
+            $.ajaxSetup({ cache: true });
+            $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+                FB.init({
+                    appId: '325908124445960',
+                    xfbml      : true,
+                    version: 'v2.8'
+                });
+                $('[data-fn=shareToFacebook]').on('click',function(){
+                    var url = location.protocol + '//' + location.host + $(this).data('url');               
+                    FB.ui({
+                        method: 'share',
+                        display: 'popup',
+                        href: url
+                    });
+                })
+            })
+        });
     </script>
     <!-- @endif -->
 
