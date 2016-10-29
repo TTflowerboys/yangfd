@@ -1003,26 +1003,25 @@
                 <div class="actionsList">
                     Share to
                     % if _.lang == "en_GB":
-                    <button class="flatButton facebook" data-fn="shareToFacebook" data-url="/property/{{property.get('id','')}}">
+                        <button class="flatButton facebook" data-fn="shareToFacebook" data-url="/property/{{property.get('id','')}}">
                             <i class="icon-facebook"></i>
-                    </button>
-                    % name = property.get('name','').replace("\'", "\\\'")
-                    <button class="flatButton twitter" onclick="team.shareToTwitter({
-                            url: location.protocol + '//' + location.host + '/property/{{property.get(\'id\')}}',
-                            text:'{{name}}'                            
-                            }) ">
-                            <i class="icon-twitter"></i>
-                    </button>
+                        </button>
+                        % name = property.get('name','').replace("\'", "\\\'")
+                        <button class="flatButton twitter" onclick="team.shareToTwitter({
+                                url: location.protocol + '//' + location.host + '/property/{{property.get(\'id\')}}',
+                                text:'{{name}}'                            
+                                }) ">
+                                <i class="icon-twitter"></i>
+                        </button>
+                    % else:
+                        % name = property.get('name','').replace("\'", "\\\'")
+                        <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
+                                <i class="icon-weibo"></i>
+                        </button>
                     % end
                     <button data-fn="shareToWeChat" class="flatButton green">
                             <i class="icon-wechat"></i>
                     </button>
-                    % if _.lang != "en_GB":
-                    % name = property.get('name','').replace("\'", "\\\'")
-                    <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
-                            <i class="icon-weibo"></i>
-                    </button>
-                    % end
                 </div>                
             </div>
             <div class="seperator"></div>

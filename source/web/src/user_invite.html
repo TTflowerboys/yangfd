@@ -37,19 +37,19 @@
         <h1 class="title">{{_('分享你优惠码')}}</h1>
         <ul>            
             % if _.lang == "en_GB":
-            <li class="facebook">
-                <i class="icon-facebook"></i>
-                <label for="">{{_('FaceBook')}}</label>
-            </li>
-            <li class="twitter">
-                <i class="icon-twitter"></i>
-                <label for="">{{_('twitter')}}</label>
-            </li>
+                <li class="facebook">
+                    <i class="icon-facebook"></i>
+                    <label for="">{{_('FaceBook')}}</label>
+                </li>
+                <li class="twitter">
+                    <i class="icon-twitter"></i>
+                    <label for="">{{_('twitter')}}</label>
+                </li>
             % else:
-            <li class="weibo">
-                <i class="icon-share_weibo"></i>
-                <label for="">{{_('新浪微博')}}</label>
-            </li>
+                <li class="weibo">
+                    <i class="icon-share_weibo"></i>
+                    <label for="">{{_('新浪微博')}}</label>
+                </li>
             % end
             <li class="wechat">
                 <img class="qrcode" alt="{{_('扫一扫分享到微信')}}" src=""/>
