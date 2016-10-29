@@ -35,13 +35,24 @@
     <div class="sharePopupShadow"></div>
     <div class="shareView">
         <h1 class="title">{{_('分享你优惠码')}}</h1>
-        <ul>
-            <li class="weibo">
-                <i class="icon-share_weibo"></i>
-                <label for="">{{_('新浪微博')}}</label>
-            </li>
+        <ul>            
+            % if _.lang == "en_GB":
+                <li class="facebook">
+                    <i class="icon-facebook"></i>
+                    <label for="">{{_('FaceBook')}}</label>
+                </li>
+                <li class="twitter">
+                    <i class="icon-twitter"></i>
+                    <label for="">{{_('twitter')}}</label>
+                </li>
+            % else:
+                <li class="weibo">
+                    <i class="icon-share_weibo"></i>
+                    <label for="">{{_('新浪微博')}}</label>
+                </li>
+            % end
             <li class="wechat">
-                <img class="qrcode" alt="" src=""/>
+                <img class="qrcode" alt="{{_('扫一扫分享到微信')}}" src=""/>
                 <label for="">{{_('扫一扫分享到微信')}}</label>
             </li>
         </ul>

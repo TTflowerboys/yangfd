@@ -249,16 +249,19 @@ div.content {
     ul {
         overflow: hidden;
         padding: 0 90px;
-
+        text-align: center;
         li {
             display:inline-block;
             float: left;
             height: 100%;
-            width: 50%;
             vertical-align: middle;
+            width: 50%;
+            body[lang=en_GB] &{
+                width: 33.33%;
+            }
         }
 
-        li.weibo {
+        li.weibo,li.twitter,li.facebook {
             cursor:pointer;
             padding-top:25px;
 
@@ -271,6 +274,16 @@ div.content {
             }
             label {
                 display: block;
+            }
+        }
+        li.twitter {
+            i {
+                color: #2aa3ef;
+            }
+        }
+        li.facebook {
+            i {
+                color: #4964a1;
             }
         }
 

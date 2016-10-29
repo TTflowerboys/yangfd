@@ -225,7 +225,7 @@
             return false
         },
         /**
-         * Share something to Weibo
+         * Share something to Twitter
          * @param {object} {title:'',url:'',pic:''}
          */
         shareToTwitter: function (_options, _config) {
