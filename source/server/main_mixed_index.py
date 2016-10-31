@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 import csv
 from funcy.py3 import lmap, lfilter
 from bson import SON
@@ -499,10 +499,10 @@ class f_main_mixed_index(f_app.plugin_base):
                     "name": neighborhood["name"],
                     "latitude": neighborhood["latitude"],
                     "longitude": neighborhood["longitude"],
-                    "country": {
-                        "code": neighborhood["country"],
-                        "_country": True,
-                    },
+                    "country": OrderedDict([
+                        ("code", neighborhood["country"]),
+                        ("_country", True),
+                    ]),
                     "loc": neighborhood["loc"],
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"maponics_neighborhood": neighborhood["_id"]})["_id"]
@@ -534,16 +534,16 @@ class f_main_mixed_index(f_app.plugin_base):
                     "name": university["name"],
                     "latitude": postcode["latitude"],
                     "longitude": postcode["longitude"],
-                    "country": {
-                        "code": postcode["country"],
-                        "_country": True,
-                    },
+                    "country": OrderedDict([
+                        ("code", postcode["country"]),
+                        ("_country", True),
+                    ]),
                     "loc": [float(postcode["longitude"]), float(postcode["latitude"])],
-                    "type": {
-                        "_id": ObjectId(type_enum),
-                        "type": "featured_facility_type",
-                        "_enum": "featured_facility_type",
-                    },
+                    "type": OrderedDict([
+                        ("_id", ObjectId(type_enum)),
+                        ("type", "featured_facility_type"),
+                        ("_enum", "featured_facility_type"),
+                    ]),
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"hesa_university": university["_id"]})["_id"]
                 f_app.mongo_index.update(self.get_database, str(index_id), university["name"].replace(",", " "), enable_suggestion=True)
@@ -564,16 +564,16 @@ class f_main_mixed_index(f_app.plugin_base):
                     "name": station["name"],
                     "latitude": station["latitude"],
                     "longitude": station["longitude"],
-                    "country": {
-                        "code": station["currant_country"],
-                        "_country": True,
-                    },
+                    "country": OrderedDict([
+                        ("code", station["currant_country"]),
+                        ("_country", True),
+                    ]),
                     "loc": station["loc"],
-                    "type": {
-                        "_id": ObjectId(type_enum),
-                        "type": "featured_facility_type",
-                        "_enum": "featured_facility_type",
-                    },
+                    "type": OrderedDict([
+                        ("_id", ObjectId(type_enum)),
+                        ("type", "featured_facility_type"),
+                        ("_enum", "featured_facility_type"),
+                    ]),
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"doogal_station": station["_id"]})["_id"]
                 f_app.mongo_index.update(self.get_database, str(index_id), station["name"], enable_suggestion=True)
@@ -599,10 +599,10 @@ class f_main_mixed_index(f_app.plugin_base):
                     "name": gazetteer["name"],
                     "latitude": gazetteer["latitude"],
                     "longitude": gazetteer["longitude"],
-                    "country": {
-                        "code": gazetteer["country"],
-                        "_country": True,
-                    },
+                    "country": OrderedDict([
+                        ("code", gazetteer["country"]),
+                        ("_country", True),
+                    ]),
                     "loc": gazetteer["loc"],
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({identifier: gazetteer["_id"]})["_id"]
