@@ -6929,7 +6929,7 @@ msgstr "Please enter your place"
 #: ../web/src/partials/i18n.html:468
 #, fuzzy
 msgid "请填写预算信息"
-msgstr "Please enter your Wechat"
+msgstr "Please enter your Budget"
 
 #: ../web/src/partials/i18n.html:469
 msgid "重置密码邮件已经成功发送到您的邮箱，请登录您的邮箱查收邮件"
@@ -9530,7 +9530,7 @@ msgstr ""
 #: ../web/src/partials/requirement_rent_phone.html:14
 #: ../web/src/partials/requirement_rent_popup.html:25
 msgid "选择求租地址"
-msgstr "Select the address to rent"
+msgstr "Select the address"
 
 #: ../web/src/partials/requirement_rent_phone.html:15
 #, fuzzy
