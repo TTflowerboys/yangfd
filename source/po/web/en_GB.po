@@ -1865,7 +1865,7 @@ msgstr "Sign up for free to get detail reports"
 
 #: ../web/src/property.html:1064
 msgid "留言咨询"
-msgstr "Dial 400-0926-433 for consultation"
+msgstr "Consultation"
 
 #: ../web/src/property.html:1069
 msgid "或拨打"
@@ -3436,7 +3436,7 @@ msgstr "Retrieve password via text email"
 
 #: ../web/src/reset_password_email_1.html:17
 msgid "填写您绑定的邮箱"
-msgstr "Your Email Address"
+msgstr "Please bind your Email Address"
 
 #: ../web/src/reset_password_email_1.html:23 ../web/src/user_invite.html:57
 #: ../web/src/user_verify_email.html:23 ../web/src/partials/i18n.html:305
@@ -6273,7 +6273,7 @@ msgstr "Please enter your address"
 #: ../web/src/partials/i18n.html:303
 #, fuzzy
 msgid "请填写您的邮箱"
-msgstr "Your Email Address"
+msgstr "Please enter your email address "
 
 #: ../web/src/partials/i18n.html:304
 msgid "在线咨询"
@@ -6713,12 +6713,12 @@ msgstr "Please don’t use email or phone as your name"
 #: ../web/src/partials/i18n.html:422
 #, fuzzy
 msgid "请选择性别"
-msgstr "Please select"
+msgstr "Please select gender"
 
 #: ../web/src/partials/i18n.html:423
 #: ../web/src/static/templates/rent_request_phone.tpl.html:101
 msgid "请选择职业"
-msgstr "Occupation"
+msgstr "Please select occupation"
 
 #: ../web/src/partials/i18n.html:424
 msgid "抱歉，只有学生才能入住学生公寓"
@@ -6745,7 +6745,7 @@ msgstr "Enter your rental"
 #: ../web/src/partials/i18n.html:429
 #, fuzzy
 msgid "请填写邮箱"
-msgstr "Your Email Address"
+msgstr "Please enter your email address "
 
 #: ../web/src/partials/i18n.html:430
 #, fuzzy
@@ -6768,7 +6768,7 @@ msgstr "Image is uploading, please submit later"
 
 #: ../web/src/partials/i18n.html:434 ../web/src/partials/i18n_admin.html:103
 msgid "入住者吸烟"
-msgstr ""
+msgstr "Occupants Smoke"
 
 #: ../web/src/partials/i18n.html:435 ../web/src/partials/i18n_admin.html:104
 #, fuzzy
@@ -6777,7 +6777,7 @@ msgstr "Forbidden"
 
 #: ../web/src/partials/i18n.html:436 ../web/src/partials/i18n_admin.html:105
 msgid "入住者携带宠物"
-msgstr ""
+msgstr "Occupants carry pets"
 
 #: ../web/src/partials/i18n.html:437 ../web/src/partials/i18n_admin.html:106
 #, fuzzy
@@ -6786,7 +6786,7 @@ msgstr "Pets"
 
 #: ../web/src/partials/i18n.html:438 ../web/src/partials/i18n_admin.html:107
 msgid "入住者携带小孩"
-msgstr ""
+msgstr "Occupants have children"
 
 #: ../web/src/partials/i18n.html:439 ../web/src/partials/i18n_admin.html:108
 #, fuzzy
@@ -6795,11 +6795,11 @@ msgstr "Children"
 
 #: ../web/src/partials/i18n.html:440 ../web/src/partials/i18n_admin.html:109
 msgid "入住者职业："
-msgstr ""
+msgstr "Occupants Occupation: "
 
 #: ../web/src/partials/i18n.html:441 ../web/src/partials/i18n_admin.html:110
 msgid "入住者年龄："
-msgstr ""
+msgstr "Occupants Age: "
 
 #: ../web/src/partials/i18n.html:442 ../web/src/partials/i18n_admin.html:112
 #, fuzzy
@@ -6824,7 +6824,7 @@ msgstr "Check in"
 #: ../web/src/partials/i18n.html:446 ../web/src/partials/i18n_admin.html:117
 #, fuzzy
 msgid "入住者性别："
-msgstr "Current Occupants Gender"
+msgstr "Current Occupants Gender: "
 
 #: ../web/src/partials/i18n.html:447 ../web/src/partials/i18n_admin.html:118
 msgid "入住日期："
@@ -6889,7 +6889,7 @@ msgstr "Please select neighbourhood (optional)"
 
 #: ../web/src/partials/i18n.html:460
 msgid "预算下限必须小于预算上限"
-msgstr ""
+msgstr "The min budget must be less than the max budget"
 
 #: ../web/src/partials/i18n.html:461
 #, python-format
@@ -6924,7 +6924,7 @@ msgstr "Contact the landlord"
 #: ../web/src/partials/i18n.html:467
 #, fuzzy
 msgid "请填写地点"
-msgstr "Your Email Address"
+msgstr "Please enter your place"
 
 #: ../web/src/partials/i18n.html:468
 #, fuzzy
@@ -9579,17 +9579,17 @@ msgstr ""
 #: ../web/src/partials/requirement_rent_phone.html:42
 #: ../web/src/partials/requirement_rent_popup.html:43
 msgid "您希望租住在哪些地点附近？您可以填写工作地点或者所读学校等"
-msgstr ""
+msgstr "where would you like to live in nearby? you could fill in your workpalce or university and so on"
 
 #: ../web/src/partials/requirement_rent_phone.html:46
 #: ../web/src/partials/requirement_rent_popup.html:47
 msgid "地点"
-msgstr ""
+msgstr "Place"
 
 #: ../web/src/partials/requirement_rent_phone.html:53
 #: ../web/src/partials/requirement_rent_popup.html:53
 msgid "新增地点"
-msgstr ""
+msgstr "Add Place"
 
 #: ../web/src/partials/requirement_rent_phone.html:60
 #: ../web/src/partials/requirement_rent_phone.html:61
@@ -9695,7 +9695,7 @@ msgstr "Phone"
 #: ../web/src/partials/requirement_rent_popup.html:218
 #, fuzzy
 msgid "微信（选填）"
-msgstr "Street"
+msgstr "Wechat (Optional)"
 
 #: ../web/src/partials/requirement_rent_phone.html:195
 #: ../web/src/partials/requirement_rent_popup.html:222
@@ -9703,7 +9703,7 @@ msgstr "Street"
 #: ../web/src/static/templates/rent_request.tpl.html:136
 #: ../web/src/static/templates/rent_request_phone.tpl.html:136
 msgid "推荐码（选填）"
-msgstr "Referral code"
+msgstr "Referral code (Optional)"
 
 #: ../web/src/partials/requirement_rent_phone.html:200
 #: ../web/src/partials/requirement_rent_popup.html:227
