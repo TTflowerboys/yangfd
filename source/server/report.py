@@ -6,6 +6,7 @@ from itertools import chain
 from datetime import datetime, timedelta
 from six.moves import urllib
 from six.moves import cStringIO as StringIO
+from funcy.py3 import lmap, lfilter
 from bson.objectid import ObjectId
 from bson.code import Code
 from pyquery import PyQuery as q
@@ -47,14 +48,14 @@ class currant_report(f_app.module_base):
 
         if isinstance(report_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, report_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, report_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(report_id_or_list):
                 found_list = map(lambda report: str(report["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist report:", filter(lambda report_id: report_id not in found_list, report_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist report:", lfilter(lambda report_id: report_id not in found_list, report_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist report:", filter(lambda report_id: report_id not in found_list, report_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist report:", lfilter(lambda report_id: report_id not in found_list, report_id_or_list), exc_info=False)
 
             result = {report["id"]: _format_each(report) for report in result_list}
             return result
@@ -134,14 +135,14 @@ class currant_zipcode(f_app.module_base):
 
         if isinstance(zipcode_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, zipcode_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, zipcode_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(zipcode_id_or_list):
                 found_list = map(lambda zipcode: str(zipcode["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist zipcode:", filter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist zipcode:", lfilter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist zipcode:", filter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist zipcode:", lfilter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False)
 
             result = {zipcode["id"]: _format_each(zipcode) for zipcode in result_list}
             return result

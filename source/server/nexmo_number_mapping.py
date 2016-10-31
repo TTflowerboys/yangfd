@@ -1,6 +1,7 @@
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 import random
+from funcy.py3 import lmap, lfilter
 from bson.objectid import ObjectId
 from libfelix.f_common import f_app
 from libfelix.f_cache import f_cache
@@ -23,14 +24,14 @@ class nexmo_number(f_app.module_base):
 
         if isinstance(nexmo_number_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, nexmo_number_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, nexmo_number_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(nexmo_number_id_or_list):
                 found_list = map(lambda nexmo_number: str(nexmo_number["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist nexmo_number:", filter(lambda nexmo_number_id: nexmo_number_id not in found_list, nexmo_number_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist nexmo_number:", lfilter(lambda nexmo_number_id: nexmo_number_id not in found_list, nexmo_number_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist nexmo_number:", filter(lambda nexmo_number_id: nexmo_number_id not in found_list, nexmo_number_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist nexmo_number:", lfilter(lambda nexmo_number_id: nexmo_number_id not in found_list, nexmo_number_id_or_list), exc_info=False)
 
             result = {nexmo_number["id"]: _format_each(nexmo_number) for nexmo_number in result_list}
             return result
@@ -122,14 +123,14 @@ class nexmo_number_mapping(f_app.module_base):
 
         if isinstance(nexmo_number_mapping_id_or_list, (tuple, list, set)):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": list(map(ObjectId, nexmo_number_mapping_id_or_list))}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": lmap(ObjectId, nexmo_number_mapping_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(nexmo_number_mapping_id_or_list):
                 found_list = map(lambda nexmo_number_mapping: str(nexmo_number_mapping["_id"]), result_list)
                 if not force_reload and not ignore_nonexist:
-                    abort(40400, self.logger.warning("Non-exist nexmo_number_mapping:", filter(lambda nexmo_number_mapping_id: nexmo_number_mapping_id not in found_list, nexmo_number_mapping_id_or_list), exc_info=False))
+                    abort(40400, self.logger.warning("Non-exist nexmo_number_mapping:", lfilter(lambda nexmo_number_mapping_id: nexmo_number_mapping_id not in found_list, nexmo_number_mapping_id_or_list), exc_info=False))
                 elif ignore_nonexist:
-                    self.logger.warning("Non-exist nexmo_number_mapping:", filter(lambda nexmo_number_mapping_id: nexmo_number_mapping_id not in found_list, nexmo_number_mapping_id_or_list), exc_info=False)
+                    self.logger.warning("Non-exist nexmo_number_mapping:", lfilter(lambda nexmo_number_mapping_id: nexmo_number_mapping_id not in found_list, nexmo_number_mapping_id_or_list), exc_info=False)
 
             result = {nexmo_number_mapping["id"]: _format_each(nexmo_number_mapping) for nexmo_number_mapping in result_list}
             return result

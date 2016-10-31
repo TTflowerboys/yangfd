@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import random
-from app import f_app
+from funcy.py3 import lmap, lfilter
 from bson.objectid import ObjectId
+from app import f_app
 
 CURRANT_SHOP_ID = "54a3c92b6b809945b0d996bf"
 
@@ -106,11 +107,11 @@ def get_related_rent_ticket_list(rent_ticket):
         property_params.setdefault("status", {"$exists": True})
         property_params.setdefault("user_generated", True)
 
-        property_id_list = list(map(ObjectId, f_app.property.search(property_params, per_page=0)))
+        property_id_list = lmap(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
     raw_related_rent_ticket_list = f_app.ticket.output(f_app.ticket.search(params, per_page=20))
-    raw_related_rent_ticket_list = list(filter(lambda ticket: ticket["id"] != rent_ticket["id"], raw_related_rent_ticket_list))
+    raw_related_rent_ticket_list = lfilter(lambda ticket: ticket["id"] != rent_ticket["id"], raw_related_rent_ticket_list)
     random.shuffle(raw_related_rent_ticket_list)
     related_rent_ticket_list = raw_related_rent_ticket_list[:3]
     return related_rent_ticket_list
