@@ -5,7 +5,7 @@ import re
 import logging
 import time
 import json
-from collections import Counter
+from collections import Counter, OrderedDict
 import phonenumbers
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
@@ -918,11 +918,11 @@ class currant_plugin(f_app.plugin_base):
                         type="currency",
                         _i18n_unit=True,
                     ),
-                    category=dict(
-                        _id=ObjectId(f_app.enum.get_by_slug('rent_coupon')["id"]),
-                        type="coupon_category",
-                        _enum="coupon_category",
-                    ),
+                    category=OrderedDict([
+                        ("_id", ObjectId(f_app.enum.get_by_slug('rent_coupon')["id"])),
+                        ("type", "coupon_category"),
+                        ("_enum", "coupon_category"),
+                    ]),
                     description="25英镑租房优惠券",
                 )
 
@@ -1298,7 +1298,7 @@ class currant_util(f_util):
                     self.logger.warning(result["status"])
                 else:
                     featured_facilities[n]["traffic_time"].append({
-                        "type": {"_id": ObjectId(mode["id"]), "type": "featured_facility_traffic_type", "_enum": "featured_facility_traffic_type"},
+                        "type": OrderedDict([("_id", ObjectId(mode["id"])), ("type", "featured_facility_traffic_type"), ("_enum", "featured_facility_traffic_type")]),
                         "time": {"value": str(result["duration"]["value"]), "value_float": result["duration"]["value"], "unit": "second", "_i18n_unit": True, "type": "time_period"},
                     })
 

@@ -134,7 +134,7 @@ def get_announcement_list():
     return f_app.blog.post_output(
         f_app.blog.post_search(
             {
-                "category": [{'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}]
+                "category._id": ObjectId(f_app.enum.get_by_slug('announcement')["id"])
             }, per_page=1
         )
     )
@@ -144,10 +144,10 @@ def get_featured_new_list():
     news_list = f_app.blog.post_output(
         f_app.blog.post_search(
             {
-                "category": {"$in": [
-                    {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                "category._id": {"$in": [
+                    ObjectId(f_app.enum.get_by_slug('real_estate')["id"]),
+                    ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]),
+                    ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]),
                 ]}
             }, per_page=6
         )
@@ -161,10 +161,10 @@ def get_related_news_list(news):
         raw_related_news_list = f_app.blog.post_output(
             f_app.blog.post_search(
                 {
-                    "category": {"$in": [
-                        {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                        {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                        {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    "category._id": {"$in": [
+                        ObjectId(f_app.enum.get_by_slug('real_estate')["id"]),
+                        ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]),
+                        ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]),
                     ]}
                 }, per_page=20
             )
@@ -173,8 +173,8 @@ def get_related_news_list(news):
         raw_related_news_list = f_app.blog.post_output(
             f_app.blog.post_search(
                 {
-                    "category": {"$in": [
-                        {'_id': ObjectId(f_app.enum.get_by_slug(news.get('category')[0].get('slug'))["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    "category._id": {"$in": [
+                        ObjectId(f_app.enum.get_by_slug(news.get('category')[0].get('slug'))["id"]),
                     ]}
                 }, per_page=20
             )
@@ -200,9 +200,7 @@ def get_related_news_list(news):
 
 def get_property_related_news_list(property):
     related_news_list = f_app.blog.post_output(f_app.blog.post_search({
-        "category": {"$in": [
-                    {"_id": ObjectId(news["id"]), "type": "news_category", "_enum": "news_category"} for news in property["news_category"]
-        ]},
+        "category._id": {"$in": [ObjectId(news["id"]) for news in property["news_category"]]},
     }, per_page=5))
     related_news_list = sorted(related_news_list, key=lambda news: news.get('time'), reverse=True)
     return related_news_list
