@@ -75,7 +75,7 @@ $(function () {
     })
     $('#socialSharePopup li.twitter').on('click', function (){
         var discountDisplayValue = $('.bonus .offer .content').text()
-        var params = {'text': window.i18n('发福利啦，需要租房的小伙伴们看过来，点击以下链接注册洋房东在线查看出租房源，租房成功者即可得到' + discountDisplayValue + '的租房优惠哦。不要太感谢我，请叫我雷锋，造福大家是我的使命'), 'url': location.origin + '/signup?referral=' + window.user.referral_code,'via': "bbtechgroup_dev"}
+        var params = {'text': window.i18n('发福利啦，需要租房的小伙伴们看过来，点击以下链接注册洋房东在线查看出租房源，租房成功者即可得到' + discountDisplayValue + '的租房优惠哦。不要太感谢我，请叫我雷锋，造福大家是我的使命'), 'url': location.origin + '/signup?referral=' + window.user.referral_code,'via': 'bbtechgroup_dev'}
         team.shareToTwitter(params)
     })
     $.ajaxSetup({ cache: true });
