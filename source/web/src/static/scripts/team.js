@@ -232,7 +232,7 @@
             var defaultOptions = {
                 url: location.href || '',
                 text: document.title || '',
-                via: "yonger_lei"
+                via: 'bbtechgroup_dev'
             }
             var defaultConfig = {
                 width: 800,
