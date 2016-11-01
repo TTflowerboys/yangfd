@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-10-21 17:28+0800\n"
-"PO-Revision-Date: 2016-10-25 16:49+0800\n"
+"PO-Revision-Date: 2016-11-01 15:28+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -1311,7 +1311,7 @@ msgstr "Video request"
 #: ../web/src/how_it_works_tenant.html:33
 #: ../web/src/partials/index_renter.html:35
 msgid "预定房源"
-msgstr "Book"
+msgstr "Book property"
 
 #: ../web/src/how_it_works_tenant.html:34
 msgid "平台为您分配专属租房助手解答租房问题，安排看房或直接预定，让您租到心仪房源"
@@ -5114,7 +5114,7 @@ msgstr "Property not as described? Refund!"
 
 #: ../web/src/partials/i18n.html:1
 msgid "邮件格式不正确，请重新填写"
-msgstr "E-mail in wrong format, please try again"
+msgstr "E-mail format incorrect, please try again"
 
 #: ../web/src/partials/i18n.html:2
 #, fuzzy
@@ -6190,11 +6190,11 @@ msgstr "Cannot be left blank"
 
 #: ../web/src/partials/i18n.html:280
 msgid "格式不正确"
-msgstr "Wrong format"
+msgstr "Format incorrect"
 
 #: ../web/src/partials/i18n.html:281
 msgid "超出长度限制"
-msgstr "Too "
+msgstr "Too long"
 
 #: ../web/src/partials/i18n.html:282
 msgid "结束日期需要大于开始日期"
@@ -8614,7 +8614,7 @@ msgstr "Rent Enquiry No. "
 
 #: ../web/src/partials/i18n_templates.html:60
 msgid "房东稍后上传"
-msgstr ""
+msgstr "Landlord to upload photo shortly"
 
 #: ../web/src/partials/i18n_templates.html:61
 #, fuzzy
@@ -9529,8 +9529,9 @@ msgstr ""
 
 #: ../web/src/partials/requirement_rent_phone.html:14
 #: ../web/src/partials/requirement_rent_popup.html:25
+#, fuzzy
 msgid "选择求租地址"
-msgstr "Select the address"
+msgstr "Select Location"
 
 #: ../web/src/partials/requirement_rent_phone.html:15
 #, fuzzy
@@ -9542,10 +9543,7 @@ msgstr ""
 
 #: ../web/src/partials/requirement_rent_phone.html:16
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东，"
-msgstr ""
-"Young Funding is committed to providing the best service to every "
-"customer, please submit your rent requirement to continue to contact the "
-"landlord"
+msgstr "Young Funding is committed to providing the best possible service to every user. Please submit your rental requirements and we will notify you in the first instance with suitable properties"
 
 #: ../web/src/partials/requirement_rent_phone.html:17
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后等待平台租房顾问与您取得联系，"
@@ -9579,17 +9577,17 @@ msgstr ""
 #: ../web/src/partials/requirement_rent_phone.html:42
 #: ../web/src/partials/requirement_rent_popup.html:43
 msgid "您希望租住在哪些地点附近？您可以填写工作地点或者所读学校等"
-msgstr "where would you like to live in nearby? you could fill in your workpalce or university and so on"
+msgstr "Please specify your ideal location(s). For example you could list your place of work or study"
 
 #: ../web/src/partials/requirement_rent_phone.html:46
 #: ../web/src/partials/requirement_rent_popup.html:47
 msgid "地点"
-msgstr "Place"
+msgstr "Location"
 
 #: ../web/src/partials/requirement_rent_phone.html:53
 #: ../web/src/partials/requirement_rent_popup.html:53
 msgid "新增地点"
-msgstr "Add Place"
+msgstr "Add new location"
 
 #: ../web/src/partials/requirement_rent_phone.html:60
 #: ../web/src/partials/requirement_rent_phone.html:61
@@ -9607,7 +9605,7 @@ msgstr "Min. Budget"
 #: ../web/src/partials/requirement_rent_phone.html:88
 #: ../web/src/partials/requirement_rent_popup.html:100
 msgid "无下限"
-msgstr "No Min"
+msgstr "No min preference"
 
 #: ../web/src/partials/requirement_rent_phone.html:101
 #: ../web/src/partials/requirement_rent_popup.html:114
@@ -9617,7 +9615,7 @@ msgstr "Max. Budget"
 #: ../web/src/partials/requirement_rent_phone.html:105
 #: ../web/src/partials/requirement_rent_popup.html:115
 msgid "无上限"
-msgstr "No Max"
+msgstr "No max preference"
 
 #: ../web/src/partials/requirement_rent_phone.html:120
 #: ../web/src/partials/requirement_rent_phone.html:121
@@ -9670,7 +9668,7 @@ msgstr "Do you smoke?"
 #: ../web/src/static/templates/rent_request.tpl.html:58
 #: ../web/src/static/templates/rent_request_phone.tpl.html:54
 msgid "是否会带小孩一同入住"
-msgstr "Will you moving in with a child?"
+msgstr "Do you have any children?"
 
 #: ../web/src/partials/requirement_rent_phone.html:168
 #: ../web/src/partials/requirement_rent_phone.html:169
@@ -9708,9 +9706,7 @@ msgstr "Referral code (Optional)"
 #: ../web/src/partials/requirement_rent_phone.html:200
 #: ../web/src/partials/requirement_rent_popup.html:227
 msgid "我希望注册为会员以便以后能够更新我的求租需求"
-msgstr ""
-"I would like to register as a member so that they can update the demand "
-"for rent"
+msgstr "I would like to register as a user to receive updates relating to my requirements"
 
 #: ../web/src/partials/requirement_rent_phone.html:223
 #: ../web/src/partials/requirement_rent_popup.html:250
@@ -12476,7 +12472,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "邮件格式不正确，请重新填写"
-#~ msgstr "E-mail in wrong format, please try again"
+#~ msgstr "E-mail format incorrect, please try again"
 
 #~ msgid "提交中..."
 #~ msgstr "Submitting…"

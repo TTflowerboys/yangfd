@@ -91,7 +91,8 @@ function messageListBind(ko, module) {
                 this.content = data.text
                 this.status = data.status
                 this.messageId = data.id
-                this.time = window.moment(data.time * 1000).format('YYYY-MM-DD')
+                var formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
+                this.time = window.moment(data.time * 1000).format(formatter)
                 this.expand = ko.observable(false)
                 this.expandStatus = ko.observable(i18n('展开'))
                 this.hasRead = ko.observable((data.status === 'new' || data.status === 'sent') ? false : true)

@@ -52,7 +52,7 @@
                                 <button class="button red featuredFacilityAdd" type="button" data-bind="click: addFeaturedFacility, visible: featuredFacility().length < 5" >
                                     {{_('新增地点')}}
                                 </button>
-                            </div>                        
+                            </div>
                     </div>
                     </div>
                     <div class="step2" data-show-step="2">
@@ -138,7 +138,7 @@
                                  %for index in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
                                     <option value="{{index}}"
                                         >
-                                        {{index}}{{_('男')}}
+                                        {{index}}&nbsp;{{_('男')}}
                                     </option>
                                  %end
                             </select>
@@ -146,7 +146,7 @@
                                 %for index in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
                                     <option value="{{index}}"
                                         >
-                                        {{index}}{{_('女')}}
+                                        {{index}}&nbsp;{{_('女')}}
                                     </option>
                                  %end
                             </select>

@@ -217,11 +217,12 @@
             var $dateInput = container.find('.dateInput')
             container.data('initDateInput', true)
             $dateInput.each(function (index, elem) {
+                var formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
                 if($(elem).hasClass('startDate')) {
-                    $(elem).attr('value', window.moment.utc($(elem).attr('data-value') || new Date()).format('YYYY-MM-DD'))
+                    $(elem).attr('value', window.moment.utc($(elem).attr('data-value') || new Date()).format(formatter))
                 }
                 if($(elem).attr('data-value')) {
-                    $(elem).attr('value', window.moment.utc($(elem).attr('data-value')).format('YYYY-MM-DD'))
+                    $(elem).attr('value', window.moment.utc($(elem).attr('data-value')).format(formatter))
                 }
                 $(elem).dateRangePicker({
                     //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
@@ -231,12 +232,11 @@
                     lookBehind: false,
                     container: container,
                     getValue: function() {
-                        //return this.value || $.format.date(new Date(), 'yyyy-MM-dd');
                         return $(this).val()
                     }
                 }).bind('datepicker-change', function (event, obj) {
-                        $(elem).attr('value', $.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
-                        $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
+                    $(elem).attr('value', $.format.date(new Date(obj.date1), formatter))
+                    $(elem).val($.format.date(new Date(obj.date1), formatter)).trigger('change')
 
                 }).dateRangePickerCustom($(elem))
             })

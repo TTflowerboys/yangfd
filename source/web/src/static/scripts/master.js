@@ -72,7 +72,8 @@ $(function () {
     })
 
     $('[data-utc-time]').each(function () {
-        var format = $(this).attr('data-utc-format') || 'YYYY-MM-DD'
+        var formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
+        var format = $(this).attr('data-utc-format') || formatter
         $(this).append(window.moment.utc($(this).attr('data-utc-time')).format(format))
     })
 

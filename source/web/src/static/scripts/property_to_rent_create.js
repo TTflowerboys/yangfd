@@ -943,10 +943,11 @@
         return false
     })
 
-    //startDate
-    $('#rentPeriodStartDate').attr('value', window.moment.utc($('#rentPeriodStartDate').val() || new Date()).format('YYYY-MM-DD'))
+            //startDate
+    var formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
+    $('#rentPeriodStartDate').attr('value', window.moment.utc($('#rentPeriodStartDate').val() || new Date()).format(formatter))
     if($('#rentPeriodEndDate').val()){
-        $('#rentPeriodEndDate').attr('value', window.moment.utc($('#rentPeriodEndDate').val()).format('YYYY-MM-DD'))
+        $('#rentPeriodEndDate').attr('value', window.moment.utc($('#rentPeriodEndDate').val()).format(formatter))
     }
     $('.date>input').each(function (index, elem) {
         $(elem).parent('.date').dateRangePicker({
