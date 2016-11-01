@@ -1628,7 +1628,12 @@ body{
         .link { color: @red; text-decoration: none; }
         textarea { height: 200px; margin-top: 16px; font-size: 14px; }
         select { vertical-align: middle; font-size: @input-size; width: 100%; color: @input-color; }
-        button { width: 100%; margin: 16px 0; padding: 16px 0; line-height: 1; font-size: 16px; }
+        button {
+            width: 100%; margin: 16px 0; padding: 16px 0; line-height: 1; font-size: 16px;border: none;background: #e61919;color: #fff; 
+            &[disabled]{
+                backgroup: #ccc;
+            }
+        }
         hr { margin: 8px 0; }
         .contact {
             span {
