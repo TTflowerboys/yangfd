@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-10-21 17:28+0800\n"
-"PO-Revision-Date: 2016-11-01 15:28+0800\n"
+"PO-Revision-Date: 2016-11-01 18:46+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -2142,13 +2142,13 @@ msgstr "Street"
 
 #: ../web/src/property_to_rent.html:307
 msgid "小区"
-msgstr "Community"
+msgstr "Residential complex"
 
 #: ../web/src/property_to_rent.html:314
 #: ../web/src/partials/property_to_rent_edit.html:124
 #: ../web/src/partials/property_to_rent_edit.html:128
 msgid "楼层"
-msgstr "Floors"
+msgstr "Floor"
 
 #: ../web/src/property_to_rent.html:325
 msgid "房源编号"
@@ -2160,7 +2160,7 @@ msgstr "Property facilities"
 
 #: ../web/src/property_to_rent.html:367 ../web/src/partials/i18n_admin.html:241
 msgid "小区设施"
-msgstr "Community facilities"
+msgstr "Residential complex facilities"
 
 #: ../web/src/property_to_rent.html:395
 #: ../web/src/partials/property_to_rent_edit.html:631
@@ -4284,7 +4284,7 @@ msgstr "House facilities"
 #: ../web/src/wechat_poster.html:440
 #: ../web/src/partials/property_to_rent_edit.html:602
 msgid "社区设施"
-msgstr "Community facilities"
+msgstr "Residential complex facilities"
 
 #: ../web/src/wechat_share-phone.html:13
 msgid "让好友打开微信<br/>使用“扫一扫”即可打开该页面"
@@ -9066,15 +9066,15 @@ msgstr "Street"
 
 #: ../web/src/partials/property_to_rent_edit.html:122
 msgid "小区（选填）"
-msgstr "Community"
+msgstr "Residential complex(optional)"
 
 #: ../web/src/partials/property_to_rent_edit.html:124
 msgid "楼层（必填）"
-msgstr "Floors (required)"
+msgstr "Floor (required)"
 
 #: ../web/src/partials/property_to_rent_edit.html:125
 msgid "房间号（必填）"
-msgstr "Room No. (required)"
+msgstr "Room/Flat No. (required)"
 
 #: ../web/src/partials/property_to_rent_edit.html:125
 #: ../web/src/partials/property_to_rent_edit.html:129
@@ -9083,11 +9083,11 @@ msgstr "Room No."
 
 #: ../web/src/partials/property_to_rent_edit.html:128
 msgid "楼层（选填）"
-msgstr "Floors"
+msgstr "Floor(optional)"
 
 #: ../web/src/partials/property_to_rent_edit.html:129
 msgid "房间号（选填）"
-msgstr "Room No. (required)"
+msgstr "Room/Flat No. (optional)"
 
 #: ../web/src/partials/property_to_rent_edit.html:131
 msgid "为保护您的隐私, 房间号不会展示给未预订成功的租客"
@@ -9097,7 +9097,7 @@ msgstr ""
 
 #: ../web/src/partials/property_to_rent_edit.html:194
 msgid "是否包Bill"
-msgstr "Bills Included?"
+msgstr "Bills Included"
 
 #: ../web/src/partials/property_to_rent_edit.html:197
 msgid "请填写租金"
@@ -9105,9 +9105,7 @@ msgstr "Enter your rent"
 
 #: ../web/src/partials/property_to_rent_edit.html:208
 msgid "如不填写则默认为面议"
-msgstr ""
-"If you do not fill out this section then it will left as negotiable by "
-"default"
+msgstr "If you do not fill out this section then it will left as negotiable by default"
 
 #: ../web/src/partials/property_to_rent_edit.html:210
 msgid "填写金额，如不填写则默认为面议"
@@ -9693,7 +9691,7 @@ msgstr "Phone"
 #: ../web/src/partials/requirement_rent_popup.html:218
 #, fuzzy
 msgid "微信（选填）"
-msgstr "Wechat (Optional)"
+msgstr "Wechat (optional)"
 
 #: ../web/src/partials/requirement_rent_phone.html:195
 #: ../web/src/partials/requirement_rent_popup.html:222
@@ -9701,7 +9699,7 @@ msgstr "Wechat (Optional)"
 #: ../web/src/static/templates/rent_request.tpl.html:136
 #: ../web/src/static/templates/rent_request_phone.tpl.html:136
 msgid "推荐码（选填）"
-msgstr "Referral code (Optional)"
+msgstr "Referral code (optional)"
 
 #: ../web/src/partials/requirement_rent_phone.html:200
 #: ../web/src/partials/requirement_rent_popup.html:227
@@ -10013,7 +10011,7 @@ msgstr ""
 #: ../web/src/partials/user_settings.html:202
 #: ../web/src/partials/user_settings_phone.html:193
 #: ../web/src/partials/user_settings_phone.html:200
-#, python-format
+#, python-format, fuzzy
 msgid "本月剩余%s次"
 msgstr " %s left for this month"
 
