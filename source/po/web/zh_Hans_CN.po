@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-11-02 16:54+0800\n"
+"POT-Creation-Date: 2016-11-02 17:59+0800\n"
 "PO-Revision-Date: 2016-02-03 15:32+0800\n"
 "Last-Translator: ffang <ffang@bbtechgroup.com>\n"
 "Language: zh_Hans_CN\n"
@@ -15659,19 +15659,9 @@ msgstr ""
 #~ msgid "点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
 #~ msgstr ""
 
-#~ msgid ""
-#~ " "
-#~ "当出租信息发布后，租户会在平台第一时间看到您的房源信息，有意向者会向您提交求求租咨询，其中包含个人基本信息和租客的提问，您在24内可回复相关咨询，同时您也可以向租客提问。当您接受求租申请后，租客将支付订金至洋房东，我们将立刻通知您保留相应房源。"
-#~ msgstr ""
-
 #~ msgid "点击页面用户名处，进入“个人中心”，在“我的房产”内的“出租房产”中找到您要编辑的房源，点击“已出租”按钮，您的房源将不再可见，您可以在任何时间回到“出租房产”状态。"
 #~ msgstr ""
 
 #~ msgid "分享自己已发布的房源：点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "确定\\\"'+_.first(_.where(window.rentArray, {id: "
-#~ "ticketId})).title + '\\\"已经成功出租了吗？确定将不再接收系统刷新提醒"
 #~ msgstr ""
 

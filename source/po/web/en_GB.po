@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-11-02 16:54+0800\n"
-"PO-Revision-Date: 2016-11-02 17:09+0800\n"
+"PO-Revision-Date: 2016-11-02 18:34+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -3965,7 +3965,7 @@ msgstr "Phone Number"
 #: ../web/src/partials/user_settings.html:147
 #: ../web/src/partials/user_settings.html:190
 msgid "修改"
-msgstr "Change"
+msgstr "Update"
 
 #: ../web/src/user_finish_investment.html:82
 msgid "投资金额"
@@ -5133,14 +5133,13 @@ msgid "邮件格式不正确，请重新填写"
 msgstr "E-mail format incorrect, please try again"
 
 #: ../web/src/partials/i18n.html:2
-#, fuzzy
 msgid "提交中..."
-msgstr "Loading"
+msgstr "Uploading"
 
 #: ../web/src/partials/i18n.html:4
 #, fuzzy
 msgid "点击后在弹出的菜单中选择 [在Safari中打开]"
-msgstr "Click on the pop-up menu, select [Share to Wechat Moments]"
+msgstr "Click on the pop-up menu, select [Open in Safari]"
 
 #: ../web/src/partials/i18n.html:5
 msgid "发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！"
@@ -5153,7 +5152,7 @@ msgstr "Distance"
 #: ../web/src/partials/i18n.html:8
 #, fuzzy
 msgid "类型"
-msgstr "Repayment Type"
+msgstr "Type"
 
 #: ../web/src/partials/i18n.html:9 ../web/src/partials/i18n_templates.html:26
 #: ../web/src/static/emails/rent_intention_digest.html:109
@@ -5170,29 +5169,28 @@ msgstr "Please input new E-mail address"
 #: ../web/src/partials/i18n.html:11
 #, fuzzy
 msgid "修改邮箱成功"
-msgstr "Change Email"
+msgstr "Update Email Successfully"
 
 #: ../web/src/partials/i18n.html:12
-#, fuzzy
 msgid "修改成功"
-msgstr "Change"
+msgstr "Update Successfully"
 
 #: ../web/src/partials/i18n.html:16
 #, fuzzy
 msgid "原手机号不正确"
-msgstr "Old Phone Number"
+msgstr "Old Phone Number incorrect"
 
 #: ../web/src/partials/i18n.html:19
 msgid "请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请重试"
-msgstr ""
+msgstr "Please operate following the voice prompt（type 1 on cell phone keyboard as the default can be verified sucessfully）, if don't get a call from us, please try again"
 
 #: ../web/src/partials/i18n.html:20
 msgid "请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请"
-msgstr ""
+msgstr "Please operate following the voice prompt（type 1 on cell phone keyboard as the default can be verified sucessfully）, if don't get a call from us, please "
 
 #: ../web/src/partials/i18n.html:21
 msgid "s 后重试"
-msgstr ""
+msgstr "try again"
 
 #: ../web/src/partials/i18n.html:22
 #, fuzzy
@@ -6955,7 +6953,7 @@ msgstr "Please enter your Budget"
 
 #: ../web/src/partials/i18n.html:469
 msgid "重置密码邮件已经成功发送到您的邮箱，请登录您的邮箱查收邮件"
-msgstr ""
+msgstr "Reset password email has sent to your mailbox, please log in and check your email."
 
 #: ../web/src/partials/i18n.html:470
 msgid "密码重置成功，5s后自动返回首页"
@@ -6983,7 +6981,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n.html:477
 msgid "用户名不得包含电话号码或邮箱"
-msgstr ""
+msgstr "Username mustn't contain phone number or email"
 
 #: ../web/src/partials/i18n.html:478
 #, fuzzy
@@ -7101,7 +7099,7 @@ msgstr "The principal"
 
 #: ../web/src/partials/i18n.html:505
 msgid "性别不能为空"
-msgstr ""
+msgstr "Gender should not be empty"
 
 #: ../web/src/partials/i18n.html:506
 msgid "国家不能为空"
@@ -7275,7 +7273,7 @@ msgstr "Unable to remove it, please check and try again"
 
 #: ../web/src/partials/i18n.html:546
 msgid "邮件已发送，如果没有收到，请在60秒后重试"
-msgstr ""
+msgstr "The email has been sent, if you don't receive, please try again after 60s"
 
 #: ../web/src/partials/i18n.html:547
 msgid "发送验证邮件失败"
@@ -7284,7 +7282,7 @@ msgstr "Failed to send verification email"
 #: ../web/src/partials/i18n.html:548
 #, fuzzy
 msgid "修改邮箱失败"
-msgstr "Change Email"
+msgstr "Update Email failed"
 
 #: ../web/src/partials/i18n.html:551
 msgid "验证码已成功发送到您填写的手机号"
@@ -7292,7 +7290,7 @@ msgstr "Verfication code already sent to your phone"
 
 #: ../web/src/partials/i18n_admin.html:1
 msgid "参数错误"
-msgstr "Error"
+msgstr "Parameter Error"
 
 #: ../web/src/partials/i18n_admin.html:2
 msgid "无可用号码，请申请新的号码"
