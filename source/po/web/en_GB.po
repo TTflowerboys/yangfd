@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-11-02 16:54+0800\n"
-"PO-Revision-Date: 2016-11-02 16:45+0800\n"
+"PO-Revision-Date: 2016-11-02 17:09+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -9746,7 +9746,7 @@ msgstr "N/A Loading contact info for you"
 
 #: ../web/src/partials/requirement_rent_phone.html:250
 msgid "您的求租意向单已经提交成功，您可以："
-msgstr "Your rental intention request has been successfully submitted. You can;"
+msgstr "Your rental intention request has been successfully submitted. You can: "
 
 #: ../web/src/partials/requirement_rent_phone.html:251
 #: ../web/src/partials/requirement_rent_popup.html:252
