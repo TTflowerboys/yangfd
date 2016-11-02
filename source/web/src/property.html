@@ -1002,7 +1002,7 @@
                 </div>
                 <div class="actionsList">
                     Share to
-                    % if _.lang == "en_GB":
+                    
                         <button class="flatButton facebook" data-fn="shareToFacebook" data-url="/property/{{property.get('id','')}}">
                             <i class="icon-facebook"></i>
                         </button>
@@ -1013,7 +1013,7 @@
                                 }) ">
                                 <i class="icon-twitter"></i>
                         </button>
-                    % else:
+                    % if _.lang != "en_GB":
                         % name = property.get('name','').replace("\'", "\\\'")
                         <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
                                 <i class="icon-weibo"></i>
