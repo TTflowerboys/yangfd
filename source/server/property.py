@@ -275,7 +275,7 @@ class currant_property(f_app.module_base):
 
             if not _ignore_render_pdf and "brochure" in params["$set"] and params["$set"]["brochure"]:
                 old_property = f_app.property.get(property_id)
-                old_urls = lmap(lambda item: item["url"], old_property.get("brochure", []))
+                old_urls = lmap(that["url"], old_property.get("brochure", []))
                 for item in params["$set"]["brochure"]:
                     if item["url"] not in old_urls:
                         item["rendering"] = True

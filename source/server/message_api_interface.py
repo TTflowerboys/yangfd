@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
+from funcy.py3 import lmap
 from app import f_app
 from libfelix.f_interface import f_api, abort, ObjectId
 from bson.code import Code
@@ -159,5 +160,5 @@ def message_statistics(user, params):
         f_app.message.get_database(m).map_reduce(func_map, func_reduce, "messages_statistics")
         result = m.messages_statistics.find({"_id.type": params["type"]})
 
-    merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+    merged_result = lmap(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
     return merged_result

@@ -359,7 +359,7 @@ class currant_landregistry(f_app.module_base):
     def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
-        merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+        merged_result = lmap(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
         x = [i['date'] for i in merged_result]
         y = np.array([i['average_price'] for i in merged_result])
@@ -506,7 +506,7 @@ class currant_landregistry(f_app.module_base):
     def get_month_average_by_zipcode_index_with_type(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
-        merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+        merged_result = lmap(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
         dresult = []
         sresult = []
@@ -723,7 +723,7 @@ class currant_landregistry(f_app.module_base):
             f_app.landregistry.get_database(m).map_reduce(func_map, func_reduce, "landregistry_statistics", finalize=func_finalize)
             result = m.landregistry_statistics.find({})
 
-        merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+        merged_result = lmap(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
         return merged_result
 
 currant_landregistry()

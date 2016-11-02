@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
+from funcy.py3 import lmap
 from bson.objectid import ObjectId
 from libfelix.f_common import f_app
 from libfelix.f_cache import f_cache
@@ -482,7 +483,7 @@ def postcode_search(params):
                 neighborhood.pop('wkt', None)
                 return neighborhood
 
-            postcode["neighborhoods"] = map(expand_neighborhood, postcode["neighborhoods"])
+            postcode["neighborhoods"] = lmap(expand_neighborhood, postcode["neighborhoods"])
 
     return postcodes
 

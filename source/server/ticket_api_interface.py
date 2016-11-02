@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import random
 import logging
 import calendar
+from whatever import that
 from funcy.py3 import lmap
 from bson.objectid import ObjectId
 from app import f_app
@@ -899,14 +900,14 @@ def rent_intention_ticket_sms_receive(params):
         with f_app.mongo() as m:
             current_parts = list(m.nexmo_parts.find({"concat-ref": params["concat-ref"]}))
 
-        if params["concat-part"] in map(lambda part: part["concat-part"], current_parts):
+        if params["concat-part"] in map(that["concat-part"], current_parts):
             # Duplicate part already received
             return
 
         else:
             if len(current_parts) + 1 == params["concat-total"]:
                 # All parts are present, merge them
-                params["text"] = "".join(map(lambda part: part["text"], sorted(current_parts + [params], key=lambda part: part["concat-part"])))
+                params["text"] = "".join(map(that["text"], sorted(current_parts + [params], key=that["concat-part"])))
 
             else:
                 # Save part and return

@@ -4,6 +4,7 @@ from __future__ import unicode_literals, absolute_import
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort
 from datetime import datetime
+from funcy.py3 import lfilter
 from bson.objectid import ObjectId
 
 import logging
@@ -126,8 +127,8 @@ def enum_search_v1(params):
     Deprecated! Please use the new API above.
     """
     enums = _enum_search(params)
-    enums = filter(lambda enum: "slug" not in enum or enum["slug"] != "custom_featured_facility", enums)
-    return list(enums)
+    enums = lfilter(lambda enum: "slug" not in enum or enum["slug"] != "custom_featured_facility", enums)
+    return enums
 
 
 @f_api('/enum/<enum_id>/check')

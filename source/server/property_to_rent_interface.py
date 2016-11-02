@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 import logging
 import six
+from funcy.py3 import lfilter
 from app import f_app
 from libfelix.f_interface import f_get, redirect, abort, template_gettext as _
 import currant_util
@@ -27,7 +28,7 @@ def property_to_rent_list(params):
     rent_budget_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
     rent_budget_item_list = f_app.i18n.process_i18n(currant_util.get_sorted_enums('rent_budget_item'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
+    property_type_list_without_new_property = lfilter(lambda item: item.get('slug') != 'new_property', property_type_list)
     country_list = currant_util.get_country_list()
     rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all("rent_period"))
     bedroom_count_list = f_app.i18n.process_i18n(currant_util.get_sorted_enums("bedroom_count"))
@@ -189,7 +190,7 @@ def property_to_rent_create():
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     landlord_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('landlord_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
+    property_type_list_without_new_property = lfilter(lambda item: item.get('slug') != 'new_property', property_type_list)
     rent = {}
     title = _('出租房源发布')
     description = _('洋房东英国大不列颠英格兰苏格兰伦敦快速便捷方便迅速上传发布登记房源房产广告出租找租客提交数据信息填写详情描述周边上传图片照片省时省力贴心安全快捷便利')
@@ -220,7 +221,7 @@ def property_to_rent_edit(rent_ticket_id, user):
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     landlord_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('landlord_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
+    property_type_list_without_new_property = lfilter(lambda item: item.get('slug') != 'new_property', property_type_list)
     return currant_util.common_template("property_to_rent_create", landlord_type_list=landlord_type_list, title=title, keywords=keywords, rent=rent_ticket, region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
                                         indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, rent_type_list=rent_type_list, property_type_list=property_type_list, property_type_list_without_new_property=property_type_list_without_new_property)
 

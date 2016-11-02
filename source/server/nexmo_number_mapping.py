@@ -79,7 +79,7 @@ class nexmo_number(f_app.module_base):
         with f_app.mongo() as m:
             nexmo_numbers = self.get_database(m).find(params, {})
 
-        return map(lambda nexmo_number: str(nexmo_number["_id"]), nexmo_numbers)
+        return lmap(lambda nexmo_number: str(nexmo_number["_id"]), nexmo_numbers)
 
     def get_random(self, country=None, exclude=[]):
         all_nexmo_numbers = self.get_all(country)

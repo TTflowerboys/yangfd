@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 import random
 from datetime import datetime, timedelta
 from six.moves import urllib
+from funcy.py3 import lmap, lfilter
 from bson.objectid import ObjectId
 from libfelix.f_common import f_app
 from libfelix.f_ticket import f_ticket
@@ -43,7 +44,7 @@ class currant_ticket(f_ticket):
         hesa_university_dict = f_app.hesa.university.get(list(hesa_university_id_set), multi_return=dict)
 
         if not location_only:
-            user_id_set = list(filter(None, user_id_set))
+            user_id_set = lfilter(None, user_id_set)
             user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields, permission_check=permission_check)
             user_dict = {None: None}
             enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
@@ -94,7 +95,7 @@ class currant_ticket(f_ticket):
                                 t["user"]["wechat"] = t["user"]["wechat"][:3] + "***"
 
                     if isinstance(t.get("assignee"), list):
-                        t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
+                        t["assignee"] = lmap(lambda x: user_dict.get(x), t["assignee"])
                     if t.get("budget"):
                         t["budget"] = enum_dict.get(t["budget"]["id"])
                     if t.get("property_id"):
