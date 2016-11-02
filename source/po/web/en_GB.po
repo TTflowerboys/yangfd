@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-10-21 17:28+0800\n"
-"PO-Revision-Date: 2016-11-01 18:46+0800\n"
+"POT-Creation-Date: 2016-11-02 16:54+0800\n"
+"PO-Revision-Date: 2016-11-02 16:45+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -173,7 +173,7 @@ msgid "邮箱(必填)"
 msgstr "Email (Required)"
 
 #: ../web/src/coming_soon.html:64 ../web/src/intention.html:71
-#: ../web/src/property.html:1041 ../web/src/partials/index_buyer.html:55
+#: ../web/src/property.html:1050 ../web/src/partials/index_buyer.html:55
 #: ../web/src/partials/requirement_form.html:34
 msgid "您的预算"
 msgstr "Your Budget"
@@ -219,12 +219,12 @@ msgstr ""
 msgid "洋房东"
 msgstr "Young Funding"
 
-#: ../web/src/coming_soon.html:94 ../web/src/masters/master.html:320
+#: ../web/src/coming_soon.html:94 ../web/src/masters/master.html:312
 msgid "鄂ICP备14015315号-1"
 msgstr ""
 
-#: ../web/src/coming_soon.html:100 ../web/src/masters/master.html:218
-#: ../web/src/masters/master.html:281 ../web/src/partials/i18n.html:264
+#: ../web/src/coming_soon.html:100 ../web/src/masters/master.html:210
+#: ../web/src/masters/master.html:273 ../web/src/partials/i18n.html:264
 #: ../web/src/partials/user_settings.html:128
 #: ../web/src/partials/user_settings.html:135
 #: ../web/src/partials/user_settings_phone.html:129
@@ -234,7 +234,7 @@ msgstr "Simplified Chinese(China)"
 
 #: ../web/src/coming_soon.html:101
 #: ../web/src/masters/big_picture_bg_master.html:60
-#: ../web/src/masters/master.html:219 ../web/src/masters/master.html:282
+#: ../web/src/masters/master.html:211 ../web/src/masters/master.html:274
 #: ../web/src/partials/i18n.html:265 ../web/src/partials/user_settings.html:126
 #: ../web/src/partials/user_settings.html:136
 #: ../web/src/partials/user_settings_phone.html:127
@@ -244,8 +244,8 @@ msgstr "English (United Kingdom)"
 
 #: ../web/src/coming_soon.html:107 ../web/src/property_for_sale_create.html:130
 #: ../web/src/masters/big_picture_bg_master.html:66
-#: ../web/src/masters/master.html:224 ../web/src/masters/master.html:236
-#: ../web/src/masters/master.html:287 ../web/src/masters/master.html:299
+#: ../web/src/masters/master.html:216 ../web/src/masters/master.html:228
+#: ../web/src/masters/master.html:279 ../web/src/masters/master.html:291
 #: ../web/src/partials/current_currency.html:2
 #: ../web/src/partials/i18n.html:266
 #: ../web/src/partials/property_to_rent_edit.html:148
@@ -261,8 +261,8 @@ msgstr "Chinese Yuan"
 
 #: ../web/src/coming_soon.html:108 ../web/src/property_for_sale_create.html:131
 #: ../web/src/masters/big_picture_bg_master.html:67
-#: ../web/src/masters/master.html:225 ../web/src/masters/master.html:237
-#: ../web/src/masters/master.html:288 ../web/src/masters/master.html:300
+#: ../web/src/masters/master.html:217 ../web/src/masters/master.html:229
+#: ../web/src/masters/master.html:280 ../web/src/masters/master.html:292
 #: ../web/src/partials/current_currency.html:4
 #: ../web/src/partials/i18n.html:267
 #: ../web/src/partials/property_to_rent_edit.html:153
@@ -278,8 +278,8 @@ msgstr "Pound Sterling"
 
 #: ../web/src/coming_soon.html:109 ../web/src/property_for_sale_create.html:132
 #: ../web/src/masters/big_picture_bg_master.html:68
-#: ../web/src/masters/master.html:226 ../web/src/masters/master.html:238
-#: ../web/src/masters/master.html:289 ../web/src/masters/master.html:301
+#: ../web/src/masters/master.html:218 ../web/src/masters/master.html:230
+#: ../web/src/masters/master.html:281 ../web/src/masters/master.html:293
 #: ../web/src/partials/current_currency.html:6
 #: ../web/src/partials/i18n.html:268
 #: ../web/src/partials/property_to_rent_edit.html:158
@@ -295,8 +295,8 @@ msgstr "U.S. Dollar"
 
 #: ../web/src/coming_soon.html:110 ../web/src/property_for_sale_create.html:133
 #: ../web/src/masters/big_picture_bg_master.html:69
-#: ../web/src/masters/master.html:227 ../web/src/masters/master.html:239
-#: ../web/src/masters/master.html:290 ../web/src/masters/master.html:302
+#: ../web/src/masters/master.html:219 ../web/src/masters/master.html:231
+#: ../web/src/masters/master.html:282 ../web/src/masters/master.html:294
 #: ../web/src/partials/current_currency.html:8
 #: ../web/src/partials/i18n.html:269
 #: ../web/src/partials/property_to_rent_edit.html:163
@@ -312,8 +312,8 @@ msgstr "Euro"
 
 #: ../web/src/coming_soon.html:111 ../web/src/property_for_sale_create.html:134
 #: ../web/src/masters/big_picture_bg_master.html:70
-#: ../web/src/masters/master.html:228 ../web/src/masters/master.html:240
-#: ../web/src/masters/master.html:291 ../web/src/masters/master.html:303
+#: ../web/src/masters/master.html:220 ../web/src/masters/master.html:232
+#: ../web/src/masters/master.html:283 ../web/src/masters/master.html:295
 #: ../web/src/partials/current_currency.html:10
 #: ../web/src/partials/i18n.html:270
 #: ../web/src/partials/property_to_rent_edit.html:168
@@ -329,7 +329,7 @@ msgstr "Hong Kong Dollar"
 
 #: ../web/src/crowdfunding.html:13 ../web/src/property.html:43
 #: ../web/src/property.html:65 ../web/src/property.html:317
-#: ../web/src/property.html:1174 ../server/crowdfunding_interface.py:30
+#: ../web/src/property.html:1183 ../server/crowdfunding_interface.py:30
 #: ../server/crowdfunding_interface.py:32 ../server/property_interface.py:101
 #: ../server/property_interface.py:124 ../server/property_interface.py:141
 #: ../server/property_interface.py:161 ../server/property_interface.py:166
@@ -369,6 +369,12 @@ msgstr "Videos"
 msgid "%s起投"
 msgstr "From %s"
 
+#: ../web/src/crowdfunding.html:177 ../web/src/crowdfunding.html:181
+#: ../web/src/crowdfunding.html:676 ../web/src/crowdfunding.html:680
+#, fuzzy, python-format
+msgid "%s年锁定"
+msgstr "In the lock"
+
 #: ../web/src/crowdfunding.html:195 ../web/src/crowdfunding.html:663
 #: ../web/src/user_finish_investment.html:39
 msgid "可投资"
@@ -405,28 +411,28 @@ msgid "预计年租金收益率"
 msgstr "Annualised Estimated Rental Return"
 
 #: ../web/src/crowdfunding.html:253 ../web/src/property.html:323
-#: ../web/src/property_to_rent.html:232 ../web/src/property_to_rent.html:246
+#: ../web/src/property_to_rent.html:233 ../web/src/property_to_rent.html:247
 #: ../web/src/partials/property_to_rent_edit.html:279
 #: ../web/src/partials/property_to_rent_edit.html:507
 msgid "房屋面积"
 msgstr "Total Area"
 
 #: ../web/src/crowdfunding.html:265 ../web/src/property.html:340
-#: ../web/src/property.html:555 ../web/src/property_to_rent.html:270
+#: ../web/src/property.html:555 ../web/src/property_to_rent.html:271
 #: ../web/src/partials/get_size.html:2
 #: ../web/src/partials/i18n_templates.html:38
 msgid "卧室"
 msgstr "Bedroom(s)"
 
 #: ../web/src/crowdfunding.html:272 ../web/src/property.html:347
-#: ../web/src/property.html:567 ../web/src/property_to_rent.html:277
+#: ../web/src/property.html:567 ../web/src/property_to_rent.html:278
 #: ../web/src/partials/get_size.html:5
 #: ../web/src/partials/i18n_templates.html:40
 msgid "卫生间"
 msgstr "Bathroom(s)"
 
 #: ../web/src/crowdfunding.html:279 ../web/src/property.html:354
-#: ../web/src/property.html:561 ../web/src/property_to_rent.html:284
+#: ../web/src/property.html:561 ../web/src/property_to_rent.html:285
 #: ../web/src/partials/i18n_templates.html:39
 msgid "客厅"
 msgstr "Living Room(s)"
@@ -454,7 +460,7 @@ msgid " (查看详细街区报告)"
 msgstr "(View detailed neighbourhood report)"
 
 #: ../web/src/crowdfunding.html:345 ../web/src/property.html:501
-#: ../web/src/property_to_rent.html:337 ../web/src/partials/i18n.html:313
+#: ../web/src/property_to_rent.html:338 ../web/src/partials/i18n.html:313
 #: ../web/src/partials/i18n_templates.html:46
 msgid "展开"
 msgstr "Expand"
@@ -523,13 +529,13 @@ msgid "金额"
 msgstr "Amount"
 
 #: ../web/src/crowdfunding.html:514 ../web/src/property.html:83
-#: ../web/src/property.html:846 ../web/src/property.html:1192
+#: ../web/src/property.html:846 ../web/src/property.html:1201
 #: ../web/src/partials/i18n_admin.html:189
 msgid "相关资料"
 msgstr "Materials"
 
 #: ../web/src/crowdfunding.html:547 ../web/src/property.html:905
-#: ../web/src/property_to_rent.html:445
+#: ../web/src/property_to_rent.html:446
 msgid "查看详细街区报告"
 msgstr "View Neighborhood Report"
 
@@ -555,9 +561,9 @@ msgid "状态"
 msgstr "Status"
 
 #: ../web/src/crowdfunding.html:609 ../web/src/crowdfunding.html:836
-#: ../web/src/crowdfunding_list.html:89 ../web/src/property_to_rent.html:348
-#: ../web/src/property_to_rent.html:349 ../web/src/property_to_rent.html:368
-#: ../web/src/property_to_rent.html:369
+#: ../web/src/crowdfunding_list.html:89 ../web/src/property_to_rent.html:349
+#: ../web/src/property_to_rent.html:350 ../web/src/property_to_rent.html:369
+#: ../web/src/property_to_rent.html:370
 #: ../web/src/partials/i18n_templates.html:83
 msgid "更多"
 msgstr "More"
@@ -581,37 +587,35 @@ msgid "预计年租金<br/>收益率"
 msgstr "Annualized Estimated<br/>Rental Return"
 
 #: ../web/src/crowdfunding.html:737 ../web/src/crowdfunding.html:892
-#: ../web/src/property.html:987 ../web/src/property.html:1208
-#: ../web/src/property_to_rent.html:562 ../web/src/property_to_rent.html:830
+#: ../web/src/property.html:987 ../web/src/property.html:1217
+#: ../web/src/property_to_rent.html:578 ../web/src/property_to_rent.html:839
 msgid "已经收藏过了"
 msgstr "Already Favourited"
 
 #: ../web/src/crowdfunding.html:740 ../web/src/property.html:990
-#: ../web/src/property_to_rent.html:564
+#: ../web/src/property_to_rent.html:580
 msgid "收藏"
 msgstr "Favourite"
 
 #: ../web/src/crowdfunding.html:750 ../web/src/property.html:1000
-#: ../web/src/property_to_rent.html:574
+#: ../web/src/property_to_rent.html:590
 #: ../web/src/partials/i18n_templates.html:13
 msgid "取消收藏"
 msgstr "Unfavorite"
 
-#: ../web/src/crowdfunding.html:756 ../web/src/property.html:1006
-#: ../web/src/property_to_rent.html:580
+#: ../web/src/crowdfunding.html:756
 #: ../web/src/property_to_rent_publish_success.html:19
 #: ../web/src/partials/i18n_templates.html:84
 msgid "分享到微信"
 msgstr "WeChat Share"
 
-#: ../web/src/crowdfunding.html:763 ../web/src/property.html:1013
-#: ../web/src/property_to_rent.html:593
+#: ../web/src/crowdfunding.html:763
 #: ../web/src/property_to_rent_publish_success.html:30
 #: ../web/src/partials/host_contact_request_amount_modal.html:16
 msgid "分享到微博"
 msgstr "Weibo Share"
 
-#: ../web/src/crowdfunding.html:777 ../web/src/property.html:1087
+#: ../web/src/crowdfunding.html:777 ../web/src/property.html:1096
 #: ../web/src/partials/i18n_admin.html:170
 msgid "投资标签"
 msgstr "Intention"
@@ -621,31 +625,31 @@ msgstr "Intention"
 msgid "众筹热门问答"
 msgstr "Crowdfunding Q&A"
 
-#: ../web/src/crowdfunding.html:840 ../web/src/property.html:1117
+#: ../web/src/crowdfunding.html:840 ../web/src/property.html:1126
 msgid "相关房产"
 msgstr "Related real estate"
 
 #: ../web/src/crowdfunding.html:874 ../web/src/news.html:132
-#: ../web/src/property.html:1158
+#: ../web/src/property.html:1167
 msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
 msgstr "Open WeChat, Use \"Scan QR Code\" to share to Wechat Moments"
 
 #: ../web/src/crowdfunding.html:878 ../web/src/news.html:121
-#: ../web/src/property.html:1162 ../web/src/property_to_rent.html:849
+#: ../web/src/property.html:1171 ../web/src/property_to_rent.html:858
 #: ../web/src/property_to_rent_publish_success.html:48
 #: ../web/src/user_intentions.html:75 ../web/src/user_properties.html:100
 msgid "点击右上角"
 msgstr "Click on the top right corner"
 
 #: ../web/src/crowdfunding.html:880 ../web/src/news.html:123
-#: ../web/src/property.html:1164 ../web/src/property_to_rent.html:851
+#: ../web/src/property.html:1173 ../web/src/property_to_rent.html:860
 #: ../web/src/property_to_rent_publish_success.html:50
 #: ../web/src/user_intentions.html:77 ../web/src/user_properties.html:102
 msgid "分享链接给微信好友"
 msgstr "Send link to wechat friends?"
 
 #: ../web/src/crowdfunding.html:884 ../web/src/news.html:127
-#: ../web/src/property.html:1168 ../web/src/property_to_rent.html:855
+#: ../web/src/property.html:1177 ../web/src/property_to_rent.html:864
 #: ../web/src/property_to_rent_publish_success.html:54
 #: ../web/src/user_intentions.html:81 ../web/src/user_properties.html:106
 #: ../web/src/static/templates/rent_request.tpl.html:264
@@ -1045,7 +1049,7 @@ msgid "房东回复后平台将会与您取得联系 "
 msgstr "N/A"
 
 #: ../web/src/host_contact_request-phone.html:41
-#: ../web/src/property_to_rent.html:604 ../web/src/property_to_rent.html:819
+#: ../web/src/property_to_rent.html:561 ../web/src/property_to_rent.html:828
 #: ../web/src/wechat_poster.html:366
 #: ../web/src/partials/host_contact_partner.html:39
 #: ../web/src/partials/host_contact_partner.html:46
@@ -1054,7 +1058,7 @@ msgid "我要预订"
 msgstr "I would like to book"
 
 #: ../web/src/host_contact_request-phone.html:43
-#: ../web/src/property_to_rent.html:606 ../web/src/property_to_rent.html:821
+#: ../web/src/property_to_rent.html:563 ../web/src/property_to_rent.html:830
 #: ../web/src/wechat_poster.html:368
 #: ../web/src/partials/host_contact_partner.html:41
 #: ../web/src/partials/host_contact_partner.html:48
@@ -1066,7 +1070,7 @@ msgid "我要咨询"
 msgstr "I want to enquiry"
 
 #: ../web/src/host_contact_request-phone.html:50
-#: ../web/src/property_to_rent.html:612 ../web/src/wechat_poster.html:379
+#: ../web/src/property_to_rent.html:569 ../web/src/wechat_poster.html:379
 #: ../web/src/partials/host_contact_partner.html:55
 #: ../web/src/partials/host_contact_request.html:102
 msgid "房源编号: "
@@ -1304,7 +1308,6 @@ msgstr ""
 "reply. "
 
 #: ../web/src/how_it_works_tenant.html:33
-#: ../web/src/partials/index_renter.html:35
 msgid "请求视频"
 msgstr "Video request"
 
@@ -1454,8 +1457,12 @@ msgstr "Learn More"
 msgid "Want to find a house in UK？"
 msgstr ""
 
-#: ../web/src/index_en.html:31
+#: ../web/src/index_en.html:36
 msgid "Start"
+msgstr ""
+
+#: ../web/src/index_en.html:38
+msgid "Learn More"
 msgstr ""
 
 #: ../web/src/intention.html:16
@@ -1587,38 +1594,38 @@ msgid "网站公告"
 msgstr "Announcement"
 
 #: ../web/src/partner.html:14 ../web/src/masters/aboutus_master.html:54
-#: ../web/src/masters/master.html:274 ../server/news_interface.py:130
+#: ../web/src/masters/master.html:266 ../server/news_interface.py:130
 msgid "合作伙伴"
 msgstr "Partners"
 
 #: ../web/src/property.html:68 ../web/src/property.html:520
-#: ../web/src/property.html:1177 ../web/src/property_to_rent.html:59
+#: ../web/src/property.html:1186 ../web/src/property_to_rent.html:59
 #: ../web/src/property_to_rent.html:62
 msgid "周边配套"
 msgstr "Nearby"
 
 #: ../web/src/property.html:71 ../web/src/property.html:529
-#: ../web/src/property.html:1180
+#: ../web/src/property.html:1189
 msgid "楼盘户型"
 msgstr "House Type"
 
 #: ../web/src/property.html:74 ../web/src/property.html:623
-#: ../web/src/property.html:1183
+#: ../web/src/property.html:1192
 msgid "楼盘介绍"
 msgstr "Property Introduction"
 
 #: ../web/src/property.html:77 ../web/src/property.html:718
-#: ../web/src/property.html:1186
+#: ../web/src/property.html:1195
 msgid "价格趋势"
 msgstr "Prices Trends"
 
 #: ../web/src/property.html:80 ../web/src/property.html:729
-#: ../web/src/property.html:1189
+#: ../web/src/property.html:1198
 msgid "月收支分析"
 msgstr "Monthly Financials"
 
 #: ../web/src/property.html:86 ../web/src/property.html:890
-#: ../web/src/property.html:1195 ../web/src/property_to_rent.html:430
+#: ../web/src/property.html:1204 ../web/src/property_to_rent.html:431
 #: ../web/src/partials/property_to_rent_publish.html:297
 msgid "街区报告"
 msgstr "Neighborhood Report"
@@ -1627,7 +1634,7 @@ msgstr "Neighborhood Report"
 msgid "拨打 "
 msgstr "Call"
 
-#: ../web/src/property.html:93 ../web/src/property.html:1073
+#: ../web/src/property.html:93 ../web/src/property.html:1082
 msgid "编号: "
 msgstr "Property number:"
 
@@ -1665,7 +1672,7 @@ msgid "首付"
 msgstr "Deposit"
 
 #: ../web/src/property.html:334 ../web/src/property.html:549
-#: ../web/src/property_to_rent.html:264
+#: ../web/src/property_to_rent.html:265
 #: ../web/src/partials/i18n_templates.html:22
 msgid "户型"
 msgstr "House Type"
@@ -1709,7 +1716,7 @@ msgstr "Bedroom(s)"
 msgid "厅"
 msgstr "Living Room(s)"
 
-#: ../web/src/property.html:514 ../web/src/property_to_rent.html:415
+#: ../web/src/property.html:514 ../web/src/property_to_rent.html:416
 #: ../web/src/region_report.html:213
 msgid "查看房产周边设施"
 msgstr "View Nearby"
@@ -1726,13 +1733,6 @@ msgstr "Area"
 #: ../web/src/property.html:595 ../web/src/partials/i18n_templates.html:43
 msgid "参考售价"
 msgstr "Guide Price"
-
-#: ../web/src/property.html:599 ../web/src/property_wechat_poster.html:67
-#: ../web/src/partials/get_unit_price.html:10
-#: ../web/src/partials/i18n_templates.html:68
-#, python-format
-msgid "%s起"
-msgstr "From %s"
 
 #: ../web/src/property.html:632 ../web/src/partials/i18n_admin.html:317
 msgid "开盘时间"
@@ -1810,7 +1810,7 @@ msgstr ", or"
 msgid "售罄"
 msgstr "Sold out"
 
-#: ../web/src/property.html:1021
+#: ../web/src/property.html:1030
 #: ../web/src/partials/delegate_rent_phone.html:68
 #: ../web/src/partials/delegate_rent_popup.html:105
 #: ../web/src/partials/delegate_sale_phone.html:68
@@ -1823,59 +1823,59 @@ msgstr "Sold out"
 msgid "提交成功"
 msgstr "Submission Successful"
 
-#: ../web/src/property.html:1022
+#: ../web/src/property.html:1031
 #: ../web/src/partials/host_contact_request.html:58
 msgid "你填写的手机或邮箱的格式不正确"
 msgstr "Your phone or email format may be wrong"
 
-#: ../web/src/property.html:1023
+#: ../web/src/property.html:1032
 #: ../web/src/partials/host_contact_request.html:59
 msgid "服务器忙，请稍后"
 msgstr "Server is busy, please try again later"
 
-#: ../web/src/property.html:1027
+#: ../web/src/property.html:1036
 #: ../web/src/partials/host_contact_request.html:66
 msgid "您的姓名(必填)"
 msgstr "Name (Required)"
 
-#: ../web/src/property.html:1032
+#: ../web/src/property.html:1041
 #: ../web/src/partials/host_contact_request.html:86
 msgid "您的电话(必填)"
 msgstr "Phone (Required)"
 
-#: ../web/src/property.html:1036
+#: ../web/src/property.html:1045
 #: ../web/src/partials/host_contact_request.html:82
 msgid "您的邮箱(必填)"
 msgstr "Email (Required)"
 
-#: ../web/src/property.html:1043 ../web/src/property.html:1055
+#: ../web/src/property.html:1052 ../web/src/property.html:1064
 #: ../web/src/partials/requirement_form.html:66
 msgid "可选"
 msgstr "Optional"
 
-#: ../web/src/property.html:1055 ../web/src/partials/requirement_form.html:66
+#: ../web/src/property.html:1064 ../web/src/partials/requirement_form.html:66
 msgid "请在这里写下您的其他需求和购房疑问，我们的置业顾问将与您取得联系，竭诚为您服务"
 msgstr ""
 "Please enter any other investment requirements or queries. Our investment"
 " advisors will contact you to assist with everything. "
 
-#: ../web/src/property.html:1060
+#: ../web/src/property.html:1069
 msgid "免费成为会员，查看详细报告"
 msgstr "Sign up for free to get detail reports"
 
-#: ../web/src/property.html:1064
+#: ../web/src/property.html:1073
 msgid "留言咨询"
 msgstr "Consultation"
 
-#: ../web/src/property.html:1069
+#: ../web/src/property.html:1078
 msgid "或拨打"
 msgstr "Or Call"
 
-#: ../web/src/property.html:1069
+#: ../web/src/property.html:1078
 msgid "咨询 "
 msgstr "Consultation"
 
-#: ../web/src/property.html:1112
+#: ../web/src/property.html:1121
 msgid "房贷计算"
 msgstr "Mortgage Payment Calculator"
 
@@ -2011,37 +2011,42 @@ msgstr "Property Details"
 msgid "拨打 <strong>400-8299-318</strong>"
 msgstr "Call <strong>400-0926-433</strong>"
 
-#: ../web/src/property_to_rent.html:114 ../web/src/property_to_rent.html:506
+#: ../web/src/property_to_rent.html:114 ../web/src/property_to_rent.html:507
 #: ../web/src/partials/i18n.html:540 ../web/src/partials/i18n_admin.html:345
 #: ../web/src/partials/i18n_templates.html:51
 msgid "已租出"
 msgstr "Rented"
 
-#: ../web/src/property_to_rent.html:142 ../web/src/property_to_rent.html:459
+#: ../web/src/property_to_rent.html:131
+#: ../web/src/partials/i18n_templates.html:60
+msgid "房东稍后上传"
+msgstr "Landlord to upload photo shortly"
+
+#: ../web/src/property_to_rent.html:143 ../web/src/property_to_rent.html:460
 #: ../web/src/partials/i18n_templates.html:18
 msgid "免服务费"
 msgstr "Free Service"
 
-#: ../web/src/property_to_rent.html:145 ../web/src/property_to_rent.html:462
+#: ../web/src/property_to_rent.html:146 ../web/src/property_to_rent.html:463
 #: ../web/src/partials/i18n_templates.html:19
 #: ../web/src/partials/property_to_rent_edit.html:714
 msgid "可实地看房"
 msgstr "Site Viewing"
 
-#: ../web/src/property_to_rent.html:151 ../web/src/property_to_rent.html:468
+#: ../web/src/property_to_rent.html:152 ../web/src/property_to_rent.html:469
 #: ../web/src/partials/i18n_templates.html:20
 #, python-format
 msgid "%s更新过"
 msgstr "Updated %s"
 
-#: ../web/src/property_to_rent.html:154 ../web/src/property_to_rent.html:471
+#: ../web/src/property_to_rent.html:155 ../web/src/property_to_rent.html:472
 #: ../web/src/partials/i18n_templates.html:21
 #, python-format
 msgid "%s发布"
 msgstr "Published %s"
 
-#: ../web/src/property_to_rent.html:165 ../web/src/property_to_rent.html:491
-#: ../web/src/property_to_rent.html:793
+#: ../web/src/property_to_rent.html:166 ../web/src/property_to_rent.html:492
+#: ../web/src/property_to_rent.html:802
 #: ../web/src/property_to_rent_digest.html:39
 #: ../web/src/property_to_rent_list.html:111
 #: ../web/src/property_to_rent_list.html:122 ../web/src/wechat_poster.html:62
@@ -2058,8 +2063,8 @@ msgstr "Published %s"
 msgid "/周"
 msgstr "/ week"
 
-#: ../web/src/property_to_rent.html:167 ../web/src/property_to_rent.html:498
-#: ../web/src/property_to_rent.html:543
+#: ../web/src/property_to_rent.html:168 ../web/src/property_to_rent.html:499
+#: ../web/src/property_to_rent.html:544
 #: ../web/src/property_wechat_poster.html:70
 #: ../web/src/property_wechat_poster.html:84 ../web/src/wechat_poster.html:70
 #: ../web/src/partials/get_reference_price.html:18
@@ -2075,99 +2080,99 @@ msgstr "/ week"
 msgid "约"
 msgstr "About "
 
-#: ../web/src/property_to_rent.html:170 ../web/src/property_to_rent.html:501
+#: ../web/src/property_to_rent.html:171 ../web/src/property_to_rent.html:502
 #: ../web/src/wechat_poster.html:73 ../web/src/partials/i18n_templates.html:17
 #, fuzzy
 msgid "/月"
 msgstr "/month"
 
-#: ../web/src/property_to_rent.html:175
+#: ../web/src/property_to_rent.html:176
 msgid "包Bill"
 msgstr "Bills included"
 
-#: ../web/src/property_to_rent.html:193 ../web/src/property_to_rent.html:513
+#: ../web/src/property_to_rent.html:194 ../web/src/property_to_rent.html:514
 #: ../web/src/property_to_rent_digest.html:100
 #: ../web/src/wechat_poster.html:173 ../web/src/partials/i18n.html:453
 #: ../web/src/partials/i18n_admin.html:124
 msgid "最短租期"
 msgstr "Minimum term"
 
-#: ../web/src/property_to_rent.html:198
+#: ../web/src/property_to_rent.html:199
 #: ../web/src/partials/i18n_templates.html:29
 msgid "租期不限"
 msgstr "Unlimited term"
 
-#: ../web/src/property_to_rent.html:206 ../web/src/property_to_rent.html:529
+#: ../web/src/property_to_rent.html:207 ../web/src/property_to_rent.html:530
 #: ../web/src/property_to_rent_digest.html:89 ../web/src/wechat_poster.html:162
 #, python-format
 msgid "%s至 "
 msgstr "From %s "
 
-#: ../web/src/property_to_rent.html:208 ../web/src/property_to_rent.html:531
+#: ../web/src/property_to_rent.html:209 ../web/src/property_to_rent.html:532
 #: ../web/src/property_to_rent_digest.html:91 ../web/src/wechat_poster.html:164
 #, python-format
 msgid "%s起 "
 msgstr "From %s "
 
-#: ../web/src/property_to_rent.html:212 ../web/src/property_to_rent.html:536
+#: ../web/src/property_to_rent.html:213 ../web/src/property_to_rent.html:537
 #: ../web/src/partials/property_to_rent_edit.html:203
 #: ../web/src/partials/property_to_rent_edit.html:208
 #: ../web/src/partials/property_to_rent_edit.html:210
 msgid "押金"
 msgstr "Deposit"
 
-#: ../web/src/property_to_rent.html:219 ../web/src/property_to_rent.html:548
+#: ../web/src/property_to_rent.html:220 ../web/src/property_to_rent.html:549
 msgid "面议"
 msgstr "Negotiable"
 
-#: ../web/src/property_to_rent.html:234
+#: ../web/src/property_to_rent.html:235
 msgid "房间面积"
 msgstr "Room Area"
 
-#: ../web/src/property_to_rent.html:258
+#: ../web/src/property_to_rent.html:259
 #: ../web/src/property_to_rent_list.html:144
 #: ../web/src/partials/property_to_rent_edit.html:298
 msgid "独立卫浴"
 msgstr "En-suite"
 
-#: ../web/src/property_to_rent.html:259
+#: ../web/src/property_to_rent.html:260
 #: ../web/src/property_to_rent_list.html:145
 msgid "有"
 msgstr "Yes"
 
-#: ../web/src/property_to_rent.html:298
+#: ../web/src/property_to_rent.html:299
 #: ../web/src/partials/property_to_rent_edit.html:121
 msgid "街道"
 msgstr "Street"
 
-#: ../web/src/property_to_rent.html:307
+#: ../web/src/property_to_rent.html:308
 msgid "小区"
 msgstr "Residential complex"
 
-#: ../web/src/property_to_rent.html:314
+#: ../web/src/property_to_rent.html:315
 #: ../web/src/partials/property_to_rent_edit.html:124
 #: ../web/src/partials/property_to_rent_edit.html:128
 msgid "楼层"
 msgstr "Floor"
 
-#: ../web/src/property_to_rent.html:325
+#: ../web/src/property_to_rent.html:326
 msgid "房源编号"
 msgstr "Listing No."
 
-#: ../web/src/property_to_rent.html:347 ../web/src/partials/i18n_admin.html:240
+#: ../web/src/property_to_rent.html:348 ../web/src/partials/i18n_admin.html:240
 msgid "房间设施"
 msgstr "Property facilities"
 
-#: ../web/src/property_to_rent.html:367 ../web/src/partials/i18n_admin.html:241
+#: ../web/src/property_to_rent.html:368 ../web/src/partials/i18n_admin.html:241
 msgid "小区设施"
 msgstr "Residential complex facilities"
 
-#: ../web/src/property_to_rent.html:395
+#: ../web/src/property_to_rent.html:396
 #: ../web/src/partials/property_to_rent_edit.html:631
 msgid "周边"
 msgstr "Surroundings"
 
-#: ../web/src/property_to_rent.html:494 ../web/src/property_to_rent.html:796
+#: ../web/src/property_to_rent.html:495 ../web/src/property_to_rent.html:805
 #: ../web/src/static/emails/rent_intention_digest.html:34
 #: ../web/src/static/emails/rent_intention_matched_1.html:35
 #: ../web/src/static/emails/rent_intention_matched_4.html:41
@@ -2175,43 +2180,43 @@ msgstr "Surroundings"
 msgid "，包Bill"
 msgstr ", Bills included"
 
-#: ../web/src/property_to_rent.html:520 ../web/src/property_to_rent.html:730
-#: ../web/src/property_to_rent.html:738 ../web/src/property_to_rent.html:750
+#: ../web/src/property_to_rent.html:521 ../web/src/property_to_rent.html:739
+#: ../web/src/property_to_rent.html:747 ../web/src/property_to_rent.html:759
 #: ../web/src/partials/i18n.html:398 ../web/src/partials/i18n_admin.html:162
 #: ../web/src/partials/property_to_rent_edit.html:341
 msgid "不限"
 msgstr "None"
 
-#: ../web/src/property_to_rent.html:623
+#: ../web/src/property_to_rent.html:632
 #: ../web/src/partials/property_to_rent_edit.html:402
 msgid "可入住人数"
 msgstr "Accommodates"
 
-#: ../web/src/property_to_rent.html:632 ../web/src/property_to_rent.html:642
-#: ../web/src/property_to_rent.html:652
+#: ../web/src/property_to_rent.html:641 ../web/src/property_to_rent.html:651
+#: ../web/src/property_to_rent.html:661
 msgid "禁止"
 msgstr "Forbidden"
 
-#: ../web/src/property_to_rent.html:634 ../web/src/property_to_rent.html:644
-#: ../web/src/property_to_rent.html:654
+#: ../web/src/property_to_rent.html:643 ../web/src/property_to_rent.html:653
+#: ../web/src/property_to_rent.html:663
 msgid "允许"
 msgstr "Allow"
 
-#: ../web/src/property_to_rent.html:668 ../web/src/property_to_rent.html:687
-#: ../web/src/property_to_rent.html:703
+#: ../web/src/property_to_rent.html:677 ../web/src/property_to_rent.html:696
+#: ../web/src/property_to_rent.html:712
 msgid "当前入住数"
 msgstr "Current Occupants Count"
 
-#: ../web/src/property_to_rent.html:672 ../web/src/property_to_rent.html:691
-#: ../web/src/property_to_rent.html:707
+#: ../web/src/property_to_rent.html:681 ../web/src/property_to_rent.html:700
+#: ../web/src/property_to_rent.html:716
 msgid "当前入住者性别"
 msgstr "Current Occupants Gender"
 
-#: ../web/src/property_to_rent.html:722
+#: ../web/src/property_to_rent.html:731
 msgid "新室友性别要求"
 msgstr "New Roommate Gender"
 
-#: ../web/src/property_to_rent.html:725 ../web/src/user_finish_info.html:94
+#: ../web/src/property_to_rent.html:734 ../web/src/user_finish_info.html:94
 #: ../web/src/user_finish_info.html:258 ../web/src/partials/i18n.html:380
 #: ../web/src/partials/i18n_admin.html:101
 #: ../web/src/partials/requirement_rent_phone.html:125
@@ -2221,7 +2226,7 @@ msgstr "New Roommate Gender"
 msgid "男"
 msgstr "Male"
 
-#: ../web/src/property_to_rent.html:727 ../web/src/user_finish_info.html:101
+#: ../web/src/property_to_rent.html:736 ../web/src/user_finish_info.html:101
 #: ../web/src/user_finish_info.html:265 ../web/src/partials/i18n.html:381
 #: ../web/src/partials/i18n_admin.html:102
 #: ../web/src/partials/requirement_rent_phone.html:136
@@ -2231,27 +2236,27 @@ msgstr "Male"
 msgid "女"
 msgstr "Female"
 
-#: ../web/src/property_to_rent.html:734
+#: ../web/src/property_to_rent.html:743
 msgid "新室友职业要求"
 msgstr "New Flatmate Occupation"
 
-#: ../web/src/property_to_rent.html:742
+#: ../web/src/property_to_rent.html:751
 msgid "新室友年龄要求"
 msgstr "New Flatmate Age"
 
-#: ../web/src/property_to_rent.html:746 ../web/src/property_to_rent.html:748
+#: ../web/src/property_to_rent.html:755 ../web/src/property_to_rent.html:757
 msgid "以下"
 msgstr "Below"
 
-#: ../web/src/property_to_rent.html:760
+#: ../web/src/property_to_rent.html:769
 msgid "其他要求："
 msgstr "Other Requirements:"
 
-#: ../web/src/property_to_rent.html:771
+#: ../web/src/property_to_rent.html:780
 msgid "相关出租房产"
 msgstr "Related Listings"
 
-#: ../web/src/property_to_rent.html:845
+#: ../web/src/property_to_rent.html:854
 #: ../web/src/property_to_rent_publish_success.html:44
 msgid "打开微信，使用 “扫一扫” 即可将出租房生成移动端主页分享到朋友圈"
 msgstr "Open WeChat, Use \"Scan QR Code\" to share this page to friends"
@@ -2814,19 +2819,13 @@ msgstr "”，list your space in just 3 mins and enjoy free multi-channel market
 
 #: ../web/src/qa_rent.html:63 ../web/src/qa_rent.html:76
 #: ../web/src/qa_rent.html:85
-msgid "点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
+msgid "点击页面顶部您的用户名进入“我的账户”（app用户点击右下角的“我”）在“"
 msgstr ""
-"Click on your username in the header of our website to enter your account"
-" properties, find “"
 
 #: ../web/src/qa_rent.html:63 ../web/src/qa_rent.html:76
 #: ../web/src/qa_rent.html:85 ../web/src/qa_rent.html:143
-#: ../web/src/user_favorites.html:16 ../web/src/user_favorites.html:25
-#: ../web/src/user_properties.html:18 ../web/src/user_properties.html:27
-#: ../web/src/partials/i18n_admin.html:267
-#: ../web/src/static/emails/rent_ticket_publish_success.html:8
-msgid "出租房产"
-msgstr "Property To Rent"
+msgid "我的房产 - 出租房产"
+msgstr ""
 
 #: ../web/src/qa_rent.html:63
 msgid "”中可以看到您发布的所有出租房源。"
@@ -2846,9 +2845,10 @@ msgstr ""
 "like icon to edit listing."
 
 #: ../web/src/qa_rent.html:94
+#, fuzzy
 msgid ""
 " "
-"当出租信息发布后，租户会在平台第一时间看到您的房源信息，有意向者会向您提交求求租咨询，其中包含个人基本信息和租客的提问，您在24内可回复相关咨询，同时您也可以向租客提问。当您接受求租申请后，租客将支付订金至洋房东，我们将立刻通知您保留相应房源。"
+"当出租信息发布后，租户会在平台第一时间看到您的房源信息，有意向者会向您提交求租咨询，其中包含个人基本信息和租客的提问，您在24内可回复相关咨询，同时您也可以向租客提问。当您接受求租申请后，租客将支付订金至洋房东，我们将立刻通知您保留相应房源。"
 msgstr ""
 "Once you have posted your property details potential tenants will be able"
 " to view your property immediately on our platform. Tenants interested in"
@@ -2890,7 +2890,8 @@ msgstr ""
 "immediately. "
 
 #: ../web/src/qa_rent.html:124
-msgid "点击页面用户名处，进入“个人中心”，在“我的房产”内的“出租房产”中找到您要编辑的房源，点击“已出租”按钮，您的房源将不再可见，您可以在任何时间回到“出租房产”状态。"
+#, fuzzy
+msgid "点击页面顶部您的用户名进入“我的账户”（app用户点击右下角的“我”）”，在“我的房产”内的“出租房产”中找到您要编辑的房源，点击“已出租”按钮，您的房源将不再可见，您可以在任何时间回到“出租房产”状态。"
 msgstr ""
 "Click on your username in the header to enter your account properties. In"
 " the [my properties] list you will be able to find the property you wish "
@@ -2904,7 +2905,8 @@ msgstr ""
 "the QR code to share across WeChat or Weibo. "
 
 #: ../web/src/qa_rent.html:143
-msgid "分享自己已发布的房源：点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
+#, fuzzy
+msgid "分享自己已发布的房源：点击页面顶部您的用户名进入“我的账户”（app用户点击右下角的“我”）在“"
 msgstr ""
 "Share listed property already listed : click your username in header of "
 "our website to enter your account, find “"
@@ -3438,7 +3440,7 @@ msgstr "Retrieve password via text email"
 msgid "填写您绑定的邮箱"
 msgstr "Please bind your Email Address"
 
-#: ../web/src/reset_password_email_1.html:23 ../web/src/user_invite.html:57
+#: ../web/src/reset_password_email_1.html:23 ../web/src/user_invite.html:68
 #: ../web/src/user_verify_email.html:23 ../web/src/partials/i18n.html:305
 msgid "发送"
 msgstr "Send"
@@ -3674,6 +3676,13 @@ msgstr "N/A Exchange records"
 #: ../web/src/user_crowdfunding.html:27
 msgid "充值提现"
 msgstr "Deposit & Withdrawal"
+
+#: ../web/src/user_favorites.html:16 ../web/src/user_favorites.html:25
+#: ../web/src/user_properties.html:18 ../web/src/user_properties.html:27
+#: ../web/src/partials/i18n_admin.html:267
+#: ../web/src/static/emails/rent_ticket_publish_success.html:8
+msgid "出租房产"
+msgstr "Property To Rent"
 
 #: ../web/src/user_favorites.html:18 ../web/src/user_favorites.html:29
 msgid "海外房产"
@@ -4058,19 +4067,27 @@ msgstr "Social Media"
 msgid "分享你优惠码"
 msgstr "Share your bonus code? "
 
-#: ../web/src/user_invite.html:41
+#: ../web/src/user_invite.html:42
+msgid "FaceBook"
+msgstr ""
+
+#: ../web/src/user_invite.html:46
+msgid "twitter"
+msgstr ""
+
+#: ../web/src/user_invite.html:51
 msgid "新浪微博"
 msgstr "Sina Weibo"
 
-#: ../web/src/user_invite.html:45
+#: ../web/src/user_invite.html:55 ../web/src/user_invite.html:56
 msgid "扫一扫分享到微信"
 msgstr "Scan to share to WeChat"
 
-#: ../web/src/user_invite.html:54
+#: ../web/src/user_invite.html:65
 msgid "将优惠码发送至"
 msgstr "Discount code has been sent"
 
-#: ../web/src/user_invite.html:56
+#: ../web/src/user_invite.html:67
 msgid "请输入邮件地址"
 msgstr "Please enter your email address "
 
@@ -4302,7 +4319,7 @@ msgstr "About Young Funding"
 
 #: ../web/src/masters/aboutus_master.html:27
 #: ../web/src/masters/big_picture_bg_master.html:54
-#: ../web/src/masters/master.html:270
+#: ../web/src/masters/master.html:262
 msgid "服务声明"
 msgstr "Terms Of Use"
 
@@ -4314,11 +4331,11 @@ msgstr "Overseas rental Help Center"
 msgid "众筹投资帮助中心"
 msgstr "Raise investments to help center"
 
-#: ../web/src/masters/aboutus_master.html:44 ../web/src/masters/master.html:272
+#: ../web/src/masters/aboutus_master.html:44 ../web/src/masters/master.html:264
 msgid "市场合作"
 msgstr "Marketing cooperation"
 
-#: ../web/src/masters/aboutus_master.html:49 ../web/src/masters/master.html:273
+#: ../web/src/masters/aboutus_master.html:49 ../web/src/masters/master.html:265
 msgid "媒体合作"
 msgstr "Media cooperation"
 
@@ -4413,25 +4430,24 @@ msgid "英国"
 msgstr "UK"
 
 #: ../web/src/masters/master.html:127 ../web/src/masters/master.html:133
-#: ../web/src/masters/master.html:176
 #: ../web/src/partials/menu_items_mobile.html:2
 msgid "首页"
 msgstr "Home"
 
 #: ../web/src/masters/master.html:128 ../web/src/masters/master.html:134
-#: ../web/src/masters/master.html:177 ../web/src/partials/i18n.html:297
+#: ../web/src/partials/i18n.html:297
 #: ../web/src/partials/menu_items_mobile.html:3
 msgid "置业投资"
 msgstr "Property Investment"
 
 #: ../web/src/masters/master.html:129 ../web/src/masters/master.html:135
-#: ../web/src/masters/master.html:178 ../web/src/partials/i18n.html:294
+#: ../web/src/partials/i18n.html:294
 #: ../web/src/partials/menu_items_mobile.html:7
 msgid "英国租房"
 msgstr "Rental Property"
 
 #: ../web/src/masters/master.html:136
-#: ../web/src/partials/menu_items_mobile.html:8
+#: ../web/src/partials/menu_items_mobile.html:9
 msgid "投资资讯"
 msgstr "News"
 
@@ -4439,46 +4455,46 @@ msgstr "News"
 msgid "免费咨询"
 msgstr "Free Enquiry"
 
-#: ../web/src/masters/master.html:203
+#: ../web/src/masters/master.html:195
 msgid "朋友圈里的极速出租发布APP"
 msgstr "Ultimate WeChat integrated rental app"
 
-#: ../web/src/masters/master.html:205
+#: ../web/src/masters/master.html:197
 msgid "立即获取"
 msgstr "Get it now!"
 
-#: ../web/src/masters/master.html:247
+#: ../web/src/masters/master.html:239
 #: ../web/src/partials/requirement_popup.html:12
 #: ../web/src/partials/requirement_rent_popup.html:19
 #: ../web/src/partials/requirement_rent_popup.html:258
 msgid "联系我们"
 msgstr "Contact Us"
 
-#: ../web/src/masters/master.html:261
+#: ../web/src/masters/master.html:253
 msgid "中国总部"
 msgstr "China Head Office"
 
-#: ../web/src/masters/master.html:268
+#: ../web/src/masters/master.html:260
 msgid "服务支持"
 msgstr "Support"
 
-#: ../web/src/masters/master.html:269
+#: ../web/src/masters/master.html:261
 msgid "关于我们"
 msgstr "About Us"
 
-#: ../web/src/masters/master.html:271
+#: ../web/src/masters/master.html:263
 msgid "帮助中心"
 msgstr "Help Center"
 
-#: ../web/src/masters/master.html:309
+#: ../web/src/masters/master.html:301
 msgid "关注我们"
 msgstr "Follow Us"
 
-#: ../web/src/masters/master.html:311
+#: ../web/src/masters/master.html:303
 msgid "微信订阅号"
 msgstr "Wechat Official Account"
 
-#: ../web/src/masters/master.html:321
+#: ../web/src/masters/master.html:313
 msgid "洋房东乃英国正式登记注册商标，为武汉兄弟桥科技发展有限公司直属企业"
 msgstr ""
 
@@ -5370,7 +5386,10 @@ msgstr "Account not exists"
 msgid ""
 "邮箱已被使用！请<a href=\"#\" onclick=\"project.goToSignIn()\">“登录”</a>或者<a "
 "href=\"#\" onclick=\"project.goToResetPassword()\">“找回密码”</a>"
-msgstr "Email already in use, Please  <>  log-in <> or  <> Retrieve my password"
+msgstr ""
+"Email already in use, Please<a href=\"#\" "
+"onclick=\"project.goToSignIn()\">login</a>or<a href=\"#\" "
+"onclick=\"project.goToResetPassword()\">reset password</a>"
 
 #: ../web/src/partials/i18n.html:69
 msgid "推荐码无效"
@@ -5381,12 +5400,15 @@ msgid ""
 "电话已被使用！请<a href=\"#\" onclick=\"project.goToSignIn()\">“登录”</a>或者<a "
 "href=\"#\" onclick=\"project.goToResetPassword()\">“找回密码”</a>"
 msgstr ""
-"Phone number appears to be registered, Please <> login <> or retrieve "
-"password <>"
+"Phone number appears to be registered, Please<a href=\"#\" "
+"onclick=\"project.goToSignIn()\">login</a>or<a href=\"#\" "
+"onclick=\"project.goToResetPassword()\">reset password</a>"
 
 #: ../web/src/partials/i18n.html:71
 msgid "电话已被使用！请<a href=\"#\" onclick=\"project.showSignInModal()\">“登录”</a>"
 msgstr ""
+"Phone number appears to be registered, Please<a href=\"#\" "
+"onclick=\"project.showSignInModal()\">login</a>"
 
 #: ../web/src/partials/i18n.html:72
 msgid "请求太频繁，请稍后再试"
@@ -7223,12 +7245,8 @@ msgid "刷新失败，请检查后重试"
 msgstr "Cannot refresh, please check and try again"
 
 #: ../web/src/partials/i18n.html:538
-msgid ""
-"确定\\\"'+_.first(_.where(window.rentArray, {id: ticketId})).title + "
-"'\\\"已经成功出租了吗？确定将不再接收系统刷新提醒"
-msgstr ""
-"Confirm \"property already rented out?\" Confirm to stop receiving system"
-" refresh reminders"
+msgid "已经成功出租了吗？确定将不再接收系统刷新提醒"
+msgstr "property already rented out? To stop receiving system refresh reminders"
 
 #: ../web/src/partials/i18n.html:539
 #, fuzzy
@@ -8500,7 +8518,7 @@ msgid "%s元起"
 msgstr "From %s"
 
 #: ../web/src/partials/i18n_templates.html:8
-#, fuzzy, python-format
+#, fuzzy
 msgid "年锁定"
 msgstr "In the lock"
 
@@ -8612,10 +8630,6 @@ msgstr "Move-out date"
 msgid "咨询单编号："
 msgstr "Rent Enquiry No. "
 
-#: ../web/src/partials/i18n_templates.html:60
-msgid "房东稍后上传"
-msgstr "Landlord to upload photo shortly"
-
 #: ../web/src/partials/i18n_templates.html:61
 #, fuzzy
 msgid "求租"
@@ -8645,6 +8659,11 @@ msgstr "Min. Budget"
 #, fuzzy, python-format
 msgid "%s到%s"
 msgstr "From %s to %s"
+
+#: ../web/src/partials/i18n_templates.html:68
+#, python-format
+msgid "%s起"
+msgstr "From %s"
 
 #: ../web/src/partials/i18n_templates.html:69
 #, fuzzy, python-format
@@ -9105,7 +9124,9 @@ msgstr "Enter your rent"
 
 #: ../web/src/partials/property_to_rent_edit.html:208
 msgid "如不填写则默认为面议"
-msgstr "If you do not fill out this section then it will left as negotiable by default"
+msgstr ""
+"If you do not fill out this section then it will left as negotiable by "
+"default"
 
 #: ../web/src/partials/property_to_rent_edit.html:210
 msgid "填写金额，如不填写则默认为面议"
@@ -9541,7 +9562,10 @@ msgstr ""
 
 #: ../web/src/partials/requirement_rent_phone.html:16
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东，"
-msgstr "Young Funding is committed to providing the best possible service to every user. Please submit your rental requirements and we will notify you in the first instance with suitable properties"
+msgstr ""
+"Young Funding is committed to providing the best possible service to "
+"every user. Please submit your rental requirements and we will notify you"
+" in the first instance with suitable properties"
 
 #: ../web/src/partials/requirement_rent_phone.html:17
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后等待平台租房顾问与您取得联系，"
@@ -9575,7 +9599,9 @@ msgstr ""
 #: ../web/src/partials/requirement_rent_phone.html:42
 #: ../web/src/partials/requirement_rent_popup.html:43
 msgid "您希望租住在哪些地点附近？您可以填写工作地点或者所读学校等"
-msgstr "Please specify your ideal location(s). For example you could list your place of work or study"
+msgstr ""
+"Please specify your ideal location(s). For example you could list your "
+"place of work or study"
 
 #: ../web/src/partials/requirement_rent_phone.html:46
 #: ../web/src/partials/requirement_rent_popup.html:47
@@ -9704,7 +9730,9 @@ msgstr "Referral code (optional)"
 #: ../web/src/partials/requirement_rent_phone.html:200
 #: ../web/src/partials/requirement_rent_popup.html:227
 msgid "我希望注册为会员以便以后能够更新我的求租需求"
-msgstr "I would like to register as a user to receive updates relating to my requirements"
+msgstr ""
+"I would like to register as a user to receive updates relating to my "
+"requirements"
 
 #: ../web/src/partials/requirement_rent_phone.html:223
 #: ../web/src/partials/requirement_rent_popup.html:250
@@ -10011,7 +10039,7 @@ msgstr ""
 #: ../web/src/partials/user_settings.html:202
 #: ../web/src/partials/user_settings_phone.html:193
 #: ../web/src/partials/user_settings_phone.html:200
-#, python-format, fuzzy
+#, fuzzy, python-format
 msgid "本月剩余%s次"
 msgstr " %s left for this month"
 
@@ -15933,4 +15961,10 @@ msgstr ""
 
 #~ msgid "货币"
 #~ msgstr "Currency"
+
+#~ msgid "点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
+#~ msgstr ""
+#~ "Click on your username in the "
+#~ "header of our website to enter "
+#~ "your account properties, find “"
 

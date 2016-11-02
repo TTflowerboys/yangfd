@@ -415,7 +415,9 @@ $(function () {
             var ticketId = $(e.target).attr('data-id')
 
             if ($(e.target).attr('data-type') === 'to rent') {
-                if (window.confirm(window.i18n('确定\"'+_.first(_.where(window.rentArray, {id: ticketId})).title + '\"已经成功出租了吗？确定将不再接收系统刷新提醒')) === true) {
+                var ticketTitle = _.first(_.where(window.rentArray, {id: ticketId})).title
+                var alertTitle = window.i18n('确定') + ' \"' + ticketTitle + '\" '  + window.i18n('已经成功出租了吗？确定将不再接收系统刷新提醒')
+                if (window.confirm(alertTitle) === true) {
                     var params = {
                         'status': 'rent'
                     }
