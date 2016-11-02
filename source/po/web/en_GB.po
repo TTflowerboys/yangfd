@@ -9769,7 +9769,7 @@ msgstr ""
 #: ../web/src/partials/requirement_rent_phone.html:254
 #: ../web/src/partials/requirement_rent_popup.html:255
 msgid "在个人中心在中查看自己的"
-msgstr "Check  your <> in personal centre"
+msgstr "Check  your in personal centre"
 
 #: ../web/src/partials/requirement_rent_phone.html:254
 msgid "求租意向单 "
