@@ -44,3 +44,4 @@ src/static/bower_components
 src/partials/i18n.html
 src/partials/i18n_admin.html
 src/partials/i18n_templates.html
+src/partials/i18n_scripts.html
