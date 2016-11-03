@@ -1,6 +1,8 @@
 <ul class="rmm-menu" style="display:none;">
     <li><a href="/">{{_('首页')}}</a></li>
+    % if _.lang != "en_GB":
     <li><a href="/property-list">{{_('置业投资')}}</a></li>
+    % end
     <!-- @if ENV!='production' -->
     <!--<li><a href="/crowdfunding-introduce">{{_('海外众筹')}}</a></li>-->
     <!-- @endif -->
