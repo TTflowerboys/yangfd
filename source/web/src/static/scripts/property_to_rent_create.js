@@ -1113,7 +1113,8 @@
             $requestVoiceBtn.prop('disabled', false).text(i18n('语音验证'))
         }
         else {
-            $('.errorMsgOfGetCode.voice').text(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请') + sec + window.i18n('s 后重试')).show()
+            var stringTemplate = window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请{sec}s后重试')
+            $('.errorMsgOfGetCode.voice').text(stringTemplate.replace('{sec}', sec)).show()
         }
     }, function () {
         if (phoneVerified)  {

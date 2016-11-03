@@ -11,7 +11,8 @@ function startVerificationTimer() {
             clearInterval(timer)
         }
         else {
-            $form.find('#voiceHint').text(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请') + sec + window.i18n('s 后重试'))
+            var stringTemplate = window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请{sec}s后重试')
+            $form.find('#voiceHint').text(stringTemplate.replace('{sec}', sec))
             sec--
         }
     },1000)
