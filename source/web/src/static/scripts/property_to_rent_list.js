@@ -437,6 +437,7 @@
             }
             openTabContent(mode)
         }, 20)
+        
     })
 
     function loadRentMapList() {

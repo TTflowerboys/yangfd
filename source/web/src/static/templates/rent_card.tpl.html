@@ -39,7 +39,7 @@
                             {_}_}
                         {_}_}
                         {_if(rent.price) {_}
-                            <span class="price">
+                            <span class="price" data-tooltip data-placement="bottom" data-original-title="Monthly Price=(weekly price x 52)/12">
                                 <span class="price_original">
                                     {=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}
                                 </span>
@@ -155,4 +155,5 @@
             </div>
         </a>
     </div>
+    <script>$('[data-tooltip]').tooltip()</script>
 </script>

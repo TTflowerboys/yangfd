@@ -5,7 +5,7 @@
         %   minPrice = type.get('total_price_min')
         %end
     %end
-    % string = u"""<span>""" + minPrice.get('unit_symbol') + u"""</span><span data-type="formatted_currency">""" + minPrice.get('value') + u"""</span><span class="mute">
+    % string = u"""<span>""" + minPrice.get('unit_symbol') + u"""</span><span data-type="formatted_currency" data-tooltip data-placement="right" data-original-title="{{_('月价格')}}=({{_('周价格')}} x 52)/12">""" + minPrice.get('value') + u"""</span><span class="mute">
     """
         {{!_(u'%s起') %string}}</span>
 % else :

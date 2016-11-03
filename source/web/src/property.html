@@ -1297,6 +1297,7 @@
     <!--endbuild-->
     <script>
         $(function () {
+            $('[data-tooltip]').tooltip()
             var property = JSON.parse($('#pythonProperty').text())
 
             $('.stickyNavbar').stickyNavbar({
