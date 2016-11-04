@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import random
-from whatever import that
 from funcy.py3 import lmap, lfilter
 from bson.objectid import ObjectId
 from app import f_app
@@ -154,7 +153,7 @@ def get_featured_new_list():
             }, per_page=6
         )
     )
-    news_list = sorted(news_list, key=that.get('time'), reverse=True)
+    news_list = sorted(news_list, key=lambda news: news.get('time'), reverse=True)
     return news_list
 
 
@@ -196,7 +195,7 @@ def get_related_news_list(news):
         for item in raw_related_news_list:
             if item.get('id') != news.get('id'):
                 related_news_list.insert(-1, item)
-    related_news_list = sorted(related_news_list, key=that.get('time'), reverse=True)
+    related_news_list = sorted(related_news_list, key=lambda news: news.get('time'), reverse=True)
     return related_news_list
 
 
@@ -204,7 +203,7 @@ def get_property_related_news_list(property):
     related_news_list = f_app.blog.post_output(f_app.blog.post_search({
         "category._id": {"$in": [ObjectId(news["id"]) for news in property["news_category"]]},
     }, per_page=5))
-    related_news_list = sorted(related_news_list, key=that.get('time'), reverse=True)
+    related_news_list = sorted(related_news_list, key=lambda news: news.get('time'), reverse=True)
     return related_news_list
 
 # Report
@@ -224,7 +223,7 @@ def get_message_list(user):
         user['id'],
         {"state": {"$in": ["read", "new"]}, "type": {"$in": ["system", "favorited_property_news", "intention_property_news", "my_property_news"]}},
     )
-    message_list = sorted(message_list, key=that.get('time'), reverse=True)
+    message_list = sorted(message_list, key=lambda message: message.get('time'), reverse=True)
     return message_list
 
 

@@ -153,7 +153,7 @@ def check_crowdfunding_ready(func):
 
 
 def get_sorted_enums(type):
-    return sorted(f_app.enum.get_all(type), key=that.get("sort_value", 0))
+    return sorted(f_app.enum.get_all(type), key=lambda enum: enum.get("sort_value", 0))
 
 
 def get_country_list():
@@ -326,9 +326,9 @@ def common_template(path, **kwargs):
         country_list_for_intention = get_country_list_for_intention()
         kwargs['country_list_for_intention'] = country_list_for_intention
     if 'budget_list' not in kwargs:
-        kwargs['budget_list'] = sorted(f_app.i18n.process_i18n(f_app.enum.get_all('budget')), key=that.get('sort_value', 0))
+        kwargs['budget_list'] = sorted(f_app.i18n.process_i18n(f_app.enum.get_all('budget')), key=lambda enum: enum.get('sort_value', 0))
     if 'referrer_list' not in kwargs:
-        kwargs['referrer_list'] = sorted(f_app.i18n.process_i18n(f_app.enum.get_all('user_referrer')), key=that.get('sort_value', 0))
+        kwargs['referrer_list'] = sorted(f_app.i18n.process_i18n(f_app.enum.get_all('user_referrer')), key=lambda enum: enum.get('sort_value', 0))
     if 'occupation_list' not in kwargs:
         kwargs['occupation_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('occupation'))
     if 'rent_type_list' not in kwargs:
