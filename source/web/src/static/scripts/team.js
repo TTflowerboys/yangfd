@@ -232,7 +232,7 @@
             var defaultOptions = {
                 url: location.href || '',
                 text: document.title || '',
-                via: 'bbtechgroup_dev'
+                via: ''
             }
             var defaultConfig = {
                 width: 800,
