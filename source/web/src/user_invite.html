@@ -27,6 +27,14 @@
                 <button class="button email"><i class="icon-email"></i>{{_('邮件分享')}}</button>
                 <button class="button social"><i class="icon-social"></i>{{_('分享到社交网络')}}</button>
             </div>
+            <div class="shareItems">
+                <span>{{_('分享到')}}</span>
+                <button class="button facebook"><i class="icon-facebook"></i></button>
+                <button class="button twitter"><i class="icon-twitter"></i></button>
+                <button class="button wechat"><i class="icon-wechat"></i></button>
+                <button class="button weibo"><i class="icon-weibo"></i></button>
+                <button class="button email"><i class="icon-email"></i></button>
+            </div>
         </div>
     </div>
 </div>
@@ -66,6 +74,16 @@
         <div>
             <input name="email" type="text" value="" placeholder="{{_('请输入邮件地址')}}"/>
             <button class="button red send" >{{_('发送')}}</button>
+        </div>
+    </div>
+</div>
+
+<div class="sharePopup" id="wechatSharePopup" style="display:none;">
+    <div class="sharePopupShadow"></div>
+    <div class="shareView">
+        <h1 class="title">{{_('扫一扫分享到微信')}}</h1>
+        <div>
+            <img class="qrcode" alt="{{_('扫一扫分享到微信')}}" src="" width="200" height="200" />
         </div>
     </div>
 </div>

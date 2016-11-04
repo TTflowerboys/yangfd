@@ -64,16 +64,44 @@ $(function () {
         }
     })
 
+    $('.shareItems .wechat').on('click',function(){
+
+        function showWechatShare() {
+            var discountDisplayValue = $('.bonus .offer .content').text()
+            if (window.project.isMobileClient()) {
+                window.bridge.callHandler('share', {'text': window.i18n('洋房东 ' + discountDisplayValue + '租房优惠'), 'description': window.i18n('还在为租房苦恼吗？ 使用我的邀请码在洋房东注册，寻找合适房源，立享优惠！'), 'url': location.origin + '/signup?referral=' + window.user.referral_code + '&discount=' + discountDisplayValue, 'services': ['SMS', 'Email', 'Wechat Friend', 'Wechat Circle', 'Sina Weibo', 'Copy Link'], 'wechat_url': location.origin + '/wechat-invite?referral=' + window.user.referral_code + '&discount=' + discountDisplayValue}, function(response) {
+                })
+            }
+            else {
+                var $shareView = $('#wechatSharePopup .shareView')
+                $shareView.css('top', $(window).scrollTop() + 200)
+                $shareView.css('left', ($(window).width() - $shareView.width()) / 2)
+                $('#wechatSharePopup')
+                    .find('img.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.origin + '/wechat-invite?referral=' + window.user.referral_code + '&discount=' + discountDisplayValue)).end()
+                    .show()
+            }
+        }
+
+        if (window.user.referral_code) {
+            showWechatShare()
+        }
+        else {
+            assignReferralCode(function () {
+                showWechatShare()
+            })
+        }
+    })
+
     $('.sharePopupShadow').on('click', function () {
         $(this).parent().hide()
     })
 
-    $('#socialSharePopup li.weibo').on('click', function (){
+    $('#socialSharePopup li.weibo,.shareItems .weibo').on('click', function (){
         var discountDisplayValue = $('.bonus .offer .content').text()
         var params = {'title': window.i18n('发福利啦，需要租房的小伙伴们看过来，点击以下链接注册洋房东在线查看出租房源，租房成功者即可得到' + discountDisplayValue + '的租房优惠哦。不要太感谢我，请叫我雷锋，造福大家是我的使命'), 'url': location.origin + '/signup?referral=' + window.user.referral_code}
         team.shareToWeibo(params)
     })
-    $('#socialSharePopup li.twitter').on('click', function (){
+    $('#socialSharePopup li.twitter,.shareItems .twitter').on('click', function (){
         var discountDisplayValue = $('.bonus .offer .content').text()
         var params = {'text': window.i18n('发福利啦，需要租房的小伙伴们看过来，点击以下链接注册洋房东在线查看出租房源，租房成功者即可得到' + discountDisplayValue + '的租房优惠哦。不要太感谢我，请叫我雷锋，造福大家是我的使命'), 'url': location.origin + '/signup?referral=' + window.user.referral_code}
         team.shareToTwitter(params)
@@ -86,7 +114,7 @@ $(function () {
                 xfbml: true,
                 version: 'v2.8'
             });
-            $('#socialSharePopup li.facebook').on('click',function(){
+            $('#socialSharePopup li.facebook,.shareItems .facebook').on('click',function(){
                 var url = location.origin + '/signup?referral=' + window.user.referral_code;               
                 window.FB.ui({
                     method: 'share',
