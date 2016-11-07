@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 from libfelix.f_common import f_app
 from libfelix.f_cache import f_cache
 from libfelix.f_interface import f_api, abort, request
-import libfelix.f_request
+import libfelix.f_request  # noqa
 
 
 import logging
