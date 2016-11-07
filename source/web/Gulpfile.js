@@ -36,6 +36,8 @@ var i18n = require('gulp-i18n')
 
 var argv = require('yargs').argv
 
+// setup maxListener count
+require('events').EventEmitter.prototype._maxListeners = 100;
 
 var myPaths = {
     src: './src/',
@@ -245,7 +247,7 @@ gulp.task('build:concat', ['build:html-extend'], function () {
         .pipe(usemin({
             css: ['concat'],
             //inlinecss: [minifyCss({keepSpecialComments: 0}), 'concat'],
-            js: [ footer(';;;'), 'concat', uglify({mangle: false})],
+            js: [/*footer(';;;')*/, 'concat', /*uglify({mangle: false})*/],
             //inlinejs: [ uglify() ],
         }))
         .pipe(gulp.dest(myPaths.dist))
