@@ -33,7 +33,8 @@ var pageSprite = require('gulp-page-sprite')
 var replace = require('gulp-replace')
 var bower = require('gulp-bower')
 var i18n = require('gulp-i18n')
-
+var debug = require('gulp-debug')
+var pump = require('pump')
 var argv = require('yargs').argv
 
 // setup maxListener count
@@ -234,7 +235,6 @@ gulp.task('build:cssAutoPrefix', ['build:less2css'], function (done) {
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
 })
 
-
 gulp.task('build:html-extend', ['build:cssAutoPrefix'], function () {
     return gulp.src('./dist/{,*/,static/emails/,static/pdfs/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}', {base: './dist/'})
         .pipe(extender({verbose: false}))
@@ -247,7 +247,7 @@ gulp.task('build:concat', ['build:html-extend'], function () {
         .pipe(usemin({
             css: ['concat'],
             //inlinecss: [minifyCss({keepSpecialComments: 0}), 'concat'],
-            js: [/*footer(';;;')*/, 'concat', /*uglify({mangle: false})*/],
+            js: [debug({title: 'unicorn:'}), footer(';;;'), 'concat', uglify({mangle: false})],
             //inlinejs: [ uglify() ],
         }))
         .pipe(gulp.dest(myPaths.dist))

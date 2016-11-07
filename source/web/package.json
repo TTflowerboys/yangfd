@@ -71,9 +71,8 @@
     "gulp-stats": "0.0.3",
     "gulp-sym": "0.0.13",
     "gulp-through": "~0.3.0",
-    "gulp-usemin": "^0.3.25",
-    "gulp-useref": "^3.1.0",
     "gulp-uglify": "^1.5.4",
+    "gulp-usemin": "^0.3.8",
     "gulp-useref": "^3.1.2",
     "gulp-util": "~3.0.0",
     "gulp.spritesmith": "^3.0.0",
@@ -81,6 +80,7 @@
     "jsdom": "^7.2.0",
     "jshint-stylish": "~0.4.0",
     "mkdirp": "^0.5.0",
+    "pump": "^1.0.1",
     "through2": "^0.6.3",
     "underscore": "~1.7.0",
     "vinyl-paths": "^2.1.0",
@@ -90,7 +90,8 @@
   "devDependencies": {
     "bootstrap": "~3.2.0",
     "gulp": "^3.9.1",
-    "gulp-footer": "^1.0.5",    
+    "gulp-debug": "^1.0.1",
+    "gulp-footer": "^1.0.5",
     "kss": "~2.1.1",
     "marked": "^0.3.2",
     "normalize.css": "~3.0.1"
