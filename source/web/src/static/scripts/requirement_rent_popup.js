@@ -235,8 +235,9 @@
                         return $(this).val()
                     }
                 }).bind('datepicker-change', function (event, obj) {
-                    $(elem).attr('value', $.format.date(new Date(obj.date1), formatter))
-                    $(elem).val($.format.date(new Date(obj.date1), formatter)).trigger('change')
+                    var dateinfo = moment(new Date(obj.date1)).format(formatter);
+                    $(elem).attr('value', dateinfo)
+                    $(elem).val(dateinfo).trigger('change')
 
                 }).dateRangePickerCustom($(elem))
             })
