@@ -247,7 +247,7 @@ gulp.task('build:concat', ['build:html-extend'], function () {
         .pipe(usemin({
             css: ['concat'],
             //inlinecss: [minifyCss({keepSpecialComments: 0}), 'concat'],
-            js: [debug({title: 'unicorn:'}), footer(';;;'), 'concat', uglify({mangle: false})],
+            js: [/*debug({title: 'unicorn:'})*/, /*footer(';;;')*/, 'concat', /*uglify({mangle: false})*/],
             //inlinejs: [ uglify() ],
         }))
         .pipe(gulp.dest(myPaths.dist))
