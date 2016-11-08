@@ -95,7 +95,7 @@ class currant_crawler(f_app.plugin_base):
                                 query = urllib.parse.parse_qs(img_url.query)
                                 query.pop('h', None)
                                 query.pop('w', None)
-                                img_url = img_url._replace(query=f_app.util.urlencode(query, True))
+                                img_url = img_url._replace(query=urllib.parse.urlencode(query, True))
                                 property_images.append(urllib.parse.urlunparse(img_url))
                             params["reality_images"] = {"en_GB": property_images, "zh_Hans_CN": property_images, "zh_Hant_HK": property_images}
 

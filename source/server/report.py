@@ -228,7 +228,7 @@ class currant_policeuk(f_app.module_base):
         date: YYYY-MM, from 2010-12
         """
         if params:
-            params = f_app.util.urlencode(params)
+            params = urllib.parse.urlencode(params)
         url = "http://data.police.uk/api/crimes-street/all-crime?%s" % params
         self.logger.debug(url)
         result = f_app.request(url)
@@ -239,7 +239,7 @@ class currant_policeuk(f_app.module_base):
 
     def api_categories(self, params, method="GET"):
         if params:
-            params = f_app.util.urlencode(params)
+            params = urllib.parse.urlencode(params)
         url = "http://data.police.uk/api/crime-categories?%s" % params
         result = f_app.request(url)
         if result.status_code == 200:
