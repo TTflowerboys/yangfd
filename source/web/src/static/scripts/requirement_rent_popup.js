@@ -215,9 +215,10 @@
     function initDateInput (container) {
         if (!container.data('initDateInput')) {
             var $dateInput = container.find('.dateInput')
+            var formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
             container.data('initDateInput', true)
             $dateInput.each(function (index, elem) {
-                var formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
+                
                 if($(elem).hasClass('startDate')) {
                     $(elem).attr('value', window.moment.utc($(elem).attr('data-value') || new Date()).format(formatter))
                 }
@@ -227,6 +228,7 @@
                 $(elem).dateRangePicker({
                     //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
                     autoClose: true,
+                    format: formatter,
                     singleDate: true,
                     showShortcuts: false,
                     lookBehind: false,
@@ -235,10 +237,11 @@
                         return $(this).val()
                     }
                 }).bind('datepicker-change', function (event, obj) {
-                    var dateinfo = moment(new Date(obj.date1)).format(formatter);
+                    // $(elem).attr('value', $.format.date(new Date(obj.date1), formatter))
+                    // $(elem).val($.format.date(new Date(obj.date1), formatter)).trigger('change')
+                    var dateinfo = window.moment(new Date(obj.date1)).format(formatter);
                     $(elem).attr('value', dateinfo)
                     $(elem).val(dateinfo).trigger('change')
-
                 }).dateRangePickerCustom($(elem))
             })
         }
