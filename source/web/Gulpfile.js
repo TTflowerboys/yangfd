@@ -20,6 +20,7 @@ var vinylPaths = require('vinyl-paths')
 var symlink = require('gulp-sym')
 var usemin = require('gulp-usemin')
 var footer = require('gulp-footer')
+var gap = require('gulp-append-prepend')
 var jshint = require('gulp-jshint')
 var stylish = require('jshint-stylish')
 var rev = require('gulp-rev')
@@ -191,7 +192,7 @@ gulp.task('fingerprintAdminPageResource', ['revAdminPageResource'], function () 
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:concat', 'build:i18n', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
+gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:js-delimiter', 'build:concat', 'build:i18n', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -242,17 +243,17 @@ gulp.task('build:html-extend', ['build:cssAutoPrefix'], function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('build:js-footer', ['build:html-extend'], function () {
+gulp.task('build:js-delimiter', ['build:html-extend'], function () {
     return gulp.src(['dist/static/scripts/**/*.js',
-                     //'dist/static/vendors/**/*.js',
-                     //'dist/static/bower_components/**/*.js',
-                     //'dist/static/admin/scripts/**/*.js',
+                     'dist/static/vendors/**/*.js',
+                     'dist/static/bower_components/**/*.js',
+                     'dist/static/admin/scripts/**/*.js',
                     ], {base: 'dist'})
-        .pipe(footer(';;;'))
+        .pipe(gap.appendText(';;;'))
         .pipe(gulp.dest(myPaths.dist)); // write manifest to build dir
 })
 
-gulp.task('build:concat', ['build:js-footer'], function () {
+gulp.task('build:concat', ['build:js-delimiter'], function () {
     return  gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html', myPaths.dist + 'static/pdfs/*.html'], {base: 'dist'})
         .pipe(usemin({
             css: ['concat'],
