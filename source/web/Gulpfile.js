@@ -242,12 +242,22 @@ gulp.task('build:html-extend', ['build:cssAutoPrefix'], function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('build:concat', ['build:html-extend'], function () {
+gulp.task('build:js-footer', ['build:html-extend'], function () {
+    return gulp.src(['dist/static/scripts/**/*.js',
+                     //'dist/static/vendors/**/*.js',
+                     //'dist/static/bower_components/**/*.js',
+                     //'dist/static/admin/scripts/**/*.js',
+                    ], {base: 'dist'})
+        .pipe(footer(';;;'))
+        .pipe(gulp.dest(myPaths.dist)); // write manifest to build dir
+})
+
+gulp.task('build:concat', ['build:js-footer'], function () {
     return  gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html', myPaths.dist + 'static/pdfs/*.html'], {base: 'dist'})
         .pipe(usemin({
             css: ['concat'],
             //inlinecss: [minifyCss({keepSpecialComments: 0}), 'concat'],
-            js: [/*debug({title: 'unicorn:'})*/, /*footer(';;;')*/, 'concat', /*uglify({mangle: false})*/],
+            js: [/*debug({title: 'So debug?:'})*/, 'concat', /*uglify({mangle: false})*/],
             //inlinejs: [ uglify() ],
         }))
         .pipe(gulp.dest(myPaths.dist))
