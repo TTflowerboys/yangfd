@@ -1,5 +1,5 @@
 # coding: utf-8
-from __future__ import unicode_literals  # , print_function
+from __future__ import unicode_literals, print_function
 import sys
 from app import f_app
 from datetime import datetime, timedelta
@@ -11,7 +11,7 @@ from openpyxl.styles import Font, Alignment
 import Levenshtein
 import re
 import json
-from six.moves import urllib
+import six
 from pyquery import PyQuery as pq
 import random
 from time import sleep
@@ -62,12 +62,12 @@ def get_weibo_search_result(keywords_list):
             pass
         else:
             for index in range(2, len(list(sheet.rows)) + 1):
-                cell = sheet[target + unicode(index)]
+                cell = sheet[target + six.text_type(index)]
                 if len(cell.value):
                     if link is None:
                         cell.hyperlink = cell.value
                     else:
-                        cell.hyperlink = unicode(link)
+                        cell.hyperlink = six.text_type(link)
 
     def format_fit(sheet):
         simsun_font = Font(name="SimSun")
@@ -84,7 +84,7 @@ def get_weibo_search_result(keywords_list):
                 if cell.value is None:
                     cell.value = ''
                 if isinstance(cell.value, int) or isinstance(cell.value, datetime):
-                    lencur = len(unicode(cell.value).encode("GBK"))
+                    lencur = len(six.text_type(cell.value).encode("GBK"))
                 elif cell.value is not None:
                     lencur = len(cell.value.encode("GBK", "replace"))
                 if lencur > 150:
@@ -106,7 +106,7 @@ def get_weibo_search_result(keywords_list):
         password = "bbt12345678"
         with f_app.sina_search(username=username, password=password) as ss:
             for num, keyword in enumerate(keywords):
-                print unicode((num, keyword_total)) + " " + keyword
+                print((num, keyword_total), keyword)
                 result_search = {}
                 analyze_keyword_count_orign[keyword] = 0
                 for page in range(1, 3):
@@ -127,7 +127,7 @@ def get_weibo_search_result(keywords_list):
                         search_count += count
                         analyze_keyword_count_orign[keyword] += count
                         # print "page " + unicode(page) + " count " + unicode(count)
-                print("count " + unicode(search_count) + " times " + unicode(search_times))
+                print("count " + six.text_type(search_count) + " times " + six.text_type(search_times))
         return result_list
 
     def reduce_weibo(weibo_list):
@@ -140,9 +140,9 @@ def get_weibo_search_result(keywords_list):
         for single in weibo_list:
             total += 1
             user = single['user']['screen_name']
-            text = unicode(re.sub(cleanr, '', single['text']))
+            text = six.text_type(re.sub(cleanr, '', single['text']))
             time = single['created_timestamp']
-            link = "http://weibo.com/" + unicode(single['user']['id']) + "/" + single['bid']
+            link = "http://weibo.com/" + six.text_type(single['user']['id']) + "/" + single['bid']
             single['time'] = datetime.fromtimestamp(time)
             time = datetime.fromtimestamp(time)
             if time < time_start:
@@ -159,7 +159,7 @@ def get_weibo_search_result(keywords_list):
                 "link": link,
                 "keyword": single['keyword']
             })
-        print "after date filter " + unicode(count) + '/' + unicode(total) + " left."
+        print("after date filter", count, '/', total, "left.")
         return result
 
     def remove_overlap(weibo_list):
@@ -179,7 +179,7 @@ def get_weibo_search_result(keywords_list):
                 if index == single_weibo or index in result_extra:
                     continue
                 step = Levenshtein.distance(single_weibo['text'], index['text'])
-                if step * 1.0 / len(unicode(single_weibo['text'])) < 0.17 and step * 1.0 / len(unicode(index['text'])) < 0.17:
+                if step * 1.0 / len(six.text_type(single_weibo['text'])) < 0.17 and step * 1.0 / len(six.text_type(index['text'])) < 0.17:
                     result_extra.append(index)
                     cur_keyword_list.append(index['keyword'])
             if single_weibo['keyword'] in analyze_keyword_count_final:
@@ -194,7 +194,7 @@ def get_weibo_search_result(keywords_list):
                 "link": single_weibo['link'],
                 "keyword": cur_keyword_list
             })
-        print("after remove overlaping " + unicode(count) + '/' + unicode(total) + " left.")
+        print("after remove overlaping " + six.text_type(count) + '/' + six.text_type(total) + " left.")
         for single in result_extra:
             print(single['time'])
             print(single['text'])
@@ -209,8 +209,8 @@ def get_weibo_search_result(keywords_list):
         today = date.today()
         time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
         while(page <= 8):
-            print('page: ' + unicode(page))
-            target_url = list_url + '?page=' + unicode(page)
+            print('page: ' + six.text_type(page))
+            target_url = list_url + '?page=' + six.text_type(page)
             page += 1
             max_time = datetime(1970, 1, 1)
             try:
@@ -244,7 +244,7 @@ def get_weibo_search_result(keywords_list):
                             continue
                         time = datetime.strptime(topic_page_dom('div.post-list li').eq(1)('div.post-main div.posttime').text(), '%Y-%m-%d %H:%M')
                         print(time)
-                        result.update({'time': unicode(time)})
+                        result.update({'time': six.text_type(time)})
                         max_time = max(time, max_time)
                         for i in re.split('\.|。|\n', text):
                             if len(i) == 0:
@@ -358,7 +358,7 @@ def get_weibo_search_result(keywords_list):
     def get_ybirds_city_list(session, select_city):
         now = datetime.now()
         timestamp = int(time.mktime(now.timetuple()) * 1e3 + now.microsecond / 1e3)
-        url = 'http://www.ybirds.com/Home-Class-getHotCity.html?country=1&_=' + unicode(timestamp)
+        url = 'http://www.ybirds.com/Home-Class-getHotCity.html?country=1&_=' + six.text_type(timestamp)
         page = session.get(
             url,
             headers={
@@ -374,7 +374,7 @@ def get_weibo_search_result(keywords_list):
             }
         )
         match = re.compile(r'href=\"\\(.*?)\">(.*?)<')
-        source = match.findall(unicode(page.content, 'unicode-escape'))
+        source = match.findall(six.text_type(page.content, 'unicode-escape'))
         city_list = {}
         for single in source:
             source = single[1].rstrip(' ')
@@ -389,7 +389,7 @@ def get_weibo_search_result(keywords_list):
 
         now = datetime.now()
         timestamp = int(time.mktime(now.timetuple()) * 1e3 + now.microsecond / 1e3)
-        url = 'http://www.ybirds.com/Home-Class-ajaxGetCity.html?countyID=1&_=' + unicode(timestamp)
+        url = 'http://www.ybirds.com/Home-Class-ajaxGetCity.html?countyID=1&_=' + six.text_type(timestamp)
         page = session.get(
             url,
             headers={
@@ -405,7 +405,7 @@ def get_weibo_search_result(keywords_list):
             }
         )
         match = re.compile(r'href=\"\.\\(.*?)\">[:]*(.*?)<')
-        source = match.findall(unicode(page.content, 'unicode-escape'))
+        source = match.findall(six.text_type(page.content, 'unicode-escape'))
         for single in source:
             source = single[1].rstrip(' ')
             name = source.split(' ')[-1]
@@ -456,7 +456,7 @@ def get_weibo_search_result(keywords_list):
             return []
         result = []
         if f_app.util.batch_iterable(page_id):
-            print "target to " + city_switch_url
+            print("target to", city_switch_url)
             session.get(
                 city_switch_url,
                 headers={
@@ -470,8 +470,8 @@ def get_weibo_search_result(keywords_list):
                     "Referer": "http://www.ybirds.com/Home-Class-ChangeCity.html",
                     "Connection": "keep-alive",
                 })
-            print 'city_switched to ' + city_name
-            print json.dumps(session.cookies.get_dict(), indent=2)
+            print('city_switched to', city_name)
+            print(json.dumps(session.cookies.get_dict(), indent=2))
             for single_page_id in page_id:
                 single_result = []
                 single_result.extend(crawler_ybirds(session, city_name, city_switch_url, single_page_id))
@@ -483,9 +483,9 @@ def get_weibo_search_result(keywords_list):
         while(index <= 5):
             max_time = datetime(1970, 1, 1)
             try:
-                print 'loading page...'
+                print('loading page...')
                 list_page = session.get(
-                    'http://www.ybirds.com/Home-ColumnInfo-entrance?ctgClassID=' + unicode(page_id) + '&p=' + unicode(index),
+                    'http://www.ybirds.com/Home-ColumnInfo-entrance?ctgClassID=' + six.text_type(page_id) + '&p=' + six.text_type(index),
                     headers={"User-Agent": ua_generator()},
                     timeout=30
                 )
@@ -505,9 +505,9 @@ def get_weibo_search_result(keywords_list):
                     topic_result.update({'link': 'http://www.ybirds.com' + topic_dom('div.title a').attr('href').lstrip('.')})
                     create_time = datetime.strptime(topic_dom('div.time').text(), '%Y-%m-%d %H:%M:%S')
                     topic_result.update({'time': create_time})
-                    print topic_result['author']
-                    print topic_result['time']
-                    print topic_result['link']
+                    print(topic_result['author'])
+                    print(topic_result['time'])
+                    print(topic_result['link'])
                     max_time = max(max_time, create_time)
                     if create_time < time_start:
                         continue
@@ -586,7 +586,7 @@ def get_weibo_search_result(keywords_list):
         result = []
         for single in old_result:
             if 'title' in single and single.get('title', '') in new_result:
-                print single['title']
+                print(single['title'])
                 continue
             new_result.append(single['title'])
             result.append(single)
@@ -612,7 +612,7 @@ def get_weibo_search_result(keywords_list):
         try:
             retry += 1
             city_list = get_ybirds_city_list(session, ['Coventry', 'Newcastle', 'Liverpool', 'Cardiff'])
-            print 'city list recived'
+            print('city list recived')
             retry = 5
         except:
             pass
@@ -622,7 +622,7 @@ def get_weibo_search_result(keywords_list):
         try:
             retry += 1
             for single_city in city_list:
-                print single_city + ' starting...'
+                print(single_city, ' starting...')
                 result = crawler_ybirds(session, city_list[single_city]['name'], city_list[single_city]['link'], ['9', '10'])
                 result_ybirds.update({city_list[single_city]['name']: reduce_overlap(result)})
             retry = 5
@@ -725,9 +725,9 @@ def get_weibo_search_result(keywords_list):
 
     today = date.today()
     if day_shift:
-        wb.save('other_platform_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
+        wb.save('other_platform_search' + six.text_type(today - timedelta(days=day_shift)) + '~' + six.text_type(today) + '.xlsx')
     else:
-        wb.save('other_platform_search' + unicode(today) + '.xlsx')
+        wb.save('other_platform_search' + six.text_type(today) + '.xlsx')
 
     # wb = Workbook()
     # ws = wb.active
@@ -781,9 +781,9 @@ def get_weibo_search_result(keywords_list):
     format_fit(ws_weibo_block_list)
 
     if day_shift:
-        weibo_wb.save('weibo_search' + unicode(today - timedelta(days=day_shift - 1)) + '~' + unicode(today) + '.xlsx')
+        weibo_wb.save('weibo_search' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx')
     else:
-        weibo_wb.save('weibo_search' + unicode(today) + '.xlsx')
+        weibo_wb.save('weibo_search' + six.text_type(today) + '.xlsx')
 
 list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
 get_weibo_search_result(list_keyw)
