@@ -3,7 +3,6 @@
 
 from __future__ import unicode_literals, absolute_import
 from app import f_app
-from six.moves import cStringIO as StringIO
 import six
 from PIL import Image
 import base64
@@ -17,13 +16,13 @@ water_mark_base64 = "iVBORw0KGgoAAAANSUhEUgAAAIUAAAA4CAYAAADTjjuXAAAABGdBTUEAALG
 
 
 def process_water_mark(img, viewport_size=[800, 533], thumbnail_size=[600, 300], width_limit=1280):
-    water_mark = f_app.storage.image_open(StringIO(base64.b64decode(water_mark_base64)))
+    water_mark = f_app.storage.image_open(six.BytesIO(base64.b64decode(water_mark_base64)))
     water_mark = water_mark.convert("RGBA")
     padding = 10
 
     img_request = f_app.request(img, retry=10)
     if img_request.status_code == 200:
-        im = f_app.storage.image_open(StringIO(img_request.content))
+        im = f_app.storage.image_open(six.BytesIO(img_request.content))
         original_width, original_height = im.size
         original_ratio = float(original_width) / original_height
 
@@ -50,12 +49,12 @@ def process_water_mark(img, viewport_size=[800, 533], thumbnail_size=[600, 300],
             layer.paste(water_mark, position)
             im = Image.composite(layer, im, layer)
 
-            f_original = StringIO()
+            f_original = six.BytesIO()
             im.save(f_original, "JPEG", quality=100, optimize=True, progressive=True)
             f_original.seek(0)
 
             if viewport_size[0] > 0:
-                im = f_app.storage.image_open(StringIO(img_request.content))
+                im = f_app.storage.image_open(six.BytesIO(img_request.content))
                 if im.format == "PNG" or im.format == "GIF":
                     background = Image.new("RGB", im.size, (255, 255, 255))
                     try:
@@ -100,12 +99,12 @@ def process_water_mark(img, viewport_size=[800, 533], thumbnail_size=[600, 300],
                 layer.paste(water_mark, position)
                 im = Image.composite(layer, im, layer)
 
-                f_viewport = StringIO()
+                f_viewport = six.BytesIO()
                 im.save(f_viewport, "JPEG", quality=95, optimize=True, progressive=True)
                 f_viewport.seek(0)
 
             if thumbnail_size[0] > 0:
-                im = f_app.storage.image_open(StringIO(img_request.content))
+                im = f_app.storage.image_open(six.BytesIO(img_request.content))
                 if im.format == "PNG" or im.format == "GIF":
                     background = Image.new("RGB", im.size, (255, 255, 255))
                     try:
@@ -144,7 +143,7 @@ def process_water_mark(img, viewport_size=[800, 533], thumbnail_size=[600, 300],
                     box = (w_cut, 0, scaled_width - w_cut, thumbnail_height)
                 im = im.crop(box)
                 im = im.resize(thumbnail_size, Image.ANTIALIAS)
-                f_thumbnail = StringIO()
+                f_thumbnail = six.BytesIO()
                 im.save(f_thumbnail, "JPEG", quality=95, optimize=True, progressive=True)
                 f_thumbnail.seek(0)
 

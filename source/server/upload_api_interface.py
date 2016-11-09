@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from app import f_app
-from six.moves import cStringIO as StringIO
-from libfelix.f_interface import f_api, abort
 import logging
+import six
+from app import f_app
+from libfelix.f_interface import f_api, abort
 logger = logging.getLogger(__name__)
 
 f_app.dependency_register("wand", race="python")
@@ -37,7 +37,7 @@ def upload_image(params):
     if params.get("watermark"):
         im = f_app.storage.image_watermark(im, "../web/src/static/images/logo/logo-watermark.png")
 
-    f = StringIO()
+    f = six.BytesIO()
     im.save(f, "JPEG", quality=95, optimize=True, progressive=True)
     f.seek(0)
 
@@ -57,7 +57,7 @@ def upload_image(params):
             # im = f_app.storage.image_limit(im, params.get("ratio"), params.get("width_limit"))
             # if params.get("watermark"):
             #     im = f_app.storage.image_watermark(im, "../web/src/static/images/logo/logo-watermark.png")
-        f_thumbnail = StringIO()
+        f_thumbnail = six.BytesIO()
         im.save(f_thumbnail, "JPEG", quality=95, optimize=True, progressive=True)
         f_thumbnail.seek(0)
 
@@ -139,13 +139,13 @@ def upload_from_url(params):
     try:
         im_request = f_app.request.get(params["link"])
         if im_request.status_code == 200:
-            im = f_app.storage.image_open(StringIO(im_request.content))
+            im = f_app.storage.image_open(six.BytesIO(im_request.content))
     except:
         abort(40074, logger.warning("Invalid params: Unknown image type.", exc_info=False))
     width, height = im.size
     original_width, original_height = im.size
 
-    f = StringIO(im_request.content)
+    f = six.BytesIO(im_request.content)
 
     im = f_app.storage.image_opacification(im)
     im = f_app.storage.image_limit(im, params.get("ratio"), params.get("width_limit"))
@@ -153,15 +153,15 @@ def upload_from_url(params):
     if params.get("watermark"):
         im = f_app.storage.image_watermark(im, "../web/src/static/images/logo/logo-watermark.png")
 
-    f = StringIO()
+    f = six.BytesIO()
     im.save(f, "JPEG", quality=95, optimize=True, progressive=True)
     f.seek(0)
 
     if params["thumbnail_size"][0] > 0:
-        im = f_app.storage.image_open(StringIO(im_request.content))
+        im = f_app.storage.image_open(six.BytesIO(im_request.content))
         im = f_app.storage.image_opacification(im)
         im = f_app.storage.image_thumbnail(im, params["thumbnail_size"])
-        f_thumbnail = StringIO()
+        f_thumbnail = six.BytesIO()
         im.save(f_thumbnail, "JPEG", quality=95, optimize=True, progressive=True)
         f_thumbnail.seek(0)
 

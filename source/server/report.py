@@ -4,8 +4,7 @@ import json
 import csv
 from itertools import chain
 from datetime import datetime, timedelta
-from six.moves import urllib
-from six.moves import cStringIO as StringIO
+import six
 from funcy.py3 import lmap, lfilter
 from bson.objectid import ObjectId
 from bson.code import Code
@@ -315,7 +314,7 @@ class currant_landregistry(f_app.module_base):
                         self.logger.debug("start downloading csv...")
                         csv_request = f_app.request.get(csv_url, retry=5)
                         if csv_request.status_code == 200:
-                            csv_file = StringIO(csv_request.content)
+                            csv_file = six.BytesIO(csv_request.content)
                             rows = csv.reader(csv_file.readlines())
                             for r in rows:
                                 params = {
@@ -400,7 +399,7 @@ class currant_landregistry(f_app.module_base):
                 child.set_color('#cccccc')
 
         if fig_width >= 4:
-            water_mark_buffer = StringIO()
+            water_mark_buffer = six.BytesIO()
             ImageOps.expand(f_app.storage.image_open("../web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
@@ -422,7 +421,7 @@ class currant_landregistry(f_app.module_base):
         # fig.autofmt_xdate()
         # ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
-        graph = StringIO()
+        graph = six.BytesIO()
         fig.savefig(graph, format="png", dpi=100)
 
         return graph.getvalue()
@@ -478,7 +477,7 @@ class currant_landregistry(f_app.module_base):
                 child.set_color('#cccccc')
 
         if fig_width >= 4:
-            water_mark_buffer = StringIO()
+            water_mark_buffer = six.BytesIO()
             ImageOps.expand(f_app.storage.image_open("../web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
@@ -496,7 +495,7 @@ class currant_landregistry(f_app.module_base):
         ax.yaxis.set_ticks_position('left')
         ax.yaxis.get_major_formatter().set_scientific(False)
 
-        graph = StringIO()
+        graph = six.BytesIO()
         fig.savefig(graph, format="png", dpi=100)
         graph.seek(0)
 
@@ -546,7 +545,7 @@ class currant_landregistry(f_app.module_base):
         frame.set_edgecolor('#e6e6e6')
 
         if fig_width >= 4:
-            water_mark_buffer = StringIO()
+            water_mark_buffer = six.BytesIO()
             ImageOps.expand(f_app.storage.image_open("../web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
@@ -588,7 +587,7 @@ class currant_landregistry(f_app.module_base):
         plt.setp(fig.gca().get_xticklabels(), fontsize=fontsize)
         plt.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
 
-        graph = StringIO()
+        graph = six.BytesIO()
         fig.savefig(graph, format="png", dpi=100)
 
         return graph.getvalue()
@@ -659,7 +658,7 @@ class currant_landregistry(f_app.module_base):
                 child.set_color('#cccccc')
 
         if fig_width >= 4:
-            water_mark_buffer = StringIO()
+            water_mark_buffer = six.BytesIO()
             ImageOps.expand(f_app.storage.image_open("../web/src/static/images/logo/img_mark_no_alpha.png"), border=20, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
@@ -677,7 +676,7 @@ class currant_landregistry(f_app.module_base):
         ax.yaxis.set_ticks_position('left')
         ax.yaxis.get_major_formatter().set_scientific(False)
 
-        graph = StringIO()
+        graph = six.BytesIO()
         fig.savefig(graph, format="png", dpi=100)
 
         return graph.getvalue()

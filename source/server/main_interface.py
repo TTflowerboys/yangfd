@@ -7,7 +7,6 @@ from datetime import timedelta
 from datetime import date
 from hashlib import sha1
 from lxml import etree
-from six.moves import cStringIO as StringIO
 from six.moves import urllib
 try:
     import qrcode
@@ -441,7 +440,7 @@ def static_route(filepath):
 ))
 def qrcode_generate(params):
     img = qrcode.make(params["content"])
-    output = StringIO()
+    output = six.BytesIO()
     img.save(output)
 
     response.set_header(b"Content-Type", b"image/png")
@@ -2373,7 +2372,7 @@ def rent_ticket_analyze(user, params):
             wait_to_rent_priod,  # 提前多久开始出租(天)
         ]))
     format_fit(ws)
-    out = StringIO(save_virtual_workbook(wb))
+    out = six.BytesIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
@@ -2852,7 +2851,7 @@ def user_analyze(user):
         ]))
     format_fit(ws)
     # be_colorful(ws, 6)
-    out = StringIO(save_virtual_workbook(wb))
+    out = six.BytesIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
@@ -3269,7 +3268,7 @@ def user_rent_request(user, params):
 
     format_fit(ws)
     add_link(ws, 'AD')
-    out = StringIO(save_virtual_workbook(wb))
+    out = six.BytesIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
@@ -3562,7 +3561,7 @@ def user_rent_intention(user, params):
     format_fit(ws)
     add_link(ws, 'Q')
     be_colorful(ws, 6)
-    out = StringIO(save_virtual_workbook(wb))
+    out = six.BytesIO(save_virtual_workbook(wb))
     # wb.save(out)
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
@@ -4404,7 +4403,7 @@ def get_featured_facilities_around_rent(user, params):
     format_fit(ws_hesa_university_result)
     format_fit(ws_maponics_neighborhood_result)
     format_fit(ws_city_result)
-    out = StringIO(save_virtual_workbook(wb))
+    out = six.BytesIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
