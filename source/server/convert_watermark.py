@@ -4,6 +4,7 @@
 from __future__ import unicode_literals, absolute_import
 from app import f_app
 from six.moves import cStringIO as StringIO
+import six
 from PIL import Image
 import base64
 import logging
@@ -181,7 +182,7 @@ def main():
         property = f_app.property.get(id)
         update_params = {}
         for field in ["reality_images", "surroundings_images", "effect_pictures", "indoor_sample_room_picture", "planning_map", "floor_plan"]:
-            for k, v in property.get(field, {}).iteritems():
+            for k, v in six.iteritems(property.get(field, {})):
                 if isinstance(v, list):
                     origin_images = v
                     new_images = []
