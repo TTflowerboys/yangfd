@@ -781,9 +781,9 @@ def get_weibo_search_result(keywords_list):
     format_fit(ws_weibo_block_list)
 
     if day_shift:
-        weibo_wb.save('weibo_search' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx')
+        weibo_wb.save('weibo-search-' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx')
     else:
-        weibo_wb.save('weibo_search' + six.text_type(today) + '.xlsx')
+        weibo_wb.save('weibo-search-' + six.text_type(today) + '.xlsx')
 
 list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
 get_weibo_search_result(list_keyw)
