@@ -5315,7 +5315,7 @@ msgstr "Old Phone Number"
 #: ../web/src/partials/i18n.html:24 ../web/src/partials/i18n_scripts.html:16
 #, fuzzy
 msgid "验证成功"
-msgstr "Verify"
+msgstr "Verify Success"
 
 #: ../web/src/partials/i18n.html:26
 #, fuzzy
@@ -5521,7 +5521,7 @@ msgstr "Request exceeds the limit, please try this later"
 #: ../web/src/partials/i18n.html:72
 #, fuzzy
 msgid "验证失败"
-msgstr "Verify"
+msgstr "Verify Failed"
 
 #: ../web/src/partials/i18n.html:73
 msgid "错误的验证码，请检查后重试"
@@ -11105,16 +11105,16 @@ msgstr "Email"
 #: ../web/src/partials/i18n_scripts.html:676
 #, fuzzy
 msgid "未验证"
-msgstr "Verify"
+msgstr "Unverified"
 
 #: ../web/src/partials/i18n_scripts.html:677
 #, fuzzy
 msgid "已验证"
-msgstr "Verify"
+msgstr "Verified"
 
 #: ../web/src/partials/i18n_scripts.html:678
 msgid "禁用"
-msgstr ""
+msgstr "Disable"
 
 #: ../web/src/partials/i18n_scripts.html:679
 #, fuzzy
