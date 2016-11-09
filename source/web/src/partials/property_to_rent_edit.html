@@ -489,7 +489,11 @@
                     </div>
                 </td>
                 <td class="content">
-                    <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-attr="placeholder" data-validator="trim,lengthRange(8-40)" data-name="{{_('标题')}}">
+                    %if _.lang == 'en_GB':
+                        <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-attr="placeholder" data-validator="trim,lengthRange(8-80)" data-name="{{_('标题')}}">
+                    %else:
+                        <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-attr="placeholder" data-validator="trim,lengthRange(8-40)" data-name="{{_('标题')}}">
+                    %end
                 </td>
             </tr>
             <tr>
