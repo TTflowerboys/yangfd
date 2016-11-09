@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 import logging
 from datetime import datetime, date
 import bottle
-from whatever import that
+from funcy.py3 import lmap
 from bson.objectid import ObjectId
 from app import f_app
 from libfelix.f_interface import template, request, redirect, template_gettext as _
@@ -157,11 +157,11 @@ def get_sorted_enums(type):
 
 
 def get_country_list():
-    return map(lambda country: {"_country": True, "code": country}, f_app.common.country_list)
+    return lmap(lambda country: {"_country": True, "code": country}, f_app.common.country_list)
 
 
 def get_country_list_for_intention():
-    return map(lambda country: {"_country": True, "code": country, "name": get_country_name_by_code(country)}, f_app.common.country_list_for_intention)
+    return lmap(lambda country: {"_country": True, "code": country, "name": get_country_name_by_code(country)}, f_app.common.country_list_for_intention)
 
 
 def get_country_name_by_code(code):
