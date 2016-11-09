@@ -547,7 +547,7 @@
         function checkForm(element) {
             var validate = true
             var errorMsg = ''
-            var dateReg = window.lang === 'en_GB' ? /^\d{2}-\d{2}-\d{4}$/ : /^\d{4}-\d{2}-\d{2}$/
+            var dateReg = window.lang === 'en_GB'? /^\d{2}-\d{2}-\d{4}$/: /^\d{4}-\d{2}-\d{2}$/
             var regex = {
                 'email': window.project.emailReg,
                 'nonDecimal': /[^0-9.\s,]/,
