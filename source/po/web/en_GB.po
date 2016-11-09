@@ -5259,7 +5259,7 @@ msgstr "E-mail format incorrect, please try again"
 
 #: ../web/src/partials/i18n.html:2
 msgid "提交中..."
-msgstr "Uploading"
+msgstr "Submitting..."
 
 #: ../web/src/partials/i18n.html:4
 #, fuzzy
