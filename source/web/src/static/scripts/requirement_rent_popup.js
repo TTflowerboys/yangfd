@@ -547,12 +547,13 @@
         function checkForm(element) {
             var validate = true
             var errorMsg = ''
+            var dateReg = window.lang === 'en_GB'?/^\d{2}-\d{2}-\d{4}$/:/^\d{4}-\d{2}-\d{2}$/
             var regex = {
                 'email': window.project.emailReg,
                 'nonDecimal': /[^0-9.\s,]/,
                 'number': /^[0-9]+$/,
                 'decimalNumber': /^\d+(\.(\d)+)?$/,
-                'date': /^\d{4}-\d{2}-\d{2}$/,
+                'date': dateReg,
                 'phone': /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
             }
             $errorMsg.text('').hide()
