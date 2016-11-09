@@ -5586,7 +5586,7 @@ msgstr "verification code"
 
 #: ../web/src/partials/i18n.html:82
 msgid "电话号码输入错误，请检查后重试。"
-msgstr "Input error, please check and try again."
+msgstr "Phone number input error, please check and try again."
 
 #: ../web/src/partials/i18n.html:83
 msgid "Winery"
