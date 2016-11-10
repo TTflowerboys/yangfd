@@ -428,7 +428,7 @@
                 return
             }
             if (option === 'time') {
-                data[key] = new Date(val).getTime() / 1000
+                data[key] = new Date(window.team.UKtoCNDate(val)).getTime() / 1000
                 return
             }
             if (option === 'reverse') {
@@ -601,7 +601,7 @@
                 })
             })
             
-            if(element.find('.startDate').val() && element.find('.endDate').val() && new Date(element.find('.endDate').val()) <= new Date(element.find('.startDate').val())) {
+            if(element.find('.startDate').val() && element.find('.endDate').val() && new Date(window.team.UKtoCNDate(element.find('.endDate').val())) <= new Date(window.team.UKtoCNDate(element.find('.startDate').val()))) {
                 validate = false
                 errorMsg = i18n('结束日期需要大于开始日期')
                 highlightErrorElem(element.find('.endDate'))
@@ -651,6 +651,7 @@
                     if (!checkForm($(this))) {return}
 
                     var params = getSerializeObject($(this))
+                    console.log(params);
                     params.locales = window.lang
                     if(_.isEmpty(params.referral) || params.referral === ''){
                         delete params.referral
