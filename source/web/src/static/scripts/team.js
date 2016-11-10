@@ -591,11 +591,13 @@
             location.href = url
         },
         /* DD-MM-YYYY to YYYY-MM-DD */
-        UKtoCNDate: function(val){
+        normalizeDateString: function(val){
             var UKdateRegex = /^\d{2}-\d{2}-\d{4}$/;
-            if (UKdateRegex.test(val)) {
+            if (UKdateRegex.test(val) && window.lang === 'en_GB') {
                 var dateArr = val.split('-');
                 return dateArr[2]+'-'+dateArr[1]+'-'+dateArr[0];
+            }else{
+                return val;
             }
         }
     }

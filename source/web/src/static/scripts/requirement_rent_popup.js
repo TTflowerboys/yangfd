@@ -428,7 +428,7 @@
                 return
             }
             if (option === 'time') {
-                data[key] = new Date(window.team.UKtoCNDate(val)).getTime() / 1000
+                data[key] = new Date(window.team.normalizeDateString(val)).getTime() / 1000
                 return
             }
             if (option === 'reverse') {
@@ -601,7 +601,7 @@
                 })
             })
             
-            if(element.find('.startDate').val() && element.find('.endDate').val() && new Date(window.team.UKtoCNDate(element.find('.endDate').val())) <= new Date(window.team.UKtoCNDate(element.find('.startDate').val()))) {
+            if(element.find('.startDate').val() && element.find('.endDate').val() && new Date(window.team.normalizeDateString(element.find('.endDate').val())) <= new Date(window.team.normalizeDateString(element.find('.startDate').val()))) {
                 validate = false
                 errorMsg = i18n('结束日期需要大于开始日期')
                 highlightErrorElem(element.find('.endDate'))
@@ -655,6 +655,7 @@
                     if(_.isEmpty(params.referral) || params.referral === ''){
                         delete params.referral
                     }
+                    console.log(params);
                     var rent_intention_ticket_id = (location.href.match(/rent\-intention\/([0-9a-fA-F]{24})\/edit/) || [])[1]
                     var api = rent_intention_ticket_id ?  '/api/1/rent_intention_ticket/' + rent_intention_ticket_id + '/edit' : '/api/1/rent_intention_ticket/add'
                     $.betterPost(api, params)
