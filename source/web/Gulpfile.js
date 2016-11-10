@@ -192,7 +192,7 @@ gulp.task('fingerprintAdminPageResource', ['revAdminPageResource'], function () 
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:js-delimiter', 'build:concat', 'build:i18n', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
+gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:js-delimiter', 'build:concat','build:uglify', 'build:i18n', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -257,14 +257,18 @@ gulp.task('build:concat', ['build:js-delimiter'], function () {
     return  gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html', myPaths.dist + 'static/pdfs/*.html'], {base: 'dist'})
         .pipe(usemin({
             css: ['concat'],
-            //inlinecss: [minifyCss({keepSpecialComments: 0}), 'concat'],
-            js: [/*debug({title: 'So debug?:'})*/, 'concat', /*uglify({mangle: false})*/],
-            //inlinejs: [ uglify() ],
+            js: [/*debug({title: 'So debug?:'})*/, 'concat'],
         }))
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('build:i18n', ['build:concat'], function () {
+gulp.task('build:uglify', ['build:concat'], function () {
+    return gulp.src(['dist/static/**/*.html.js'], {base: 'dist'})
+        .pipe(uglify({mangle: false}))
+        .pipe(gulp.dest(myPaths.dist))
+})
+
+gulp.task('build:i18n', ['build:uglify'], function () {
     return  gulp.src([myPaths.dist + '*.html'], {base: 'dist'})
         .pipe(i18n({placeholder: '<!--I18N Placeholder-->'}))
         .pipe(gulp.dest(myPaths.dist))
