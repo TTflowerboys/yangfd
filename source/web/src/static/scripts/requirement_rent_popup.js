@@ -651,7 +651,6 @@
                     if (!checkForm($(this))) {return}
 
                     var params = getSerializeObject($(this))
-                    console.log(params);
                     params.locales = window.lang
                     if(_.isEmpty(params.referral) || params.referral === ''){
                         delete params.referral
