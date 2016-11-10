@@ -14,7 +14,7 @@
 <script src="/static/bower_components/jquery-migrate/jquery-migrate.min.js"></script>
 <!-- /jQuery-->
 
-<!--build:js /static/vendors/ie_fix.js -->
+<!--build:js /static/vendors/ie_fix.html.js -->
 <!--[if lte IE 8]>
 <script src="/static/vendors/jquery.placeholder.js"></script>
 <script src="/static/bower_components/es5-shim/es5-shim.min.js"></script>
@@ -29,7 +29,7 @@
 <![endif]-->
 
 
-<!--build:js /static/scripts/dependencies.js-->
+<!--build:js /static/scripts/dependencies.html.js-->
 <script src="/static/vendors/jquery.serializeObject.js"></script>
 <script src="/static/bower_components/q/q.js"></script>
 <script src="/static/vendors/jquery.validate.js"></script>
@@ -58,7 +58,7 @@
 <!--endbuild-->
 
 %if is_mobile_client():
-    <!--build:js /static/scripts/wvjsBridge.js-->
+    <!--build:js /static/scripts/wvjsBridge.html.js-->
     <script src="/static/scripts/wvjsBridge.js"></script>
     <!--endbuild-->
 %end
