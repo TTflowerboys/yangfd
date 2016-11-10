@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-11-09 12:01+0800\n"
-"PO-Revision-Date: 2016-11-03 17:42+0800\n"
+"PO-Revision-Date: 2016-11-10 11:04+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -4186,7 +4186,7 @@ msgstr "Scan to share to WeChat"
 
 #: ../web/src/user_invite.html:73
 msgid "将优惠码发送至"
-msgstr "Discount code has been sent"
+msgstr "Discount code will been send to"
 
 #: ../web/src/user_invite.html:75
 msgid "请输入邮件地址"
@@ -6337,19 +6337,19 @@ msgstr "City list Loading"
 
 #: ../web/src/partials/i18n.html:278
 msgid "不能为空"
-msgstr "Cannot be left blank"
+msgstr "cannot be empty"
 
 #: ../web/src/partials/i18n.html:279
 msgid "格式不正确"
-msgstr "Format incorrect"
+msgstr "format incorrect"
 
 #: ../web/src/partials/i18n.html:280
 msgid "超出长度限制"
-msgstr "Too long"
+msgstr "too long"
 
 #: ../web/src/partials/i18n.html:281
 msgid "结束日期需要大于开始日期"
-msgstr "Start Date End Date require more than"
+msgstr "End date must be later than start date"
 
 #: ../web/src/partials/i18n.html:283
 #, fuzzy
@@ -12959,7 +12959,7 @@ msgstr "N/A Loading contact info for you"
 
 #: ../web/src/partials/requirement_rent_phone.html:250
 msgid "您的求租意向单已经提交成功，您可以："
-msgstr "Your rental intention request has been successfully submitted. You can: "
+msgstr "Your rental intention request has been successfully submitted, You can: "
 
 #: ../web/src/partials/requirement_rent_phone.html:251
 #: ../web/src/partials/requirement_rent_popup.html:252

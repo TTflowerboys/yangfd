@@ -577,14 +577,14 @@
                 }
                 if(validator.indexOf('required') >= 0 && value === ''){
                     validate = false
-                    errorMsg = $(this).data('name') + i18n('不能为空')
+                    errorMsg = $(this).data('name') + ' ' + i18n('不能为空')
                     highlightErrorElem($(this))
                     //return false
                 }
                 for(var key in regex){
                     if(value.length > 0 && validator.indexOf(key) >= 0 && !regex[key].test(value)){
                         validate = false
-                        errorMsg = $(this).data('name') + i18n('格式不正确')
+                        errorMsg = $(this).data('name') + ' ' + i18n('格式不正确')
                         highlightErrorElem($(this))
                         //return false
                     }
@@ -594,7 +594,7 @@
                         var maxLength = parseInt(v.match(/maxLength\((\d+)\)/)[1])
                         if(value.length > maxLength){
                             validate = false
-                            errorMsg = $this.data('name') + i18n('超出长度限制')
+                            errorMsg = $this.data('name') + ' ' + i18n('超出长度限制')
                             highlightErrorElem($this)
                         }
                     }
