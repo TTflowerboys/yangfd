@@ -212,7 +212,7 @@ gulp.task('build:copy', ['clean', 'bower'], function () {
 
 gulp.task('build:imagemin', ['build:copy'], function () {
     return gulp.src('dist/static/images/**/*', {base: './dist/'})
-        .pipe(imagemin())
+        .pipe(imagemin({verbose: false}))
         .pipe(gulp.dest('./dist/'))
 })
 
