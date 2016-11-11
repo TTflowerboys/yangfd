@@ -59,18 +59,17 @@ gulp.task('bower', function () {
 
 //Debug
 
-gulp.task('debug', ['bower', 'debug:lint', 'symlink', 'less2css', 'cssAutoPrefix', 'html-extend', 'i18n', 'watch'], function () {
+gulp.task('debug', ['bower', 'lint', 'symlink', 'less2css', 'css-auto-prefix', 'html-extend', 'i18n', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
 
 
-gulp.task('debug:lint', function () {
+gulp.task('lint', function () {
     return gulp.src(myPaths.js)
         .pipe(cache('linting'))
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
 })
-
 
 gulp.task('symlink', ['bower'], function () {
     return gulp.src(myPaths.symlink)
@@ -89,7 +88,7 @@ gulp.task('less2css', function (done) {
     done()
 })
 
-gulp.task('cssAutoPrefix', ['less2css'], function (done) {
+gulp.task('css-auto-prefix', ['less2css'], function (done) {
    return gulp.src(myPaths.css)
         .pipe(prefix('last 2 version', 'Firefox >= 20', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
@@ -104,7 +103,6 @@ gulp.task('styleless2css',function () {
         .pipe(gulp.dest(myPaths.src + 'static/themes/genius_dashboard/css/'))
 })
 
-
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender({verbose:false}))
@@ -112,13 +110,13 @@ gulp.task('html-extend', function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('watch:i18n', ['html-extend'], function () {
+gulp.task('i18n', ['bower','html-extend'], function () {
     return  gulp.src([myPaths.dist + '*.html'], {base: 'dist'})
         .pipe(i18n({placeholder: '<!--I18N Placeholder-->'}))
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('i18n', ['bower','html-extend'], function () {
+gulp.task('watch:i18n', ['html-extend'], function () {
     return  gulp.src([myPaths.dist + '*.html'], {base: 'dist'})
         .pipe(i18n({placeholder: '<!--I18N Placeholder-->'}))
         .pipe(gulp.dest(myPaths.dist))
@@ -129,62 +127,20 @@ gulp.task('clean', function () {
         .pipe(vinylPaths(del))
 })
 
-//better only rev the css and html used in html
-gulp.task('rev', ['build:i18n'], function () {
-    return gulp.src(['dist/static/admin/templates/**/*.html',
-    'dist/static/admin/emails/**/*.html',
-    'dist/static/fonts/**/*', 
-    'dist/static/images/**/*', 
-    'dist/static/sprite/*', 
-    'dist/static/scripts/**/*', 
-    'dist/static/styles/**/*.css', 
-    'dist/static/templates/**/*', 
-    'dist/static/sprite/css/sprite-build.css'],
-    {base: 'dist'})
-        .pipe(gulp.dest(myPaths.dist))// here change to relative dir why?
-        .pipe(rev())
-        .pipe(gulp.dest(myPaths.dist))  // write rev'd assets to build dir
-        .pipe(rev.manifest())
-        .pipe(replace(/"static/g,'"/static'))
-        .pipe(gulp.dest(myPaths.dist)); // write manifest to build dir
+var livereload = require('gulp-livereload')
+gulp.task('watch', ['symlink', 'less2css', 'css-auto-prefix', 'html-extend', 'i18n'], function () {
+    livereload.listen();
+    gulp.watch(myPaths.less, ['less2css']).on('change', changeHanddler)
+    gulp.watch(myPaths.less, ['css-auto-prefix']).on('change', changeHanddler)
+    gulp.watch(myPaths.html, ['html-extend', 'watch:i18n']).on('change', changeHanddler)
+    gulp.watch(myPaths.js, ['lint']).on('change', changeHanddler)
+    function changeHanddler(event) {
+        console.log(event.type)
+        console.log(event.path)
+        livereload.changed(event.path)
+    }
 })
 
-gulp.task('fingerprint', ['rev'], function () {
-    var manifest = gulp.src(myPaths.dist + 'rev-manifest.json')
-    
-    return gulp.src([myPaths.dist + '*.html',
-    myPaths.dist + 'static/admin/templates/**/*.html',
-    myPaths.dist + 'static/admin/emails/**/*.html',
-    myPaths.dist + 'static/templates/**/*.html',
-    myPaths.dist + 'static/emails/*.html', 
-    myPaths.dist + 'static/pdfs/*.html', 
-    myPaths.dist + 'static/scripts/**/*.js', 
-    myPaths.dist + 'static/styles/**/*.css', 
-    myPaths.dist + 'static/sprite/css/*.css', 
-    myPaths.dist + 'static/admin/*.js'], 
-    { base: 'dist' })
-        .pipe(revReplace({manifest:manifest}))
-        .pipe(gulp.dest(myPaths.dist))
-});
-
-// admin/*.js 里面有revision过的html，
-gulp.task('revAdminPageResource', ['fingerprint'], function () {
-    return gulp.src(['dist/static/admin/*.js', 'dist/static/themes/genius_dashboard/css/bundle.css'], {base: 'dist'})
-        .pipe(gulp.dest(myPaths.dist)) // here change to relative dir why?
-        .pipe(rev())
-        .pipe(gulp.dest(myPaths.dist))
-        .pipe(rev.manifest())
-        .pipe(replace(/"static/g,'"/static'))
-        .pipe(gulp.dest(myPaths.dist + "admin-manifest/")); // write manifest to build dir
-})
-
-gulp.task('fingerprintAdminPageResource', ['revAdminPageResource'], function () {
-    var manifest = gulp.src(myPaths.dist + 'admin-manifest/rev-manifest.json')
-
-    return gulp.src(['dist/admin.html'], {base: 'dist'})
-        .pipe(revReplace({manifest:manifest}))
-        .pipe(gulp.dest(myPaths.dist));
-});
 
 // Build Target:
 // 'debug': local python server
@@ -192,13 +148,13 @@ gulp.task('fingerprintAdminPageResource', ['revAdminPageResource'], function () 
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:js-delimiter', 'build:concat','build:uglify', 'build:i18n', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
+gulp.task('build', ['bower', 'build:lint', 'clean', 'build:copy', 'build:imagemin', 'build:sprite', 'build:less2css', 'build:css-auto-prefix', 'build:html-extend', 'build:js-delimiter', 'build:concat','build:uglify', 'build:i18n', 'build:rev', 'build:fingerprint', 'build:rev-admin-page-resource', 'build:fingerprint-admin-page-resource', 'build:CDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
 
 
-gulp.task('lint', function () {
+gulp.task('build:lint', function () {
     return gulp.src(myPaths.js)
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
@@ -216,13 +172,13 @@ gulp.task('build:imagemin', ['build:copy'], function () {
         .pipe(gulp.dest('./dist/'))
 })
 
-gulp.task('sprite', ['build:imagemin'], function () {
+gulp.task('build:sprite', ['build:imagemin'], function () {
     return gulp.src('./dist/{,*/,static/templates/,static/templates/master/}{*.tpl.html,*.html}', {base: './dist/'})
         .pipe(pageSprite({image_src:'./dist', image_dist:'./dist/static/sprite/', css_dist:'./dist/static/sprite/' + 'css'  +'/', image_path: '/static/sprite/'}))
         .pipe(gulp.dest('./dist/'))
 })
 
-gulp.task('build:less2css', ['sprite'], function (done) {
+gulp.task('build:less2css', ['build:sprite'], function (done) {
     return gulp.src(['./dist/static/styles/**/*.less', '!**/flycheck_*.*'])
         .pipe(less())
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
@@ -230,13 +186,13 @@ gulp.task('build:less2css', ['sprite'], function (done) {
     done()
 })
 
-gulp.task('build:cssAutoPrefix', ['build:less2css'], function (done) {
+gulp.task('build:css-auto-prefix', ['build:less2css'], function (done) {
     return gulp.src('./dist/static/styles/**/*.css')
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
 })
 
-gulp.task('build:html-extend', ['build:cssAutoPrefix'], function () {
+gulp.task('build:html-extend', ['build:css-auto-prefix'], function () {
     return gulp.src('./dist/{,*/,static/emails/,static/pdfs/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}', {base: './dist/'})
         .pipe(extender({verbose: false}))
         .pipe(preprocess({context: {ENV: argv.env}}))
@@ -274,7 +230,63 @@ gulp.task('build:i18n', ['build:uglify'], function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('setupCDN', ['fingerprintAdminPageResource'], function () {
+        //better only rev the css and html used in html
+gulp.task('build:rev', ['build:i18n'], function () {
+    return gulp.src(['dist/static/admin/templates/**/*.html',
+    'dist/static/admin/emails/**/*.html',
+    'dist/static/fonts/**/*', 
+    'dist/static/images/**/*', 
+    'dist/static/sprite/*', 
+    'dist/static/scripts/**/*', 
+    'dist/static/styles/**/*.css', 
+    'dist/static/templates/**/*', 
+    'dist/static/sprite/css/sprite-build.css'],
+    {base: 'dist'})
+        .pipe(gulp.dest(myPaths.dist))// here change to relative dir why?
+        .pipe(rev())
+        .pipe(gulp.dest(myPaths.dist))  // write rev'd assets to build dir
+        .pipe(rev.manifest())
+        .pipe(replace(/"static/g,'"/static'))
+        .pipe(gulp.dest(myPaths.dist)); // write manifest to build dir
+})
+
+gulp.task('build:fingerprint', ['build:rev'], function () {
+    var manifest = gulp.src(myPaths.dist + 'rev-manifest.json')
+    return gulp.src([myPaths.dist + '*.html',
+    myPaths.dist + 'static/admin/templates/**/*.html',
+    myPaths.dist + 'static/admin/emails/**/*.html',
+    myPaths.dist + 'static/templates/**/*.html',
+    myPaths.dist + 'static/emails/*.html', 
+    myPaths.dist + 'static/pdfs/*.html', 
+    myPaths.dist + 'static/scripts/**/*.js', 
+    myPaths.dist + 'static/styles/**/*.css', 
+    myPaths.dist + 'static/sprite/css/*.css', 
+    myPaths.dist + 'static/admin/*.js'], 
+    { base: 'dist' })
+        .pipe(revReplace({manifest:manifest}))
+        .pipe(gulp.dest(myPaths.dist))
+});
+
+// admin/*.js 里面有revision过的html，
+gulp.task('build:rev-admin-page-resource', ['build:fingerprint'], function () {
+    return gulp.src(['dist/static/admin/*.js', 'dist/static/themes/genius_dashboard/css/bundle.css'], {base: 'dist'})
+        .pipe(gulp.dest(myPaths.dist)) // here change to relative dir why?
+        .pipe(rev())
+        .pipe(gulp.dest(myPaths.dist))
+        .pipe(rev.manifest())
+        .pipe(replace(/"static/g,'"/static'))
+        .pipe(gulp.dest(myPaths.dist + 'admin-manifest/')); // write manifest to build dir
+})
+
+gulp.task('build:fingerprint-admin-page-resource', ['build:rev-admin-page-resource'], function () {
+    var manifest = gulp.src(myPaths.dist + 'admin-manifest/rev-manifest.json')
+
+    return gulp.src(['dist/admin.html'], {base: 'dist'})
+        .pipe(revReplace({manifest:manifest}))
+        .pipe(gulp.dest(myPaths.dist));
+});
+
+gulp.task('build:CDN', ['build:fingerprint-admin-page-resource'], function () {
     if (argv.cdn) {
         var relaceRev =  function () {
             //html should only in root folder
@@ -303,19 +315,5 @@ gulp.task('setupCDN', ['fingerprintAdminPageResource'], function () {
         }
         relaceRev()
 
-    }
-})
-
-var livereload = require('gulp-livereload')
-gulp.task('watch', ['symlink', 'less2css', 'cssAutoPrefix', 'html-extend', 'i18n'], function () {
-    livereload.listen();
-    gulp.watch(myPaths.less, ['less2css']).on('change', changeHanddler)
-    gulp.watch(myPaths.less, ['cssAutoPrefix']).on('change', changeHanddler)
-    gulp.watch(myPaths.html, ['html-extend', 'watch:i18n']).on('change', changeHanddler)
-    gulp.watch(myPaths.js, ['debug:lint']).on('change', changeHanddler)
-    function changeHanddler(event) {
-        console.log(event.type)
-        console.log(event.path)
-        livereload.changed(event.path)
     }
 })
