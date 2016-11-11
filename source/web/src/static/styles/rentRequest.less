@@ -457,9 +457,8 @@
                     }
                     .registerUser, .getSmsCode{
                         display: inline-block;
-                        width: 120px;
                         height: 40px;
-                        padding: 0;
+                        padding: 0 12px;
                         line-height: 40px;
                         text-align: center;
                         font-size: 14px;
@@ -467,6 +466,8 @@
                     .smsCode{
                         width: 100px;
                         margin-right: 20px;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
                     }
                     .referrer{
                         width: 190px;
@@ -496,6 +497,7 @@
                         div{
                             width: 20px;
                             b{
+                                background-color: #fff;
                                 background-image: url('/static/images/common/chosen-sprite.png');
                                 width: 12px;
                                 background-position: 0 12px;
@@ -688,6 +690,7 @@
                 }
                 .confirmWrap{
                     margin-top: 70px;
+                    white-space: nowrap;
                     .button{
                         cursor: pointer;
                         padding: 12px 18px;
@@ -697,7 +700,6 @@
                     }
                     .hintWrap{
                         display: inline-block;
-                        width: 440px;
                         margin-left: 16px;
                         vertical-align: middle;
                         .hint{

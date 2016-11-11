@@ -108,6 +108,7 @@
                             </div>
                             <div class="row">
                                 <p class="title">{{_('生日')}}</p>
+                                % if _.lang != "en_GB":
                                 <select class="birthYear" data-bind="chosen: birthYearList,
                                     optionsText: function(item){return item + window.i18n('年')},
                                     value: birthYear"></select><!--
@@ -117,6 +118,17 @@
                                 --><select class="birthDate" data-bind="chosen: birthDateList,
                                     optionsText: function(item){return item + window.i18n('日')},
                                     value: birthDate"></select>
+                                % else:
+                                    <select class="birthYear" data-bind="chosen: birthYearList,
+                                    optionsText: function(item){return item},
+                                    value: birthYear"></select><!--
+                                --><select class="birthMonth" data-bind="chosen: birthMonthList,
+                                    optionsText: function(item){return item},
+                                    value: birthMonth"></select><!--
+                                --><select class="birthDate" data-bind="chosen: birthDateList,
+                                    optionsText: function(item){return item},
+                                    value: birthDate"></select>
+                                % end
                                 <p class="hint">{{_('仅用作向房东展示年龄，不向任何人泄露生日信息')}}</p>
                             </div>
                             <chosen-referrer params="vm: $data"></chosen-referrer>
