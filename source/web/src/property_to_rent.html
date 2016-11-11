@@ -168,7 +168,7 @@
                                 {{_('约')}}
                                 {{rent.get('price',{}).get('unit_symbol','')}}
                                 {{int(float(rent.get('price',{}).get('value','')) * 52.0 / 12.0)}}
-                                {{_('/月')}}
+                                
                             </div>
                         % end
                         % if 'bill_covered' in rent and rent.get('bill_covered'):
@@ -499,9 +499,9 @@
                                     <span data-tooltip data-placement="right" data-original-title="{{_('月价格')}}=({{_('周价格')}} x 52)/12">
                                     {{_('约')}}
                                     {{rent.get('price',{}).get('unit_symbol','')}}
-                                    {{int(float(rent.get('price',{}).get('value','')) * 52.0 / 12.0)}}
-                                    {{_('/月')}}
+                                    <span data-type="formatted_currency_mouth" data-price="{{int(float(rent.get('price',{}).get('value','')) * 52.0 / 12.0)}}"></span>
                                     </span>
+                                    {{_('/月')}}                                    
                                 </div>
                             </div>
                             % if rent.get('status') == 'rent':
