@@ -138,7 +138,7 @@
         },
         getRentTicketTitle: function (ticket) {
             var address = ticket.property.community? ticket.property.community: (ticket.property.maponics_neighborhood? ticket.property.maponics_neighborhood.name: (ticket.property.street? ticket.property.street: ''))
-            var houseInfo = (ticket.property.bedroom_count > 0 ? ticket.property.bedroom_count + window.i18n('居室') : 'Studio') + ' ' + ticket.rent_type.value + ' ' + window.i18n('出租')
+            var houseInfo = (ticket.property.bedroom_count > 0 ? ticket.property.bedroom_count + ' ' + window.i18n('居室') : 'Studio') + ' ' + ticket.rent_type.value + ' ' + window.i18n('出租')
             return address + ' ' + houseInfo
         },
         getPropertyAddress: function (property) {

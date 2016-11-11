@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-11-09 12:01+0800\n"
-"PO-Revision-Date: 2016-11-10 11:59+0800\n"
+"PO-Revision-Date: 2016-11-11 11:54+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -1315,7 +1315,7 @@ msgstr "Young Funding Tenant Service"
 #: ../web/src/how_it_works_tenant.html:21
 #: ../web/src/partials/index_renter.html:25
 msgid "寻找心仪房源"
-msgstr "Search for favourite property"
+msgstr "Search for your favourite property"
 
 #: ../web/src/how_it_works_tenant.html:22
 msgid "多维度搜索筛选房源，快速锁定心仪房源"
@@ -2308,11 +2308,11 @@ msgstr "Female"
 
 #: ../web/src/property_to_rent.html:743
 msgid "新室友职业要求"
-msgstr "New Flatmate Occupation"
+msgstr "New Roommate Occupation"
 
 #: ../web/src/property_to_rent.html:751
 msgid "新室友年龄要求"
-msgstr "New Flatmate Age"
+msgstr "New Roommate Age"
 
 #: ../web/src/property_to_rent.html:755 ../web/src/property_to_rent.html:757
 msgid "以下"
@@ -6849,7 +6849,7 @@ msgstr "Minimum period 1 day"
 
 #: ../web/src/partials/i18n.html:417
 msgid "请填写您入住的原因和对房东的问题"
-msgstr "Please enter your reason to move in and your questions for landlord"
+msgstr "Please enter your move-in reason and any questions for the landlord"
 
 #: ../web/src/partials/i18n.html:418
 msgid "请不要在描述中填写任何形式的联系方式"
@@ -10155,7 +10155,7 @@ msgstr "Max. Budget"
 #: ../web/src/partials/property_to_rent_edit.html:305
 #: ../web/src/partials/requirement_rent_popup.html:129
 msgid "租期"
-msgstr "Tenancy Term"
+msgstr "Tenancy Period"
 
 #: ../web/src/partials/i18n_scripts.html:440
 #, fuzzy
