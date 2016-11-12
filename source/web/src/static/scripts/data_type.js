@@ -42,20 +42,6 @@
                     )
                 )
             }
-        }else if (type === 'formatted_currency_mouth') {
-            if (dom.tagName.toLowerCase() === 'input') {
-                $dom.val(
-                    team.formatCurrency(
-                        $dom.val()
-                    )
-                )
-            } else {
-                $dom.html(
-                    team.formatCurrency(
-                        $dom.attr('data-price')
-                    )
-                )
-            }
         }
     }
 
