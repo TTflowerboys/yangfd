@@ -265,7 +265,7 @@
             var defaultOptions = {
                 url: location.href || '',
                 text: document.title || '',
-                via: ''
+                name:"linkedin_popup"
             }
             var defaultConfig = {
                 width: 600,
