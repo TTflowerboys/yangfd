@@ -1,0 +1,11 @@
+.*
+dist/
+node_modules/
+package.json
+README.md
+snippets.js
+styleguide/
+#src/static/admin/
+src/static/emails/
+src/static/themes/
+src/static/vendors/
