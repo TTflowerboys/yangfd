@@ -7006,7 +7006,7 @@ msgstr "Your rental period (days):"
 #: ../web/src/partials/i18n.html:453
 #, fuzzy
 msgid "请使用语音验证手机号码"
-msgstr "Verify Phone Number"
+msgstr "Please verify Phone Number"
 
 #: ../web/src/partials/i18n.html:454 ../web/src/partials/i18n_admin.html:140
 #: ../web/src/partials/i18n_scripts.html:179

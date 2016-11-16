@@ -817,7 +817,7 @@
                             }, this))
                     }
                     else {
-                        this.errorMsg(window.i18n('请使用语音验证手机号码'))
+                        this.errorMsg(window.i18n('请验证手机号码'))
                     }
                 }
                 else {
