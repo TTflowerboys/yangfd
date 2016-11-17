@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-11-09 12:01+0800\n"
-"PO-Revision-Date: 2016-11-11 11:54+0800\n"
+"PO-Revision-Date: 2016-11-17 17:40+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -14474,12 +14474,12 @@ msgstr "Tenancy Term"
 #: ../web/src/static/templates/rent_request.tpl.html:36
 #: ../web/src/static/templates/rent_request_phone.tpl.html:28
 msgid "选择起租日期"
-msgstr "Choose start date"
+msgstr "Start date"
 
 #: ../web/src/static/templates/rent_request.tpl.html:40
 #: ../web/src/static/templates/rent_request_phone.tpl.html:35
 msgid "选择结束日期"
-msgstr "Choose end date"
+msgstr "End date"
 
 #: ../web/src/static/templates/rent_request.tpl.html:67
 #: ../web/src/static/templates/rent_request_phone.tpl.html:63
@@ -14521,7 +14521,7 @@ msgstr ""
 #: ../web/src/static/templates/rent_request.tpl.html:107
 #: ../web/src/static/templates/rent_request_phone.tpl.html:105
 msgid "请输入大学名称"
-msgstr "Please enter your university name"
+msgstr "University name"
 
 #: ../web/src/static/templates/rent_request.tpl.html:120
 #: ../web/src/static/templates/rent_request_phone.tpl.html:112

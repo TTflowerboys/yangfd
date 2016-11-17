@@ -42,16 +42,16 @@
                                     </div>
                                     <div class="cell tenantCount">
                                         <p class="title">{{_('入住人数')}}</p>
-                                        % if _.lang != "en_GB":
-                                        <select data-bind="chosen: tenantCountList,
-                                            optionsText: function(item){return item + window.i18n('人入住')},
-                                            value: tenantCount
-                                        "></select>
+                                        % if _.lang == "en_GB":
+                                            <select data-bind="chosen: tenantCountList,
+                                                    optionsText: function(item){return item},
+                                                    value: tenantCount
+                                                    "></select>
                                         %else:
-                                        <select data-bind="chosen: tenantCountList,
-                                            optionsText: function(item){return item},
-                                            value: tenantCount
-                                        "></select>
+                                            <select data-bind="chosen: tenantCountList,
+                                                    optionsText: function(item){return item + window.i18n('人入住')},
+                                                    value: tenantCount
+                                                    "></select>
                                         %end
                                     </div>
                                 </div>
