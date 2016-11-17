@@ -395,6 +395,8 @@ class currant_property(f_app.module_base):
             elif property["property_type"]["slug"] == "student_housing":
                 index_params.append("学生公寓")
 
+        self.logger.debug("Generated index_params:", index_params)
+
         return index_params
 
     def reindex(self):
