@@ -44,7 +44,6 @@ def upload_image(params):
     if params["thumbnail_size"][0] > 0:
         params["data"].file.seek(0)
         if "data_thumbnail" not in params:
-            logger.debug("Trying to generate thumbnail...")
             im = f_app.storage.image_open(params["data"].file)
             im = f_app.storage.image_opacification(im)
             im = f_app.storage.image_thumbnail(im, params["thumbnail_size"])
