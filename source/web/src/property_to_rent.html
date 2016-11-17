@@ -601,14 +601,14 @@
                         % title = rent.get('title',u'').replace("\'", "\\\'")
                         <button class="flatButton twitter" onclick="team.shareToTwitter({
                                 url: location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}',
-                                text:'{{_(u'房东急租，快来围观') + title}}'                            
+                                text:'{{_(u'房东急租，快来围观')+' '+ title}}'
                                 }) ">
                                 <i class="icon-twitter"></i>
                         </button>
                         % title = rent.get('title',u'').replace("\'", "\\\'")
                         <button class="flatButton linkedin" onclick="team.shareToLinkedin({
                                 url: location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}',
-                                title:'{{_(u'房东急租，快来围观') + title}}'
+                                title:'{{_(u'房东急租，快来围观')+' '+ title}}'
                                 % if rent['property'].get('reality_images'):
                                 ,pic:'{{rent['property'].get('reality_images')[0]}}'
                                 % end
@@ -618,7 +618,7 @@
                     % if _.lang != "en_GB":
                         % title = rent.get('title',u'').replace("\'", "\\\'")
                         <button class="flatButton orange" onclick="team.shareToWeibo({
-                                title:'{{_(u'房东急租，快来围观') + title}}',
+                                title:'{{_(u'房东急租，快来围观')+' '+ title}}',
                                 url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
                                 % if rent['property'].get('reality_images'):
                                 ,pic:'{{rent['property'].get('reality_images')[0]}}'
