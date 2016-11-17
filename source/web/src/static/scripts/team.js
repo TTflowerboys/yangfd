@@ -257,6 +257,39 @@
 
             return false
         },
+        /**
+         * Share something to Linkedin
+         * @param {object} {title:'',url:'',pic:''}
+         */
+        shareToLinkedin: function (_options, _config) {
+            var defaultOptions = {
+                url: location.href || '',
+                text: document.title || '',
+                name:"linkedin_popup"
+            }
+            var defaultConfig = {
+                width: 600,
+                height: 450
+            }
+            var options = $.extend({}, defaultOptions, _options)
+            var config = $.extend({}, defaultConfig, _config)
+            var query = _.pairs(options).map(function (item) {
+                return [encodeURIComponent(item[0]), encodeURIComponent(item[1])].join('=')
+            }).join('&')
+
+            var url = 'http://www.linkedin.com/shareArticle?' + query
+
+            var width = config.width
+            var height = config.height
+            var left = (screen.width / 2) - (width / 2)
+            var top = (screen.height / 2) - (height / 2)
+
+            window.open(url, '_blank',
+                    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+                    width + ', height=' + height + ', top=' + top + ', left=' + left)
+
+            return false
+        },
         isPhone: function () {
             return $(window).width() < 768
         },
@@ -589,6 +622,16 @@
                 return
             }
             location.href = url
+        },
+        /* DD-MM-YYYY to YYYY-MM-DD */
+        normalizeDateString: function(val){
+            var UKdateRegex = /^\d{2}-\d{2}-\d{4}$/;
+            if (UKdateRegex.test(val) && window.lang === 'en_GB') {
+                var dateArr = val.split('-');
+                return dateArr[2]+'-'+dateArr[1]+'-'+dateArr[0];
+            }else{
+                return val;
+            }
         }
     }
 })

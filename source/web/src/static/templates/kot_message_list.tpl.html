@@ -37,7 +37,7 @@
             <p class="content" data-bind="visible: expand, text: content"></p>
         </div>
     </div>
-    <div class="pager" style="width: 237px !important" data-bind="visible: messageList().length > 0">
+    <div class="pager" data-bind="visible: messageList().length > 0">
         <button data-bind="
             click: pagePreTrigger,
             attr: {'disabled': pagePreDisabled}">

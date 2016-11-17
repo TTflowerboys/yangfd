@@ -428,7 +428,7 @@
                 return
             }
             if (option === 'time') {
-                data[key] = new Date(val).getTime() / 1000
+                data[key] = new Date(window.team.normalizeDateString(val)).getTime() / 1000
                 return
             }
             if (option === 'reverse') {
@@ -601,7 +601,7 @@
                 })
             })
             
-            if(element.find('.startDate').val() && element.find('.endDate').val() && new Date(element.find('.endDate').val()) <= new Date(element.find('.startDate').val())) {
+            if(element.find('.startDate').val() && element.find('.endDate').val() && new Date(window.team.normalizeDateString(element.find('.endDate').val())) <= new Date(window.team.normalizeDateString(element.find('.startDate').val()))) {
                 validate = false
                 errorMsg = i18n('结束日期需要大于开始日期')
                 highlightErrorElem(element.find('.endDate'))

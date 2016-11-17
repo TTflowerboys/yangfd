@@ -3781,7 +3781,7 @@ msgstr "No bookmarked properties"
 #: ../web/src/user_favorites.html:44 ../web/src/user_intentions.html:61
 #: ../web/src/user_properties.html:52
 msgid "去<a href=\"/property-list\">房产列表</a>看看吧"
-msgstr "Please checkout <a href=\"/property_list\">rental property list</a>"
+msgstr "Please checkout <a href=\"/property-list\">property list</a>"
 
 #: ../web/src/user_favorites.html:52
 msgid "没有收藏的出租房产"
@@ -3790,7 +3790,7 @@ msgstr "No bookmarked rental property"
 #: ../web/src/user_favorites.html:54 ../web/src/user_properties.html:81
 #: ../web/src/user_properties.html:90
 msgid "去<a href=\"/property-to-rent-list\">出租房产列表</a>看看吧"
-msgstr "Please checkout <a href=\"/property_list\"> rental property list</a>"
+msgstr "Please checkout <a href=\"/property-to-rent-list\"> rental property list</a>"
 
 #: ../web/src/user_finish_auth.html:12 ../web/src/user_finish_info.html:12
 msgid "为了您的投资安全和满足相关监管机构要求，在您确认投资前，我们需要验证您的身份，请务必填写准确。"

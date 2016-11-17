@@ -63,11 +63,20 @@
             %end
 
             <div class="share">
+                <a data-fn="shareToFacebook" class="shareButton">
+                    <i class="icon-facebook"></i>
+                </a>
+                <a data-fn="shareToTwitter" class="shareButton">
+                    <i class="icon-twitter"></i>
+                </a>                
+                <a data-fn="shareToLinkedin" class="shareButton">
+                    <i class="icon-linkedin2"></i>
+                </a>
                 <a data-fn="shareToWeChat" class="shareButton">
-                    <img class="wechat" src="/static/images/news/share/wechat.png" height=20 alt=""/>
+                    <i class="icon-wechat"></i>
                 </a>
                 <a data-fn="shareToWeibo" class="shareButton">
-                    <img src="/static/images/news/share/weibo.png" height=20 alt=""/>
+                    <i class="icon-weibo"></i>
                 </a>
             </div>
         </div>
@@ -173,6 +182,24 @@
             team.shareToWeibo(params)
             ga('send', 'event', 'news', 'share', 'open-weibo')
         })
+        $('[data-fn=shareToTwitter]').on('click', function () {
+            var news = JSON.parse($('#newsData').text())
+            var params = {'text': news.title, 'url': window.location.href}
+            if (news.images && news.images.length > 0) {
+                params.pic = news.images[0]
+            }
+            team.shareToTwitter(params)
+            ga('send', 'event', 'news', 'share', 'open-twitter')
+        })
+        $('[data-fn=shareToLinkedin]').on('click', function () {
+            var news = JSON.parse($('#newsData').text())
+            var params = {'text': news.title, 'url': window.location.href}
+            if (news.images && news.images.length > 0) {
+                params.pic = news.images[0]
+            }
+            team.shareToLinkedin(params)
+            ga('send', 'event', 'news', 'share', 'open-linkedin')
+        })
 
 
         var news = JSON.parse($('#newsData').text())
@@ -201,6 +228,29 @@
         }
         window.wechatShareSDK.init(wechatShareData)
     })()
+
+
+     /*
+      * Facebook share sdk
+      * */
+    
+    $(function(){
+        $.ajaxSetup({ cache: true });
+        $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+            FB.init({
+                appId: '325899391113500',
+                xfbml      : true,
+                version: 'v2.8'
+            });
+            $('[data-fn=shareToFacebook]').on('click',function(){
+                FB.ui({
+                    method: 'share',
+                    display: 'popup',
+                    href: window.location.href
+                });
+            })
+        })
+    });
 
 
 </script>

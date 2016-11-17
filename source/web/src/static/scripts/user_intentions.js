@@ -13,9 +13,13 @@ $(function () {
 
     //Init page with rent
     if (team.isPhone()) {
-        $headerTabs.show()
+        if (window.lang === 'zh_Hans_CN') {
+            $headerTabs.show()
+        }        
     } else {
-        $headerButtons.show()
+        if (window.lang === 'zh_Hans_CN') {
+            $headerButtons.show()
+        }        
     }
     loadRentIntentionTicket()
 

@@ -160,12 +160,33 @@ body{
 
             .shareButton {
                 float:left;
-                margin-left:20px;
-                border: 0 solid;
+                margin:0 6px;
                 display: inline-block;
-                background: transparent;
-                img {
-                    cursor:pointer;
+                cursor: pointer;
+                i {
+                    font-size: 14px;
+                    color: #fff;
+                    border-radius: 3px;
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    line-height: 20px;
+                    display: block;
+                    &.icon-facebook{
+                        background: @facebook-color;
+                    }
+                    &.icon-twitter{
+                        background: @twitter-color;
+                    }
+                    &.icon-linkedin2{
+                        background: @linkedin-color;
+                    }
+                    &.icon-weibo{
+                        background: @weibo-color;
+                    }
+                    &.icon-wechat{
+                        background: @wechat-color;
+                    }
                 }
             }
 

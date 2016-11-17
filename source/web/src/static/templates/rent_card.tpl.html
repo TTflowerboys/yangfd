@@ -43,7 +43,7 @@
                                 <span class="price_original">
                                     {=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}
                                 </span>
-                                <span class="price_reference">{=window.i18n('约')=}{=rent.price.unit_symbol=}{!team.formatCurrency(parseInt(rent.price.value * 52.0 / 12.0),0)!}{=window.i18n('/月')=}</span>
+                                <span class="price_reference">{=window.i18n('约')=}{=rent.price.unit_symbol=}{!team.encodeCurrency(parseInt(rent.price.value * 52.0 / 12.0),0)!}{=window.i18n('/月')=}</span>
                             </span>
                         {_}_}
 
