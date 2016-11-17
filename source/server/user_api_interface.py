@@ -170,9 +170,7 @@ def user_login(params):
 
     result = f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields, user=user)[0]
 
-    useragent = request.get_header('User-Agent', '')
-    if not isinstance(useragent, six.text_type):
-        useragent = useragent.decode("utf-8")
+    useragent = f_app.util.try_decode(request.get_header('User-Agent', ''))
     if "currant" in useragent:
         credits = f_app.user.credit.get("view_rent_ticket_contact_info", tag="download_ios_app", user_id=user_id)
         if not len(credits["credits"]):

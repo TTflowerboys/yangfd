@@ -60,16 +60,12 @@ def fetch_image(image, **kwargs):
 
 
 def is_mobile_browser():
-    useragent = request.get_header('User-Agent', '')
-    if not isinstance(useragent, six.text_type):
-        useragent = useragent.decode("utf-8")
+    useragent = f_app.util.try_decode(request.get_header('User-Agent', ''))
     return "iPhone" in useragent or "iPod" in useragent
 
 
 def is_mobile_client():
-    useragent = request.get_header('User-Agent', '')
-    if not isinstance(useragent, six.text_type):
-        useragent = useragent.decode("utf-8")
+    useragent = f_app.util.try_decode(request.get_header('User-Agent', ''))
     return "currant" in useragent
 
 
@@ -80,7 +76,7 @@ def is_mobile_client_version(condition, version):
     Note: 由点分开的每一部分是一个数组，也是按照nature order 排序的
     ``So  StrictVersion("2.3.1") < StrictVersion("10.1.2") is True``
     """
-    ua = request.headers.get('User-Agent', '').lower()
+    ua = f_app.util.try_decode(request.headers.get('User-Agent', '')).lower()
     match = re.search(r'currant\/([0-9\.]*)', ua)
     version = StrictVersion(version)
     if match and match.group(1):
@@ -111,9 +107,7 @@ def check_ip_and_redirect_domain(func):
                 # Special hack to remove "beta."
                 request_url = f_app.util.try_decode(request.url)
 
-                useragent = request.get_header('User-Agent', '')
-                if not isinstance(useragent, six.text_type):
-                    useragent = useragent.decode("utf-8")
+                useragent = f_app.util.try_decode(request.get_header('User-Agent', ''))
                 if country == "CN" or useragent and "MicroMessenger" in useragent:
                     target_url = request_url.replace("youngfunding.co.uk", "yangfd.com")
                     logger.debug("Visitor country detected:", country, "redirecting to yangfd.com if not already. Host:", host, "target_url:", target_url)

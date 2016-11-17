@@ -25,7 +25,7 @@ def get_video_source(params):
     if video_sources:
         rec_videos = f_app.storage.get_videos_by_ip(video_sources)
         if rec_videos:
-            if "iphone" in request.headers.get('User-Agent').lower():
+            if "iphone" in f_app.util.try_decode(request.headers.get('User-Agent')).lower():
                 sources = [x for x in rec_videos[0].get('sources') if "mobile-ios" in x.get("tags", [])]
             else:
                 sources = [x for x in rec_videos[0].get('sources') if "web-normal" in x.get("tags", [])]
