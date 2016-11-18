@@ -2,6 +2,28 @@
 @import "_imports";
 @main-color: #e61919;
 
+.flatButton {
+    border: none;
+    background: @main-color;
+    color: white;
+    padding: 4px 24px;
+    border-radius: 3px;
+    line-height: 32px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    &.disabled, &[disabled] {
+        background: #ccc;
+    }
+    &.green {
+        background: @wechat-color;
+    }
+    &.orange {
+        background: @weibo-color;
+    }
+}
+
+//TODO @tom.lei
 .rentActions{
 	>.fl{
 		float:left;
