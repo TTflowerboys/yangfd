@@ -603,7 +603,7 @@
         checkContaction($('#description'))
         checkContaction($('#otherRequirements'))
 
-        if($('#rentPeriodEndDate').val() && $('#rentPeriodStartDate').val() && new Date($('#rentPeriodEndDate').val()) < new Date($('#rentPeriodStartDate').val())) {
+        if($('#rentPeriodEndDate').val() && $('#rentPeriodStartDate').val() && new Date(window.team.normalizeDateString($('#rentPeriodEndDate').val())) < new Date(window.team.normalizeDateString($('#rentPeriodStartDate').val()))) {
             validate = false
             errorArr.push({
                 elem: $('#rentPeriodEndDate').add($('#rentPeriodStartDate')),
@@ -829,7 +829,7 @@
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
             'holding_deposit': JSON.stringify({'unit': $('#holdingDepositUnit').children('option:selected').val(), 'value': $('#holdingDeposit')[0].value }), //定金
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
-            'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
+            'rent_available_time': new Date(window.team.normalizeDateString($('#rentPeriodStartDate').val())).getTime() / 1000, //出租开始时间
             'title': title,
             'no_handling_fee': module.appViewModel.propertyViewModel.noServiceFee(),
             'can_visit': module.appViewModel.propertyViewModel.canVisit(),
@@ -847,7 +847,7 @@
             ticketData.space = getRoomSpace() //面积
         }
         if($('#rentPeriodEndDate').val()){
-            ticketData.rent_deadline_time = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
+            ticketData.rent_deadline_time = new Date(window.team.normalizeDateString($('#rentPeriodEndDate').val())).getTime() / 1000
         }
         if($('#minimumRentPeriod').val()) {
             ticketData.minimum_rent_period = JSON.stringify({unit: $('#minimumRentPeriodUnit').val(), value: $('#minimumRentPeriod').val()})
@@ -872,6 +872,7 @@
         var propertyData = getPropertyData({
             'status': 'draft', //将property设置为草稿状态，第二步发布时再不需要设置成草稿状态
         })
+
         $btn.prop('disabled', true).text(window.i18n('保存中...'))
         if (!propertyData.latitude || !propertyData.longitude) {
             getLocation(propertyData, submit)
@@ -954,14 +955,16 @@
             autoClose: true,
             singleDate: true,
             showShortcuts: false,
+            format: formatter,
             startDate: window.moment().format(),
             getValue: function() {
                 return $(this).find('input').val();
             }
         })
             .bind('datepicker-change', function (event, obj) {
-                $(elem).attr('value', $.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
-                $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
+                var dateinfo = window.moment(new Date(obj.date1)).format(formatter);
+                $(elem).attr('value', dateinfo)
+                $(elem).attr('value', dateinfo).trigger('change')
             }).dateRangePickerCustom($(elem))
     })
 
@@ -1243,7 +1246,7 @@
                         params.email = $publishForm.find('[name=userEmail]').val()
                     }
                 }
-                params = clearEmptyProperty(params)
+                params = clearEmptyProperty(params)                
                 return $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', params)
             }
             function publishProperty() {
