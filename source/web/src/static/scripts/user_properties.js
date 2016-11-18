@@ -3,7 +3,7 @@ $(function () {
     var $placeholder = $('.emptyPlaceHolder')
     var $ownPlaceholder = $('#ownPlaceHolder')
     var $rentPlaceholder = $('#rentPlaceHolder')
-    var $contactPlaceholder = $('#contactPlaceholder')
+    var $contactPlaceholder = $('#contactPlaceHolder')
     var $requestPlaceHolder = $('#requestPlaceHolder')
     var isLoading = false
     var xhr
