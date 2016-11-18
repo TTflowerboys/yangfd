@@ -64,8 +64,17 @@ main{
                     width: 110px;
                     font-size: 12px;
                     line-height: 40px;
+                    border: 0 none;
+                    color: #fff;
+                    background: @red;
                     body[lang=en_GB] & {
                         width: 128px;
+                    }
+                    &.green{
+                        background: @wechat-color;
+                    }
+                    &.orange{
+                        background: @weibo-color;
                     }
                     img{
                         vertical-align: text-top;
