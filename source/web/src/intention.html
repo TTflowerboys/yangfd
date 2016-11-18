@@ -22,7 +22,7 @@
     <hr/>
     <ul class="mainWrap">
         <li data-action="intentionForm" data-user-type="
-            {{filter(lambda user_type: user_type.get('slug')=='investor', user_type_list)[0].get('id')}}
+            {{list(filter(lambda user_type: user_type.get('slug')=='investor', user_type_list))[0].get('id')}}
             " data-user-type-slug="investor">
             <a href="#" onclick="window.chooseUserType('investor')">
                 <p class="iconWrap">
@@ -33,7 +33,7 @@
             </a>
         </li>
         <li data-action="publishBox" data-user-type="
-            {{filter(lambda user_type: user_type.get('slug')=='landlord', user_type_list)[0].get('id')}}
+            {{list(filter(lambda user_type: user_type.get('slug')=='landlord', user_type_list))[0].get('id')}}
             " data-user-type-slug="landlord">
             <a href="#" onclick="window.chooseUserType('landlord')">
                 <p class="iconWrap">
@@ -44,7 +44,7 @@
             </a>
         </li>
         <li data-action="searchTicketBox" data-user-type="
-            {{filter(lambda user_type: user_type.get('slug')=='tenant', user_type_list)[0].get('id')}}
+            {{list(filter(lambda user_type: user_type.get('slug')=='tenant', user_type_list))[0].get('id')}}
             " data-user-type-slug="tenant">
             <a href="#" onclick="window.chooseUserType('tenant')">
                 <p class="iconWrap">
