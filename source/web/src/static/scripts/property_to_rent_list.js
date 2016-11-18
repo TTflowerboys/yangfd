@@ -9,7 +9,7 @@
         var obj = _.clone(rent)
         var arr = ['community', 'floor', 'house_name']
         _.each(arr, function(val) {
-            if(typeof obj.property[val] === 'object') {
+            if(obj.property && obj.property[val] && typeof obj.property[val] === 'object') {
                 delete obj.property[val]
             }
         })
