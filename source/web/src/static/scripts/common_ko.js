@@ -105,7 +105,7 @@
         init: function(element, valueAccessor)  {
             var dateAccessor,
                 options,
-                formatter = window.lang === 'en_GB'? 'dd-MM-yyyy': 'yyyy-MM-dd'
+                formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
             if(_.isFunction(valueAccessor())) {
                 dateAccessor = valueAccessor()
             } else {
@@ -123,13 +123,13 @@
             }
             if(!_.isFunction(valueAccessor()) && valueAccessor().timeEnabled) {
                 _.extend(options, {
-                    startDate: window.moment(dateAccessor).format(),
+                    startDate: window.moment().format(),
                 })
             }
             $(element).find('input').dateRangePicker(options)
                 .bind('datepicker-change', function (event, obj) {
                     //dateAccessor($.format.date(new Date(obj.date1), formatter))
-                    $(event.target).val($.format.date(new Date(obj.date1), formatter)).trigger('change')
+                    $(event.target).val(window.moment(new Date(obj.date1)).format(formatter)).trigger('change')
                 })
                 .dateRangePickerCustom($(element).find('input'))
         }
