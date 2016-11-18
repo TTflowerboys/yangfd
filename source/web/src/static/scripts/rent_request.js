@@ -28,6 +28,7 @@
         viewModel: function(params) {
             var rentTicket = JSON.parse($('#rentTicketData').text())
             var oldUser = window.user
+            var formatter = window.lang === 'en_GB'? 'dd-MM-yyyy': 'yyyy-MM-dd'
             this.rentTicket = ko.observable(JSON.parse($('#rentTicketData').text()))
             this.openRentRequestForm = function (ticketId, isPopup) {
                 return function () {
@@ -92,23 +93,22 @@
 
             this.ticketId = ko.observable()
 
-            this.rentAvailableTimeFormated = ko.observable($.format.date(new Date(), 'yyyy-MM-dd'))
+            this.rentAvailableTimeFormated = ko.observable($.format.date(new Date(), formatter))
             this.rentAvailableTime = ko.computed({
                 read: function () {
-                    return this.rentAvailableTimeFormated() ? new Date(this.rentAvailableTimeFormated()).getTime() / 1000 : ''
+                    return this.rentAvailableTimeFormated() ? new Date(window.team.normalizeDateString(this.rentAvailableTimeFormated())).getTime() / 1000 : ''                    
                 },
                 write: function (value) {
-                    this.rentAvailableTimeFormated($.format.date(new Date(value * 1000), 'yyyy-MM-dd'))
+                    this.rentAvailableTimeFormated($.format.date(new Date(value * 1000), formatter))
                 }
             }, this)
-
             this.rentDeadlineTimeFormated = ko.observable()
             this.rentDeadlineTime = ko.computed({
                 read: function () {
-                    return this.rentDeadlineTimeFormated() ? new Date(this.rentDeadlineTimeFormated()).getTime() / 1000: ''
+                    return this.rentDeadlineTimeFormated() ? new Date(window.team.normalizeDateString(this.rentDeadlineTimeFormated())).getTime() / 1000: ''
                 },
                 write: function (value) {
-                    this.rentDeadlineTimeFormated($.format.date(new Date(value * 1000), 'yyyy-MM-dd'))
+                    this.rentDeadlineTimeFormated($.format.date(new Date(value) * 1000), formatter)
                 }
             }, this)
 
@@ -275,7 +275,7 @@
                     return window.team.isPhone() ? (new Date(this.birthDay()).getTime() / 1000) : (new Date(this.birthYear(), this.birthMonth() - 1, this.birthDate()).getTime() / 1000)
                 },
                 write: function (value) {
-                    var formatedValue = $.format.date(new Date(value * 1000), 'yyyy-MM-dd')
+                    var formatedValue = $.format.date(new Date(value * 1000), formatter)
                     this.birthDay(formatedValue)
                     this.birthYear(parseInt(formatedValue.split('-')[0]))
                     this.birthMonth(parseInt(formatedValue.split('-')[1]))
@@ -772,14 +772,14 @@
                 //考虑到时差问题，检查时对rent_available_time和rent_deadline_time宽限一天时间（即86400s）
                 if(this.requirements.rent_available_time && (this.requirements.rent_available_time - 86400) > this.rentAvailableTime()) {
                     unmatchRequirements.push({
-                        request: i18n('入住日期：') + $.format.date(new Date(this.rentAvailableTime() * 1000), 'yyyy-MM-dd'),
-                        requirement: i18n('租期开始日期：') + $.format.date(new Date(this.requirements.rent_available_time * 1000), 'yyyy-MM-dd'),
+                        request: i18n('入住日期：') + $.format.date(new Date(this.rentAvailableTime() * 1000), formatter),
+                        requirement: i18n('租期开始日期：') + $.format.date(new Date(this.requirements.rent_available_time * 1000), formatter),
                     })
                 }
                 if(this.requirements.rent_deadline_time && (this.requirements.rent_deadline_time + 86400) < this.rentDeadlineTime()) {
                     unmatchRequirements.push({
-                        request: i18n('搬出日期：') + $.format.date(new Date(this.rentDeadlineTime() * 1000), 'yyyy-MM-dd'),
-                        requirement: i18n('租期结束日期：') + $.format.date(new Date(this.requirements.rent_deadline_time * 1000), 'yyyy-MM-dd'),
+                        request: i18n('搬出日期：') + $.format.date(new Date(this.rentDeadlineTime() * 1000), formatter),
+                        requirement: i18n('租期结束日期：') + $.format.date(new Date(this.requirements.rent_deadline_time * 1000), formatter),
                     })
                 }
 
