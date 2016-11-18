@@ -15,7 +15,7 @@ except ImportError:
 import bottle
 from bson.objectid import ObjectId
 from app import f_app
-from libfelix.f_interface import f_api, f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
+from libfelix.f_interface import f_api, f_get, f_post, static_file, template, request, redirect, html_redirect, error, abort, template_gettext as _
 import currant_util
 import currant_data_helper
 from libfelix.f_interface import f_experiment
@@ -347,7 +347,7 @@ def wechat_poster(rent_ticket_id):
 @f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>/image')
 def wechat_poster_image(rent_ticket_id):
     from libfelix.f_html2png import html2png
-    response.set_header(b"Content-Type", b"image/png")
+    f_app.util.set_header("Content-Type", "image/png")
     return html2png("://".join(request.urlparts[:2]) + "/wechat-poster/" + rent_ticket_id, width=480, height=800, url=True)
 
 
@@ -443,7 +443,7 @@ def qrcode_generate(params):
     output = six.BytesIO()
     img.save(output)
 
-    response.set_header(b"Content-Type", b"image/png")
+    f_app.util.set_header("Content-Type", "image/png")
 
     return output.getvalue()
 
@@ -523,7 +523,7 @@ def images_proxy(params):
     if f_app.common.use_ssl and not ssl_bypass:
         result = f_app.request(params["link"])
         if result.status_code == 200:
-            response.set_header(b"Content-Type", b"image/png")
+            f_app.util.set_header("Content-Type", "image/png")
             return result.content
         else:
             abort(40000, logger.warning("Failed to fetch image source: timeout or non-exists."))
@@ -541,7 +541,7 @@ def reverse_proxy(params):
         content = result.content
         ext = params["link"].split('.')[-1]
         if ext == "js":
-            response.set_header(b"Content-Type", b"application/javascript")
+            f_app.util.set_header("Content-Type", "application/javascript")
         return content
 
     else:
@@ -608,7 +608,7 @@ def sitemap():
         else:
             child[0].text = "%s?_i18n=zh_Hans_CN" % child[0].text
 
-    response.set_header(b"Content-Type", b"application/xml")
+    f_app.util.set_header("Content-Type", "application/xml")
     return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
 
 
@@ -775,7 +775,7 @@ def wechat_endpoint():
                 # TODO: don't hardcode
                 return_str = build_property_list_by_country("541c09286b8099496db84f56")
 
-    response.set_header(b"Content-Type", b"application/xml")
+    f_app.util.set_header("Content-Type", "application/xml")
     logger.debug("Responding to wechat:", return_str)
     return return_str
 
@@ -2373,7 +2373,7 @@ def rent_ticket_analyze(user, params):
         ]))
     format_fit(ws)
     out = six.BytesIO(save_virtual_workbook(wb))
-    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    f_app.util.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
 
@@ -2852,7 +2852,7 @@ def user_analyze(user):
     format_fit(ws)
     # be_colorful(ws, 6)
     out = six.BytesIO(save_virtual_workbook(wb))
-    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    f_app.util.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
 
@@ -3269,7 +3269,7 @@ def user_rent_request(user, params):
     format_fit(ws)
     add_link(ws, 'AD')
     out = six.BytesIO(save_virtual_workbook(wb))
-    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    f_app.util.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
 
@@ -3563,7 +3563,7 @@ def user_rent_intention(user, params):
     be_colorful(ws, 6)
     out = six.BytesIO(save_virtual_workbook(wb))
     # wb.save(out)
-    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    f_app.util.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
 
@@ -4404,7 +4404,7 @@ def get_featured_facilities_around_rent(user, params):
     format_fit(ws_maponics_neighborhood_result)
     format_fit(ws_city_result)
     out = six.BytesIO(save_virtual_workbook(wb))
-    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    f_app.util.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
 

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 import logging
 from app import f_app
-from libfelix.f_interface import f_get, response, redirect, abort, template_gettext as _
+from libfelix.f_interface import f_get, redirect, abort, template_gettext as _
 import currant_util
 import currant_data_helper
 
@@ -40,7 +40,7 @@ def landregistry_home_values(zipcode_index, params):
     size = [params["width"], params["height"]]
     zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
     result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
-    response.set_header(b"Content-Type", b"image/png")
+    f_app.util.set_header("Content-Type", "image/png")
     return result
 
 
@@ -53,7 +53,7 @@ def landregistry_value_trend(zipcode_index, params):
     size = [params["width"], params["height"]]
     zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
     result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
-    response.set_header(b"Content-Type", b"image/png")
+    f_app.util.set_header("Content-Type", "image/png")
     return result
 
 
@@ -66,7 +66,7 @@ def landregistry_average_values(zipcode_index, params):
     size = [params["width"], params["height"]]
     zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
     result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
-    response.set_header(b"Content-Type", b"image/png")
+    f_app.util.set_header("Content-Type", "image/png")
     return result
 
 
@@ -79,5 +79,5 @@ def landregistry_value_ranges(zipcode_index, params):
     size = [params["width"], params["height"]]
     zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
     result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
-    response.set_header(b"Content-Type", b"image/png")
+    f_app.util.set_header("Content-Type", "image/png")
     return result
