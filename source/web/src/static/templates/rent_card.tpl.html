@@ -6,24 +6,25 @@
             %else:
                 href="/property-to-rent/{=rent.id=}" target="_blank"
             %end
-            data-need-bridge
-            >
+                data-need-bridge
+                >
+            {_if (rent.property) {_}
             <div class="imagePart">
-                    {_if (rent.property.cover && rent.property.cover.indexOf('http') === 0){_}
-                    <img src="{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
-                    {_ } else if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                        <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
-                    {_ }else { _}
-                        <img class="withPlaceholder"/>
-                        <span class="withPlaceholderTxt">{=window.i18n('房东稍后上传')=}</span>
-                    {_ } _}
+            {_if (rent.property.cover && rent.property.cover.indexOf('http') === 0){_}
+                <img src="{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                {_ } else if(rent.property.reality_images && rent.property.reality_images.length) {_}
+                <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                {_ }else { _}
+                <img class="withPlaceholder"/>
+                <span class="withPlaceholderTxt">{=window.i18n('房东稍后上传')=}</span>
+                {_ } _}
 
                 <div class="labels">
                     {_if(rent.property.property_type) {_}
-                        <label class="property-type">{=rent.property.property_type.value=}</label>
+                    <label class="property-type">{=rent.property.property_type.value=}</label>
                     {_}_}
                     {_if(rent.rent_type) {_}
-                        <label class="rent-type">{=rent.rent_type.value=}</label>
+                    <label class="rent-type">{=rent.rent_type.value=}</label>
                     {_}_}
                 </div>
             </div>
@@ -31,41 +32,41 @@
                 <div class="description">
                     <div class="titles">
                         {_if(rent.title) {_}
-                            {_if(window.lang ==='en_GB' && team.isChinese(rent.title)) {_}
-                            <p class="name">{=team.truncate(project.getRentTicketTitle(rent), 40)=}</p>
-                            <p class="subHead">{=rent.title=}</p>
-                            {_} else {_}
-                            <p class="name">{=rent.title=}</p>
-                            {_}_}
+                        {_if(window.lang ==='en_GB' && team.isChinese(rent.title)) {_}
+                        <p class="name">{=team.truncate(project.getRentTicketTitle(rent), 40)=}</p>
+                        <p class="subHead">{=rent.title=}</p>
+                        {_} else {_}
+                        <p class="name">{=rent.title=}</p>
+                        {_}_}
                         {_}_}
                         {_if(rent.price) {_}
-                            <span class="price" data-tooltip data-placement="bottom" data-original-title="{{_('月价格')}}=({{_('周价格')}} x 52)/12">
-                                <span class="price_original">
-                                    {=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}
-                                </span>
-                                <span class="price_reference">{=window.i18n('约')=}{=rent.price.unit_symbol=}{!team.encodeCurrency(parseInt(rent.price.value * 52.0 / 12.0),0)!}{=window.i18n('/月')=}</span>
+                        <span class="price" data-tooltip data-placement="bottom" data-original-title="{{_('月价格')}}=({{_('周价格')}} x 52)/12">
+                            <span class="price_original">
+                                {=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}
                             </span>
+                            <span class="price_reference">{=window.i18n('约')=}{=rent.price.unit_symbol=}{!team.encodeCurrency(parseInt(rent.price.value * 52.0 / 12.0),0)!}{=window.i18n('/月')=}</span>
+                        </span>
                         {_}_}
 
                         {_if(rent.no_handling_fee || rent.can_visit) {_}
-                            {_if (rent.no_handling_fee) {_}
-                                <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
-                            {_}_}
-                            {_if (rent.can_visit) {_}
-                                <p class="canVisit">{=window.i18n('可实地看房')=}</p>
-                            {_}_}
+                        {_if (rent.no_handling_fee) {_}
+                        <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
+                        {_}_}
+                        {_if (rent.can_visit) {_}
+                        <p class="canVisit">{=window.i18n('可实地看房')=}</p>
+                        {_}_}
                         {_}else { _}
-                            {_if(rent.last_modified_time - rent.time > 1000) {_}
-                                <p class="date">
-                                    {_ var string = team.parsePublishDate(parseInt(rent.last_modified_time))_}
-                                    {!window.i18n('%s更新过',string)!}
-                                </p>
-                            {_}else{_}
-                                <p class="date">
-                                    {_ var string = team.parsePublishDate(parseInt(rent.time))_}
-                                    {!window.i18n('%s发布',string)!}
-                                </p>
-                            {_}_}
+                        {_if(rent.last_modified_time - rent.time > 1000) {_}
+                        <p class="date">
+                            {_ var string = team.parsePublishDate(parseInt(rent.last_modified_time))_}
+                            {!window.i18n('%s更新过',string)!}
+                        </p>
+                        {_}else{_}
+                        <p class="date">
+                            {_ var string = team.parsePublishDate(parseInt(rent.time))_}
+                            {!window.i18n('%s发布',string)!}
+                        </p>
+                        {_}_}
                         {_ } _}
                     </div>
                     <ul class="properties">
@@ -76,7 +77,7 @@
                         {_if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
                         <li><i class="icon-tag_icon"></i>
                             {_ _.each(rent.region_highlight, function(highlight) { _}
-                                {=highlight.value=}
+                            {=highlight.value=}
                             {_ }) _}
                         </li>
                         {_}_}
@@ -96,10 +97,10 @@
                                 <p class="label">{=window.i18n('房间')=}</p>
                                 <p class="value">
                                     {_if(rent.property.bedroom_count) {_}
-                                        <span>{=rent.property.bedroom_count=}</span>{=window.i18n('室') =}
+                                    <span>{=rent.property.bedroom_count=}</span>{=window.i18n('室') =}
                                     {_}_}
                                     {_if(rent.property.living_room_count) {_}
-                                        <span>{=rent.property.living_room_count=}</span><b>{=window.i18n('厅')=}</b>
+                                    <span>{=rent.property.living_room_count=}</span><b>{=window.i18n('厅')=}</b>
                                     {_}_}
                                 </p>
                             </div>
@@ -109,13 +110,13 @@
                             <div class="size">
                                 <p class="label">
                                     {_if(rent.rent_available_time && window.moment(parseInt(rent.rent_available_time)*1000) > window.moment().add(1,'days').hours(0).minutes(0).seconds(0)) {_}
-                                        {_if(window.lang==='en_GB') {_}
-                                        Start from {=window.moment(parseInt(rent.rent_available_time)*1000).format('MMMM Do YYYY')=}
-                                        {_} else {_}
-                                            {= window.moment(parseInt(rent.rent_available_time)*1000).format('YYYY年MM月DD日') + window.i18n('起') =}
-                                        {_}_}
+                                    {_if(window.lang==='en_GB') {_}
+                                    Start from {=window.moment(parseInt(rent.rent_available_time)*1000).format('MMMM Do YYYY')=}
+                                    {_} else {_}
+                                    {= window.moment(parseInt(rent.rent_available_time)*1000).format('YYYY年MM月DD日') + window.i18n('起') =}
+                                    {_}_}
                                     {_} else if(rent.rent_available_time){_}
-                                        {=window.i18n('可立即入住')=}
+                                    {=window.i18n('可立即入住')=}
                                     {_}_}
                                 </p>
                                 <p class="value">
@@ -130,30 +131,31 @@
                         </div>
                         <div class="right">
                             {_if(rent.no_handling_fee || rent.can_visit) {_}
-                                {_if (rent.no_handling_fee) {_}
-                                    <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
-                                {_}_}
-                                {_if (rent.can_visit) {_}
-                                    <p class="canVisit">{=window.i18n('可实地看房')=}</p>
-                                {_}_}
+                            {_if (rent.no_handling_fee) {_}
+                            <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
+                            {_}_}
+                            {_if (rent.can_visit) {_}
+                            <p class="canVisit">{=window.i18n('可实地看房')=}</p>
+                            {_}_}
                             {_}else { _}
-                                {_if(rent.last_modified_time - rent.time > 1000) {_}
-                                    <p class="date">
-                                        {_ var string = team.parsePublishDate(parseInt(rent.last_modified_time))_}
-                                        {!window.i18n('%s更新过',string)!}
-                                    </p>
-                                {_}else{_}
-                                    <p class="date">
-                                        {_ var string = team.parsePublishDate(parseInt(rent.time))_}
-                                        {!window.i18n('%s发布',string)!}
-                                    </p>
-                                {_}_}
+                            {_if(rent.last_modified_time - rent.time > 1000) {_}
+                            <p class="date">
+                                {_ var string = team.parsePublishDate(parseInt(rent.last_modified_time))_}
+                                {!window.i18n('%s更新过',string)!}
+                            </p>
+                            {_}else{_}
+                            <p class="date">
+                                {_ var string = team.parsePublishDate(parseInt(rent.time))_}
+                                {!window.i18n('%s发布',string)!}
+                            </p>
+                            {_}_}
                             {_ } _}
                         </div>
                     </div>
                 </div>
             </div>
         </a>
+        {_}_}
     </div>
     <script>$('[data-tooltip]').tooltip()</script>
 </script>

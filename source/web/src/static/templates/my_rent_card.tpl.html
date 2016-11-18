@@ -1,140 +1,142 @@
 <script id="my_rentCard_template" type="text/template">
     <div class="rentCard"  data-id="{=rent.id=}">
-            <div class="imagePart">
-                <a href="/property-to-rent/{=rent.id=}">
-                        {_if (rent.property.cover && rent.property.cover.indexOf('http') === 0){_}
-                            <img src="{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
-                        {_ } else if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                            <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
-                        {_ }else { _}
-                            <img class="withPlaceholder"/>
-                        {_ } _}
+        {_if (rent.property) {_}
+        <div class="imagePart">
+            <a href="/property-to-rent/{=rent.id=}">
+                {_if (rent.property.cover && rent.property.cover.indexOf('http') === 0){_}
+                <img src="{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                {_ } else if(rent.property.reality_images && rent.property.reality_images.length) {_}
+                <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                {_ }else { _}
+                <img class="withPlaceholder"/>
+                {_ } _}
 
-                    <div class="labels">
-                        <label class="status">
-                            {_if(rent.status === 'draft') {_}
-                            {=window.i18n('草稿')=}
-                            {_}_}
-                            {_if(rent.status === 'to rent') {_}
-                            {=window.i18n('发布中')=}
-                            {_}_}
-                            {_if(rent.status === 'rent') {_}
-                            {=window.i18n('已租出')=}
-                            {_}_}
-                        </label>
-                    </div>
-                </a>
-            </div>
-            <div class="description_wrapper">
-                <div class="description">
-                    <div class="titles">
-                        <a href="/property-to-rent/{=rent.id=}">
-                            {_if(rent.title) {_}
-                            <p class="name" id="name">{=rent.title=}</p>
-                            {_}_}
-                        </a>
-                        <div class="imgAction_wrapper">
-                            {_if(!window.team.isCurrantClient() && rent.status !== 'draft') {_}
-                            <a class="wechatShare imgAction" data-id="{=rent.id=}" data-need-bridge><i class="icon-wechat"></i></a>
-                            {_}_}
-                            <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete" data-need-bridge></i>
-
-                        </div>
-                    </div>
-                    <div class="meta">
-                        {_if(rent.price) {_}
-                        <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
+                <div class="labels">
+                    <label class="status">
+                        {_if(rent.status === 'draft') {_}
+                        {=window.i18n('草稿')=}
                         {_}_}
-
-                        {_if(rent.no_handling_fee || rent.can_visit) {_}
-                            {_if (rent.no_handling_fee) {_}
-                                <div class="noServiceFee"><p>{=window.i18n('免服务费')=}</p></div>                    
-                            {_}_}   
-                            {_if (rent.can_visit) {_}
-                                <div class="canVisit"><p>{=window.i18n('可实地看房')=}</p></div>                    
-                            {_}_}                                                                      
-                        {_}else { _}
-                        {_if(rent.last_modified_time - rent.time > 1000) {_}
-                        <p class="date">
-                            {_ var string = team.parsePublishDate(parseInt(rent.last_modified_time))_}
-                            {!window.i18n('%s更新过',string)!}
-                        </p>
-                        {_}else{_}
-                        <p class="date">
-                            {_ var string = team.parsePublishDate(parseInt(rent.time))_}
-                            {!window.i18n('%s发布',string)!}
-                        </p>
-                        {_}_}
-                        {_ } _}
-                    </div>
-                    <ul class="properties">
-                        <li>
-                            <i class="icon-location_fill"></i>
-                            {_if(rent.property.country && rent.property.country.code) {_}
-                                {= window.team.countryMap[rent.property.country.code] + " " =}
-                            {_}_}
-                            {_if(rent.property.city && rent.property.city.name) {_}
-                                {= rent.property.city.name + " " =}
-                            {_}_}
-                            {_if(rent.property.street) {_}
-                                {= rent.property.street =}
-                            {_}_}
-                        </li>
-                    </ul>
                         {_if(rent.status === 'to rent') {_}
-                        <ul class="actions">
-                            <li>
-                                {_if(window.team.isCurrantClient()) {_}
-                                <a data-id="{=rent.id=}" class="action edit" data-need-bridge>{{_('编辑房产')}}</a>
-                                {_}else {_}
-                                <a data-id="{=rent.id=}" class="action hiddenOnMobile edit" data-need-bridge>{{_('编辑房产')}}</a>
-                                {_}_}
-                            </li>
-                            <li>
-                                {_if(team.isToday(parseInt(rent.sort_time))){_}
-                                <p class="action">{!team.parsePublishDate(parseInt(rent.sort_time))!}{=window.i18n('已刷新过')=}</p>
-                                {_}else{_}
-                                <a id="refresh" class="action" data-id="{=rent.id=}">{=window.i18n('刷新')=}</a>
-                                {_}_}
-                                <div id="arrowBox" class="arrowBox">
-                                    <p>{=window.i18n('每24小时只能刷新一个房源')=}</p>
-                                </div>
-                            </li>
-                            <li>
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="to rent" data-need-bridge>{=window.i18n('确认已租出')=}</a>
-                            </li>
-                        </ul>
-                        {_}else if(rent.status === 'draft') {_}
-
-                            {_if(window.team.isCurrantClient()) {_}
-                        <ul class="actions">
-                            <li >
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft" data-need-bridge>{=window.i18n('编辑')=}</a>
-                            </li>
-                        </ul>
-                            {_}else {_}
-                        <ul class="actions hiddenOnMobile">
-                            <li >
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft" data-need-bridge>{=window.i18n('编辑')=}</a>
-                            </li>
-                        </ul>
-                            {_}_}
-                        {_}else if(rent.status === 'rent') {_}
-                            {_if(window.team.isCurrantClient()) {_}
-                        <ul class="actions">
-                            <li >
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent" data-need-bridge>{=window.i18n('重新发布')=}</a>
-                            </li>
-                        </ul>
-                            {_}else {_}
-                        <ul class="actions hiddenOnMobile">
-                            <li >
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent" data-need-bridge>{=window.i18n('重新发布')=}</a>
-                            </li>
-                        </ul>
-                            {_}_}
+                        {=window.i18n('发布中')=}
                         {_}_}
+                        {_if(rent.status === 'rent') {_}
+                        {=window.i18n('已租出')=}
+                        {_}_}
+                    </label>
                 </div>
+            </a>
+        </div>
+        <div class="description_wrapper">
+            <div class="description">
+                <div class="titles">
+                    <a href="/property-to-rent/{=rent.id=}">
+                        {_if(rent.title) {_}
+                        <p class="name" id="name">{=rent.title=}</p>
+                        {_}_}
+                    </a>
+                    <div class="imgAction_wrapper">
+                        {_if(!window.team.isCurrantClient() && rent.status !== 'draft') {_}
+                        <a class="wechatShare imgAction" data-id="{=rent.id=}" data-need-bridge><i class="icon-wechat"></i></a>
+                        {_}_}
+                        <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete" data-need-bridge></i>
+
+                    </div>
+                </div>
+                <div class="meta">
+                    {_if(rent.price) {_}
+                    <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
+                    {_}_}
+
+                    {_if(rent.no_handling_fee || rent.can_visit) {_}
+                    {_if (rent.no_handling_fee) {_}
+                    <div class="noServiceFee"><p>{=window.i18n('免服务费')=}</p></div>                    
+                    {_}_}   
+                    {_if (rent.can_visit) {_}
+                    <div class="canVisit"><p>{=window.i18n('可实地看房')=}</p></div>                    
+                    {_}_}                                                                      
+                    {_}else { _}
+                    {_if(rent.last_modified_time - rent.time > 1000) {_}
+                    <p class="date">
+                        {_ var string = team.parsePublishDate(parseInt(rent.last_modified_time))_}
+                        {!window.i18n('%s更新过',string)!}
+                    </p>
+                    {_}else{_}
+                    <p class="date">
+                        {_ var string = team.parsePublishDate(parseInt(rent.time))_}
+                        {!window.i18n('%s发布',string)!}
+                    </p>
+                    {_}_}
+                    {_ } _}
+                </div>
+                <ul class="properties">
+                    <li>
+                        <i class="icon-location_fill"></i>
+                        {_if(rent.property.country && rent.property.country.code) {_}
+                        {= window.team.countryMap[rent.property.country.code] + " " =}
+                        {_}_}
+                        {_if(rent.property.city && rent.property.city.name) {_}
+                        {= rent.property.city.name + " " =}
+                        {_}_}
+                        {_if(rent.property.street) {_}
+                        {= rent.property.street =}
+                        {_}_}
+                    </li>
+                </ul>
+                {_if(rent.status === 'to rent') {_}
+                <ul class="actions">
+                    <li>
+                        {_if(window.team.isCurrantClient()) {_}
+                        <a data-id="{=rent.id=}" class="action edit" data-need-bridge>{{_('编辑房产')}}</a>
+                        {_}else {_}
+                        <a data-id="{=rent.id=}" class="action hiddenOnMobile edit" data-need-bridge>{{_('编辑房产')}}</a>
+                        {_}_}
+                    </li>
+                    <li>
+                        {_if(team.isToday(parseInt(rent.sort_time))){_}
+                        <p class="action">{!team.parsePublishDate(parseInt(rent.sort_time))!}{=window.i18n('已刷新过')=}</p>
+                        {_}else{_}
+                        <a id="refresh" class="action" data-id="{=rent.id=}">{=window.i18n('刷新')=}</a>
+                        {_}_}
+                        <div id="arrowBox" class="arrowBox">
+                            <p>{=window.i18n('每24小时只能刷新一个房源')=}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a id='editAction' class="action" data-id="{=rent.id=}" data-type="to rent" data-need-bridge>{=window.i18n('确认已租出')=}</a>
+                    </li>
+                </ul>
+                {_}else if(rent.status === 'draft') {_}
+
+                {_if(window.team.isCurrantClient()) {_}
+                <ul class="actions">
+                    <li >
+                        <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft" data-need-bridge>{=window.i18n('编辑')=}</a>
+                    </li>
+                </ul>
+                {_}else {_}
+                <ul class="actions hiddenOnMobile">
+                    <li >
+                        <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft" data-need-bridge>{=window.i18n('编辑')=}</a>
+                    </li>
+                </ul>
+                {_}_}
+                {_}else if(rent.status === 'rent') {_}
+                {_if(window.team.isCurrantClient()) {_}
+                <ul class="actions">
+                    <li >
+                        <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent" data-need-bridge>{=window.i18n('重新发布')=}</a>
+                    </li>
+                </ul>
+                {_}else {_}
+                <ul class="actions hiddenOnMobile">
+                    <li >
+                        <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent" data-need-bridge>{=window.i18n('重新发布')=}</a>
+                    </li>
+                </ul>
+                {_}_}
+                {_}_}
             </div>
+        </div>
+        {_}_}
     </div>
 </script>

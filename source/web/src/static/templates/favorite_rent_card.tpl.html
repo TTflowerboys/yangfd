@@ -1,24 +1,25 @@
 <script id="fav_rentCard_template" type="text/template">
     <div class="rentCard" data-id="{=fav.id=}">
+        {_if (fav.ticket.property) {_}
         <div class="imagePart">
-            <a href="/property-to-rent/{=fav.ticket.id=}">
-                {_if (fav.ticket.property.cover && fav.ticket.property.cover.indexOf('http') === 0){_}
-                <img src="{=team.convertToHttps({'link':fav.ticket.property.cover, 'property_id':fav.ticket.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
-                {_ } else if(fav.ticket.property.reality_images && fav.ticket.property.reality_images.length) {_}
-                <img src="{=team.convertToHttps({'link':fav.ticket.property.reality_images[0], 'property_id':fav.ticket.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
-                {_ }else { _}
-                <img class="withPlaceholder"/>
-                {_ } _}
+        <a href="/property-to-rent/{=fav.ticket.id=}">
+            {_if (fav.ticket.property.cover && fav.ticket.property.cover.indexOf('http') === 0){_}
+            <img src="{=team.convertToHttps({'link':fav.ticket.property.cover, 'property_id':fav.ticket.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+            {_ } else if(fav.ticket.property.reality_images && fav.ticket.property.reality_images.length) {_}
+            <img src="{=team.convertToHttps({'link':fav.ticket.property.reality_images[0], 'property_id':fav.ticket.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+            {_ }else { _}
+            <img class="withPlaceholder"/>
+            {_ } _}
 
-                <div class="labels">
-                    {_if(fav.ticket.property.property_type) {_}
-                    <label class="property-type">{=fav.ticket.property.property_type.value=}</label>
-                    {_}_}
-                    {_if(fav.ticket.rent_type) {_}
-                    <label class="rent-type">{=fav.ticket.rent_type.value=}</label>
-                    {_}_}
-                </div>
-            </a>
+            <div class="labels">
+                {_if(fav.ticket.property.property_type) {_}
+                <label class="property-type">{=fav.ticket.property.property_type.value=}</label>
+                {_}_}
+                {_if(fav.ticket.rent_type) {_}
+                <label class="rent-type">{=fav.ticket.rent_type.value=}</label>
+                {_}_}
+            </div>
+        </a>
         </div>
         <div class="description_wrapper">
             <div class="description">
@@ -38,24 +39,24 @@
                     {_}_}
 
                     {_if(fav.ticket.no_handling_fee || fav.ticket.can_visit) {_}
-                        {_if(fav.ticket.no_handling_fee) {_}
-                            <p class="noServiceFee">{=window.i18n('免服务费')=}</p>                                                                        
-                        {_}_}
-                        {_if(fav.ticket.can_visit) {_}
-                            <p class="canVisit">{=window.i18n('可实地看房')=}</p>                                                                        
-                        {_}_}
+                    {_if(fav.ticket.no_handling_fee) {_}
+                    <p class="noServiceFee">{=window.i18n('免服务费')=}</p>                                                                        
+                    {_}_}
+                    {_if(fav.ticket.can_visit) {_}
+                    <p class="canVisit">{=window.i18n('可实地看房')=}</p>                                                                        
+                    {_}_}
                     {_}else { _}
-                        {_if(fav.ticket.last_modified_time - fav.ticket.time > 1000) {_}
-                            <p class="date">
-                                {_var string = team.parsePublishDate(parseInt(fav.ticket.last_modified_time))_}
-                                {!window.i18n('%s更新过',string)!}
-                            </p>
-                        {_}else{_}
-                            <p class="date">
-                                {_var string = team.parsePublishDate(parseInt(fav.ticket.time))_}
-                                {!window.i18n('%s发布',string)!}
-                            </p>
-                        {_}_}
+                    {_if(fav.ticket.last_modified_time - fav.ticket.time > 1000) {_}
+                    <p class="date">
+                        {_var string = team.parsePublishDate(parseInt(fav.ticket.last_modified_time))_}
+                        {!window.i18n('%s更新过',string)!}
+                    </p>
+                    {_}else{_}
+                    <p class="date">
+                        {_var string = team.parsePublishDate(parseInt(fav.ticket.time))_}
+                        {!window.i18n('%s发布',string)!}
+                    </p>
+                    {_}_}
                     {_ } _}
                 </div>
                 <ul class="properties">
@@ -145,5 +146,6 @@
                 <span>{=window.i18n('撤销')=}</span>
             </button>
         </div>
+        {_}_}
     </div>
 </script>
