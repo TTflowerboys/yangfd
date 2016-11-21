@@ -300,18 +300,18 @@ div.content {
             float: left;
             height: 100%;
             vertical-align: middle;
-            width: 25%;
+            width: 18%;
             body[lang=en_GB] &{
-                width: 33.33%;
+                width: 25%;
             }
         }
 
-        li.weibo,li.twitter,li.facebook {
+        li.weibo,li.twitter,li.facebook,li.linkedin {
             cursor:pointer;
-            padding-top:25px;
+            padding-top:44px;
 
             i {
-                font-size: 72px;
+                font-size: 66px;
                 line-height: 1em;
                 color: #ff9933;
                 display:block;
@@ -331,8 +331,13 @@ div.content {
                 color: #4964a1;
             }
         }
-
+        li.linkedin {
+            i {
+                color: @linkedin-color;
+            }
+        }
         li.wechat {
+            width: 28%;
             img {
                 width: 120px;
                 height: 120px;

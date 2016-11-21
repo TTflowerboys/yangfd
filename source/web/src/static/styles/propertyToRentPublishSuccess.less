@@ -45,28 +45,26 @@ main{
             }
         }
         .shareBox{
-            width: 300px;
+            width: 465px;
             height: 190px;
             margin: 28px auto;
             body[lang=en_GB] & {
                 width: 480px;
             }
             .leftWrap{
-                width: 110px;
+                width: 278px;
                 float: left;
                 body[lang=en_GB] & {
                     width: 128px;
                 }
                 .flatButton{
-                    text-align: left;
-                    padding: 0 0 0 10px;
-                    margin-bottom: 21px;
-                    width: 110px;
+                    text-align: center;
+                    padding: 0;
+                    margin: 0 5px 21px;
+                    width: 128px;
                     font-size: 12px;
                     line-height: 40px;
-                    border: 0 none;
-                    color: #fff;
-                    background: @red;
+                    float: left;
                     body[lang=en_GB] & {
                         width: 128px;
                     }
@@ -75,6 +73,18 @@ main{
                     }
                     &.orange{
                         background: @weibo-color;
+                    }
+                    &.facebook{
+                        background: @facebook-color;
+                    }
+                    &.twitter{
+                        background: @twitter-color;
+                    }
+                    &.linkedin{
+                        background: @linkedin-color;
+                    }
+                    i{
+                        font-size: 16px;
                     }
                     img{
                         vertical-align: text-top;
