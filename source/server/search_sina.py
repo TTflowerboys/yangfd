@@ -725,7 +725,7 @@ def get_weibo_search_result(keywords_list):
 
     today = date.today()
     if day_shift:
-        wb.save('other_platform_search' + six.text_type(today - timedelta(days=day_shift)) + '~' + six.text_type(today) + '.xlsx')
+        wb.save('other_platform_search' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx')
     else:
         wb.save('other_platform_search' + six.text_type(today) + '.xlsx')
 
