@@ -14,9 +14,21 @@
     <hr class="hiddenInEnGB"/>
     <div class="shareBox hiddenInEnGB">
         <div class="leftWrap">
+            <button data-fn="shareToFacebook" class="flatButton facebook" data-url="/wechat-poster/{{rent.get('id','')}}">
+                <i class="icon-facebook"></i>
+                {{_('分享到Facebook')}}
+            </button>
             <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
                 <img src="/static/images/property_details/icon-wechat.png" alt="">
                 {{_('分享到微信')}}
+            </button>
+            % title = (rent.get('title','') + rent.get('description','')).replace("\'", "\\\'")
+            <button class="flatButton twitter" onclick="team.shareToTwitter({
+            text:'{{title}}',
+            url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
+            }) ">
+                <i class="icon-twitter"></i>
+                {{_('分享到Twitter')}}
             </button>
             % title = (rent.get('title','') + rent.get('description','')).replace("\'", "\\\'")
             <button class="flatButton orange" onclick="team.shareToWeibo({
@@ -28,6 +40,13 @@
             }) ">
                 <img src="/static/images/property_details/icon-weibo.png" alt="">
                 {{_('分享到微博')}}
+            </button>
+            <button class="flatButton linkedin" onclick="team.shareToLinkedin({
+            url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}',
+            title:'{{title}}'
+            }) ">
+                <i class="icon-linkedin2"></i>
+                {{_('分享到Linkedin')}}
             </button>
             <button id="copyBtn" class="flatButton" data-clipboard-text="" data-id="{{rent.get('id','')}}">
                 <img src="/static/images/property_details/icon-copy.png" alt="">
@@ -58,6 +77,30 @@
 <!--@@block=scripts-->
 <script src="/static/bower_components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
 <!--build:js /static/scripts/property_to_rent_publish_success.html.js-->
+<script>
+ /*
+  * Facebook share sdk
+  * */
+
+$(function(){
+    $.ajaxSetup({ cache: true });
+    $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+        FB.init({
+            appId: '325899391113500',
+            xfbml      : true,
+            version: 'v2.8'
+        });
+        $('[data-fn=shareToFacebook]').on('click',function(){
+            var url = location.protocol + '//' + location.host + $(this).data('url');               
+            FB.ui({
+                method: 'share',
+                display: 'popup',
+                href: url
+            });
+        })
+    })
+});
+</script>
 <script src="/static/scripts/property_to_rent_publish_success.js"></script>
 <!--endbuild-->
 <!--@@close-->
