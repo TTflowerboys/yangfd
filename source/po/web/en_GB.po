@@ -8726,13 +8726,13 @@ msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:11
 msgid ""
-"请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请<a id=\\\"voiceVerification\\\" "
-"class=\\\"voiceVerification\\\">重试</a>"
+"请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请<a id=\"voiceVerification\" "
+"class=\"voiceVerification\">重试</a>"
 msgstr ""
 "Please operate following the voice prompt（type 1 on cell phone keyboard "
 "as the default can be verified sucessfully）, if don't get a call from us,"
-" please <a id=\\\"voiceVerification\\\" "
-"class=\\\"voiceVerification\\\">try again</a>"
+" please <a id=\"voiceVerification\" "
+"class=\"voiceVerification\">try again</a>"
 
 #: ../web/src/partials/i18n_scripts.html:17
 #, fuzzy
