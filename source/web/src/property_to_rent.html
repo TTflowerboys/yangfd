@@ -83,7 +83,7 @@
         <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code')}}" target="_blank">{{get_country_name_by_code(rent['property'].get('country',{}).get('code'))}}</a> /
         % end
         % if rent['property'].get('city') and rent['property'].get('city').get('name'):
-        <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code')}}&city={{rent['property'].get('city',{}).get('id')}}" target="_blank">{{rent['property'].get('city',{}).get('name','')}}</a> /
+        <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code')}}&city={{rent['property'].get('city',{}).get('id')}}&queryName={{rent['property'].get('city',{}).get('name','')}}" target="_blank">{{rent['property'].get('city',{}).get('name','')}}</a> /
         % end
         % if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
         <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code')}}&city={{rent['property'].get('city',{}).get('id')}}&property_type={{rent['property'].get('property_type').get('id')}}" target="_blank">{{rent['property'].get('property_type',{}).get('value','')}}</a> /
