@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-11-21 14:36+0800\n"
+"POT-Creation-Date: 2016-11-21 16:13+0800\n"
 "PO-Revision-Date: 2016-02-03 15:32+0800\n"
 "Last-Translator: ffang <ffang@bbtechgroup.com>\n"
 "Language: zh_Hans_CN\n"
@@ -8087,8 +8087,8 @@ msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:11
 msgid ""
-"请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请<a id=\\\"voiceVerification\\\" "
-"class=\\\"voiceVerification\\\">重试</a>"
+"请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请<a id=\"voiceVerification\" "
+"class=\"voiceVerification\">重试</a>"
 msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:17
@@ -18506,5 +18506,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "房间号（必填）"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请<a "
+#~ "id=\\\"voiceVerification\\\" "
+#~ "class=\\\"voiceVerification\\\">重试</a>"
 #~ msgstr ""
 
