@@ -222,7 +222,7 @@
         var originContent = $span.html()
         $span.html(window.i18n('街区列表加载中...'))
         window.geonamesApi.getNeighborhood({city: city}, function (val) {
-            $('.buttonLoading').prop('disabled', false).text(window.i18n('重新获取'))
+            $('.buttonLoading').prop('disabled', false).text(window.i18n('重新查找'))
             $('.buttonLoading').trigger('end')
             $('#address').show()
             if($('#city-select :selected').text().toLowerCase() === 'london') {
@@ -239,7 +239,7 @@
                 }
             }
         }, function (ret) {
-            $('.buttonLoading').prop('disabled', false).text(window.i18n('重新获取'))
+            $('.buttonLoading').prop('disabled', false).text(window.i18n('重新查找'))
             $('.buttonLoading').trigger('end')
             $('#address').show()
         })
@@ -296,12 +296,12 @@
                             $('#street').val(streetArr.join(','))
                             if(val && val.length && val[0].name.toLowerCase() !== 'london') {
                                 $('.buttonLoading').trigger('end')
-                                $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                                $btn.prop('disabled', false).text(window.i18n('重新查找'))
                                 $('#address').show()
                             }
                         }).fail(function () {
                             $('.buttonLoading').trigger('end')
-                            $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                            $btn.prop('disabled', false).text(window.i18n('重新查找'))
                         })
                 }
                 $('#city-select').html(
@@ -317,7 +317,7 @@
                 }
             }, function () {
                 $('.buttonLoading').trigger('end')
-                $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                $btn.prop('disabled', false).text(window.i18n('重新查找'))
             })
 
         }
@@ -391,7 +391,7 @@
                             clearLocationData()
                             showPostcodeNoResultMsg()
                             $('.buttonLoading').trigger('end')
-                            $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                            $btn.prop('disabled', false).text(window.i18n('重新查找'))
                             $('#address').show()
                             break;
                         case 1: //搜索到一条结果则直接填充到对应到字段
@@ -401,7 +401,7 @@
                                 clearLocationData()
                                 showPostcodeNoResultMsg()
                                 $('.buttonLoading').trigger('end')
-                                $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                                $btn.prop('disabled', false).text(window.i18n('重新查找'))
                                 $('#address').show()
                             }
                             break;
@@ -414,7 +414,7 @@
                     window.dhtmlx.message({ type:'error', text: err})
                     $errorMsg.text(err).show()
                     $('#address').show()
-                    $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                    $btn.prop('disabled', false).text(window.i18n('重新查找'))
                 })
         }
     })

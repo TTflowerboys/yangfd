@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-11-21 16:13+0800\n"
+"POT-Creation-Date: 2016-11-23 17:12+0800\n"
 "PO-Revision-Date: 2016-02-03 15:32+0800\n"
 "Last-Translator: ffang <ffang@bbtechgroup.com>\n"
 "Language: zh_Hans_CN\n"
@@ -6115,7 +6115,7 @@ msgid "添加失败，无法获取到该地点的交通信息"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:347
-msgid "重新获取"
+msgid "重新查找"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:348
@@ -11893,6 +11893,7 @@ msgid "正在为您加载您要查看的房东联系方式..."
 msgstr ""
 
 #: ../web/src/partials/requirement_rent_phone.html:250
+#: ../web/src/partials/requirement_rent_popup.html:251
 msgid "您的求租意向单已经提交成功，您可以："
 msgstr ""
 
@@ -18506,11 +18507,5 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "房间号（必填）"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请<a "
-#~ "id=\\\"voiceVerification\\\" "
-#~ "class=\\\"voiceVerification\\\">重试</a>"
 #~ msgstr ""
 

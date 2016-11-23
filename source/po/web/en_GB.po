@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-11-21 16:13+0800\n"
-"PO-Revision-Date: 2016-11-21 14:33+0800\n"
+"POT-Creation-Date: 2016-11-23 17:12+0800\n"
+"PO-Revision-Date: 2016-11-23 17:12+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -6578,8 +6578,8 @@ msgid "添加失败，无法获取到该地点的交通信息"
 msgstr "Failed to add surroundings, unable to get transport information"
 
 #: ../web/src/partials/i18n.html:347
-msgid "重新获取"
-msgstr "Resend"
+msgid "重新查找"
+msgstr "Search Again"
 
 #: ../web/src/partials/i18n.html:348
 #, fuzzy
@@ -12436,7 +12436,7 @@ msgstr "Female tenants"
 
 #: ../web/src/partials/property_to_rent_edit.html:388
 msgid "入住限制"
-msgstr "Tenant Requirement"
+msgstr "Max. Tenants"
 
 #: ../web/src/partials/property_to_rent_edit.html:401
 msgid "不限性别"
@@ -12951,6 +12951,7 @@ msgid "正在为您加载您要查看的房东联系方式..."
 msgstr "N/A Loading contact info for you"
 
 #: ../web/src/partials/requirement_rent_phone.html:250
+#: ../web/src/partials/requirement_rent_popup.html:251
 msgid "您的求租意向单已经提交成功，您可以："
 msgstr "Your rental intention request has been successfully submitted, You can: "
 
@@ -16509,7 +16510,7 @@ msgstr ""
 #~ msgstr "Failed to add surroundings, unable to get transport information"
 
 #~ msgid "重新获取"
-#~ msgstr "Retry"
+#~ msgstr ""
 
 #~ msgid "获取中..."
 #~ msgstr "Loading"
