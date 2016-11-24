@@ -13,41 +13,41 @@ class CUTEPatcher : NSObject {
 
     static let sharedInstance = CUTEPatcher.init()
 
-    private static func checkUpdate() -> BFTask {
-        let tcs = BFTaskCompletionSource()
+    fileprivate static func checkUpdate() -> BFTask<AnyObject> {
+        let tcs = BFTaskCompletionSource<AnyObject>()
 
-        let appInfo:[String:AnyObject] = NSBundle.mainBundle().infoDictionary!
+        let appInfo:[String:AnyObject] = Bundle.main.infoDictionary! as [String : AnyObject]
         let buildNumber = appInfo["CFBundleVersion"] as! String
         let channel = appInfo["CurrantChannel"] as! String
         let releaseVersion = appInfo["CFBundleShortVersionString"] as! String
 
-        let URLString = "/api/1/app/currant/check_update".stringByAppendingQueryDictionary(["version":buildNumber,
+        let URLString = "/api/1/app/currant/check_update".appendingQueryDictionary(["version":buildNumber,
             "platform": "ios_jspatch",
             "channel": channel,
             "release": releaseVersion,
             ])
 
-        let URL = NSURL(string: URLString, relativeToURL: NSURL(string: "https://" + CUTEConfiguration.host()))
-        let task = NSURLSession.sharedSession().dataTaskWithURL(URL!) { (data, resp, error) -> Void in
+        let URL = Foundation.URL(string: URLString!, relativeTo: Foundation.URL(string: "https://" + CUTEConfiguration.host()))
+        let task = URLSession.shared.dataTask(with: URL!, completionHandler: { (data, resp, error) -> Void in
 
             //TODO replace the if cycles to guard
             if let jsonData = data {
-                if let response = resp as? NSHTTPURLResponse {
+                if let response = resp as? HTTPURLResponse {
                     if response.statusCode == 200 {
                         do {
-                            let result = try NSJSONSerialization .JSONObjectWithData(jsonData, options: NSJSONReadingOptions(rawValue: 0))
+                            let result = try JSONSerialization .jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions(rawValue: 0))
                             if let dic = result as? Dictionary<String, AnyObject> {
                                 if dic["ret"] != nil {
                                     if let retNum = dic["ret"] as? NSNumber  {
-                                        if retNum.intValue == 0 {
+                                        if retNum.int32Value == 0 {
                                             if let val = dic["val"] {
                                                 if let hasUpdate = val["update"] as? NSNumber {
-                                                    if hasUpdate.intValue > 0 {
+                                                    if hasUpdate.int32Value > 0 {
                                                         if let lastestVersion = val["latest_version"] as? Dictionary<String, AnyObject> {
                                                             if let release = lastestVersion["release"] as? String {
                                                                 if releaseVersion == release {
                                                                     if let url = lastestVersion["url"] as? String {
-                                                                        tcs.setResult(url)
+                                                                        tcs.setResult(url as AnyObject!)
                                                                     }
                                                                 }
                                                             }
@@ -67,42 +67,41 @@ class CUTEPatcher : NSObject {
                 }
             }
 
-        }
+        }) 
         task.resume()
 
         return tcs.task
     }
 
-    private static func downloadPatch() -> BFTask {
+    fileprivate static func downloadPatch() -> BFTask<AnyObject> {
 //        let startDate = NSDate()
-        let tcs = BFTaskCompletionSource()
+        let tcs = BFTaskCompletionSource<AnyObject>()
 
-        checkUpdate().continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+        checkUpdate().continue({ (task:BFTask!) -> AnyObject! in
             if let URLString = task.result as? String {
-                if let fileName = URLString.componentsSeparatedByString("/").last {
-                    let libraryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
+                if let fileName = URLString.components(separatedBy: "/").last {
+                    let libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
 
                     let filePath = libraryPath! + "/" + fileName
-                    if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-                        let localData = NSData(contentsOfFile: filePath)
-                        tcs.setResult(localData)
+                    if FileManager.default.fileExists(atPath: filePath) {
+                        let localData = try? Data(contentsOf: URL(fileURLWithPath: filePath))
+                        tcs.setResult(localData as AnyObject)
                     }
                     else {
-                        let request = NSMutableURLRequest(URL: NSURL(string: URLString)!)
-
-                        let URLTask = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {(let data, let resp, let error) in
+                        let request = NSMutableURLRequest(url: URL(string: URLString)!)                     
+                        let URLTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler:{(data, resp, error) in
                             if data != nil {
-                                if let response = resp as? NSHTTPURLResponse {
+                                if let response = resp as? HTTPURLResponse {
                                     if response.statusCode == 200 {
                                         //save to file
                                         do {
-                                            try data?.writeToFile(filePath, options: NSDataWritingOptions.DataWritingAtomic)
+                                            try data?.write(to: URL(fileURLWithPath: filePath), options: NSData.WritingOptions.atomic)
                                         }
                                         catch let error as NSError{
                                             print(error.localizedDescription)
                                         }
 
-                                        tcs.setResult(data)
+                                        tcs.setResult(data as AnyObject)
                                     }
                                 }
                             }
@@ -114,7 +113,7 @@ class CUTEPatcher : NSObject {
                 }
             }
             return task
-        }
+        })
 
 
 //        let endDate = NSDate()
@@ -124,12 +123,12 @@ class CUTEPatcher : NSObject {
         return tcs.task
     }
 
-    static func patch() -> BFTask {
-        return downloadPatch().continueWithBlock({ (task:BFTask!) -> BFTask! in
-            if let data = task.result as? NSData {
-                if let content = NSString(data: data, encoding: NSUTF8StringEncoding) {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        JPEngine.startEngine()
+    static func patch() -> BFTask<AnyObject> {
+        return downloadPatch().continue({ (task:BFTask!) -> BFTask<AnyObject>! in
+            if let data = task.result as? Data {
+                if let content = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                    DispatchQueue.main.async(execute: {
+                        JPEngine.start()
                         JPEngine.evaluateScript(content as String)
                     })
                 }

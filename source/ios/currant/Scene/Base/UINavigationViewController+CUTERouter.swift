@@ -13,19 +13,19 @@ extension UINavigationController {
 
 
 
-    func openRouteWithURL(URL:NSURL) {
-        if URL.isHttpOrHttpsURL() {
-            openRouteWithWebRequest(NSURLRequest(URL: URL))
+    func openRouteWithURL(_ URL:Foundation.URL) {
+        if (URL as NSURL).isHttpOrHttpsURL() {
+            openRouteWithWebRequest(URLRequest(url: URL))
         }
-        else if URL.isYangfdURL() {
+        else if (URL as NSURL).isYangfdURL() {
             openRouteWithYangfdURL(URL)
         }
-        else if URL.isWebArchiveURL() {
+        else if (URL as NSURL).isWebArchiveURL() {
 
 
-            if let URLString:NSString = URL.queryDictionary()["from"] as? NSString {
-                if let archiveURL = URLString.URLDecode() {
-                    if let archive: CUTEWebArchive = CUTEWebArchiveManager.sharedInstance().getWebArchiveWithURL(NSURL(string: archiveURL)) {
+            if let URLString:NSString = (URL as NSURL).queryDictionary()["from"] as? NSString {
+                if let archiveURL = URLString.urlDecode() {
+                    if let archive: CUTEWebArchive = CUTEWebArchiveManager.sharedInstance().getWebArchive(with: Foundation.URL(string: archiveURL)) {
                         openRouteWithWebArchive(archive)
                     }
                 }
@@ -37,10 +37,10 @@ extension UINavigationController {
         }
     }
 
-    func openRouteWithWebRequest(URLRequest:NSURLRequest) {
-        trackOpenURL(URLRequest.URL!);
+    func openRouteWithWebRequest(_ URLRequest:Foundation.URLRequest) {
+        trackOpenURL(URLRequest.url!);
 
-        let viewController = CUTERouter.globalRouter.matchController(URLRequest.URL!)
+        let viewController = CUTERouter.globalRouter.matchController(URLRequest.url!)
         var webViewController:CUTEWebViewController?
         if (viewController != nil) {
             if  viewController is CUTEWebViewController {
@@ -52,9 +52,9 @@ extension UINavigationController {
             webViewController = CUTEWebViewController()
         }
 
-        webViewController!.URL = URLRequest.URL;
+        webViewController!.url = URLRequest.url;
 
-        self.checkPreExecuteInternalCommand(URLRequest.URL!)
+        self.checkPreExecuteInternalCommand(URLRequest.url!)
         if self.viewControllers.count > 0 {
             webViewController!.hidesBottomBarWhenPushed = true
             self.pushViewController(webViewController!, animated: true)
@@ -62,15 +62,15 @@ extension UINavigationController {
         else {
             self.viewControllers = [webViewController!]
         }
-        webViewController!.loadRequest(URLRequest)
+        webViewController!.load(URLRequest)
     }
 
 
     // MARK: - Private
 
-    func openRouteWithWebArchive(archive:CUTEWebArchive) {
-        trackOpenURL(archive.URL!)
-        let viewController = CUTERouter.globalRouter.matchController(archive.URL!)
+    func openRouteWithWebArchive(_ archive:CUTEWebArchive) {
+        trackOpenURL(archive.url!)
+        let viewController = CUTERouter.globalRouter.matchController(archive.url!)
         var webViewController:CUTEWebViewController?
 
         if (viewController != nil) {
@@ -81,8 +81,8 @@ extension UINavigationController {
             webViewController = CUTEWebViewController()
         }
 
-        webViewController!.URL = archive.URL;
-        self.checkPreExecuteInternalCommand(archive.URL)
+        webViewController!.url = archive.url;
+        self.checkPreExecuteInternalCommand(archive.url)
         if self.viewControllers.count > 0 {
             webViewController!.hidesBottomBarWhenPushed = true
             self.pushViewController(webViewController!, animated: true)
@@ -90,27 +90,27 @@ extension UINavigationController {
         else {
             self.viewControllers = [webViewController!]
         }
-        webViewController!.loadWebArchive(archive)
+        webViewController!.load(archive)
     }
 
-    func openRouteWithYangfdURL(URL:NSURL) {
-        let queryDic:Dictionary<String, String> = URL.queryDictionary() as! Dictionary<String, String>
+    func openRouteWithYangfdURL(_ URL:Foundation.URL) {
+        let queryDic:Dictionary<String, String> = (URL as NSURL).queryDictionary() as! Dictionary<String, String>
 
         if let controller:UIViewController = CUTERouter.globalRouter.matchController(URL) {
             
-            if let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(controller) {
+            if let screenname = CUTETracker.sharedInstance().getScreenName(from: controller) {
                 trackOpenScreen(screenname)
             }
             //TODO not show
             SVProgressHUD.show()
-            controller.setupRoute().continueWithBlock({ (task: BFTask!) -> AnyObject! in
+            controller.setupRoute().continue({ (task: BFTask!) -> AnyObject! in
                 if (task.error != nil) {
                     SVProgressHUD.showErrorWithError(task.error)
                 }
                 else if (task.exception != nil) {
-                    SVProgressHUD.showErrorWithException(task.exception)
+                    SVProgressHUD.showError(with: task.exception)
                 }
-                else if (task.cancelled) {
+                else if (task.isCancelled) {
                     SVProgressHUD.showErrorWithCancellation()
                 }
                 else {
@@ -118,14 +118,14 @@ extension UINavigationController {
                     if (queryDic["modal"] != nil && queryDic["modal"] == "true") {
 
                         let title = STR("取消")
-                        controller.navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, block: { (sender: AnyObject!) -> Void in
+                        controller.navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.plain, block: { (sender: Any) -> Void in
 
-                            controller.dismissViewControllerAnimated(true, completion: { () -> Void in
+                            controller.dismiss(animated: true, completion: { () -> Void in
                             })
                         })
 
                         let nav = UINavigationController(rootViewController: controller)
-                        self.presentViewController(nav, animated: true, completion: { () -> Void in
+                        self.present(nav, animated: true, completion: { () -> Void in
                         })
                     }
                     else {
@@ -147,52 +147,52 @@ extension UINavigationController {
         }
     }
 
-    func getControllerScreenName(viewController: UIViewController?) -> String? {
+    func getControllerScreenName(_ viewController: UIViewController?) -> String? {
         if viewController != nil {
             if viewController is CUTEWebViewController {
                 let webviewController  = viewController as! CUTEWebViewController
-                if let url = webviewController.URL {
-                    return CUTETracker.sharedInstance().getScreenNameFromObject(url)
+                if let url = webviewController.url {
+                    return CUTETracker.sharedInstance().getScreenName(from: url)
                 }
                 else {
-                    return CUTETracker.sharedInstance().getScreenNameFromObject(webviewController)
+                    return CUTETracker.sharedInstance().getScreenName(from: webviewController)
                 }
             }
             else {
-                return CUTETracker.sharedInstance().getScreenNameFromObject(viewController!)
+                return CUTETracker.sharedInstance().getScreenName(from: viewController!)
             }
         }
         return nil
     }
 
-    func trackOpenScreen(screenName:String) {
+    func trackOpenScreen(_ screenName:String) {
         let currentViewController = self.viewControllers.last
         if let fromScreenName = getControllerScreenName(currentViewController) {
-            CUTETracker.sharedInstance().trackEventWithCategory(fromScreenName, action: "press", label: screenName, value: nil)
+            CUTETracker.sharedInstance().trackEvent(withCategory: fromScreenName, action: "press", label: screenName, value: nil)
         }
         else {
-            CUTETracker.sharedInstance().trackEventWithCategory("", action: "press", label: screenName, value: nil)
+            CUTETracker.sharedInstance().trackEvent(withCategory: "", action: "press", label: screenName, value: nil)
         }
 
     }
 
-    func trackOpenURL(url:NSURL?) {
+    func trackOpenURL(_ url:URL?) {
         if  let toURL = url {
-            if let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(toURL) {
+            if let screenname = CUTETracker.sharedInstance().getScreenName(from: toURL) {
                 trackOpenScreen(screenname)
             }
 
-            if toURL.path != nil && toURL.path!.hasPrefix("/property-to-rent") {
-                let components:[String]? = (toURL.path?.componentsSeparatedByString("/"))
+            if toURL.path != nil && toURL.path.hasPrefix("/property-to-rent") {
+                let components:[String]? = (toURL.path.components(separatedBy: "/"))
                 if components != nil && components!.count >= 3 {
                     let ticketId = components![2]
-                    CUTEUsageRecorder.sharedInstance().saveVisitedTicketWithId(ticketId)
+                    CUTEUsageRecorder.sharedInstance().saveVisitedTicket(withId: ticketId)
                 }
             }
         }
     }
 
-    func checkPreExecuteInternalCommand(URL:NSURL) {
+    func checkPreExecuteInternalCommand(_ URL:Foundation.URL) {
         
     }
 }

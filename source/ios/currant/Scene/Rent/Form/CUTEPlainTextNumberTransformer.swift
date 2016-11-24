@@ -9,7 +9,7 @@
 import UIKit
 
 @objc(CUTEPlainTextNumberTransformer)
-class CUTEPlainTextNumberTransformer: NSValueTransformer {
+class CUTEPlainTextNumberTransformer: ValueTransformer {
 
     override class func transformedValueClass() -> AnyClass {
         return NSString.self
@@ -19,14 +19,14 @@ class CUTEPlainTextNumberTransformer: NSValueTransformer {
         return true
     }
 
-    override func reverseTransformedValue(value: AnyObject?) -> AnyObject? {
+    override func reverseTransformedValue(_ value: Any?) -> Any? {
         if value is String {
             return value
         }
         return nil
     }
 
-    override func transformedValue(value: AnyObject?) -> AnyObject? {
+    override func transformedValue(_ value: Any?) -> Any? {
         if value is String {
             return value
         }

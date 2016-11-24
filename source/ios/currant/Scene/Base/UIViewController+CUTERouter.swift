@@ -25,7 +25,7 @@ extension UIViewController {
 //    }
 
     //Make page load all third-party resources
-    func setupRoute() -> BFTask {
+    func setupRoute() -> BFTask<AnyObject> {
         return BFTask(result:nil)
     }
 }

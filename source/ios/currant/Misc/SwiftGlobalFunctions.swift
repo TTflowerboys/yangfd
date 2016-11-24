@@ -8,7 +8,7 @@
 
 import Foundation
 
-func STR(string:String!) -> String {
-    let str = CUTELocalizationSwitcher.sharedInstance().localizedStringForKey(string)
-    return str
+func STR(_ string:String!) -> String {
+    let str = CUTELocalizationSwitcher.sharedInstance().localizedString(forKey: string)
+    return str!
 }

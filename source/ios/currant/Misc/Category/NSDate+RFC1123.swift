@@ -15,10 +15,10 @@ import Foundation
 
 
 
-extension NSDate {
+extension Date {
 
-    private static func cachedThreadLocalObjectWithKey<T: AnyObject>(key: String, create: () -> T) -> T {
-        let threadDictionary = NSThread.currentThread().threadDictionary
+    fileprivate static func cachedThreadLocalObjectWithKey<T: AnyObject>(_ key: String, create: () -> T) -> T {
+        let threadDictionary = Thread.current.threadDictionary
         if let cachedObject = threadDictionary[key] as! T? {
             return cachedObject
         }
@@ -29,11 +29,11 @@ extension NSDate {
         }
     }
 
-    private static func RFC1123DateFormatter() -> NSDateFormatter {
+    fileprivate static func RFC1123DateFormatter() -> DateFormatter {
         return cachedThreadLocalObjectWithKey("RFC1123DateFormatter") {
-            let locale = NSLocale(localeIdentifier: "en_US")
-            let timeZone = NSTimeZone(name: "GMT")
-            let dateFormatter = NSDateFormatter()
+            let locale = Locale(identifier: "en_US")
+            let timeZone = TimeZone(identifier: "GMT")
+            let dateFormatter = DateFormatter()
             dateFormatter.locale = locale //need locale for some iOS 9 verision, will not select correct default locale
             dateFormatter.timeZone = timeZone
             dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
@@ -41,11 +41,11 @@ extension NSDate {
         }
     }
 
-    private static func RFC850DateFormatter() -> NSDateFormatter {
+    fileprivate static func RFC850DateFormatter() -> DateFormatter {
         return cachedThreadLocalObjectWithKey("RFC850DateFormatter") {
-            let locale = NSLocale(localeIdentifier: "en_US")
-            let timeZone = NSTimeZone(name: "GMT")
-            let dateFormatter = NSDateFormatter()
+            let locale = Locale(identifier: "en_US")
+            let timeZone = TimeZone(identifier: "GMT")
+            let dateFormatter = DateFormatter()
             dateFormatter.locale = locale //need locale for some iOS 9 verision, will not select correct default locale
             dateFormatter.timeZone = timeZone
             dateFormatter.dateFormat = "EEEE, dd-MMM-yy HH:mm:ss z"
@@ -53,11 +53,11 @@ extension NSDate {
         }
     }
 
-    private static func asctimeDateFormatter() -> NSDateFormatter {
+    fileprivate static func asctimeDateFormatter() -> DateFormatter {
         return cachedThreadLocalObjectWithKey("asctimeDateFormatter") {
-            let locale = NSLocale(localeIdentifier: "en_US")
-            let timeZone = NSTimeZone(name: "GMT")
-            let dateFormatter = NSDateFormatter()
+            let locale = Locale(identifier: "en_US")
+            let timeZone = TimeZone(identifier: "GMT")
+            let dateFormatter = DateFormatter()
             dateFormatter.locale = locale //need locale for some iOS 9 verision, will not select correct default locale
             dateFormatter.timeZone = timeZone
             dateFormatter.dateFormat = "EEE MMM d HH:mm:ss yyyy"
@@ -65,23 +65,23 @@ extension NSDate {
         }
     }
 
-    static func dateFromRFC1123(dateString:String) -> NSDate? {
+    static func dateFromRFC1123(_ dateString:String) -> Date? {
 
-        var date:NSDate?
+        var date:Date?
         //RFC1123
-        date = NSDate.RFC1123DateFormatter().dateFromString(dateString)
+        date = Date.RFC1123DateFormatter().date(from: dateString)
         if date != nil {
             return date
         }
 
         //RFC850
-        date = NSDate.RFC850DateFormatter().dateFromString(dateString)
+        date = Date.RFC850DateFormatter().date(from: dateString)
         if date != nil {
             return date
         }
 
         //asctime-date
-        date = NSDate.asctimeDateFormatter().dateFromString(dateString)
+        date = Date.asctimeDateFormatter().date(from: dateString)
         if date != nil {
             return date
         }
@@ -89,6 +89,6 @@ extension NSDate {
     }
 
     func RFC1123String() -> String? {
-        return NSDate.RFC1123DateFormatter().stringFromDate(self)
+        return Date.RFC1123DateFormatter().string(from: self)
     }
 }

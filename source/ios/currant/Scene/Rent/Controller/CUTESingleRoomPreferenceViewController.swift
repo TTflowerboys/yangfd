@@ -20,7 +20,7 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         // Do any additional setup after loading the
 
         self.title = STR("SingleRoomPreference/单间信息")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("SingleRoomPreference/预览"), style: UIBarButtonItemStyle.Plain, block:  { (sender) -> Void in
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("SingleRoomPreference/预览"), style: UIBarButtonItemStyle.plain, block:  { (sender) -> Void in
 
             if let otherRequirement = self.form().otherRequirements {
                 if CUTEContactChecker.checkShowContactForbiddenWarningAlert(otherRequirement) {
@@ -42,10 +42,10 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
     //MARK: TableView
 
     //TODO: do i need here or setup by the form field's value?
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let field = self.formController.fieldForIndexPath(indexPath)
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let field = self.formController.field(for: indexPath)
 
-        if field.key == "genderRequirement" {
+        if field?.key == "genderRequirement" {
             let gender = self.form().ticket.genderRequirement
             if gender != nil {
                 if gender == "male" {
@@ -62,20 +62,20 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                 cell.detailTextLabel?.text = STR("不限")
             }
         }
-        else if field.key == "age" {
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        else if field?.key == "age" {
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             var minAge:NSInteger = 0
             if let minAgeNumber = self.form().ticket.minAge {
-                minAge = minAgeNumber.integerValue
+                minAge = minAgeNumber.intValue
             }
 
             var maxAge:NSInteger = 0
             if let maxAgeNumber = self.form().ticket.maxAge {
-                maxAge = maxAgeNumber.integerValue
+                maxAge = maxAgeNumber.intValue
             }
-            cell.detailTextLabel?.text = CUTEFormAgeRangePickerCell.formattedDisplayTextWithMinAge(minAge, maxAge: maxAge)
+            cell.detailTextLabel?.text = CUTEFormAgeRangePickerCell.formattedDisplayText(withMinAge: minAge, maxAge: maxAge)
         }
-        else if field.key == "occupation" {
+        else if field?.key == "occupation" {
             if let occupation = self.form().ticket.occupation {
                 cell.detailTextLabel?.text = occupation.value;
             }
@@ -83,108 +83,108 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                 cell.detailTextLabel?.text = STR("不限")
             }
         }
-        else if field.key == "noSmoking" {
+        else if field?.key == "noSmoking" {
             if  let switchCell  = cell as? FXFormSwitchCell {
                 if let value = self.form().ticket.noSmoking {
-                    switchCell.switchControl.on = value.boolValue
+                    switchCell.switchControl.isOn = value.boolValue
                 }
             }
         }
-        else if field.key == "noPet" {
+        else if field?.key == "noPet" {
             if  let switchCell  = cell as? FXFormSwitchCell {
                 if let value = self.form().ticket.noPet {
-                    switchCell.switchControl.on = value.boolValue
+                    switchCell.switchControl.isOn = value.boolValue
                 }
             }
         }
-        else if field.key == "noBaby" {
+        else if field?.key == "noBaby" {
             if  let switchCell  = cell as? FXFormSwitchCell {
                 if let value = self.form().ticket.noBaby {
-                    switchCell.switchControl.on = value.boolValue
+                    switchCell.switchControl.isOn = value.boolValue
                 }
             }
         }
-        else if field.key == "currentMaleRoommates" {
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        else if field?.key == "currentMaleRoommates" {
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             if let number = self.form().ticket.currentMaleRoommates {
                 cell.detailTextLabel?.text = STR("\(number)人")
             }
         }
-        else if field.key == "currentFemaleRoommates" {
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        else if field?.key == "currentFemaleRoommates" {
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             if let number = self.form().ticket.currentFemaleRoommates {
                 cell.detailTextLabel?.text = STR("\(number)人")
             }
         }
-        else if field.key == "accommodates" {
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        else if field?.key == "accommodates" {
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             if let number = self.form().ticket.accommodates {
                 cell.detailTextLabel?.text = STR("\(number)人")
             }
         }
-        else if field.key == "area" {
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        else if field?.key == "area" {
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             if let space = self.form().ticket.space {
                 cell.detailTextLabel?.text = "\(space.value!) \(space.unitPresentation())"
             }
         }
-        else if field.key == "independentBathroom" {
+        else if field?.key == "independentBathroom" {
             if  let switchCell  = cell as? FXFormSwitchCell {
                 if let value = self.form().ticket.independentBathroom {
-                    switchCell.switchControl.on = value.boolValue
+                    switchCell.switchControl.isOn = value.boolValue
                 }
             }
         }
-        else if field.key == "otherRequirements" {
+        else if field?.key == "otherRequirements" {
             if let requirement = self.form().ticket.otherRequirements {
                 cell.detailTextLabel?.text = requirement
             }
         }
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let field = self.formController.fieldForIndexPath(indexPath)
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let field = self.formController.field(for: indexPath)
+        let cell = tableView.cellForRow(at: indexPath)
 
-        if field.key == "age" {
+        if field?.key == "age" {
             if let pickerCell = cell as? CUTEFormAgeRangePickerCell {
                 var minAgeRow = 0
                 if let age = self.form().ticket.minAge {
-                    minAgeRow = age.integerValue
+                    minAgeRow = age.intValue
                 }
 
                 var maxAgeRow = 0
                 if let age = self.form().ticket.maxAge {
-                    maxAgeRow = age.integerValue
+                    maxAgeRow = age.intValue
                 }
 
                 pickerCell.pickerView.selectRow(minAgeRow, inComponent: 0, animated: false)
                 pickerCell.pickerView.selectRow(maxAgeRow, inComponent: 1, animated: false)
             }
         }
-        else if field.key == "currentMaleRoommates" {
+        else if field?.key == "currentMaleRoommates" {
             if let pickerCell = cell as? CUTEFormRoommateCountPickerCell {
                 var row = 0
                 if let count = self.form().ticket.currentMaleRoommates {
-                    row = count.integerValue
+                    row = count.intValue
                 }
                 pickerCell.pickerView.selectRow(row, inComponent: 0, animated: false)
             }
         }
-        else if field.key == "currentFemaleRoommates" {
+        else if field?.key == "currentFemaleRoommates" {
             if let pickerCell = cell as? CUTEFormRoommateCountPickerCell {
                 var row = 0
                 if let count = self.form().ticket.currentFemaleRoommates {
-                    row = count.integerValue
+                    row = count.intValue
                 }
                 pickerCell.pickerView.selectRow(row, inComponent: 0, animated: false)
             }
         }
-        else if field.key == "accommodates" {
+        else if field?.key == "accommodates" {
             if let pickerCell = cell as? CUTEFormRoommateCountPickerCell {
                 var row = 0
                 if let count = self.form().ticket.accommodates {
-                    row = count.integerValue
+                    row = count.intValue
                 }
                 pickerCell.pickerView.selectRow(row, inComponent: 0, animated: false)
             }
@@ -192,8 +192,8 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
     }
 
     //MARK: - Field Action 
-    func onGenderRequirementEdit(sender:AnyObject)  {
-        self.navigationController?.popViewControllerAnimated(true)
+    func onGenderRequirementEdit(_ sender:AnyObject)  {
+        self.navigationController?.popViewController(animated: true)
         var gender:String = ""
         if let text = self.form().genderRequirement {
             if text == STR("男") {
@@ -203,125 +203,125 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                 gender = "female"
             }
         }
-        self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-            ticket.genderRequirement = gender
+        self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+            ticket!.genderRequirement = gender
         })
     }
 
-    func onAgeEdit(sender:AnyObject) {
+    func onAgeEdit(_ sender:AnyObject) {
         if let cell = sender as? CUTEFormAgeRangePickerCell {
-            let minInt = cell.pickerView.selectedRowInComponent(0)
-            let maxInt = cell.pickerView.selectedRowInComponent(1)
+            let minInt = cell.pickerView.selectedRow(inComponent: 0)
+            let maxInt = cell.pickerView.selectedRow(inComponent: 1)
             var minAge:NSNumber?
             if minInt > 0 {
-                minAge = NSNumber(integer: minInt)
+                minAge = NSNumber(value: minInt as Int)
             }
             else {
                 minAge = nil
             }
             var maxAge:NSNumber?
             if maxInt > 0 {
-                maxAge = NSNumber(integer: maxInt)
+                maxAge = NSNumber(value: maxInt as Int)
             }
             else {
                 maxAge = nil
             }
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.minAge = minAge
-                ticket.maxAge = maxAge
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+                ticket!.minAge = minAge
+                ticket!.maxAge = maxAge
             })
         }
     }
     
-    func onOccupationEdit(sender:AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func onOccupationEdit(_ sender:AnyObject) {
+        self.navigationController?.popViewController(animated: true)
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! CUTEEnum
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
                 if (value.slug == "unlimited") {
-                    ticket.occupation = nil
+                    ticket!.occupation = nil
                 }
                 else {
-                    ticket.occupation = value
+                    ticket!.occupation = value
                 }
             })
         }
     }
 
-    func onAllowSmokingEdit(sender:AnyObject) {
+    func onAllowSmokingEdit(_ sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! NSNumber
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.noSmoking = NSNumber(bool: !value.boolValue)
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+                ticket!.noSmoking = NSNumber(value: !value.boolValue as Bool)
             })
         }
     }
 
-    func onAllowPetEdit(sender:AnyObject) {
+    func onAllowPetEdit(_ sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! NSNumber
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.noPet = NSNumber(bool: !value.boolValue)
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+                ticket!.noPet = NSNumber(value: !value.boolValue as Bool)
             })
         }
     }
     
-    func onAllowBabyEdit(sender:AnyObject) {
+    func onAllowBabyEdit(_ sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! NSNumber
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.noBaby = NSNumber(bool: !value.boolValue)
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+                ticket!.noBaby = NSNumber(value: !value.boolValue as Bool)
             })
         }
 
     }
 
-    func onCurrentMaleRoommatesEdit(sender:AnyObject) {
+    func onCurrentMaleRoommatesEdit(_ sender:AnyObject) {
         if let cell = sender as? CUTEFormRoommateCountPickerCell {
-            let value = cell.pickerView.selectedRowInComponent(0)
+            let value = cell.pickerView.selectedRow(inComponent: 0)
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.currentMaleRoommates = NSNumber(integer: value)
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+                ticket!.currentMaleRoommates = NSNumber(value: value as Int)
             })
         }
     }
 
-    func onCurrentFemaleRoommatesEdit(sender:AnyObject) {
+    func onCurrentFemaleRoommatesEdit(_ sender:AnyObject) {
         if let cell = sender as? CUTEFormRoommateCountPickerCell {
-            let value = cell.pickerView.selectedRowInComponent(0)
+            let value = cell.pickerView.selectedRow(inComponent: 0)
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.currentFemaleRoommates = NSNumber(integer: value)
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+                ticket!.currentFemaleRoommates = NSNumber(value: value as Int)
             })
         }
     }
     
-    func onAccommodatesEdit(sender:AnyObject) {
+    func onAccommodatesEdit(_ sender:AnyObject) {
         if let cell = sender as? CUTEFormRoommateCountPickerCell {
-            let value = cell.pickerView.selectedRowInComponent(0)
+            let value = cell.pickerView.selectedRow(inComponent: 0)
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.accommodates = NSNumber(integer: value)
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+                ticket!.accommodates = NSNumber(value: value as Int)
             })
         }
     }
 
-    func onIndependentBathroomEdit(sender:AnyObject) {
+    func onIndependentBathroomEdit(_ sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! NSNumber
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.independentBathroom = value
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
+                ticket!.independentBathroom = value
             })
         }
     }
 
-    func onOtherRequirements(sender:AnyObject) {
+    func onOtherRequirements(_ sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! String
 
@@ -329,18 +329,18 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                 return
             }
 
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+            self.form().syncTicket({ (ticket:CUTETicket?) -> Void in
                 if value.characters.count > 0 {
-                    ticket.otherRequirements = value
+                    ticket!.otherRequirements = value
                 }
                 else {
-                    ticket.otherRequirements = nil
+                    ticket!.otherRequirements = nil
                 }
             })
         }
     }
 
-    func onAreaEdit(sender:AnyObject) {
+    func onAreaEdit(_ sender:AnyObject) {
         let controller = CUTERentAreaViewController()
         let form = CUTEAreaForm()
         form.ticket = self.form().ticket
@@ -351,45 +351,45 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         controller.singleRoomArea = true
         controller.formController.form = form
         controller.updateRentAreaCompletion = {
-            let field = self.formController.fieldForKey("area")
-            let indexPath = self.formController.indexPathForField(field)
-            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+            let field = self.formController.field(forKey: "area")
+            let indexPath = self.formController.indexPath(for: field)
+            self.tableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.none)
         }
         self.navigationController?.pushViewController(controller, animated: true)
 
     }
 
-    func onSubmit(sender:AnyObject) {
+    func onSubmit(_ sender:AnyObject) {
         submitTicket()
     }
 
     // MARK: - Private
 
     func submitTicket() {
-        if CUTEKeyboardStateListener.sharedInstance().visible {
+        if CUTEKeyboardStateListener.sharedInstance().isVisible {
             //will trigger save other requirement
-            let field = self.formController.fieldForKey("otherRequirements")
-            let indexPath = self.formController.indexPathForField(field)
-            self.tableView.cellForRowAtIndexPath(indexPath)?.resignFirstResponder()
+            let field = self.formController.field(forKey: "otherRequirements")
+            let indexPath = self.formController.indexPath(for: field)
+            self.tableView.cellForRow(at: indexPath!)?.resignFirstResponder()
         }
 
-        if let screenName = CUTETracker.sharedInstance().getScreenNameFromObject(self) {
-            CUTETracker.sharedInstance().trackEventWithCategory(screenName, action: kEventActionPress, label: "preview-and-publish", value: nil)
-            CUTETracker.sharedInstance().trackStayDurationWithCategory(KEventCategoryPostRentTicket, screenName: screenName)
+        if let screenName = CUTETracker.sharedInstance().getScreenName(from: self) {
+            CUTETracker.sharedInstance().trackEvent(withCategory: screenName, action: kEventActionPress, label: "preview-and-publish", value: nil)
+            CUTETracker.sharedInstance().trackStayDuration(withCategory: KEventCategoryPostRentTicket, screenName: screenName)
         }
 
         SVProgressHUD.show()
-        CUTERentTicketPublisher.sharedInstance().previewTicket(self.form().ticket, updateStatus: { (status:String!) -> Void in
-            SVProgressHUD.showWithStatus(status)
-            }, cancellationToken: nil).continueWithBlock( { (task:BFTask!) -> AnyObject! in
+        CUTERentTicketPublisher.sharedInstance().previewTicket(self.form().ticket, updateStatus: { (status:String?) -> Void in
+            SVProgressHUD.show(withStatus: status)
+            }, cancellationToken: nil).continue( { (task:BFTask!) -> AnyObject! in
 
                 if task.error != nil {
                     SVProgressHUD.showErrorWithError(task.error)
                 }
                 else if task.exception != nil {
-                    SVProgressHUD.showErrorWithException(task.exception)
+                    SVProgressHUD.showError(with: task.exception)
                 }
-                else if task.cancelled {
+                else if task.isCancelled {
                     SVProgressHUD.showErrorWithCancellation()
                 }
                 else {
@@ -400,8 +400,8 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                         if let url = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + identifier) {
                             let controller = CUTERentTicketPreviewViewController()
                             controller.ticket = self.form().ticket
-                            controller.URL = url
-                            controller.loadRequest(NSURLRequest(URL:url))
+                            controller.url = url
+                            controller.load(URLRequest(url:url))
                             self.navigationController?.pushViewController(controller, animated: true)
                         }
                     }

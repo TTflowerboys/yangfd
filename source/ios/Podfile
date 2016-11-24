@@ -15,7 +15,7 @@ target 'currant' do
     pod 'INTULocationManager', '3.0.3'
     pod 'NJKWebViewProgress', '0.2.3'
     pod 'WebViewJavascriptBridge', '4.1.4'
-    pod 'Bolts', '~> 1.4.0'
+    pod 'Bolts'
     pod 'Sequencer', '1.0.1'
     pod 'CTAssetsPickerController', '2.9.4'
     pod 'Masonry', '0.6.1'

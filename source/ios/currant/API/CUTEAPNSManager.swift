@@ -13,35 +13,35 @@ import Foundation
 class CUTEAPNSManager : NSObject {
     static let sharedInstance = CUTEAPNSManager()
     var binded:Bool?
-    var deviceToken:NSData?
+    var deviceToken:Data?
     var uuid:String!
 
-    private let keyPrefix = "com.bbtechgroup.apns."
+    fileprivate let keyPrefix = "com.bbtechgroup.apns."
 
     override init() {
         super.init()
-        deviceToken = NSUserDefaults.standardUserDefaults().dataForKey(keyPrefix + "deviceToken")
-        uuid = NSUserDefaults.standardUserDefaults().stringForKey(keyPrefix + "uuid")
+        deviceToken = UserDefaults.standard.data(forKey: keyPrefix + "deviceToken")
+        uuid = UserDefaults.standard.string(forKey: keyPrefix + "uuid")
         if uuid == nil {
-            uuid = NSUUID().UUIDString
-            NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: keyPrefix + "uuid")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            uuid = UUID().uuidString
+            UserDefaults.standard.set(uuid, forKey: keyPrefix + "uuid")
+            UserDefaults.standard.synchronize()
         }
     }
 
-    func saveDeviceToken(deviceToken:NSData) {
+    func saveDeviceToken(_ deviceToken:Data) {
         self.deviceToken = deviceToken
-        NSUserDefaults.standardUserDefaults().setObject(deviceToken, forKey: keyPrefix + "deviceToken")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(deviceToken, forKey: keyPrefix + "deviceToken")
+        UserDefaults.standard.synchronize()
     }
 
     ///Call after login, and must check deviceToken
-    func bind() -> BFTask {
+    func bind() -> BFTask<AnyObject> {
 
         if deviceToken != nil {
-            let tokenString = deviceToken!.description.stringByReplacingOccurrencesOfString(" ", withString: "").stringByReplacingOccurrencesOfString("<", withString: "").stringByReplacingOccurrencesOfString(">", withString: "")
+            let tokenString = deviceToken!.description.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "<", with: "").replacingOccurrences(of: ">", with: "")
 
-            return CUTEAPIManager.sharedInstance().POST("/api/1/user/apns/" + uuid + "/register/" + tokenString, parameters: nil, resultClass: nil)
+            return CUTEAPIManager.sharedInstance().post("/api/1/user/apns/" + uuid + "/register/" + tokenString, parameters: nil, resultClass: nil)
         }
         else {
             return BFTask(error: NSError(domain: "com.bbtechgroup.apns", code: -1, userInfo: [NSLocalizedDescriptionKey: "Device token should exist"]));
@@ -50,22 +50,22 @@ class CUTEAPNSManager : NSObject {
     }
 
     ///Call before logout
-    func unbind(cookie:NSHTTPCookie) -> BFTask {
+    func unbind(_ cookie:HTTPCookie) -> BFTask<AnyObject> {
         //TODO:
-        let tcs = BFTaskCompletionSource()
-        let url = NSURL(string: "/api/1/user/apns/" + uuid + "/unregister", relativeToURL: NSURL(string: CUTEConfiguration.apiEndpoint()))
-        let request = CUTEAPIManager.sharedInstance().backingManager().requestSerializer.requestWithMethod("POST", URLString: (url?.absoluteString)!, parameters: [], error:nil)
-        let cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies([cookie])
+        let tcs = BFTaskCompletionSource<AnyObject>()
+        let url = URL(string: "/api/1/user/apns/" + uuid + "/unregister", relativeTo: URL(string: CUTEConfiguration.apiEndpoint()))
+        let request = CUTEAPIManager.sharedInstance().backingManager().requestSerializer.request(withMethod: "POST", urlString: (url?.absoluteString)!, parameters: [], error:nil)
+        let cookieHeaders = HTTPCookie.requestHeaderFields(with: [cookie])
         let headersDic = NSMutableDictionary()
         if request.allHTTPHeaderFields != nil {
-            headersDic.addEntriesFromDictionary(request.allHTTPHeaderFields!)
+            headersDic.addEntries(from: request.allHTTPHeaderFields!)
         }
-        headersDic.addEntriesFromDictionary(cookieHeaders)
+        headersDic.addEntries(from: cookieHeaders)
 
         request.allHTTPHeaderFields =  ((headersDic as NSDictionary) as! Dictionary<String, String>)
-        let operation = CUTEAPIManager.sharedInstance().backingManager().HTTPRequestOperationWithRequest(request, success: { (operation:AFHTTPRequestOperation, responseObject:AnyObject) -> Void in
-            tcs.setResult(responseObject)
-            }) { (operation:AFHTTPRequestOperation, error:NSError) -> Void in
+        let operation = CUTEAPIManager.sharedInstance().backingManager().httpRequestOperation(with: request as URLRequest, success: { (operation:AFHTTPRequestOperation, responseObject:Any) -> Void in
+            tcs.setResult(responseObject as? AnyObject)
+            }) { (operation:AFHTTPRequestOperation, error:Error) -> Void in
                 tcs.setError(error)
         }
         CUTEAPIManager.sharedInstance().backingManager().operationQueue.addOperation(operation)

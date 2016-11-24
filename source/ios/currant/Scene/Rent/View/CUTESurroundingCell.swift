@@ -23,24 +23,24 @@ class CUTESurroundingCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         typeImageView = UIImageView(image: UIImage(named: "icon-university"))
-        typeImageView.contentMode = UIViewContentMode.Center
+        typeImageView.contentMode = UIViewContentMode.center
         nameLabel = UILabel()
-        nameLabel.font = UIFont.systemFontOfSize(14)
+        nameLabel.font = UIFont.systemFont(ofSize: 14)
         nameLabel.textColor = UIColor(hex6: 0x666666)
 
         typeButton = UIButton()
-        typeButton.setImage(UIImage(named: "icon-down-arrow"), forState: UIControlState.Normal)
-        typeButton.setTitleColor(UIColor(hex6: 0x999999), forState: UIControlState.Normal)
-        typeButton.titleLabel?.font = UIFont.systemFontOfSize(12)
+        typeButton.setImage(UIImage(named: "icon-down-arrow"), for: UIControlState())
+        typeButton.setTitleColor(UIColor(hex6: 0x999999), for: UIControlState())
+        typeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
 
         durationButton = UIButton()
-        durationButton.setImage(UIImage(named: "icon-down-arrow"), forState: UIControlState.Normal)
-        durationButton.setTitleColor(UIColor(hex6: 0x999999), forState: UIControlState.Normal)
-        durationButton.titleLabel?.font = UIFont.systemFontOfSize(12)
+        durationButton.setImage(UIImage(named: "icon-down-arrow"), for: UIControlState())
+        durationButton.setTitleColor(UIColor(hex6: 0x999999), for: UIControlState())
+        durationButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
 
 
         removeButton = UIButton()
-        removeButton.setImage(UIImage(named: "button-remove"), forState: UIControlState.Normal)
+        removeButton.setImage(UIImage(named: "button-remove"), for: UIControlState())
 
         innerView = UIView()
 
@@ -54,8 +54,8 @@ class CUTESurroundingCell: UITableViewCell {
         innerView.addSubview(removeButton)
         self.contentView.addSubview(innerView)
 
-        self.backgroundColor = UIColor.clearColor()
-        self.contentView.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
+        self.contentView.backgroundColor = UIColor.clear
         self.innerView.backgroundColor = UIColor(hex6:0xffffff)
     }
 
@@ -69,7 +69,7 @@ class CUTESurroundingCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -84,49 +84,49 @@ class CUTESurroundingCell: UITableViewCell {
         let leftMargin:CGFloat = 10.0
         let topMargin:CGFloat = 8.0
         let imageSideLength:CGFloat = 20;
-        self.innerView.frame = CGRectMake(0, contentViewTopMargin, self.frame.size.width, self.frame.size.height - contentViewTopMargin)
+        self.innerView.frame = CGRect(x: 0, y: contentViewTopMargin, width: self.frame.size.width, height: self.frame.size.height - contentViewTopMargin)
 
         self.selectedBackgroundView?.frame = self.innerView.frame
 
 
-        self.typeImageView.frame = CGRectMake(leftMargin - imageOffset, topMargin, imageSideLength, imageSideLength)
+        self.typeImageView.frame = CGRect(x: leftMargin - imageOffset, y: topMargin, width: imageSideLength, height: imageSideLength)
         let nameLabelLeftMargin = (leftMargin + imageSideLength + 5)
         let nameLabelHeight:CGFloat = 20.0
-        self.nameLabel.frame = CGRectMake(nameLabelLeftMargin, topMargin, self.innerView.frame.size.width - nameLabelLeftMargin * 2, nameLabelHeight)
-        self.removeButton.frame = CGRectMake(self.innerView.frame.size.width - leftMargin - imageSideLength, topMargin, imageSideLength, imageSideLength)
+        self.nameLabel.frame = CGRect(x: nameLabelLeftMargin, y: topMargin, width: self.innerView.frame.size.width - nameLabelLeftMargin * 2, height: nameLabelHeight)
+        self.removeButton.frame = CGRect(x: self.innerView.frame.size.width - leftMargin - imageSideLength, y: topMargin, width: imageSideLength, height: imageSideLength)
 
         let typeButtonSize  = getTypeButtonSize(self.typeButton)
-        self.typeButton.frame = CGRectMake(leftMargin, self.innerView.frame.size.height - (typeButtonSize.height + topMargin), typeButtonSize.width, typeButtonSize.height)
+        self.typeButton.frame = CGRect(x: leftMargin, y: self.innerView.frame.size.height - (typeButtonSize.height + topMargin), width: typeButtonSize.width, height: typeButtonSize.height)
         layoutTypeButtonContent(self.typeButton)
         let durationButtonSize = getDurationButtonSize(self.durationButton)
-        self.durationButton.frame = CGRectMake((leftMargin + typeButtonSize.width), self.innerView.frame.size.height - (durationButtonSize.height + topMargin), durationButtonSize.width, durationButtonSize.height)
+        self.durationButton.frame = CGRect(x: (leftMargin + typeButtonSize.width), y: self.innerView.frame.size.height - (durationButtonSize.height + topMargin), width: durationButtonSize.width, height: durationButtonSize.height)
         layoutDurationButtonContent(self.durationButton)
         //TODO UIEdgeInsets what?
         if (!isBorderAdded) {
-            self.innerView.addTopBorderWithColor(UIColor(hex6: 0xe0e0e0), andWidth: 1)
-            self.innerView.addBottomBorderWithColor(UIColor(hex6: 0xe0e0e0), andWidth: 1)
-            self.durationButton.addLeftBorderWithColor(UIColor(hex6: 0xcccccc), andWidth: 1)
+            self.innerView.addTopBorder(with: UIColor(hex6: 0xe0e0e0), andWidth: 1)
+            self.innerView.addBottomBorder(with: UIColor(hex6: 0xe0e0e0), andWidth: 1)
+            self.durationButton.addLeftBorder(with: UIColor(hex6: 0xcccccc), andWidth: 1)
             self.isBorderAdded = true
         }
     }
 
 
     // MARK: - Private
-    func getTypeButtonSize(button:UIButton) -> CGSize {
+    func getTypeButtonSize(_ button:UIButton) -> CGSize {
         var text = ""
         if button.titleLabel?.text != nil {
             text = (button.titleLabel?.text)!
         }
-        let textSize = (text as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
-        let imageSize = CGSizeMake(8, 8)
+        let textSize = (text as NSString).boundingRect(with: CGSize(width: 1000, height: 1000), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
+        let imageSize = CGSize(width: 8, height: 8)
         let spacing:CGFloat = 13
         let contentMargin:CGFloat = 13
-        return CGSizeMake(textSize.width + imageSize.width + spacing + contentMargin, 20)
+        return CGSize(width: textSize.width + imageSize.width + spacing + contentMargin, height: 20)
     }
 
-    func layoutTypeButtonContent(button:UIButton) {
-        let textSize = button.titleLabel?.sizeThatFits(CGSizeMake(100, 20))
-        let imageSize = CGSizeMake(8, 8)
+    func layoutTypeButtonContent(_ button:UIButton) {
+        let textSize = button.titleLabel?.sizeThatFits(CGSize(width: 100, height: 20))
+        let imageSize = CGSize(width: 8, height: 8)
         let spacing:CGFloat = 13
         let contentMargin:CGFloat = 13
 
@@ -135,21 +135,21 @@ class CUTESurroundingCell: UITableViewCell {
         button.contentEdgeInsets = UIEdgeInsetsMake(0, -contentMargin, 0, 0);
     }
 
-    func getDurationButtonSize(button:UIButton) -> CGSize {
+    func getDurationButtonSize(_ button:UIButton) -> CGSize {
         var text = ""
         if button.titleLabel?.text != nil {
             text = (button.titleLabel?.text)!
         }
-        let textSize = (text as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
-        let imageSize = CGSizeMake(8, 8)
+        let textSize = (text as NSString).boundingRect(with: CGSize(width: 1000, height: 1000), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
+        let imageSize = CGSize(width: 8, height: 8)
         let spacing:CGFloat = 13
         let contentMargin:CGFloat = 13
-        return CGSizeMake(textSize.width + imageSize.width + spacing + contentMargin * 2, 20)
+        return CGSize(width: textSize.width + imageSize.width + spacing + contentMargin * 2, height: 20)
     }
 
-    func layoutDurationButtonContent(button:UIButton) {
-        let textSize = button.titleLabel?.sizeThatFits(CGSizeMake(100, 20))
-        let imageSize = CGSizeMake(8, 8)
+    func layoutDurationButtonContent(_ button:UIButton) {
+        let textSize = button.titleLabel?.sizeThatFits(CGSize(width: 100, height: 20))
+        let imageSize = CGSize(width: 8, height: 8)
         let spacing:CGFloat = 13
 
         button.titleEdgeInsets = UIEdgeInsetsMake(0, -imageSize.width - spacing, 0, imageSize.width)

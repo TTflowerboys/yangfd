@@ -10,7 +10,7 @@ import UIKit
 
 protocol CUTESurroundingSearchDelegate : NSObjectProtocol {
 
-    func searchAddSurrounding(surrounding:CUTESurrounding)
+    func searchAddSurrounding(_ surrounding:CUTESurrounding)
 
 }
 
@@ -31,7 +31,7 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
     // 实现隐藏“No Results” label 用的flag
     //http://stackoverflow.com/questions/11639257/how-do-i-cover-the-no-results-text-in-uisearchdisplaycontrollers-searchresult
     //http://stackoverflow.com/questions/22888016/uisearchdisplaycontroller-configure-no-results-view-not-to-overlap-tablefooter
-    private var noSearchResult:Bool = true
+    fileprivate var noSearchResult:Bool = true
 
 
     init(form:CUTESurroundingForm, postcodeIndex:String!) {
@@ -46,19 +46,19 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
 
 
     override func loadView() {
-        let size = UIScreen.mainScreen().bounds.size
-        self.view = UIView(frame: CGRectMake(0, 0, size.width, size.height))
+        let size = UIScreen.main.bounds.size
+        self.view = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
 
-        let searchBar = UISearchBar(frame: CGRectMake(0, 20, size.width, 44))
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 20, width: size.width, height: 44))
         searchBar.backgroundImage = UIImage()
         searchBar.tintColor = UIColor(hex6: 0xdd3f3d)
-        searchBar.barTintColor = UIColor.clearColor()
-        searchBar.backgroundColor = UIColor.clearColor()
+        searchBar.barTintColor = UIColor.clear
+        searchBar.backgroundColor = UIColor.clear
         searchBar.delegate = self
         searchBar.placeholder = STR("SurroundingList/输入关键字搜索学校, 地铁...")
         self.searchBar = searchBar
 
-        let tableView = UITableView(frame: CGRectMake(0, 0, size.width, size.height), style: UITableViewStyle.Plain)
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height), style: UITableViewStyle.plain)
         tableView.delegate = self
         tableView.dataSource = self
         self.view.addSubview(tableView)
@@ -69,14 +69,14 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.titleView = self.searchBar
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("取消"), style: UIBarButtonItemStyle.Plain, block: { (sender:AnyObject!) -> Void in
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("取消"), style: UIBarButtonItemStyle.plain, block: { (sender:Any!) -> Void in
 
             if self.searchCancellationTokenSource != nil {
                 self.searchCancellationTokenSource!.cancel()
             }
 
             self.searchBar.resignFirstResponder()
-            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            self.dismiss(animated: true, completion: { () -> Void in
 
             })
         })
@@ -84,27 +84,27 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
         // Do any additional setup after loading the view.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         //http://stackoverflow.com/questions/9357026/super-slow-lag-delay-on-initial-keyboard-animation-of-uitextfield
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+        DispatchQueue.main.async { () -> Void in
             self.searchBar.becomeFirstResponder()
         }
     }
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
 
     // MARK: - Table view data source
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.searchResultSurroundings.count == 0 {
             noSearchResult = true
             return 1
@@ -116,50 +116,50 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
     }
 
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if noSearchResult == true {
-            var cell = tableView.dequeueReusableCellWithIdentifier("cleanCell")
+            var cell = tableView.dequeueReusableCell(withIdentifier: "cleanCell")
             if cell == nil {
-                cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
-                cell?.textLabel?.font = UIFont.systemFontOfSize(15)
+                cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "reuseIdentifier")
+                cell?.textLabel?.font = UIFont.systemFont(ofSize: 15)
                 cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
                 cell?.removeMargins()
             }
             return cell!
         }
         else {
-            var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+            var cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier")
             if cell == nil {
-                cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
-                cell?.textLabel?.font = UIFont.systemFontOfSize(15)
+                cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "reuseIdentifier")
+                cell?.textLabel?.font = UIFont.systemFont(ofSize: 15)
                 cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
                 cell?.removeMargins()
             }
             let surrounding = self.searchResultSurroundings[indexPath.row]
             let imageView = UIImageView()
-            imageView.frame = CGRectMake(0, 0, 20, 20)
-            imageView.contentMode = UIViewContentMode.Center
+            imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            imageView.contentMode = UIViewContentMode.center
             if let type = surrounding.type {
                 if let image = type.image {
-                    if let url = NSURL(string: image) {
-                        imageView.setImageWithURL(url)
+                    if let url = URL(string: image) {
+                        imageView.setImageWith(url)
                     }
                 }
             }
             cell?.accessoryView = imageView
             cell?.textLabel?.numberOfLines = 2
-            cell?.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
+            cell?.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
             cell?.textLabel?.text = surrounding.name
             return cell!
         }
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.searchResultSurroundings.count > 0{
             let surrounding = self.searchResultSurroundings[indexPath.row]
             let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
@@ -169,44 +169,44 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
 
                 self.searchBar.resignFirstResponder()
 
-                self.navigationController?.dismissViewControllerAnimated(true, completion: { () -> Void in
+                self.navigationController?.dismiss(animated: true, completion: { () -> Void in
                     if let delegate = self.delegate {
                         delegate.searchAddSurrounding(surrounding)
                     }
                 })
             }
             else {
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
-                SVProgressHUD.showErrorWithStatus(STR("SurroundingList/已添加"))
+                tableView.deselectRow(at: indexPath, animated: true)
+                SVProgressHUD.showError(withStatus: STR("SurroundingList/已添加"))
             }
         }
         else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         //dismiss keyboard
         self.searchBar.resignFirstResponder()
     }
 
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if self.searchCancellationTokenSource != nil {
             self.searchCancellationTokenSource!.cancel()
         }
         SVProgressHUD.show()
         self.searchCancellationTokenSource = BFCancellationTokenSource()
-        CUTEGeoManager.sharedInstance.searchSurroundingsMainInfoWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex, cancellationToken:self.searchCancellationTokenSource!.token).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        CUTEGeoManager.sharedInstance.searchSurroundingsMainInfoWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex, cancellationToken:self.searchCancellationTokenSource!.token).continue({ (task:BFTask!) -> AnyObject! in
             self.searchCancellationTokenSource = nil
 
             if task.error != nil {
                 SVProgressHUD.showErrorWithError(task.error)
             }
-            else if task.cancelled {
+            else if task.isCancelled {
                 SVProgressHUD.showErrorWithCancellation()
             }
             else if task.exception != nil {
-                SVProgressHUD.showErrorWithException(task.exception)
+                SVProgressHUD.showError(with: task.exception)
             }
             else if let surroundings = task.result as? [CUTESurrounding] {
                 self.searchResultSurroundings = surroundings
@@ -214,7 +214,7 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
                 SVProgressHUD.dismiss()
             }
             return task
-        }
+        })
     }
 
 

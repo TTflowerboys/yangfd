@@ -31,8 +31,8 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
     }
 
     override func loadView() {
-        self.view = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
-        self.view.frame = UIScreen.mainScreen().bounds
+        self.view = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
+        self.view.frame = UIScreen.main.bounds
         self.tableView = self.view as! UITableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -42,7 +42,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         self.tableView.allowsSelection = false
 
         let backgroundView = UIView()
@@ -73,44 +73,44 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
     func checkShowSurroundingAddTooltip() {
 
         let userDefaultKey = CUTE_USER_DEFAULT_TIP_SURROUNDING_ADD_DISPLAYED
-        if !NSUserDefaults.standardUserDefaults().boolForKey(userDefaultKey)
+        if !UserDefaults.standard.bool(forKey: userDefaultKey)
         {
 
-            let toolTips = CUTETooltipView(targetPoint: CGPointMake(self.view.frame.size.width - 25, 54), hostView: self.navigationController?.view, tooltipText: STR("SurroundingList/点此搜索添加学校或地铁"), arrowDirection: JDFTooltipViewArrowDirection.Up, width: 200)
-            toolTips.show()
+            let toolTips = CUTETooltipView(targetPoint: CGPoint(x: self.view.frame.size.width - 25, y: 54), hostView: self.navigationController?.view, tooltipText: STR("SurroundingList/点此搜索添加学校或地铁"), arrowDirection: JDFTooltipViewArrowDirection.up, width: 200)
+            toolTips?.show()
 
             do {
                 //https://github.com/steipete/Aspects/issues/51
-                let closure:((Void)->Void) = {  toolTips.hideAnimated(true) }
-                let block: @convention(block) Void -> Void = closure
-                let objectBlock = unsafeBitCast(block, AnyObject.self)
+                let closure:((Void)->Void) = {  toolTips?.hide(animated: true) }
+                let block: @convention(block) (Void) -> Void = closure
+                let objectBlock = unsafeBitCast(block, to: AnyObject.self)
 
-                try self.aspect_hookSelector("viewWillDisappear:", withOptions: AspectOptions(rawValue: AspectOptions.PositionBefore.rawValue | AspectOptions.OptionAutomaticRemoval.rawValue), usingBlock: objectBlock)
-                try self.view.aspect_hookSelector("hitTest:withEvent:", withOptions: AspectOptions(rawValue: AspectOptions.PositionBefore.rawValue | AspectOptions.OptionAutomaticRemoval.rawValue), usingBlock: objectBlock)
+                try self.aspect_hook(#selector(UIViewController.viewWillDisappear(_:)), with: AspectOptions(rawValue: AspectOptions.positionBefore.rawValue | AspectOptions.optionAutomaticRemoval.rawValue), usingBlock: objectBlock)
+                try self.view.aspect_hook(#selector(UIView.hitTest(_:with:)), with: AspectOptions(rawValue: AspectOptions.positionBefore.rawValue | AspectOptions.optionAutomaticRemoval.rawValue), usingBlock: objectBlock)
             }
             catch let error as NSError {
                 print(error)
             }
 
-            toolTips.show()
+            toolTips?.show()
 
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: userDefaultKey)
+            UserDefaults.standard.set(true, forKey: userDefaultKey)
         }
 
     }
 
     func showBarButtonItems() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, block: { (sender) -> Void in
 
             let searchController = CUTESurroundingSearchViewController(form: self.form, postcodeIndex: self.postcodeIndex!)
             searchController.delegate = self
             let nav = UINavigationController(rootViewController: searchController)
-            nav.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-            self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+            nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            self.navigationController?.present(nav, animated: true, completion: nil)
         })
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.checkShowSurroundingAddTooltip()
     }
@@ -124,20 +124,20 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
     // MARK: - Table view data source
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (form.ticket.property.surroundings as! [CUTESurrounding]).count
     }
 
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("surroundingReuseIdentifier")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "surroundingReuseIdentifier")
 
         var surroundingCell:CUTESurroundingCell
 
@@ -145,10 +145,10 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
             surroundingCell = cell as! CUTESurroundingCell
         }
         else {
-            surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "surroundingReuseIdentifier")
-            surroundingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.default, reuseIdentifier: "surroundingReuseIdentifier")
+            surroundingCell.typeButton.addTarget(self, action: #selector(CUTESurroundingListViewController.onTypeButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+            surroundingCell.durationButton.addTarget(self, action: #selector(CUTESurroundingListViewController.onDurationButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+            surroundingCell.removeButton.addTarget(self, action: #selector(CUTESurroundingListViewController.onRemoveButtonPressed(_:)), for: UIControlEvents.touchUpInside)
             surroundingCell.removeButton.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10)
         }
         let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
@@ -156,8 +156,8 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         surroundingCell.nameLabel.text = surrounding.name
         if let type = surrounding.type {
             if let image = type.image {
-                if let url = NSURL(string: image) {
-                    surroundingCell.typeImageView.setImageWithURL(url)
+                if let url = URL(string: image) {
+                    surroundingCell.typeImageView.setImageWith(url)
                 }
             }
         }
@@ -177,11 +177,11 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         if trafficTime != nil {
             if let time = trafficTime?.time {
                 let formattedTrafficTimePeriod = self.getFormattedMinuteTimePeriod(time)
-                surroundingCell.durationButton.setTitle("\(formattedTrafficTimePeriod.value) " + (formattedTrafficTimePeriod.unitForDisplay), forState: UIControlState.Normal)
+                surroundingCell.durationButton.setTitle("\(formattedTrafficTimePeriod.value) " + (formattedTrafficTimePeriod.unitForDisplay), for: UIControlState())
             }
 
             if let type = trafficTime?.type {
-                surroundingCell.typeButton.setTitle(type.value, forState: UIControlState.Normal)
+                surroundingCell.typeButton.setTitle(type.value, for: UIControlState())
             }
 
             surroundingCell.setNeedsLayout()
@@ -191,35 +191,35 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 
-    func searchAddSurrounding(surrounding: CUTESurrounding) {
-        SVProgressHUD.showWithStatus(STR("SurroundingList/添加中..."))
-        CUTEGeoManager.sharedInstance.searchSurroundingsTrafficInfoWithProperty(self.postcodeIndex, surroundings: [surrounding], country:self.form.ticket.property.country, cancellationToken: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
-            if task.cancelled {
+    func searchAddSurrounding(_ surrounding: CUTESurrounding) {
+        SVProgressHUD.show(withStatus: STR("SurroundingList/添加中..."))
+        CUTEGeoManager.sharedInstance.searchSurroundingsTrafficInfoWithProperty(self.postcodeIndex, surroundings: [surrounding], country:self.form.ticket.property.country, cancellationToken: nil).continue({ (task:BFTask!) -> AnyObject! in
+            if task.isCancelled {
                 SVProgressHUD.showErrorWithCancellation()
             }
             else if task.error != nil {
                 SVProgressHUD.showErrorWithError(task.error)
             }
             else if task.exception != nil {
-                SVProgressHUD.showErrorWithException(task.exception)
+                SVProgressHUD.showError(with: task.exception)
             }
             else if let surroundings = task.result as? [CUTESurrounding] {
                 if surroundings.count > 0 {
                     let completedSurrounding = surroundings[0]
 
-                    self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                        var array = Array(ticket.property.surroundings as! [CUTESurrounding])
-                        array.insert(completedSurrounding, atIndex: 0)
-                        ticket.property.surroundings = array
+                    self.form.syncTicket({ (ticket:CUTETicket?) -> Void in
+                        var array = Array(ticket!.property.surroundings as! [CUTESurrounding])
+                        array.insert(completedSurrounding, at: 0)
+                        ticket!.property.surroundings = array
 
-                    }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                    }).continue({ (task:BFTask!) -> AnyObject! in
                         self.tableView.reloadData()
                         if let surroundings = self.form.ticket.property.surroundings {
                             self.showHintLabel(surroundings.count == 0)
@@ -232,17 +232,17 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
                     })
                 }
                 else {
-                    SVProgressHUD.showErrorWithStatus(STR("SurroundingList/添加失败，无法获取到该地点的交通信息"))
+                    SVProgressHUD.showError(withStatus: STR("SurroundingList/添加失败，无法获取到该地点的交通信息"))
                 }
             }
             else {
-                SVProgressHUD.showErrorWithStatus(STR("SurroundingList/添加失败，无法获取到该地点的交通信息"))
+                SVProgressHUD.showError(withStatus: STR("SurroundingList/添加失败，无法获取到该地点的交通信息"))
             }
             return task
-        }
+        })
     }
 
-    func onTypeButtonPressed(sender:UIButton) {
+    func onTypeButtonPressed(_ sender:UIButton) {
         var surroundings = Array(form.ticket.property.surroundings as! [CUTESurrounding])
         let surr = surroundings[sender.tag]
         if (surr.trafficTimes != nil) {
@@ -259,14 +259,14 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
             var defaultTimeIndex = 0
 
-            for (index, time) in surr.trafficTimes!.enumerate() {
+            for (index, time) in surr.trafficTimes!.enumerated() {
                 if time.isDefault {
                     defaultTimeIndex = index
                     break
                 }
             }
 
-            ActionSheetStringPicker.showPickerWithTitle("", rows: modes, initialSelection: defaultTimeIndex, doneBlock: { (picker:ActionSheetStringPicker!, selectedIndex:Int, selectedValue:AnyObject!) -> Void in
+            ActionSheetStringPicker.show(withTitle: "", rows: modes, initialSelection: defaultTimeIndex, doneBlock: { (picker:ActionSheetStringPicker?, selectedIndex:Int, selectedValue:Any?) -> Void in
 
                 for time in surr.trafficTimes! {
                     time.isDefault = false
@@ -274,19 +274,19 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
                 let time = surr.trafficTimes![selectedIndex]
                 time.isDefault = true
                 self.tableView.reloadData()
-                }, cancelBlock: { (picker:ActionSheetStringPicker!) -> Void in
+                }, cancel: { (picker:ActionSheetStringPicker?) -> Void in
                     
                 }, origin: sender)
         }
     }
 
-    func onDurationButtonPressed(sender:UIButton) {
+    func onDurationButtonPressed(_ sender:UIButton) {
         var surroundings = Array(form.ticket.property.surroundings as! [CUTESurrounding])
         let surr = surroundings[sender.tag]
         if (surr.trafficTimes != nil) {
             var defaultTimeIndex = 0
 
-            for (index, time) in surr.trafficTimes!.enumerate() {
+            for (index, time) in surr.trafficTimes!.enumerated() {
                 if time.isDefault {
                     defaultTimeIndex = index
                     break
@@ -298,24 +298,24 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
             let aroundValues = getAroundTime(baseTimeValue).map({ (intValue:Int32) -> String in
                 return "\(intValue)"
             })
-            let timetValueIndex = aroundValues.indexOf("\(baseTimeValue)")
+            let timetValueIndex = aroundValues.index(of: "\(baseTimeValue)")
 
-            ActionSheetStringPicker.showPickerWithTitle("", rows: aroundValues, initialSelection:timetValueIndex!, doneBlock: { (picker:ActionSheetStringPicker!, selectedIndex:Int, selectedValue:AnyObject!) -> Void in
+            ActionSheetStringPicker.show(withTitle: "", rows: aroundValues, initialSelection:timetValueIndex!, doneBlock: { (picker:ActionSheetStringPicker?, selectedIndex:Int, selectedValue:Any?) -> Void in
                 if let value = Int32(selectedValue as! String) {
 
                     SVProgressHUD.show()
-                    self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                        if let surroundings = ticket.property.surroundings {
+                    self.form.syncTicket({ (ticket:CUTETicket?) -> Void in
+                        if let surroundings = ticket!.property.surroundings {
                             let surr = (surroundings[sender.tag] as! CUTESurrounding)
                             var array = Array(surr.trafficTimes!)
 
                             let oldTrafficTime = array[defaultTimeIndex]
                             let time = CUTETimePeriod(value: value, unit: baseTime.unit!)
                             let newTrafficTime = CUTETrafficTime()
-                            newTrafficTime.type = oldTrafficTime.type
-                            newTrafficTime.isDefault = oldTrafficTime.isDefault
-                            newTrafficTime.time = time
-                            array[defaultTimeIndex] = newTrafficTime
+                            newTrafficTime!.type = oldTrafficTime.type
+                            newTrafficTime!.isDefault = oldTrafficTime.isDefault
+                            newTrafficTime!.time = time
+                            array[defaultTimeIndex] = newTrafficTime!
 
                             //update traffic time just by assign a new array, because the listener listen the trafficTims attribute
                             surr.trafficTimes = array
@@ -323,27 +323,27 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
                         }
 
 
-                    }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                    }).continue({ (task:BFTask!) -> AnyObject! in
                         self.tableView.reloadData()
                         SVProgressHUD.dismiss()
                         return task
                     })
                 }
-                }, cancelBlock: { (picker:ActionSheetStringPicker!) -> Void in
+                }, cancel: { (picker:ActionSheetStringPicker?) -> Void in
                     
                 }, origin: sender)
         }
 
     }
 
-    func onRemoveButtonPressed(sender:UIButton) {
+    func onRemoveButtonPressed(_ sender:UIButton) {
         let index = sender.tag
         SVProgressHUD.show()
-        self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-            var array = Array(ticket.property.surroundings as! [CUTESurrounding])
-            array.removeAtIndex(index)
-            ticket.property.surroundings = array
-        }).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        self.form.syncTicket({ (ticket:CUTETicket?) -> Void in
+            var array = Array(ticket!.property.surroundings as! [CUTESurrounding])
+            array.remove(at: index)
+            ticket!.property.surroundings = array
+        }).continue({ (task:BFTask!) -> AnyObject! in
             self.tableView.reloadData()
             if let surroundings = self.form.ticket.property.surroundings {
                 self.showHintLabel(surroundings.count == 0)
@@ -353,33 +353,33 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
             }
             SVProgressHUD.dismiss()
             return task
-        }
+        })
     }
 
     // MARK: - Private
 
-    func showHintLabel(show:Bool) {
+    func showHintLabel(_ show:Bool) {
         if (show) {
             if self.hintLabel == nil {
                 let label = UILabel()
                 label.textColor = UIColor(hex6: 0x999999)
-                label.textAlignment = NSTextAlignment.Center
+                label.textAlignment = NSTextAlignment.center
                 label.numberOfLines = 0
-                label.font = UIFont.systemFontOfSize(16)
+                label.font = UIFont.systemFont(ofSize: 16)
                 label.text = STR("SurroundingList/点击右上角“+”，添加周边的学校和地铁")
                 self.tableView.backgroundView?.addSubview(label)
-                label.frame = CGRectMake(0, (self.view.frame.size.height - 40) / 2, label.superview!.bounds.size.width, 40)
+                label.frame = CGRect(x: 0, y: (self.view.frame.size.height - 40) / 2, width: label.superview!.bounds.size.width, height: 40)
                 self.hintLabel = label
             }
         }
 
-        self.hintLabel?.hidden = !show
+        self.hintLabel?.isHidden = !show
         self.tableView.backgroundView?.setNeedsLayout()
     }
 
     // MARK: - Util
 
-    func getFormattedMinuteTimePeriod(timePeriod:CUTETimePeriod) -> CUTETimePeriod {
+    func getFormattedMinuteTimePeriod(_ timePeriod:CUTETimePeriod) -> CUTETimePeriod {
 
         if (timePeriod.unit == "second") {
             if (timePeriod.value < 60) {
@@ -409,7 +409,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
     }
 
 
-    func getAroundTime(timeValue:Int32) -> [Int32] {
+    func getAroundTime(_ timeValue:Int32) -> [Int32] {
         return [timeValue - 30,
             timeValue - 25,
             timeValue - 20,

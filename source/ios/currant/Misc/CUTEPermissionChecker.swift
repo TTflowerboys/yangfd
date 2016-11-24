@@ -11,29 +11,25 @@ import Foundation
 @objc(CUTEPermissionChecker)
 class CUTEPermissionChecker: NSObject {
 
-    private static let loginRequiredURLs = ["/user", "/user-favorites", "/user-properties"]
-    private static let needRefreshContentWhenUserUpdateURLs = ["/", "/requirement"]
+    fileprivate static let loginRequiredURLs = ["/user", "/user-favorites", "/user-properties"]
+    fileprivate static let needRefreshContentWhenUserUpdateURLs = ["/", "/requirement"]
 
-    static func isURLLoginRequired(URL:NSURL) -> Bool {
-        if let urlPath = URL.path?.stringByReplacingOccurrencesOfString("_", withString: "-") {
-            return loginRequiredURLs.contains(urlPath)
-        }
-        return false
+    static func isURLLoginRequired(_ URL:Foundation.URL) -> Bool {
+        let urlPath = URL.path.replacingOccurrences(of: "_", with: "-")
+        return loginRequiredURLs.contains(urlPath)
     }
 
-    static func isURLNeedRefreshContentWhenUserUpdate(URL:NSURL) -> Bool {
-        if let urlPath = URL.path?.stringByReplacingOccurrencesOfString("_", withString: "-") {
-            return needRefreshContentWhenUserUpdateURLs.contains(urlPath)
-        }
-        return false
+    static func isURLNeedRefreshContentWhenUserUpdate(_ URL:Foundation.URL) -> Bool {
+        let urlPath = URL.path.replacingOccurrences(of: "_", with: "-")
+        return needRefreshContentWhenUserUpdateURLs.contains(urlPath)
     }
 
-    static func redirectedURLWithURL(URL:NSURL) -> NSURL? {
-        return NSURL(string: "/signin?from=" + (URL.absoluteString.URLEncode())!, relativeToURL: CUTEConfiguration.hostURL())
+    static func redirectedURLWithURL(_ URL:Foundation.URL) -> Foundation.URL? {
+        return Foundation.URL(string: "/signin?from=" + (URL.absoluteString.urlEncode())!, relativeTo: CUTEConfiguration.hostURL())
     }
 
-    static func URLWithPath(path:String) -> NSURL? {
-        if let originalURL = NSURL(string: path, relativeToURL: CUTEConfiguration.hostURL()) {
+    static func URLWithPath(_ path:String) -> URL? {
+        if let originalURL = URL(string: path, relativeTo: CUTEConfiguration.hostURL()) {
             if self.isURLLoginRequired(originalURL) && !CUTEDataManager.sharedInstance().isUserLoggedIn() {
                 return redirectedURLWithURL(originalURL)
             }
@@ -45,7 +41,7 @@ class CUTEPermissionChecker: NSObject {
         return nil
     }
 
-    static func URLWithURL(originalURL:NSURL) -> NSURL? {
+    static func URLWithURL(_ originalURL:URL) -> URL? {
         if self.isURLLoginRequired(originalURL) && !CUTEDataManager.sharedInstance().isUserLoggedIn() {
             return redirectedURLWithURL(originalURL)
         }

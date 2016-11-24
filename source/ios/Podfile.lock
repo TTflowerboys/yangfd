@@ -33,12 +33,12 @@ PODS:
     - Overcoat (~> 1.2)
   - BBTUtility (0.0.1):
     - ObjectiveSugar
-  - Bolts (1.4.0):
-    - Bolts/AppLinks (= 1.4.0)
-    - Bolts/Tasks (= 1.4.0)
-  - Bolts/AppLinks (1.4.0):
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
-  - Bolts/Tasks (1.4.0)
+  - Bolts/Tasks (1.8.4)
   - Bugtags (1.1.9)
   - Crashlytics (3.7.1):
     - Fabric (~> 1.6.3)
@@ -172,7 +172,7 @@ DEPENDENCIES:
   - BBTAppUpdater (from `git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git`)
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
-  - Bolts (~> 1.4.0)
+  - Bolts
   - Bugtags (~> 1.1.6)
   - Crashlytics
   - CTAssetsPickerController (= 2.9.4)
@@ -248,7 +248,7 @@ SPEC CHECKSUMS:
   BBTAppUpdater: 2aba37021612f15bf1cb9f3a34c5c147c5a9f4fe
   BBTRestClient: d3205d65ebc0851c0f8c4c69e2fedf9ace0b6134
   BBTUtility: 55ffd4489f190073d4a889839b6a67cc2f76fc5f
-  Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Bugtags: cff5f312f214af51b2f4fcdd65258d1874a0fd2e
   Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
   CTAssetsPickerController: 3030dc60f5d1a3c4e5b1c0aa9f069220d5bf7008
@@ -297,6 +297,6 @@ SPEC CHECKSUMS:
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 793e22d1ae6bbdf92d9b839cc7ce4e97d087220b
+PODFILE CHECKSUM: 520eca83dc33cdbb9b88496772b70485ee3934a9
 
 COCOAPODS: 1.0.1

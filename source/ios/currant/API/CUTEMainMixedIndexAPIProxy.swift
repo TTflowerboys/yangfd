@@ -17,14 +17,14 @@ import UIKit
 
     var restClient:BBTRestClient
 
-    func getModifiedJsonDictionary(jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
+    func getModifiedJsonDictionary(_ jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
 
         let type = jsonDic["type"] as! [String:AnyObject]
         let typeKey = type["slug"] as! String
 
         //tricky: server has a id but no use for client
         var removeIdDic = jsonDic
-        removeIdDic.removeValueForKey("id")
+        removeIdDic.removeValue(forKey: "id")
 
         var dic = [String:AnyObject]()
         for (key, value) in removeIdDic {
@@ -38,25 +38,25 @@ import UIKit
         return dic
     }
 
-    func getAdaptedResponseObject(responseObject:AnyObject!, jsonData:NSData?, resultClass: AnyClass!, keyPath: String!) -> BFTask! {
-        let tcs = BFTaskCompletionSource()
+    func getAdaptedResponseObject(_ responseObject:AnyObject!, jsonData:Data?, resultClass: AnyClass!, keyPath: String!) -> BFTask<AnyObject>! {
+        let tcs = BFTaskCompletionSource<AnyObject>()
 
         if responseObject is [CUTESurrounding] {
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continue({ (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
-                    let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
-                    let array = result.valueForKeyPath(keyPath) as! [[String:AnyObject]]
+                    let result = try JSONSerialization .jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions(rawValue: 0)) as AnyObject
+                    let array = result.value(forKeyPath: keyPath) as! [[String:AnyObject]]
                     let models = array.map({ (dic:[String:AnyObject]) -> CUTESurrounding in
-                        return  MTLJSONAdapter.modelOfClass(resultClass, fromJSONDictionary:self.getModifiedJsonDictionary(dic, types: types)) as! CUTESurrounding
+                        return  MTLJSONAdapter.model(of: resultClass, fromJSONDictionary:self.getModifiedJsonDictionary(dic, types: types)) as! CUTESurrounding
                     })
-                    tcs.setResult(models)
+                    tcs.setResult(models as AnyObject?)
                 }
                 catch let error as NSError {
                     print(error)
                 }
                 return task
-            }
+            })
         }
         else {
             tcs.setResult(responseObject)
@@ -65,26 +65,26 @@ import UIKit
     }
 
 
-    func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask! {
-        let tcs = BFTaskCompletionSource()
-        let URL = NSURL(string: URLString, relativeToURL:self.restClient.baseURL)
+    func method(_ method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask<AnyObject>! {
+        let tcs = BFTaskCompletionSource<AnyObject>()
+        let URL = Foundation.URL(string: URLString, relativeTo:self.restClient.baseURL)
         var absURLString = URLString
         if URL != nil {
             absURLString = URL!.absoluteString
         }
-        let request = self.restClient.requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: parameters, error: nil)
-        let operation = self.restClient.HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
+        let request = self.restClient.requestSerializer.request(withMethod: method, urlString: absURLString!, parameters: parameters, error: nil)
+        let operation = self.restClient.httpRequestOperation(with: request as URLRequest!, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation?, responseObject:Any?, error:Error?) -> Void in
 
             //trySetCancelled will cancel this request
-            if tcs.task.cancelled {
+            if tcs.task.isCancelled {
                 return;
             }
 
             if error != nil {
-                tcs.setError(error)
+                tcs.setError(error!)
             }
             else {
-                self.getAdaptedResponseObject(responseObject, jsonData: operation.responseData, resultClass: resultClass, keyPath:keyPath).continueWithSuccessBlock({ (task:BFTask!) -> AnyObject! in
+                self.getAdaptedResponseObject(responseObject as AnyObject!, jsonData: operation!.responseData, resultClass: resultClass, keyPath:keyPath).continue(successBlock: { (task:BFTask!) -> AnyObject! in
                     tcs.setResult(task.result)
                     return task
                 })
@@ -92,12 +92,12 @@ import UIKit
         })
 
         if cancellationToken != nil {
-            cancellationToken!.registerCancellationObserverWithBlock({ () -> Void in
-                operation.cancel()
+            cancellationToken!.registerCancellationObserver({ () -> Void in
+                operation!.cancel()
                 tcs.trySetCancelled()
             })
         }
-        self.restClient.operationQueue.addOperation(operation)
+        self.restClient.operationQueue.addOperation(operation!)
         return tcs.task
     }
 

@@ -14,23 +14,16 @@ import Foundation
 extension UITableViewCell {
     func removeMargins() {
 
-        if self.respondsToSelector("setSeparatorInset:") {
-            self.separatorInset = UIEdgeInsetsZero
+        if self.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
+            self.separatorInset = UIEdgeInsets.zero
         }
 
-        if self.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
-            if #available(iOS 8.0, *) {
+        if #available(iOS 8.0, *) {
+            if self.responds(to: #selector(setter: UIView.preservesSuperviewLayoutMargins)) {
                 self.preservesSuperviewLayoutMargins = false
-            } else {
-                // Fallback on earlier versions
             }
-        }
-
-        if self.respondsToSelector("setLayoutMargins:") {
-            if #available(iOS 8.0, *) {
-                self.layoutMargins = UIEdgeInsetsZero
-            } else {
-                // Fallback on earlier versions
+            if self.responds(to: #selector(setter: UIView.layoutMargins)) {
+                self.layoutMargins = UIEdgeInsets.zero
             }
         }
     }
@@ -38,10 +31,10 @@ extension UITableViewCell {
 
 extension UITableView {
     func removeMargins() {
-        self.separatorInset = UIEdgeInsetsZero
+        self.separatorInset = UIEdgeInsets.zero
 
         if #available(iOS 8.0, *) {
-            self.layoutMargins = UIEdgeInsetsZero
+            self.layoutMargins = UIEdgeInsets.zero
             self.preservesSuperviewLayoutMargins = false
         } else {
             // Fallback on earlier versions

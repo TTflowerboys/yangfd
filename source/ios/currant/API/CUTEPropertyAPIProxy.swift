@@ -19,18 +19,18 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     var restClient:BBTRestClient
 
     //, "hesaUniversity":"hesa_university", "doogalStation":"doogal_station"
-    func getAdaptedParamters(parameters: [String: AnyObject]?) -> BFTask! {
+    func getAdaptedParamters(_ parameters: [String: AnyObject]?) -> BFTask<AnyObject>! {
         if parameters != nil {
 
-            return CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
-                let types = task.result as! [CUTEEnum]
+            return CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continue({ (task:BFTask?) -> Any?! in
+                let types = task!.result as! [CUTEEnum]
 
                 var params = [String: AnyObject]()
                 for (paramKey, paramValue) in parameters! {
                     if paramKey == "featured_facility" {
-                        if let featuredFacility = paramValue as? [[String:AnyObject]] {
-                            params[paramKey] = featuredFacility.map({ (facilityDictionary:[String:AnyObject]) -> [String:AnyObject] in
+                        if let featuredFacility:[[String:AnyObject]] = paramValue as? [[String:AnyObject]] {
 
+                            params[paramKey] = featuredFacility.map({ (facilityDictionary:[String: AnyObject]) -> [String:AnyObject] in
                                 let typeId = facilityDictionary["type"] as! String
                                 let typeKey = types.filter({ (type:CUTEEnum) -> Bool in
                                     return type.identifier == typeId
@@ -48,16 +48,18 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                                 }
 
                                 return dic
-                            })
+                            }) as AnyObject
                         }
                     }
                     else {
                         params[paramKey] = paramValue
                     }
                 }
-                
-                return BFTask(result: params)
-            }
+
+
+                let result = params as AnyObject
+                return BFTask(result: result)
+            })
         }
         else {
             return BFTask(result: nil)
@@ -65,12 +67,12 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
     }
 
-    static func getModifiedJsonDictionary(jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
+    static func getModifiedJsonDictionary(_ jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
         var modifiedJsonDic = [String:AnyObject]()
         for (jsonKey, jsonValue) in jsonDic {
             if jsonKey == "featured_facility" {
                 if let featuredFacility = jsonValue as? [[String:AnyObject]] {
-                    modifiedJsonDic[jsonKey] = featuredFacility.map({ (facilityDictionary:[String:AnyObject]) -> [String:AnyObject] in
+                    modifiedJsonDic[jsonKey] = featuredFacility.map({(facilityDictionary:[String:AnyObject]) -> [String:AnyObject] in
                         let type = facilityDictionary["type"] as! [String:AnyObject]
                         let typeKey = type["slug"] as! String
 
@@ -104,7 +106,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                             }
                         }
                         return dic
-                    })
+                    }) as AnyObject
                 }
             }
             else {
@@ -114,20 +116,21 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
         return modifiedJsonDic
     }
 
-    func getAdaptedResponseObject(responseObject:AnyObject!, jsonData:NSData?, resultClass: AnyClass!, keyPath: String!) -> BFTask! {
-        let tcs = BFTaskCompletionSource()
+    func getAdaptedResponseObject(_ responseObject:AnyObject!, jsonData:Data?, resultClass: AnyClass!, keyPath: String!) -> BFTask<AnyObject>! {
+        let tcs = BFTaskCompletionSource<AnyObject>()
 
 
         if responseObject is CUTEProperty {
 
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continue({ (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
-                    let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
-                    if let val = result.valueForKeyPath(keyPath) as? [String:AnyObject] {
+                    let result = try JSONSerialization .jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions(rawValue: 0)) as AnyObject
+
+                    if let val = result.value(forKeyPath: keyPath) as? [String:AnyObject] {
 
                         //TODO fix this warning
-                        let model = MTLJSONAdapter.modelOfClass(resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(val, types: types))
+                        let model = MTLJSONAdapter.model(of: resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(val, types: types)) as AnyObject
 
                         tcs.setResult(model)
                     }
@@ -137,17 +140,17 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 }
 
                 return task
-            }
+            })
         }
         else if responseObject is [CUTEProperty] {
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continue({ (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
-                    let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
-                    let array = result.valueForKeyPath(keyPath) as! [[String:AnyObject]]
+                    let result = try JSONSerialization .jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions(rawValue: 0)) as AnyObject
+                    let array = result.value(forKeyPath: keyPath) as! [[String:AnyObject]]
                     let models = array.map({ (dic:[String:AnyObject]) -> CUTEProperty in
-                        return  MTLJSONAdapter.modelOfClass(resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(dic, types: types)) as! CUTEProperty
-                    })
+                        return  MTLJSONAdapter.model(of: resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(dic, types: types)) as! CUTEProperty
+                    }) as AnyObject
                     tcs.setResult(models)
                 }
                 catch let error as NSError {
@@ -156,7 +159,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
 
                 return task
-            }
+            })
         }
         else {
             tcs.setResult(responseObject)
@@ -165,30 +168,30 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     }
 
 
-    func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask! {
-        let tcs = BFTaskCompletionSource()
-        self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
+    func method(_ method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask<AnyObject>! {
+        let tcs = BFTaskCompletionSource<AnyObject>()
+        self.getAdaptedParamters(parameters).continue({ (task:BFTask!) -> AnyObject! in
             let modifiedParamters  = task.result as? [String : AnyObject]
 
-            let URL = NSURL(string: URLString, relativeToURL:self.restClient.baseURL)
+            let URL = Foundation.URL(string: URLString, relativeTo:self.restClient.baseURL)
             var absURLString = URLString
             if URL != nil {
                 absURLString = URL!.absoluteString
             }
 
-            let request = self.restClient.requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: modifiedParamters, error: nil)
-            let operation = self.restClient.HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
+            let request = self.restClient.requestSerializer.request(withMethod: method, urlString: absURLString!, parameters: modifiedParamters, error: nil)
+            let operation = self.restClient.httpRequestOperation(with: request as URLRequest, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation?, responseObject:Any?, error:Error?) -> Void in
 
                 //trySetCancelled will cancel this request
-                if tcs.task.cancelled {
+                if tcs.task.isCancelled {
                     return;
                 }
 
                 if error != nil {
-                    tcs.setError(error)
+                    tcs.setError(error!)
                 }
                 else {
-                    self.getAdaptedResponseObject(responseObject, jsonData: operation.responseData, resultClass: resultClass, keyPath:keyPath).continueWithSuccessBlock({ (task:BFTask!) -> AnyObject! in
+                    self.getAdaptedResponseObject(responseObject as AnyObject, jsonData: operation!.responseData, resultClass: resultClass, keyPath:keyPath).continue(successBlock: { (task:BFTask!) -> AnyObject! in
                         tcs.setResult(task.result)
                         return task
                     })
@@ -196,15 +199,15 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
             })
 
             if cancellationToken != nil {
-                cancellationToken!.registerCancellationObserverWithBlock({ () -> Void in
-                    operation.cancel()
+                cancellationToken!.registerCancellationObserver({ () -> Void in
+                    operation!.cancel()
                     tcs.trySetCancelled()
                 })
             }
-            self.restClient.operationQueue.addOperation(operation)
+            self.restClient.operationQueue.addOperation(operation!)
             
             return task
-        }
+        })
         return tcs.task
     }
 }

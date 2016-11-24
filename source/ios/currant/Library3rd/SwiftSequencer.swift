@@ -11,8 +11,8 @@ import Foundation
 
 class SwiftSequencer {
 
-    typealias SequencerNext = (AnyObject? -> Void)
-    typealias SequencerStep = (AnyObject?, SequencerNext) -> Void
+    typealias SequencerNext = ((AnyObject?) -> Void)
+    typealias SequencerStep = (AnyObject?, @escaping SequencerNext) -> Void
 
     var steps: [SequencerStep]  = []
 
@@ -20,15 +20,15 @@ class SwiftSequencer {
         runNextStepWithResult(nil)
     }
 
-    func enqueueStep(step: SequencerStep) {
+    func enqueueStep(_ step: @escaping SequencerStep) {
         steps.append(step)
     }
 
     func dequeueNextStep() -> (SequencerStep) {
-        return steps.removeAtIndex(0)
+        return steps.remove(at: 0)
     }
 
-    func runNextStepWithResult(result: AnyObject?) {
+    func runNextStepWithResult(_ result: AnyObject?) {
         if (steps.count <= 0) {
             return
         }
