@@ -2,34 +2,24 @@
 import sys
 from pkg_resources import load_entry_point
 
-# Hack jinja2 to recognize bottle STPL's {{!variable}} syntax
-try:
-    from jinja2 import ext
-    from StringIO import StringIO
 
-    _babel_extract = ext.babel_extract
-    def babel_extract_with_stpl_support(fileobj, *args, **kwargs):
-        new_fileobj = StringIO(fileobj.read().replace("{{!", "{{"))
-        return _babel_extract(new_fileobj, *args, **kwargs)
+def patch_babel():
+    # Hack babel to support Language header
+    import babel.messages.catalog
 
-    ext.babel_extract = babel_extract_with_stpl_support
-except ImportError:
-    print("jinja2 not present, ignoring monkey-patching...")
+    _get_mime_headers = babel.messages.catalog.Catalog._get_mime_headers
 
+    def _get_mime_headers_with_language(self):
+        headers = _get_mime_headers(self)
+        if self.locale is not None:
+            headers.append(('Language', str(self.locale)))
+        return headers
 
-# Hack babel to support Language header
-import babel.messages.catalog
+    babel.messages.catalog.Catalog.mime_headers = property(_get_mime_headers_with_language, babel.messages.catalog.Catalog._set_mime_headers)
 
-_get_mime_headers = babel.messages.catalog.Catalog._get_mime_headers
-def _get_mime_headers_with_language(self):
-    headers = _get_mime_headers(self)
-    if self.locale is not None:
-        headers.append(('Language', str(self.locale)))
-    return headers
-
-babel.messages.catalog.Catalog.mime_headers = property(_get_mime_headers_with_language, babel.messages.catalog.Catalog._set_mime_headers)
 
 if __name__ == '__main__':
+    patch_babel()
     sys.exit(
         load_entry_point('Babel', 'console_scripts', 'pybabel')()
     )
