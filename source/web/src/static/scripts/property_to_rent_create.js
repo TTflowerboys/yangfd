@@ -91,8 +91,10 @@
         window.previewIframe.window.isInit = false
         window.previewMoveTo(0)
         $('#previewIframe').attr('src', location.protocol + '//' + location.host + '/wechat-poster/' + ticketId)
+        
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
+        initInfoReport()
         initInfoHeight()
         window.signinSuccessCallback = function () {
             var deferred = $.Deferred()
@@ -1366,6 +1368,7 @@
                     window.previewMoveTo(index)
                     window.previewIframe.window.wechatSwiperMoveTo(index)
                     initInfoHeight()
+                    initInfoReport()
                 }
             }
         })
@@ -1377,7 +1380,24 @@
         })
     }
     function initInfoHeight(){
-        $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
+        $('.infoBox .info').css('height', $('.infoBox .info div').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
+    }
+    function initInfoReport(){
+        var originPostcode = $('#postcode').val().replace(/\s/g, '').toUpperCase();
+        if (originPostcode.length>3 && window.lang === 'zh_Hans_CN') {
+            $.betterPost('/api/1/report/search/?zipcode_index=' + originPostcode.slice(0,originPostcode.length-3))
+                .done(function(val){
+                    console.log('here')
+                    if (val.length) {
+                        $(".infoBox").find('.last').show();
+                    }else{
+                        $(".infoBox").find('.last').show();
+                    }
+                })
+                .fail(function (ret) {
+                    $(".infoBox").find('.last').show();
+                })
+        }
     }
 
     function PropertyViewModel() {
@@ -1611,6 +1631,7 @@
         })
 
         initInfoHeight()
+        initInfoReport()
         var uploadFileConfig = {
             url: '/api/1/upload_image',
             fileName: 'data',

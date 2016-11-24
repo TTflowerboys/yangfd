@@ -334,7 +334,7 @@
             </div>
         </div>
         %end
-        % if report:
+        % if report and _.lang == 'zh_Hans_CN':
         <div class="swiper-slide swiper-slide-bg commen " style="">
             <div class="page pageRegion">
                 <h2 class="animate">{{_('街区报告：')}}<span>{{report.get('name','')}}</span></h2>
