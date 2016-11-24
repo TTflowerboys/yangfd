@@ -1413,6 +1413,8 @@
         this.availableRoommatesList = ko.observableArray(window.team.generateArray(10))
         this.availableRoommates = ko.observable(rent.accommodates)
         this.roommateUnit = window.lang === 'zh_Hans_CN'? window.i18n('人'): ''
+        this.maleroommateUnit = window.lang === 'zh_Hans_CN'? window.i18n('男'): ' Male'
+        this.femaleroommateUnit = window.lang === 'zh_Hans_CN'? window.i18n('女'): ' Female'
         this.minAgeList = ko.observableArray(window.team.generateArray(80))
         this.minAge = ko.observable(rent.min_age)
         this.maxAgeList = ko.observableArray(window.team.generateArray(80))
