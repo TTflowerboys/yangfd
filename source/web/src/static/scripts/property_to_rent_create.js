@@ -94,7 +94,7 @@
         
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
-        initInfoReport()
+
         initInfoHeight()
         window.signinSuccessCallback = function () {
             var deferred = $.Deferred()
@@ -1367,7 +1367,6 @@
                 if(window.previewIframe && window.previewIframe.window && typeof window.previewIframe.window.wechatSwiperMoveTo === 'function') {
                     window.previewMoveTo(index)
                     window.previewIframe.window.wechatSwiperMoveTo(index)
-                    initInfoReport()
                     initInfoHeight()                    
                 }
             }
@@ -1380,23 +1379,33 @@
         })
     }
     function initInfoHeight(){
-        $('.infoBox .info').css('height', $('.infoBox .info div').last().offset().top - $('.infoBox .info dt').first().offset().top + 'px') //设置说明文案左边的竖线的高度
+        initInfoReport()
     }
     function initInfoReport(){
-        var originPostcode = $('#postcode').val().replace(/\s/g, '').toUpperCase();
-        if (originPostcode.length>3 && window.lang === 'zh_Hans_CN') {
-            $.betterPost('/api/1/report/search/?zipcode_index=' + originPostcode.slice(0,originPostcode.length-3))
-                .done(function(val){
-                    if (val.length) {
-                        $(".infoBox").find('.last').show();
-                    }else{
-                        $(".infoBox").find('.last').hide();
-                    }
-                })
-                .fail(function (ret) {
-                    $(".infoBox").find('.last').show();
-                })
+        if (window.lang === 'zh_Hans_CN') {
+            $.betterPost('/api/1/rent_ticket/'+window.ticketId+'/edit').done(function(val){
+                var originPostcode
+                var originPostcode = val['index']['142'].replace(/\s/g, '').toUpperCase();
+                if (originPostcode.length) {
+                    $.betterPost('/api/1/report/search/?zipcode_index=' + originPostcode)
+                        .done(function(value){
+                            if (value.length) {
+                                $('.infoBox').find('.last').show();
+                                $('.infoBox .info').css('height', $('.infoBox .info dt.last').last().offset().top - $('.infoBox .info dt').first().offset().top + 'px') //设置说明文案左边的竖线的高度
+                            }else{
+                                $('.infoBox').find('.last').remove();
+                                $('.infoBox .info').css('height', $('.infoBox .info dt').last().offset().top - $('.infoBox .info dt').first().offset().top + 'px') //设置说明文案左边的竖线的高度
+                            }
+                        })
+                        .fail(function (ret) {
+                            $('.infoBox').find('.last').hide();
+                        })
+                }
+            })
+        }else{
+            $('.infoBox .info').css('height', $('.infoBox .info dt').last().offset().top - $('.infoBox .info dt').first().offset().top + 'px')
         }
+        
     }
 
     function PropertyViewModel() {
@@ -1629,7 +1638,6 @@
             }
         })
 
-        initInfoReport()
         initInfoHeight()        
         var uploadFileConfig = {
             url: '/api/1/upload_image',
