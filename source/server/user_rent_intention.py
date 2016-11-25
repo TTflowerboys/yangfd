@@ -42,8 +42,8 @@ def get_data_enum(user, enum_name):
         if single.get("id", None):
             enum_id = str(single.get("id", None))
             value = enum_type_list[enum_name].get(enum_id, None)
-            #print enum_id
-            #print enum_type_list[enum_name]
+            # print enum_id
+            # print enum_type_list[enum_name]
             if value is not None:
                 value_list.append(value)
     if not f_app.util.batch_iterable(value_list):
@@ -54,12 +54,12 @@ def get_data_enum(user, enum_name):
 
 
 def get_correct_col_index(num):
-    if num > 26*26:
+    if num > 26 * 26:
         return "ZZ"
     if num >= 26:
-        return get_correct_col_index(num/26-1)+chr(num-26+65)
+        return get_correct_col_index(num / 26 - 1) + chr(num - 26 + 65)
     else:
-        return chr(num+65)
+        return chr(num + 65)
 
 
 def add_link(sheet, target, link=None):
@@ -68,7 +68,7 @@ def add_link(sheet, target, link=None):
     if f_app.util.batch_iterable(target):
         pass
     else:
-        for index in range(2, len(sheet.rows)+1):
+        for index in range(2, len(sheet.rows) + 1):
             cell = sheet[target + unicode(index)]
             if len(cell.value):
                 if link is None:
@@ -90,8 +90,8 @@ def get_diff_color(total):
     else:
         return
     for index in range(total):
-        color = base_color + s*index
-        color_t = '00'+"%x" % color
+        color = base_color + s * index
+        color_t = '00' + "%x" % color
         fill.append(PatternFill(fill_type='solid', start_color=color_t, end_color=color_t))
     return fill
 
@@ -139,8 +139,8 @@ def format_fit(sheet):
                 lencur = len(cell.value.encode("GBK", "replace"))
             if lencur > lenmax:
                 lenmax = lencur
-        sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
-        print "col "+get_correct_col_index(num)+" fit."
+        sheet.column_dimensions[get_correct_col_index(num)].width = lenmax * 0.86
+        print "col " + get_correct_col_index(num) + " fit."
 
 
 def get_referer_id(ticket):
@@ -155,12 +155,12 @@ def get_referer_id(ticket):
             continue
         if rst_time - diff_time < time < rst_time + diff_time:
             if flag:
-                print "bingo. "+str(rst_time)
+                print "bingo. " + str(rst_time)
             flag = 1
             record = single
     if flag:
         return get_id_in_url(record.get("referer", ''))
-    print "cant find when "+str(time)
+    print "cant find when " + str(time)
     return ''
 
 
@@ -256,7 +256,7 @@ def get_all_enum_value(enum_singlt_type):
 def get_referer_url(referer_id):
     if referer_id is None:
         return ''
-    return "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/"+unicode(referer_id)
+    return "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + unicode(referer_id)
 
 # enum_type = ["rent_type", "landlord_type"]
 

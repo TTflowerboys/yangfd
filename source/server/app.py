@@ -3,9 +3,9 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 before = datetime.utcnow()
 
-from libfelix.f_common import f_app, make_error_codes_docs
-import common
-import libfelix.f_user
+from libfelix.f_common import f_app, make_error_codes_docs  # noqa: E402, F401
+import common                                               # noqa: E402, F401
+import libfelix.f_user                                      # noqa: E402, F401
 
 # Import modules you need here
 import libfelix.f_ad

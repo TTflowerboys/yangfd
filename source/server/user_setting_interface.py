@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 import logging
 from app import f_app
-from libfelix.f_interface import f_get, redirect, template_gettext as _
+from libfelix.f_interface import f_get, template_gettext as _
 import currant_util
 import currant_data_helper
 
