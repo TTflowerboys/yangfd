@@ -557,7 +557,7 @@
                             return errorList.push(window.i18n('起租日期不能早于今天'))
                         }
                         if(this.params().rent_available_time > this.params().rent_deadline_time) {
-                            return errorList.push(window.i18n('起租日期不能晚于结束日期'))
+                            return errorList.push(window.i18n('结束日期需要大于开始日期'))
                         }
                         if(this.params().rent_available_time > this.params().rent_deadline_time - 24 * 60 * 60) {
                             return errorList.push(window.i18n('租期至少一天'))
