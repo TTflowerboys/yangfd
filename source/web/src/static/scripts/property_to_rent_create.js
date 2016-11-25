@@ -91,8 +91,10 @@
         window.previewIframe.window.isInit = false
         window.previewMoveTo(0)
         $('#previewIframe').attr('src', location.protocol + '//' + location.host + '/wechat-poster/' + ticketId)
+        
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
+
         initInfoHeight()
         window.signinSuccessCallback = function () {
             var deferred = $.Deferred()
@@ -1365,7 +1367,7 @@
                 if(window.previewIframe && window.previewIframe.window && typeof window.previewIframe.window.wechatSwiperMoveTo === 'function') {
                     window.previewMoveTo(index)
                     window.previewIframe.window.wechatSwiperMoveTo(index)
-                    initInfoHeight()
+                    initInfoHeight()                    
                 }
             }
         })
@@ -1377,7 +1379,33 @@
         })
     }
     function initInfoHeight(){
-        $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
+        initInfoReport()
+    }
+    function initInfoReport(){
+        if (window.lang === 'zh_Hans_CN') {
+            $.betterPost('/api/1/rent_ticket/'+window.ticketId+'/edit').done(function(val){
+                var originPostcode
+                var originPostcode = val['index']['142'].replace(/\s/g, '').toUpperCase();
+                if (originPostcode.length) {
+                    $.betterPost('/api/1/report/search/?zipcode_index=' + originPostcode)
+                        .done(function(value){
+                            if (value.length) {
+                                $('.infoBox').find('.last').show();
+                                $('.infoBox .info').css('height', $('.infoBox .info dt.last').last().offset().top - $('.infoBox .info dt').first().offset().top + 'px') //设置说明文案左边的竖线的高度
+                            }else{
+                                $('.infoBox').find('.last').remove();
+                                $('.infoBox .info').css('height', $('.infoBox .info dt').last().offset().top - $('.infoBox .info dt').first().offset().top + 'px') //设置说明文案左边的竖线的高度
+                            }
+                        })
+                        .fail(function (ret) {
+                            $('.infoBox').find('.last').hide();
+                        })
+                }
+            })
+        }else{
+            $('.infoBox .info').css('height', $('.infoBox .info dt').last().offset().top - $('.infoBox .info dt').first().offset().top + 'px')
+        }
+        
     }
 
     function PropertyViewModel() {
@@ -1413,6 +1441,8 @@
         this.availableRoommatesList = ko.observableArray(window.team.generateArray(10))
         this.availableRoommates = ko.observable(rent.accommodates)
         this.roommateUnit = window.lang === 'zh_Hans_CN'? window.i18n('人'): ''
+        this.maleroommateUnit = window.lang === 'zh_Hans_CN'? window.i18n('男'): ' Male'
+        this.femaleroommateUnit = window.lang === 'zh_Hans_CN'? window.i18n('女'): ' Female'
         this.minAgeList = ko.observableArray(window.team.generateArray(80))
         this.minAge = ko.observable(rent.min_age)
         this.maxAgeList = ko.observableArray(window.team.generateArray(80))
@@ -1608,7 +1638,7 @@
             }
         })
 
-        initInfoHeight()
+        initInfoHeight()        
         var uploadFileConfig = {
             url: '/api/1/upload_image',
             fileName: 'data',

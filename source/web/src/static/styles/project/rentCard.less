@@ -289,8 +289,9 @@
 
                 .label{
                     font-family: @font-normal;
-                    margin-bottom: 5px;
+                    margin-bottom: 2px;
                     font-size: @root-font-size * 0.9;
+                    white-space: nowrap;
                     body[lang=en_GB] & {
                         line-height: 1.1;
                     }
@@ -312,25 +313,20 @@
                     }
 
                     body[lang=en_GB] & {
-                        font-size: 0.6rem;
+                        font-size: 10px;
                     }
                 }
 
                 .room{
                     display: inline-block;
                     border-right: 1px solid @border-color;
-                    padding-right:30px;
-                    body[lang=en_GB] & {
-                        width: 50%;
-                    }
+                    width: 48%;
                 }
 
                 .size{
                     display: inline-block;
                     padding-left:10px;
-                    body[lang=en_GB] & {
-                        width: 40%;
-                    }
+                    width: 40%;
                 }
             }
 
