@@ -114,3 +114,50 @@
         }
     }
 }
+
+.rentActions{
+        >.fl{
+            float:left;
+            button{
+                width: 136px;text-align: center;border: 2px solid #e61919;color: #e61919;background:transparent;text-transform:uppercase; padding: 3px 0; border-radius: 6px; line-height: 26px; cursor: pointer;display: inline-block; text-decoration: none;
+                &.disabled, &[disabled] { background: #ccc; }
+                &.unfavorite{background:#e61919;color:#fff;}
+            }
+        }
+        >.actionsList{
+            float:left;
+            margin-left: 22px;
+            margin-top: 8px;
+            line-height: 20px;
+            .flatButton{
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                border: none;
+                padding: 0;
+                margin: 0 2px;
+                background: #ccc;
+                border-radius: 3px;
+                &.green{
+                    background: @wechat-color;
+                }
+                &.orange{
+                    background: @weibo-color;
+                }
+                &.facebook{
+                    background: @facebook-color;
+                }
+                &.twitter{
+                    background: @twitter-color;
+                }
+                &.linkedin{
+                    background: @linkedin-color;
+                }
+                i{
+                    display: block;
+                    font-size: 14px;
+                    color: #fff;
+                }
+            }
+        }
+    }
