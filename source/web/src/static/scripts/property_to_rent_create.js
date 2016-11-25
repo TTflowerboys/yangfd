@@ -1384,8 +1384,7 @@
     function initInfoReport(){
         if (window.lang === 'zh_Hans_CN') {
             $.betterPost('/api/1/rent_ticket/'+window.ticketId+'/edit').done(function(val){
-                var originPostcode
-                var originPostcode = val['index']['142'].replace(/\s/g, '').toUpperCase();
+                var originPostcode = val.index['142'].replace(/\s/g, '').toUpperCase();
                 if (originPostcode.length) {
                     $.betterPost('/api/1/report/search/?zipcode_index=' + originPostcode)
                         .done(function(value){
