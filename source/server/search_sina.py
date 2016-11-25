@@ -603,6 +603,8 @@ def get_weibo_search_result(keywords_list):
     block_list = load_block_list('block_list.xlsx')
     session = requests.session()
 
+    attachments = {}
+
     result_powerapple = crawler_powerapple('10141')
     result_douban_group = reduce_overlap(crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome']))
 
@@ -724,10 +726,12 @@ def get_weibo_search_result(keywords_list):
         format_fit(ws_ybirds[single_city])
 
     today = date.today()
+    result = six.BytesIO()
+    wb.save(result)
     if day_shift:
-        wb.save('other_platform_search' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx')
+        attachments['other_platform_search' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx'] = result
     else:
-        wb.save('other_platform_search' + six.text_type(today) + '.xlsx')
+        attachments['other_platform_search' + six.text_type(today) + '.xlsx'] = result
 
     # wb = Workbook()
     # ws = wb.active
@@ -780,10 +784,23 @@ def get_weibo_search_result(keywords_list):
     add_link(ws_weibo_block_list, 'C')
     format_fit(ws_weibo_block_list)
 
+    result = six.BytesIO()
+    weibo_wb.save(result)
     if day_shift:
-        weibo_wb.save('weibo-search-' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx')
+        attachments['weibo-search-' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx'] = result
     else:
-        weibo_wb.save('weibo-search-' + six.text_type(today) + '.xlsx')
+        attachments['weibo-search-' + six.text_type(today) + '.xlsx'] = result
+
+    return attachments
+
 
 list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
-get_weibo_search_result(list_keyw)
+attachments = get_weibo_search_result(list_keyw)
+f_app.email.schedule(
+    target="felixonmars@gmail.com",
+    subject="Test",
+    text="Meow",
+    display="html",
+    tag="channel_data",
+    attachments=attachments,
+)
