@@ -231,8 +231,7 @@
         shareToTwitter: function (_options, _config) {
             var defaultOptions = {
                 url: location.href || '',
-                text: document.title || '',
-                via: ''
+                text: document.title || ''
             }
             var defaultConfig = {
                 width: 800,
@@ -254,7 +253,6 @@
             window.open(url, '_blank',
                     'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
                     width + ', height=' + height + ', top=' + top + ', left=' + left)
-
             return false
         },
         /**
