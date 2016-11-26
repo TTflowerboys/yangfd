@@ -174,9 +174,12 @@
                 if (name === undefined || !name.length) {
                     this.hint(window.i18n('请输入关键字后再进行搜索'))
                 } else {
-                    this.hint(window.i18n('载入中...'))                    
+                    this.hint(window.i18n('载入中...'))
                     window.project.getEnum('featured_facility_type')
                         .then(_.bind(function (types) {
+                            types = _.filter(types, function(type) {
+                                return type.slug === 'hesa_university' || type.slug === 'doogal_station'
+                            })
                             mixedSearch(name).
                                 then(_.bind(function (resultsOfMixedSearch) {
                                     var suggestions = _.filter((_.map(resultsOfMixedSearch, function (item) {
