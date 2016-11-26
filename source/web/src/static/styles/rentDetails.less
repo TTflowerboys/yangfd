@@ -526,12 +526,18 @@ body {
 
                 li.total {
                     width: 70px;
+                    body[lang=en_GB] & {
+                        width: 50%;
+                    }
                 }
 
                 li.detail {
                     width: 33%;
                     margin-left:50px;
-
+                    body[lang=en_GB] & {
+                        width: 50%;
+                        margin-left: 0;
+                    }
                     strong {
                         display:inline-block;
                     }
@@ -667,7 +673,7 @@ body {
 
             }
             .withPlaceholderTxt{
-                position: absolute;top: 313px;left: 0;color: #b6b6b6;font-size: 32px;text-align: center;left: 50%;width: 220px;margin-left: -110px;
+                position: absolute;top: 313px;left: 0;color: #b6b6b6;font-size: 32px;text-align: center;left: 50%;width: 520px;margin-left: -260px;
                 @media @phone{
                     display: none;
                 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-11-25 16:59+0800\n"
+"POT-Creation-Date: 2016-11-26 11:06+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,617 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
+
+#: ../server/crowdfunding_interface.py:30
+#: ../server/crowdfunding_interface.py:32 ../server/property_interface.py:101
+#: ../server/property_interface.py:124 ../server/property_interface.py:141
+#: ../server/property_interface.py:161 ../server/property_interface.py:166
+#: ../server/property_interface.py:172 ../web/src/crowdfunding.html:13
+#: ../web/src/property.html:43 ../web/src/property.html:65
+#: ../web/src/property.html:317 ../web/src/property.html:1183
+msgid "房产详情"
+msgstr ""
+
+#: ../server/crowdfunding_interface.py:66
+msgid "众筹列表-洋房东"
+msgstr ""
+
+#: ../server/crowdfunding_interface.py:78
+msgid "用户声明"
+msgstr ""
+
+#: ../server/crowdfunding_interface.py:86
+msgid "补充个人信息"
+msgstr ""
+
+#: ../server/crowdfunding_interface.py:96 ../web/src/user_finish_step.html:25
+msgid "确认真实身份"
+msgstr ""
+
+#: ../server/crowdfunding_interface.py:104 ../web/src/user_finish_step.html:31
+msgid "确认投资信息"
+msgstr ""
+
+#: ../server/crowdfunding_interface.py:112
+msgid "众筹模式介绍页面"
+msgstr ""
+
+#: ../server/currant_util.py:163 ../web/src/partials/i18n.html:480
+#: ../web/src/partials/i18n_admin.html:351
+#: ../web/src/static/emails/national_day.html:18
+#: ../web/src/static/emails/receive_intention.html:25
+#: ../web/src/static/emails/receive_rent_intention.html:24
+#: ../web/src/static/emails/rent_intention_digest.html:152
+#: ../web/src/static/emails/rent_intention_matched_1.html:147
+#: ../web/src/static/emails/rent_intention_matched_2_3.html:28
+#: ../web/src/static/emails/rent_intention_matched_4.html:154
+#: ../web/src/static/emails/rent_suspend_notice.html:84
+#: ../web/src/static/emails/reset_password_by_email.html:28
+msgid "中国"
+msgstr ""
+
+#: ../server/currant_util.py:164 ../web/src/masters/master.html:109
+#: ../web/src/partials/i18n.html:481 ../web/src/partials/i18n_admin.html:350
+#: ../web/src/static/emails/national_day.html:15
+#: ../web/src/static/emails/receive_intention.html:23
+#: ../web/src/static/emails/receive_rent_intention.html:22
+#: ../web/src/static/emails/rent_intention_digest.html:150
+#: ../web/src/static/emails/rent_intention_matched_1.html:145
+#: ../web/src/static/emails/rent_intention_matched_2_3.html:26
+#: ../web/src/static/emails/rent_intention_matched_4.html:152
+#: ../web/src/static/emails/rent_suspend_notice.html:82
+#: ../web/src/static/emails/reset_password_by_email.html:26
+msgid "英国"
+msgstr ""
+
+#: ../server/currant_util.py:165 ../web/src/partials/i18n.html:482
+#: ../web/src/partials/i18n_admin.html:353
+msgid "美国"
+msgstr ""
+
+#: ../server/currant_util.py:166 ../web/src/partials/i18n.html:483
+#: ../web/src/partials/i18n_admin.html:354
+msgid "印度"
+msgstr ""
+
+#: ../server/currant_util.py:167 ../web/src/partials/i18n.html:484
+#: ../web/src/partials/i18n_admin.html:355
+msgid "俄罗斯"
+msgstr ""
+
+#: ../server/currant_util.py:168 ../web/src/partials/i18n.html:485
+#: ../web/src/partials/i18n_admin.html:356
+msgid "日本"
+msgstr ""
+
+#: ../server/currant_util.py:169 ../web/src/partials/i18n.html:486
+#: ../web/src/partials/i18n_admin.html:357
+msgid "德国"
+msgstr ""
+
+#: ../server/currant_util.py:170 ../web/src/partials/i18n.html:487
+#: ../web/src/partials/i18n_admin.html:358
+msgid "法国"
+msgstr ""
+
+#: ../server/currant_util.py:171 ../web/src/partials/i18n.html:488
+#: ../web/src/partials/i18n_admin.html:359
+msgid "意大利"
+msgstr ""
+
+#: ../server/currant_util.py:172 ../web/src/partials/i18n.html:489
+#: ../web/src/partials/i18n_admin.html:360
+msgid "西班牙"
+msgstr ""
+
+#: ../server/currant_util.py:173 ../web/src/partials/i18n.html:490
+msgid "荷兰"
+msgstr ""
+
+#: ../server/currant_util.py:174 ../web/src/partials/i18n.html:491
+#: ../web/src/partials/i18n_admin.html:352
+msgid "香港"
+msgstr ""
+
+#: ../server/currant_util.py:175 ../web/src/partials/i18n.html:492
+msgid "台湾"
+msgstr ""
+
+#: ../server/currant_util.py:176 ../web/src/partials/i18n.html:493
+msgid "新加坡"
+msgstr ""
+
+#: ../server/currant_util.py:177 ../web/src/partials/i18n.html:494
+msgid "马来西亚"
+msgstr ""
+
+#: ../server/currant_util.py:178 ../web/src/partials/i18n.html:495
+msgid "爱尔兰"
+msgstr ""
+
+#: ../server/currant_util.py:306 ../server/main_interface.py:84
+#: ../web/src/coming_soon.html:94
+#: ../web/src/masters/big_picture_bg_master.html:47
+#: ../web/src/masters/email.html:53 ../web/src/masters/master.html:167
+#: ../web/src/news.html:85 ../web/src/partials/i18n.html:260
+msgid "洋房东"
+msgstr ""
+
+#: ../server/currant_util.py:308
+msgid "洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业体验。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
+msgstr ""
+
+#: ../server/main_interface.py:85
+msgid "洋房东致力于为想在英国投资或居住的华人房东和租客提供专业和靠谱的租房找房和海外置业省时省力贴心安全快捷便利华人互联网房产平台"
+msgstr ""
+
+#: ../server/main_interface.py:86
+msgid ""
+"洋房东,租房,买房,出租,租房中介,找房子,短租,长租,租金,楼盘,公寓,别墅,学区房,英国置业,留学生租房,海外租房,英国出租,英国租房,伦敦租房,伦敦买房,海外置业,海外投资,英国房价,Youngfunding,for"
+" rent,to let,room to rent,property to rent,investment,overseas "
+"investment,property,apartment,house,UK property"
+msgstr ""
+
+#: ../server/main_interface.py:140 ../server/main_interface.py:167
+#: ../web/src/affiliate_signup.html:40 ../web/src/masters/master.html:98
+#: ../web/src/partials/signin_form.html:17 ../web/src/signup.html:11
+#: ../web/src/static/templates/rent_request.tpl.html:161
+#: ../web/src/static/templates/rent_request_phone.tpl.html:150
+#: ../web/src/verify_phone.html:12
+msgid "注册"
+msgstr ""
+
+#: ../server/main_interface.py:148 ../web/src/verify_phone.html:13
+msgid "手机验证"
+msgstr ""
+
+#: ../server/main_interface.py:186 ../web/src/affiliate_signup.html:41
+#: ../web/src/masters/master.html:97
+#: ../web/src/partials/delegate_rent_phone.html:47
+#: ../web/src/partials/delegate_rent_popup.html:75
+#: ../web/src/partials/delegate_sale_phone.html:47
+#: ../web/src/partials/delegate_sale_popup.html:75
+#: ../web/src/partials/host_contact_request.html:62
+#: ../web/src/partials/i18n_scripts.html:839
+#: ../web/src/partials/signin_form.html:16
+#: ../web/src/partials/signup_form.html:38
+#: ../web/src/static/emails/new_admin.html:4
+#: ../web/src/static/emails/new_user.html:4
+#: ../web/src/static/emails/set_as_admin.html:4
+msgid "登录"
+msgstr ""
+
+#: ../server/main_interface.py:205
+msgid "Affiliate 注册"
+msgstr ""
+
+#: ../server/main_interface.py:214
+msgid "选择服务需求"
+msgstr ""
+
+#: ../server/main_interface.py:248
+#: ../web/src/static/emails/reset_password_by_email.html:10
+msgid "重置密码"
+msgstr ""
+
+#: ../server/main_interface.py:255
+msgid "使用手机验证码重置密码"
+msgstr ""
+
+#: ../server/main_interface.py:262 ../server/main_interface.py:272
+msgid "使用绑定邮箱重置密码"
+msgstr ""
+
+#: ../server/main_interface.py:280
+msgid "二手房出售"
+msgstr ""
+
+#: ../server/main_interface.py:288
+msgid "出售预览"
+msgstr ""
+
+#: ../server/main_interface.py:304
+#: ../web/src/host_contact_request-phone.html:39
+#: ../web/src/partials/host_contact_partner.html:41
+#: ../web/src/partials/host_contact_partner.html:48
+#: ../web/src/partials/host_contact_request.html:53
+#: ../web/src/partials/i18n_scripts.html:870
+#: ../web/src/partials/i18n_templates.html:31
+#: ../web/src/property_to_rent.html:569 ../web/src/property_to_rent.html:846
+#: ../web/src/static/templates/featured_house_card.html:376
+#: ../web/src/wechat_poster.html:368
+msgid "我要咨询"
+msgstr ""
+
+#: ../server/main_interface.py:319 ../server/property_to_rent_interface.py:167
+msgid "快来围观"
+msgstr ""
+
+#: ../server/main_interface.py:357
+msgid "洋房东平台 - 录制/上传您的看房视频"
+msgstr ""
+
+#: ../server/main_interface.py:370
+msgid "洋房东平台 - 预订"
+msgstr ""
+
+#: ../server/main_interface.py:386
+msgid "洋房东平台 - 收据"
+msgstr ""
+
+#: ../server/main_interface.py:408
+msgid "没有访问该页面的权限"
+msgstr ""
+
+#: ../server/main_interface.py:415
+msgid "无法访问该页面"
+msgstr ""
+
+#: ../server/main_interface.py:422
+msgid "找不到页面"
+msgstr ""
+
+#: ../server/main_interface.py:429
+msgid "服务器开小差了"
+msgstr ""
+
+#: ../server/main_interface.py:789
+msgid "洋房东APP下载页"
+msgstr ""
+
+#: ../server/main_interface.py:790
+msgid "洋房东官方手机app客户端应用下载PC电脑端网站英国英国大不列颠英格兰苏格兰伦敦租客搜索房源租房找房住宿房东发布房源省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/main_interface.py:791
+msgid ""
+"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,官方应用,官方app,Youngfunding,for"
+" rent,to let,room to rent,property to rent,property,apartment,house,UK "
+"property,official app, official application"
+msgstr ""
+
+#: ../server/main_interface.py:839 ../web/src/rental_available.html:25
+msgid "洋房东租房服务"
+msgstr ""
+
+#: ../server/main_interface.py:846 ../web/src/how_it_works_landlord.html:8
+msgid "洋房东房东服务"
+msgstr ""
+
+#: ../server/main_interface.py:853 ../web/src/how_it_works_tenant.html:8
+msgid "洋房东租客服务"
+msgstr ""
+
+#: ../server/main_interface.py:860 ../web/src/how_it_works_student_house.html:7
+msgid "洋房东学生公寓服务"
+msgstr ""
+
+#: ../server/main_interface.py:868
+msgid "求租意向单编辑"
+msgstr ""
+
+#: ../server/main_interface_phone.py:17 ../web/src/coming_soon.html:47
+#: ../web/src/partials/float_bar.html:20
+#: ../web/src/partials/requirement_popup.html:7
+#: ../web/src/requirement-phone.html:17
+msgid "提交置业需求"
+msgstr ""
+
+#: ../server/main_interface_phone.py:24
+msgid "提交租房需求"
+msgstr ""
+
+#: ../server/main_interface_phone.py:25
+msgid "洋房东求租意向单满足英国腐国英国大不列颠英格兰苏格兰伦敦找房租房住宿房源需求提供精准优质足不出户快速便捷的服务第一时间联系您省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/main_interface_phone.py:26
+msgid ""
+"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,求租意向,求租需求,租房需要,租房需求单,租房申请,Youngfunding,for"
+" rent,to let,room to rent,property to rent,property,apartment,house,UK "
+"property, wish list, submitting wishes"
+msgstr ""
+
+#: ../server/main_interface_phone.py:33
+msgid "提交求租咨询"
+msgstr ""
+
+#: ../server/main_interface_phone.py:41
+#: ../web/src/partials/delegate_rent_popup.html:10
+msgid "提交委托出租需求"
+msgstr ""
+
+#: ../server/main_interface_phone.py:48
+#: ../web/src/partials/delegate_sale_popup.html:10
+msgid "提交委托出售需求"
+msgstr ""
+
+#: ../server/main_interface_phone.py:55
+msgid "微信分享"
+msgstr ""
+
+#: ../server/main_interface_phone.py:84
+msgid "房贷计算器"
+msgstr ""
+
+#: ../server/news_interface.py:16 ../web/src/masters/news_master.html:30
+#: ../web/src/masters/news_master.html:64
+#: ../web/src/masters/news_master.html:87 ../web/src/news.html:56
+#: ../web/src/news_list.html:13 ../web/src/partials/i18n_admin.html:45
+msgid "房产资讯"
+msgstr ""
+
+#: ../server/news_interface.py:17
+msgid "洋房东英国英国大不列颠英格兰苏格兰伦敦房源房产房地产不动产房屋购房购屋买房投资资讯咨询信息新闻省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/news_interface.py:18
+msgid ""
+"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资信息,投资新闻,Youngfunding,investment,overseas"
+" investment,property,apartment,house,UK property,investment information"
+msgstr ""
+
+#: ../server/news_interface.py:44 ../web/src/masters/news_master.html:27
+#: ../web/src/masters/news_master.html:49
+#: ../web/src/masters/news_master.html:78 ../web/src/notice_list.html:11
+msgid "网站公告"
+msgstr ""
+
+#: ../server/news_interface.py:51 ../web/src/guides.html:12
+#: ../web/src/masters/news_master.html:28
+#: ../web/src/masters/news_master.html:54
+#: ../web/src/masters/news_master.html:81
+msgid "购房指南"
+msgstr ""
+
+#: ../server/news_interface.py:52
+msgid "洋房东英国英国大不列颠英格兰苏格兰伦敦期房房源房产房地产不动产房屋购房购屋买房投资常见问题疑惑产权类型买房购房付款交钱投资流程过程解惑解答疑问指南帮助选房找房服务助手省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/news_interface.py:53
+msgid ""
+"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,常见问题解答,投资问答,Youngfunding,investment,overseas"
+" investment,property,apartment,house,UK property,Q&A,investment "
+"information"
+msgstr ""
+
+#: ../server/news_interface.py:60 ../web/src/laws.html:12
+#: ../web/src/masters/news_master.html:29
+#: ../web/src/masters/news_master.html:59
+#: ../web/src/masters/news_master.html:84
+msgid "法律法规"
+msgstr ""
+
+#: ../server/news_interface.py:130 ../web/src/masters/aboutus_master.html:54
+#: ../web/src/masters/master.html:267 ../web/src/partner.html:14
+msgid "合作伙伴"
+msgstr ""
+
+#: ../server/news_interface.py:137 ../web/src/masters/aboutus_master.html:32
+msgid "海外租房帮助中心"
+msgstr ""
+
+#: ../server/news_interface.py:144 ../web/src/qa_app.html:14
+#: ../web/src/static/emails/draft_not_publish_day_3.html:18
+#: ../web/src/static/emails/draft_not_publish_day_7.html:18
+msgid "洋房东APP帮助中心"
+msgstr ""
+
+#: ../server/news_interface.py:152 ../web/src/masters/aboutus_master.html:38
+msgid "众筹投资帮助中心"
+msgstr ""
+
+#: ../server/property_interface.py:61
+msgid "房产列表-洋房东"
+msgstr ""
+
+#: ../server/property_interface.py:62
+msgid "专业的英国置业顾问，详实的英国投资建议，优质的购房服务，全方位协助完成在英房地产购买"
+msgstr ""
+
+#: ../server/property_interface.py:63
+msgid ""
+"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资项目,Youngfunding,investment,overseas"
+" investment,property,apartment,house,UK property,investment progects"
+msgstr ""
+
+#: ../server/property_interface.py:177
+#: ../web/src/partials/i18n_scripts.html:864
+#: ../web/src/partials/i18n_templates.html:24
+#: ../web/src/partials/property_to_rent_edit.html:228
+#: ../web/src/property.html:465 ../web/src/property_to_rent_digest.html:73
+#: ../web/src/property_wechat_poster.html:379
+#: ../web/src/static/emails/rent_intention_digest.html:88
+#: ../web/src/static/emails/rent_intention_matched_1.html:89
+#: ../web/src/static/emails/rent_intention_matched_4.html:95
+#: ../web/src/static/emails/rent_ticket_publish_success.html:85
+#: ../web/src/static/templates/featured_house_card.html:162
+#: ../web/src/static/templates/featured_house_card.html:318
+#: ../web/src/wechat_poster.html:102
+msgid "室"
+msgstr ""
+
+#: ../server/property_interface.py:177
+#: ../web/src/partials/i18n_scripts.html:865
+#: ../web/src/partials/i18n_templates.html:25
+#: ../web/src/partials/property_to_rent_edit.html:240
+#: ../web/src/property.html:468 ../web/src/property_to_rent_digest.html:73
+#: ../web/src/property_wechat_poster.html:379
+#: ../web/src/static/templates/featured_house_card.html:165
+#: ../web/src/wechat_poster.html:102
+msgid "厅"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:85
+msgid "出租列表-洋房东"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:86
+msgid "英国华人的线上租赁神器，最全面的房源信息，最宽广的招租平台，最先进的交流系统，更快更直接地找到理想的房源或房客"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:87
+msgid ""
+"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,租房列表,房源列表,Youngfunding,for"
+" rent,to let,room to rent,property to rent,property,apartment,house,UK "
+"property,list of property"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:137
+#: ../web/src/property_to_rent.html:39 ../web/src/property_to_rent.html:56
+msgid "出租房详情"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:148
+#: ../web/src/partials/i18n_admin.html:177
+#: ../web/src/partials/i18n_scripts.html:222
+msgid "详情"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:195
+msgid "出租房源发布"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:196
+msgid "洋房东英国大不列颠英格兰苏格兰伦敦快速便捷方便迅速上传发布登记房源房产广告出租找租客提交数据信息填写详情描述周边上传图片照片省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:197
+msgid ""
+"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,提交房源,上传房产,Youngfunding,for"
+" rent,to let,room to rent,property to rent,property,apartment,house,UK "
+"property,listing submission"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:206
+msgid "出租房源编辑"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:232
+msgid "房源发布成功"
+msgstr ""
+
+#: ../server/region_report_interface.py:28
+msgid "街区分析报告"
+msgstr ""
+
+#: ../server/region_report_interface.py:29
+msgid "洋房东街区投资分析报告"
+msgstr ""
+
+#: ../server/user_setting_interface.py:16
+#: ../server/user_setting_interface.py:199
+#: ../web/src/partials/user_settings.html:1
+#: ../web/src/partials/user_settings_phone.html:2
+msgid "账户信息"
+msgstr ""
+
+#: ../server/user_setting_interface.py:25
+#: ../server/user_setting_interface.py:191 ../web/src/user_verify_email.html:10
+#: ../web/src/verify_email_status.html:10
+msgid "验证邮箱"
+msgstr ""
+
+#: ../server/user_setting_interface.py:34
+msgid "更改邮箱"
+msgstr ""
+
+#: ../server/user_setting_interface.py:44
+msgid "更改密码"
+msgstr ""
+
+#: ../server/user_setting_interface.py:53
+#: ../server/user_setting_interface.py:62
+msgid "更改手机号"
+msgstr ""
+
+#: ../server/user_setting_interface.py:71
+#: ../server/user_setting_interface.py:80
+msgid "验证手机号"
+msgstr ""
+
+#: ../server/user_setting_interface.py:89 ../web/src/index.html:117
+#: ../web/src/index.html:205 ../web/src/masters/master.html:80
+#: ../web/src/masters/user_master.html:28
+#: ../web/src/masters/user_master.html:101
+#: ../web/src/masters/user_master.html:168
+#: ../web/src/partials/index_renter.html:6
+#: ../web/src/partials/index_student_house.html:6
+#: ../web/src/property_to_rent_list.html:180 ../web/src/user-phone.html:87
+#: ../web/src/user_favorites.html:14
+msgid "我的收藏"
+msgstr ""
+
+#: ../server/user_setting_interface.py:106
+#: ../web/src/masters/user_master.html:30
+#: ../web/src/masters/user_master.html:109
+#: ../web/src/masters/user_master.html:171
+#: ../web/src/partials/menu_items_mobile.html:7 ../web/src/user-phone.html:95
+msgid "海外众筹"
+msgstr ""
+
+#: ../server/user_setting_interface.py:128
+#: ../web/src/masters/user_master.html:32
+#: ../web/src/masters/user_master.html:117
+#: ../web/src/masters/user_master.html:174 ../web/src/user-phone.html:103
+#: ../web/src/user_intentions.html:19
+msgid "意向单"
+msgstr ""
+
+#: ../server/user_setting_interface.py:138 ../web/src/masters/master.html:82
+#: ../web/src/masters/user_master.html:33
+#: ../web/src/masters/user_master.html:124
+#: ../web/src/masters/user_master.html:177 ../web/src/user-phone.html:110
+#: ../web/src/user_properties.html:16
+msgid "我的房产"
+msgstr ""
+
+#: ../server/user_setting_interface.py:154 ../web/src/masters/master.html:90
+#: ../web/src/masters/user_master.html:34
+#: ../web/src/masters/user_master.html:131
+#: ../web/src/masters/user_master.html:180
+#: ../web/src/static/templates/kot_message_list.tpl.html:3
+#: ../web/src/user-phone.html:117
+msgid "消息"
+msgstr ""
+
+#: ../server/user_setting_interface.py:163
+#: ../web/src/masters/user_master.html:138
+#: ../web/src/masters/user_master.html:186 ../web/src/user-phone.html:124
+#: ../web/src/user_invite.html:11
+msgid "推荐有奖"
+msgstr ""
+
+#: ../server/user_setting_interface.py:178
+msgid "洋房东优惠券"
+msgstr ""
+
+#: ../server/user_setting_interface.py:207 ../web/src/email_unsubscribe.html:10
+msgid "取消订阅"
+msgstr ""
+
+#: ../server/user_setting_interface.py:222
+#: ../web/src/masters/user_master.html:38
+#: ../web/src/masters/user_master.html:183 ../web/src/user-phone.html:138
+msgid "会员专享"
+msgstr ""
+
+#: ../server/user_setting_interface.py:247
+#: ../web/src/masters/user_master.html:36
+#: ../web/src/masters/user_master.html:145
+#: ../web/src/masters/user_master.html:189
+#: ../web/src/partials/i18n_scripts.html:141
+#: ../web/src/static/templates/rent_request.tpl.html:272
+#: ../web/src/static/templates/rent_request_phone.tpl.html:248
+#: ../web/src/user-phone.html:131 ../web/src/user_finish_investment.html:68
+#: ../web/src/user_invite.html:15 ../web/src/user_vouchers.html:12
+#: ../web/src/wechat_invite.html:15
+msgid "优惠券"
+msgstr ""
+
+#: ../server/libfelix/f_push/f_http_streaming.py:51
+msgid "ssl"
+msgstr ""
 
 #: ../web/src/admin.html:5
 msgid "管理控制台"
@@ -42,7 +653,7 @@ msgstr ""
 msgid "密码"
 msgstr ""
 
-#: ../web/src/affiliate_signup.html:32 ../web/src/partials/i18n.html:548
+#: ../web/src/affiliate_signup.html:32 ../web/src/partials/i18n.html:547
 #: ../web/src/partials/i18n_scripts.html:103
 #: ../web/src/partials/property_to_rent_publish.html:40
 #: ../web/src/partials/property_to_rent_publish.html:97
@@ -69,33 +680,8 @@ msgstr ""
 msgid "会员服务须知"
 msgstr ""
 
-#: ../server/main_interface.py:140 ../server/main_interface.py:167
-#: ../web/src/affiliate_signup.html:40 ../web/src/masters/master.html:98
-#: ../web/src/partials/signin_form.html:17 ../web/src/signup.html:11
-#: ../web/src/static/templates/rent_request.tpl.html:161
-#: ../web/src/static/templates/rent_request_phone.tpl.html:150
-#: ../web/src/verify_phone.html:12
-msgid "注册"
-msgstr ""
-
 #: ../web/src/affiliate_signup.html:41 ../web/src/partials/signup_form.html:38
 msgid "已经拥有账号？请"
-msgstr ""
-
-#: ../server/main_interface.py:186 ../web/src/affiliate_signup.html:41
-#: ../web/src/masters/master.html:97
-#: ../web/src/partials/delegate_rent_phone.html:47
-#: ../web/src/partials/delegate_rent_popup.html:75
-#: ../web/src/partials/delegate_sale_phone.html:47
-#: ../web/src/partials/delegate_sale_popup.html:75
-#: ../web/src/partials/host_contact_request.html:62
-#: ../web/src/partials/i18n_scripts.html:839
-#: ../web/src/partials/signin_form.html:16
-#: ../web/src/partials/signup_form.html:38
-#: ../web/src/static/emails/new_admin.html:4
-#: ../web/src/static/emails/new_user.html:4
-#: ../web/src/static/emails/set_as_admin.html:4
-msgid "登录"
 msgstr ""
 
 #: ../web/src/coming_soon.html:26
@@ -131,13 +717,6 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:41
 msgid "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职业顾问，协助您完成投资流程，轻松当洋房东。"
-msgstr ""
-
-#: ../server/main_interface_phone.py:17 ../web/src/coming_soon.html:47
-#: ../web/src/partials/float_bar.html:20
-#: ../web/src/partials/requirement_popup.html:7
-#: ../web/src/requirement-phone.html:17
-msgid "提交置业需求"
 msgstr ""
 
 #: ../web/src/coming_soon.html:48
@@ -192,20 +771,12 @@ msgstr ""
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
 
-#: ../server/currant_util.py:306 ../server/main_interface.py:84
-#: ../web/src/coming_soon.html:94
-#: ../web/src/masters/big_picture_bg_master.html:47
-#: ../web/src/masters/email.html:53 ../web/src/masters/master.html:166
-#: ../web/src/news.html:85 ../web/src/partials/i18n.html:260
-msgid "洋房东"
-msgstr ""
-
-#: ../web/src/coming_soon.html:94 ../web/src/masters/master.html:312
+#: ../web/src/coming_soon.html:94 ../web/src/masters/master.html:313
 msgid "鄂ICP备14015315号-1"
 msgstr ""
 
-#: ../web/src/coming_soon.html:100 ../web/src/masters/master.html:210
-#: ../web/src/masters/master.html:273 ../web/src/partials/i18n.html:263
+#: ../web/src/coming_soon.html:100 ../web/src/masters/master.html:211
+#: ../web/src/masters/master.html:274 ../web/src/partials/i18n.html:263
 #: ../web/src/partials/user_settings.html:128
 #: ../web/src/partials/user_settings.html:135
 #: ../web/src/partials/user_settings_phone.html:129
@@ -215,7 +786,7 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:101
 #: ../web/src/masters/big_picture_bg_master.html:60
-#: ../web/src/masters/master.html:211 ../web/src/masters/master.html:274
+#: ../web/src/masters/master.html:212 ../web/src/masters/master.html:275
 #: ../web/src/partials/i18n.html:264 ../web/src/partials/user_settings.html:126
 #: ../web/src/partials/user_settings.html:136
 #: ../web/src/partials/user_settings_phone.html:127
@@ -225,8 +796,8 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:107
 #: ../web/src/masters/big_picture_bg_master.html:66
-#: ../web/src/masters/master.html:216 ../web/src/masters/master.html:228
-#: ../web/src/masters/master.html:279 ../web/src/masters/master.html:291
+#: ../web/src/masters/master.html:217 ../web/src/masters/master.html:229
+#: ../web/src/masters/master.html:280 ../web/src/masters/master.html:292
 #: ../web/src/partials/current_currency.html:2
 #: ../web/src/partials/i18n.html:265
 #: ../web/src/partials/property_to_rent_edit.html:141
@@ -243,8 +814,8 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:108
 #: ../web/src/masters/big_picture_bg_master.html:67
-#: ../web/src/masters/master.html:217 ../web/src/masters/master.html:229
-#: ../web/src/masters/master.html:280 ../web/src/masters/master.html:292
+#: ../web/src/masters/master.html:218 ../web/src/masters/master.html:230
+#: ../web/src/masters/master.html:281 ../web/src/masters/master.html:293
 #: ../web/src/partials/current_currency.html:4
 #: ../web/src/partials/i18n.html:266
 #: ../web/src/partials/property_to_rent_edit.html:146
@@ -261,8 +832,8 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:109
 #: ../web/src/masters/big_picture_bg_master.html:68
-#: ../web/src/masters/master.html:218 ../web/src/masters/master.html:230
-#: ../web/src/masters/master.html:281 ../web/src/masters/master.html:293
+#: ../web/src/masters/master.html:219 ../web/src/masters/master.html:231
+#: ../web/src/masters/master.html:282 ../web/src/masters/master.html:294
 #: ../web/src/partials/current_currency.html:6
 #: ../web/src/partials/i18n.html:267
 #: ../web/src/partials/property_to_rent_edit.html:151
@@ -279,8 +850,8 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:110
 #: ../web/src/masters/big_picture_bg_master.html:69
-#: ../web/src/masters/master.html:219 ../web/src/masters/master.html:231
-#: ../web/src/masters/master.html:282 ../web/src/masters/master.html:294
+#: ../web/src/masters/master.html:220 ../web/src/masters/master.html:232
+#: ../web/src/masters/master.html:283 ../web/src/masters/master.html:295
 #: ../web/src/partials/current_currency.html:8
 #: ../web/src/partials/i18n.html:268
 #: ../web/src/partials/property_to_rent_edit.html:156
@@ -297,8 +868,8 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:111
 #: ../web/src/masters/big_picture_bg_master.html:70
-#: ../web/src/masters/master.html:220 ../web/src/masters/master.html:232
-#: ../web/src/masters/master.html:283 ../web/src/masters/master.html:295
+#: ../web/src/masters/master.html:221 ../web/src/masters/master.html:233
+#: ../web/src/masters/master.html:284 ../web/src/masters/master.html:296
 #: ../web/src/partials/current_currency.html:10
 #: ../web/src/partials/i18n.html:269
 #: ../web/src/partials/property_to_rent_edit.html:161
@@ -313,16 +884,6 @@ msgstr ""
 msgid "港币"
 msgstr ""
 
-#: ../server/crowdfunding_interface.py:30
-#: ../server/crowdfunding_interface.py:32 ../server/property_interface.py:101
-#: ../server/property_interface.py:124 ../server/property_interface.py:141
-#: ../server/property_interface.py:161 ../server/property_interface.py:166
-#: ../server/property_interface.py:172 ../web/src/crowdfunding.html:13
-#: ../web/src/property.html:43 ../web/src/property.html:65
-#: ../web/src/property.html:317 ../web/src/property.html:1183
-msgid "房产详情"
-msgstr ""
-
 #: ../web/src/crowdfunding.html:87 ../web/src/partials/i18n_scripts.html:846
 #: ../web/src/partials/i18n_templates.html:3
 msgid "剩余"
@@ -330,7 +891,7 @@ msgstr ""
 
 #: ../web/src/crowdfunding.html:87
 #: ../web/src/partials/get_rent_min_period.html:4
-#: ../web/src/partials/i18n.html:451 ../web/src/partials/i18n_admin.html:123
+#: ../web/src/partials/i18n.html:450 ../web/src/partials/i18n_admin.html:123
 #: ../web/src/partials/i18n_scripts.html:847
 #: ../web/src/partials/i18n_templates.html:4
 #: ../web/src/partials/property_to_rent_edit.html:352
@@ -483,7 +1044,7 @@ msgstr ""
 msgid "周期"
 msgstr ""
 
-#: ../web/src/crowdfunding.html:386 ../web/src/partials/i18n.html:499
+#: ../web/src/crowdfunding.html:386 ../web/src/partials/i18n.html:498
 #: ../web/src/partials/i18n_scripts.html:370
 #: ../web/src/partials/i18n_templates.html:73
 #: ../web/src/user_finish_investment.html:150
@@ -888,10 +1449,6 @@ msgstr ""
 msgid "众筹者根据自身需求, 共同购买10年以上的开发商包租型学生公寓, 净租金回报7%（资本增值另算）"
 msgstr ""
 
-#: ../server/user_setting_interface.py:207 ../web/src/email_unsubscribe.html:10
-msgid "取消订阅"
-msgstr ""
-
 #: ../web/src/email_unsubscribe.html:24
 #: ../web/src/partials/user_settings.html:233
 #: ../web/src/partials/user_settings.html:332
@@ -948,13 +1505,6 @@ msgstr ""
 msgid "接收平台的系统公告，新功能通知及推广内容"
 msgstr ""
 
-#: ../server/news_interface.py:51 ../web/src/guides.html:12
-#: ../web/src/masters/news_master.html:28
-#: ../web/src/masters/news_master.html:54
-#: ../web/src/masters/news_master.html:81
-msgid "购房指南"
-msgstr ""
-
 #: ../web/src/guides.html:20
 msgid "常见问题"
 msgstr ""
@@ -987,11 +1537,7 @@ msgstr ""
 msgid "房东将会在24小时内回复您的求租申请 "
 msgstr ""
 
-#: ../web/src/host_contact_request-phone.html:33
-msgid "房东回复后平台将会与您取得联系 "
-msgstr ""
-
-#: ../web/src/host_contact_request-phone.html:41
+#: ../web/src/host_contact_request-phone.html:37
 #: ../web/src/partials/host_contact_partner.html:39
 #: ../web/src/partials/host_contact_partner.html:46
 #: ../web/src/partials/host_contact_request.html:51
@@ -1000,20 +1546,7 @@ msgstr ""
 msgid "我要预订"
 msgstr ""
 
-#: ../server/main_interface.py:304
-#: ../web/src/host_contact_request-phone.html:43
-#: ../web/src/partials/host_contact_partner.html:41
-#: ../web/src/partials/host_contact_partner.html:48
-#: ../web/src/partials/host_contact_request.html:53
-#: ../web/src/partials/i18n_scripts.html:870
-#: ../web/src/partials/i18n_templates.html:31
-#: ../web/src/property_to_rent.html:569 ../web/src/property_to_rent.html:846
-#: ../web/src/static/templates/featured_house_card.html:376
-#: ../web/src/wechat_poster.html:368
-msgid "我要咨询"
-msgstr ""
-
-#: ../web/src/host_contact_request-phone.html:50
+#: ../web/src/host_contact_request-phone.html:46
 #: ../web/src/partials/host_contact_partner.html:55
 #: ../web/src/partials/host_contact_request.html:102
 #: ../web/src/property_to_rent.html:575 ../web/src/wechat_poster.html:379
@@ -1036,10 +1569,6 @@ msgstr ""
 #: ../web/src/partials/intention_processCards.html:144
 #: ../web/src/partials/intention_processCards.html:205
 msgid "查看平台上的"
-msgstr ""
-
-#: ../server/main_interface.py:846 ../web/src/how_it_works_landlord.html:8
-msgid "洋房东房东服务"
 msgstr ""
 
 #: ../web/src/how_it_works_landlord.html:21
@@ -1148,10 +1677,6 @@ msgstr ""
 msgid "如需更多帮助，请点击查阅帮助中心"
 msgstr ""
 
-#: ../server/main_interface.py:860 ../web/src/how_it_works_student_house.html:7
-msgid "洋房东学生公寓服务"
-msgstr ""
-
 #: ../web/src/how_it_works_student_house.html:20
 msgid "寻找心仪"
 msgstr ""
@@ -1199,10 +1724,6 @@ msgstr ""
 
 #: ../web/src/how_it_works_student_house.html:49
 msgid "查找学生公寓"
-msgstr ""
-
-#: ../server/main_interface.py:853 ../web/src/how_it_works_tenant.html:8
-msgid "洋房东租客服务"
 msgstr ""
 
 #: ../web/src/how_it_works_tenant.html:21
@@ -1303,18 +1824,6 @@ msgstr ""
 #: ../web/src/partials/location_filter_tpl.html:45
 #: ../web/src/property_to_rent_list.html:87
 msgid "搜索"
-msgstr ""
-
-#: ../server/user_setting_interface.py:89 ../web/src/index.html:117
-#: ../web/src/index.html:205 ../web/src/masters/master.html:80
-#: ../web/src/masters/user_master.html:28
-#: ../web/src/masters/user_master.html:101
-#: ../web/src/masters/user_master.html:168
-#: ../web/src/partials/index_renter.html:6
-#: ../web/src/partials/index_student_house.html:6
-#: ../web/src/property_to_rent_list.html:180 ../web/src/user-phone.html:87
-#: ../web/src/user_favorites.html:14
-msgid "我的收藏"
 msgstr ""
 
 #: ../web/src/index.html:123 ../web/src/index.html:211
@@ -1435,7 +1944,7 @@ msgid "上一步"
 msgstr ""
 
 #: ../web/src/intention.html:65 ../web/src/intention.html:85
-#: ../web/src/partials/i18n.html:471 ../web/src/partials/i18n_scripts.html:155
+#: ../web/src/partials/i18n.html:470 ../web/src/partials/i18n_scripts.html:155
 msgid "确定"
 msgstr ""
 
@@ -1443,7 +1952,7 @@ msgstr ""
 msgid "您可在洋房东上发布房产"
 msgstr ""
 
-#: ../web/src/intention.html:100 ../web/src/masters/master.html:152
+#: ../web/src/intention.html:100 ../web/src/masters/master.html:153
 msgid "发布租房信息"
 msgstr ""
 
@@ -1463,20 +1972,6 @@ msgstr ""
 msgid "搜索您理想的出租房"
 msgstr ""
 
-#: ../server/news_interface.py:60 ../web/src/laws.html:12
-#: ../web/src/masters/news_master.html:29
-#: ../web/src/masters/news_master.html:59
-#: ../web/src/masters/news_master.html:84
-msgid "法律法规"
-msgstr ""
-
-#: ../server/news_interface.py:16 ../web/src/masters/news_master.html:30
-#: ../web/src/masters/news_master.html:64
-#: ../web/src/masters/news_master.html:87 ../web/src/news.html:56
-#: ../web/src/news_list.html:13 ../web/src/partials/i18n_admin.html:45
-msgid "房产资讯"
-msgstr ""
-
 #: ../web/src/news.html:61
 msgid "来源："
 msgstr ""
@@ -1491,17 +1986,6 @@ msgstr ""
 
 #: ../web/src/news.html:107
 msgid "相关新闻"
-msgstr ""
-
-#: ../server/news_interface.py:44 ../web/src/masters/news_master.html:27
-#: ../web/src/masters/news_master.html:49
-#: ../web/src/masters/news_master.html:78 ../web/src/notice_list.html:11
-msgid "网站公告"
-msgstr ""
-
-#: ../server/news_interface.py:130 ../web/src/masters/aboutus_master.html:54
-#: ../web/src/masters/master.html:266 ../web/src/partner.html:14
-msgid "合作伙伴"
 msgstr ""
 
 #: ../web/src/property.html:68 ../web/src/property.html:520
@@ -1606,33 +2090,6 @@ msgstr ""
 #: ../web/src/partials/i18n_admin.html:327
 #: ../web/src/partials/i18n_scripts.html:411 ../web/src/property.html:453
 msgid "主要户型"
-msgstr ""
-
-#: ../server/property_interface.py:177
-#: ../web/src/partials/i18n_scripts.html:864
-#: ../web/src/partials/i18n_templates.html:24
-#: ../web/src/partials/property_to_rent_edit.html:228
-#: ../web/src/property.html:465 ../web/src/property_to_rent_digest.html:73
-#: ../web/src/property_wechat_poster.html:379
-#: ../web/src/static/emails/rent_intention_digest.html:88
-#: ../web/src/static/emails/rent_intention_matched_1.html:89
-#: ../web/src/static/emails/rent_intention_matched_4.html:95
-#: ../web/src/static/emails/rent_ticket_publish_success.html:85
-#: ../web/src/static/templates/featured_house_card.html:162
-#: ../web/src/static/templates/featured_house_card.html:318
-#: ../web/src/wechat_poster.html:102
-msgid "室"
-msgstr ""
-
-#: ../server/property_interface.py:177
-#: ../web/src/partials/i18n_scripts.html:865
-#: ../web/src/partials/i18n_templates.html:25
-#: ../web/src/partials/property_to_rent_edit.html:240
-#: ../web/src/property.html:468 ../web/src/property_to_rent_digest.html:73
-#: ../web/src/property_wechat_poster.html:379
-#: ../web/src/static/templates/featured_house_card.html:165
-#: ../web/src/wechat_poster.html:102
-msgid "厅"
 msgstr ""
 
 #: ../web/src/property.html:514 ../web/src/property_to_rent.html:420
@@ -1936,16 +2393,11 @@ msgstr ""
 msgid "已经全部加载完毕啦"
 msgstr ""
 
-#: ../server/property_to_rent_interface.py:137
-#: ../web/src/property_to_rent.html:39 ../web/src/property_to_rent.html:56
-msgid "出租房详情"
-msgstr ""
-
 #: ../web/src/property_to_rent.html:66
 msgid "拨打 <strong>400-8299-318</strong>"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:539 ../web/src/partials/i18n_admin.html:345
+#: ../web/src/partials/i18n.html:538 ../web/src/partials/i18n_admin.html:345
 #: ../web/src/partials/i18n_scripts.html:458
 #: ../web/src/partials/i18n_templates.html:51
 #: ../web/src/property_to_rent.html:118 ../web/src/property_to_rent.html:513
@@ -2040,7 +2492,7 @@ msgstr ""
 msgid "包Bill"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:452 ../web/src/partials/i18n_admin.html:124
+#: ../web/src/partials/i18n.html:451 ../web/src/partials/i18n_admin.html:124
 #: ../web/src/property_to_rent.html:198 ../web/src/property_to_rent.html:520
 #: ../web/src/property_to_rent_digest.html:100
 #: ../web/src/wechat_poster.html:173
@@ -2471,12 +2923,6 @@ msgstr ""
 #: ../web/src/property_wechat_poster.html:485 ../web/src/wechat_poster.html:422
 #: ../web/src/wechat_poster.html:446 ../web/src/wechat_poster.html:502
 msgid "收起"
-msgstr ""
-
-#: ../server/news_interface.py:144 ../web/src/qa_app.html:14
-#: ../web/src/static/emails/draft_not_publish_day_3.html:18
-#: ../web/src/static/emails/draft_not_publish_day_7.html:18
-msgid "洋房东APP帮助中心"
 msgstr ""
 
 #: ../web/src/qa_app.html:17 ../web/src/qa_rent.html:18
@@ -3066,10 +3512,6 @@ msgstr ""
 msgid "详情请您添加洋房东客服微信yangfd1(房东客服)、yangfd9（租客客服）或拨打（中国）：400-829-9318；（英国）：020-3040-2258与我们联系。"
 msgstr ""
 
-#: ../server/main_interface.py:839 ../web/src/rental_available.html:25
-msgid "洋房东租房服务"
-msgstr ""
-
 #: ../web/src/rental_available.html:31
 msgid "租房市场的现有问题"
 msgstr ""
@@ -3276,65 +3718,6 @@ msgstr ""
 msgid "账户管理"
 msgstr ""
 
-#: ../server/user_setting_interface.py:106
-#: ../web/src/masters/user_master.html:30
-#: ../web/src/masters/user_master.html:109
-#: ../web/src/masters/user_master.html:171
-#: ../web/src/partials/menu_items_mobile.html:7 ../web/src/user-phone.html:95
-msgid "海外众筹"
-msgstr ""
-
-#: ../server/user_setting_interface.py:128
-#: ../web/src/masters/user_master.html:32
-#: ../web/src/masters/user_master.html:117
-#: ../web/src/masters/user_master.html:174 ../web/src/user-phone.html:103
-#: ../web/src/user_intentions.html:19
-msgid "意向单"
-msgstr ""
-
-#: ../server/user_setting_interface.py:138 ../web/src/masters/master.html:82
-#: ../web/src/masters/user_master.html:33
-#: ../web/src/masters/user_master.html:124
-#: ../web/src/masters/user_master.html:177 ../web/src/user-phone.html:110
-#: ../web/src/user_properties.html:16
-msgid "我的房产"
-msgstr ""
-
-#: ../server/user_setting_interface.py:154 ../web/src/masters/master.html:90
-#: ../web/src/masters/user_master.html:34
-#: ../web/src/masters/user_master.html:131
-#: ../web/src/masters/user_master.html:180
-#: ../web/src/static/templates/kot_message_list.tpl.html:3
-#: ../web/src/user-phone.html:117
-msgid "消息"
-msgstr ""
-
-#: ../server/user_setting_interface.py:163
-#: ../web/src/masters/user_master.html:138
-#: ../web/src/masters/user_master.html:186 ../web/src/user-phone.html:124
-#: ../web/src/user_invite.html:11
-msgid "推荐有奖"
-msgstr ""
-
-#: ../server/user_setting_interface.py:247
-#: ../web/src/masters/user_master.html:36
-#: ../web/src/masters/user_master.html:145
-#: ../web/src/masters/user_master.html:189
-#: ../web/src/partials/i18n_scripts.html:141
-#: ../web/src/static/templates/rent_request.tpl.html:272
-#: ../web/src/static/templates/rent_request_phone.tpl.html:248
-#: ../web/src/user-phone.html:131 ../web/src/user_finish_investment.html:68
-#: ../web/src/user_invite.html:15 ../web/src/user_vouchers.html:12
-#: ../web/src/wechat_invite.html:15
-msgid "优惠券"
-msgstr ""
-
-#: ../server/user_setting_interface.py:222
-#: ../web/src/masters/user_master.html:38
-#: ../web/src/masters/user_master.html:183 ../web/src/user-phone.html:138
-msgid "会员专享"
-msgstr ""
-
 #: ../web/src/user_change_email.html:10
 msgid "修改邮箱"
 msgstr ""
@@ -3401,7 +3784,7 @@ msgstr ""
 #: ../web/src/partials/delegate_sale_phone.html:42
 #: ../web/src/partials/delegate_sale_popup.html:66
 #: ../web/src/partials/delegate_sale_popup.html:68
-#: ../web/src/partials/i18n.html:549 ../web/src/partials/i18n_scripts.html:841
+#: ../web/src/partials/i18n.html:548 ../web/src/partials/i18n_scripts.html:841
 #: ../web/src/partials/property_to_rent_publish.html:47
 #: ../web/src/partials/property_to_rent_publish.html:104
 #: ../web/src/partials/property_to_rent_publish.html:200
@@ -3736,7 +4119,7 @@ msgstr ""
 msgid "电话号码"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:472 ../web/src/partials/i18n_scripts.html:426
+#: ../web/src/partials/i18n.html:471 ../web/src/partials/i18n_scripts.html:426
 #: ../web/src/partials/user_settings.html:31
 #: ../web/src/partials/user_settings.html:62
 #: ../web/src/partials/user_settings.html:86
@@ -3755,7 +4138,7 @@ msgstr ""
 msgid "您的账户当余额仅剩"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:500 ../web/src/user_finish_investment.html:89
+#: ../web/src/partials/i18n.html:499 ../web/src/user_finish_investment.html:89
 msgid "充值"
 msgstr ""
 
@@ -3782,14 +4165,6 @@ msgstr ""
 
 #: ../web/src/user_finish_step.html:19
 msgid "投资者声明"
-msgstr ""
-
-#: ../server/crowdfunding_interface.py:96 ../web/src/user_finish_step.html:25
-msgid "确认真实身份"
-msgstr ""
-
-#: ../server/crowdfunding_interface.py:104 ../web/src/user_finish_step.html:31
-msgid "确认投资信息"
 msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:667
@@ -3919,12 +4294,6 @@ msgstr ""
 msgid "没有已咨询过的房产"
 msgstr ""
 
-#: ../server/user_setting_interface.py:25
-#: ../server/user_setting_interface.py:191 ../web/src/user_verify_email.html:10
-#: ../web/src/verify_email_status.html:10
-msgid "验证邮箱"
-msgstr ""
-
 #: ../web/src/user_verify_phone_1.html:11
 msgid "确认手机号（1/2）"
 msgstr ""
@@ -3952,10 +4321,6 @@ msgstr ""
 
 #: ../web/src/verify_email_status.html:20
 msgid "不好意思，邮箱验证失败，请重新验证"
-msgstr ""
-
-#: ../server/main_interface.py:148 ../web/src/verify_phone.html:13
-msgid "手机验证"
 msgstr ""
 
 #: ../web/src/verify_phone.html:14
@@ -4087,23 +4452,15 @@ msgstr ""
 
 #: ../web/src/masters/aboutus_master.html:27
 #: ../web/src/masters/big_picture_bg_master.html:54
-#: ../web/src/masters/master.html:262 ../web/src/partials/i18n_scripts.html:843
+#: ../web/src/masters/master.html:263 ../web/src/partials/i18n_scripts.html:843
 msgid "服务声明"
 msgstr ""
 
-#: ../server/news_interface.py:137 ../web/src/masters/aboutus_master.html:32
-msgid "海外租房帮助中心"
-msgstr ""
-
-#: ../server/news_interface.py:152 ../web/src/masters/aboutus_master.html:38
-msgid "众筹投资帮助中心"
-msgstr ""
-
-#: ../web/src/masters/aboutus_master.html:44 ../web/src/masters/master.html:264
+#: ../web/src/masters/aboutus_master.html:44 ../web/src/masters/master.html:265
 msgid "市场合作"
 msgstr ""
 
-#: ../web/src/masters/aboutus_master.html:49 ../web/src/masters/master.html:265
+#: ../web/src/masters/aboutus_master.html:49 ../web/src/masters/master.html:266
 msgid "媒体合作"
 msgstr ""
 
@@ -4186,85 +4543,71 @@ msgstr ""
 msgid "下载应用"
 msgstr ""
 
-#: ../server/currant_util.py:164 ../web/src/masters/master.html:109
-#: ../web/src/partials/i18n.html:482 ../web/src/partials/i18n_admin.html:350
-#: ../web/src/static/emails/national_day.html:15
-#: ../web/src/static/emails/receive_intention.html:23
-#: ../web/src/static/emails/receive_rent_intention.html:22
-#: ../web/src/static/emails/rent_intention_digest.html:150
-#: ../web/src/static/emails/rent_intention_matched_1.html:145
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:26
-#: ../web/src/static/emails/rent_intention_matched_4.html:152
-#: ../web/src/static/emails/rent_suspend_notice.html:82
-#: ../web/src/static/emails/reset_password_by_email.html:26
-msgid "英国"
-msgstr ""
-
-#: ../web/src/masters/master.html:128 ../web/src/masters/master.html:133
+#: ../web/src/masters/master.html:128 ../web/src/masters/master.html:134
 #: ../web/src/partials/menu_items_mobile.html:2
 msgid "首页"
 msgstr ""
 
-#: ../web/src/masters/master.html:129 ../web/src/masters/master.html:135
+#: ../web/src/masters/master.html:129 ../web/src/masters/master.html:136
 #: ../web/src/partials/i18n.html:293
 #: ../web/src/partials/menu_items_mobile.html:9
 msgid "英国租房"
 msgstr ""
 
-#: ../web/src/masters/master.html:134 ../web/src/partials/i18n.html:296
+#: ../web/src/masters/master.html:135 ../web/src/partials/i18n.html:296
 #: ../web/src/partials/menu_items_mobile.html:4
 msgid "置业投资"
 msgstr ""
 
-#: ../web/src/masters/master.html:136
+#: ../web/src/masters/master.html:137
 #: ../web/src/partials/menu_items_mobile.html:11
 msgid "投资资讯"
 msgstr ""
 
-#: ../web/src/masters/master.html:143
+#: ../web/src/masters/master.html:144
 msgid "免费咨询"
 msgstr ""
 
-#: ../web/src/masters/master.html:195
+#: ../web/src/masters/master.html:196
 msgid "朋友圈里的极速出租发布APP"
 msgstr ""
 
-#: ../web/src/masters/master.html:197
+#: ../web/src/masters/master.html:198
 msgid "立即获取"
 msgstr ""
 
-#: ../web/src/masters/master.html:239
+#: ../web/src/masters/master.html:240
 #: ../web/src/partials/requirement_popup.html:12
 #: ../web/src/partials/requirement_rent_popup.html:19
 #: ../web/src/partials/requirement_rent_popup.html:258
 msgid "联系我们"
 msgstr ""
 
-#: ../web/src/masters/master.html:253
+#: ../web/src/masters/master.html:254
 msgid "中国总部"
 msgstr ""
 
-#: ../web/src/masters/master.html:260
+#: ../web/src/masters/master.html:261
 msgid "服务支持"
 msgstr ""
 
-#: ../web/src/masters/master.html:261
+#: ../web/src/masters/master.html:262
 msgid "关于我们"
 msgstr ""
 
-#: ../web/src/masters/master.html:263
+#: ../web/src/masters/master.html:264
 msgid "帮助中心"
 msgstr ""
 
-#: ../web/src/masters/master.html:301
+#: ../web/src/masters/master.html:302
 msgid "关注我们"
 msgstr ""
 
-#: ../web/src/masters/master.html:303
+#: ../web/src/masters/master.html:304
 msgid "微信订阅号"
 msgstr ""
 
-#: ../web/src/masters/master.html:313
+#: ../web/src/masters/master.html:314
 msgid "洋房东乃英国正式登记注册商标，为武汉兄弟桥科技发展有限公司直属企业"
 msgstr ""
 
@@ -4646,11 +4989,6 @@ msgstr ""
 msgid "我希望注册为会员以便以后能够更新我的出租需求"
 msgstr ""
 
-#: ../server/main_interface_phone.py:41
-#: ../web/src/partials/delegate_rent_popup.html:10
-msgid "提交委托出租需求"
-msgstr ""
-
 #: ../web/src/partials/delegate_rent_popup.html:13
 #: ../web/src/partials/delegate_sale_popup.html:13
 #: ../web/src/partials/index_landlord.html:69
@@ -4681,11 +5019,6 @@ msgstr ""
 
 #: ../web/src/partials/delegate_rent_popup.html:106
 msgid "您的委托求租需求已经提交成功，我们将尽快与您取得联系。"
-msgstr ""
-
-#: ../server/main_interface_phone.py:48
-#: ../web/src/partials/delegate_sale_popup.html:10
-msgid "提交委托出售需求"
 msgstr ""
 
 #: ../web/src/partials/delegate_sale_popup.html:19
@@ -4727,7 +5060,7 @@ msgid "km<sup>2</sup>"
 msgstr ""
 
 #: ../web/src/partials/get_rent_min_period.html:6
-#: ../web/src/partials/i18n.html:497 ../web/src/partials/i18n_scripts.html:28
+#: ../web/src/partials/i18n.html:496 ../web/src/partials/i18n_scripts.html:28
 #: ../web/src/partials/i18n_templates.html:63
 #: ../web/src/partials/property_to_rent_edit.html:358
 #: ../web/src/static/emails/rent_intention_digest.html:120
@@ -4738,7 +5071,7 @@ msgid "周"
 msgstr ""
 
 #: ../web/src/partials/get_rent_min_period.html:8
-#: ../web/src/partials/i18n.html:498
+#: ../web/src/partials/i18n.html:497
 #: ../web/src/static/emails/rent_intention_digest.html:122
 #: ../web/src/static/emails/rent_intention_matched_1.html:123
 #: ../web/src/static/emails/rent_intention_matched_4.html:129
@@ -6374,158 +6707,154 @@ msgid "起租日期不能早于今天"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:415
-msgid "起租日期不能晚于结束日期"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:416
 msgid "租期至少一天"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:417
+#: ../web/src/partials/i18n.html:416
 msgid "请填写您入住的原因和对房东的问题"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:418
+#: ../web/src/partials/i18n.html:417
 msgid "请不要在描述中填写任何形式的联系方式"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:419
+#: ../web/src/partials/i18n.html:418
 #: ../web/src/static/templates/rent_request.tpl.html:92
 #: ../web/src/static/templates/rent_request_phone.tpl.html:86
 msgid "申请此房源需上传护照或身份信息"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:420
+#: ../web/src/partials/i18n.html:419
 msgid "姓名中不能包含电话或者email"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:421
+#: ../web/src/partials/i18n.html:420
 msgid "请选择性别"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:422
+#: ../web/src/partials/i18n.html:421
 #: ../web/src/static/templates/rent_request_phone.tpl.html:108
 msgid "请选择职业"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:423
+#: ../web/src/partials/i18n.html:422
 msgid "抱歉，只有学生才能入住学生公寓"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:424
+#: ../web/src/partials/i18n.html:423
 msgid "请填写大学"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:425
+#: ../web/src/partials/i18n.html:424
 msgid "请填写生日"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:426
+#: ../web/src/partials/i18n.html:425
 msgid "请选择您是从哪里听说洋房东的"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:427
+#: ../web/src/partials/i18n.html:426
 msgid "请填写电话"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:428
+#: ../web/src/partials/i18n.html:427
 msgid "请填写邮箱"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:429
+#: ../web/src/partials/i18n.html:428
 msgid "邮箱格式不正确"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:430
+#: ../web/src/partials/i18n.html:429
 msgid "请填写验证码"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:431
+#: ../web/src/partials/i18n.html:430
 msgid "请填写短信验证码"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:432
+#: ../web/src/partials/i18n.html:431
 msgid "图片还在上传中，请稍后再提交"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:433 ../web/src/partials/i18n_admin.html:103
+#: ../web/src/partials/i18n.html:432 ../web/src/partials/i18n_admin.html:103
 msgid "入住者吸烟"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:434 ../web/src/partials/i18n_admin.html:104
+#: ../web/src/partials/i18n.html:433 ../web/src/partials/i18n_admin.html:104
 msgid "禁止吸烟"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:435 ../web/src/partials/i18n_admin.html:105
+#: ../web/src/partials/i18n.html:434 ../web/src/partials/i18n_admin.html:105
 msgid "入住者携带宠物"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:436 ../web/src/partials/i18n_admin.html:106
+#: ../web/src/partials/i18n.html:435 ../web/src/partials/i18n_admin.html:106
 msgid "禁止携带宠物"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:437 ../web/src/partials/i18n_admin.html:107
+#: ../web/src/partials/i18n.html:436 ../web/src/partials/i18n_admin.html:107
 msgid "入住者携带小孩"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:438 ../web/src/partials/i18n_admin.html:108
+#: ../web/src/partials/i18n.html:437 ../web/src/partials/i18n_admin.html:108
 msgid "禁止携带小孩"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:439 ../web/src/partials/i18n_admin.html:109
+#: ../web/src/partials/i18n.html:438 ../web/src/partials/i18n_admin.html:109
 msgid "入住者职业："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:440 ../web/src/partials/i18n_admin.html:110
+#: ../web/src/partials/i18n.html:439 ../web/src/partials/i18n_admin.html:110
 msgid "入住者年龄："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:441 ../web/src/partials/i18n_admin.html:112
+#: ../web/src/partials/i18n.html:440 ../web/src/partials/i18n_admin.html:112
 msgid "最小年龄"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:442 ../web/src/partials/i18n_admin.html:113
+#: ../web/src/partials/i18n.html:441 ../web/src/partials/i18n_admin.html:113
 msgid "最大年龄"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:443 ../web/src/partials/i18n_admin.html:114
+#: ../web/src/partials/i18n.html:442 ../web/src/partials/i18n_admin.html:114
 #: ../web/src/static/emails/new_rent_request_intention_ticket.html:9
 msgid "入住人数："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:444 ../web/src/partials/i18n_admin.html:116
+#: ../web/src/partials/i18n.html:443 ../web/src/partials/i18n_admin.html:116
 msgid "可入住"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:445 ../web/src/partials/i18n_admin.html:117
+#: ../web/src/partials/i18n.html:444 ../web/src/partials/i18n_admin.html:117
 msgid "入住者性别："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:446 ../web/src/partials/i18n_admin.html:118
+#: ../web/src/partials/i18n.html:445 ../web/src/partials/i18n_admin.html:118
 msgid "入住日期："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:447 ../web/src/partials/i18n_admin.html:119
+#: ../web/src/partials/i18n.html:446 ../web/src/partials/i18n_admin.html:119
 msgid "租期开始日期："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:448 ../web/src/partials/i18n_admin.html:120
+#: ../web/src/partials/i18n.html:447 ../web/src/partials/i18n_admin.html:120
 msgid "搬出日期："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:449 ../web/src/partials/i18n_admin.html:121
+#: ../web/src/partials/i18n.html:448 ../web/src/partials/i18n_admin.html:121
 msgid "租期结束日期："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:450 ../web/src/partials/i18n_admin.html:122
+#: ../web/src/partials/i18n.html:449 ../web/src/partials/i18n_admin.html:122
 msgid "您的租住天数："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:453
+#: ../web/src/partials/i18n.html:452
 msgid "请验证手机号码"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:454 ../web/src/partials/i18n_admin.html:140
+#: ../web/src/partials/i18n.html:453 ../web/src/partials/i18n_admin.html:140
 #: ../web/src/partials/i18n_scripts.html:179
 #: ../web/src/partials/requirement_rent_phone.html:156
 #: ../web/src/partials/requirement_rent_phone.html:163
@@ -6536,7 +6865,7 @@ msgstr ""
 msgid "是"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:455 ../web/src/partials/i18n_admin.html:141
+#: ../web/src/partials/i18n.html:454 ../web/src/partials/i18n_admin.html:141
 #: ../web/src/partials/i18n_scripts.html:178
 #: ../web/src/partials/requirement_rent_phone.html:157
 #: ../web/src/partials/requirement_rent_phone.html:164
@@ -6547,369 +6876,290 @@ msgstr ""
 msgid "否"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:456
+#: ../web/src/partials/i18n.html:455
 msgid "我想投资价值为"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:457
+#: ../web/src/partials/i18n.html:456
 msgid "街区列表加载中...(选填)"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:458
+#: ../web/src/partials/i18n.html:457
 msgid "请选择街区(选填)"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:459
+#: ../web/src/partials/i18n.html:458
 msgid "预算下限必须小于预算上限"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:460
+#: ../web/src/partials/i18n.html:459
 #, python-format
 msgid "%s至%s/周的"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:461
+#: ../web/src/partials/i18n.html:460
 #, python-format
 msgid "%s/周以上的"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:462
+#: ../web/src/partials/i18n.html:461
 #, python-format
 msgid "%s/周以下的"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:463
+#: ../web/src/partials/i18n.html:462
 #, python-format
 msgid "我想找%s附近的%s出租房"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:464
+#: ../web/src/partials/i18n.html:463
 #, python-format
 msgid "的%s"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:465
+#: ../web/src/partials/i18n.html:464
 msgid "获取联系方式失败："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:466
+#: ../web/src/partials/i18n.html:465
 msgid "请填写地点"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:467
+#: ../web/src/partials/i18n.html:466
 msgid "请填写预算信息"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:468
+#: ../web/src/partials/i18n.html:467
 msgid "重置密码邮件已经成功发送到您的邮箱，请登录您的邮箱查收邮件"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:469
+#: ../web/src/partials/i18n.html:468
 msgid "密码重置成功，5s后自动返回首页"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:470
+#: ../web/src/partials/i18n.html:469
 msgid "重置密码失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:473
+#: ../web/src/partials/i18n.html:472
 msgid "获取失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:474
+#: ../web/src/partials/i18n.html:473
 msgid "洋房东 ' + discount + '租房优惠"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:475
+#: ../web/src/partials/i18n.html:474
 msgid "还在为租房苦恼吗？ 使用我的邀请码在洋房东注册，寻找合适房源，立享优惠！"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:476
+#: ../web/src/partials/i18n.html:475
 msgid "用户名不得包含电话号码或邮箱"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:477
+#: ../web/src/partials/i18n.html:476
 msgid "今天"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:478
+#: ../web/src/partials/i18n.html:477
 msgid "昨天"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:479
+#: ../web/src/partials/i18n.html:478
 msgid "天前"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:480
+#: ../web/src/partials/i18n.html:479
 msgid "上周"
 msgstr ""
 
-#: ../server/currant_util.py:163 ../web/src/partials/i18n.html:481
-#: ../web/src/partials/i18n_admin.html:351
-#: ../web/src/static/emails/national_day.html:18
-#: ../web/src/static/emails/receive_intention.html:25
-#: ../web/src/static/emails/receive_rent_intention.html:24
-#: ../web/src/static/emails/rent_intention_digest.html:152
-#: ../web/src/static/emails/rent_intention_matched_1.html:147
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:28
-#: ../web/src/static/emails/rent_intention_matched_4.html:154
-#: ../web/src/static/emails/rent_suspend_notice.html:84
-#: ../web/src/static/emails/reset_password_by_email.html:28
-msgid "中国"
-msgstr ""
-
-#: ../server/currant_util.py:165 ../web/src/partials/i18n.html:483
-#: ../web/src/partials/i18n_admin.html:353
-msgid "美国"
-msgstr ""
-
-#: ../server/currant_util.py:166 ../web/src/partials/i18n.html:484
-#: ../web/src/partials/i18n_admin.html:354
-msgid "印度"
-msgstr ""
-
-#: ../server/currant_util.py:167 ../web/src/partials/i18n.html:485
-#: ../web/src/partials/i18n_admin.html:355
-msgid "俄罗斯"
-msgstr ""
-
-#: ../server/currant_util.py:168 ../web/src/partials/i18n.html:486
-#: ../web/src/partials/i18n_admin.html:356
-msgid "日本"
-msgstr ""
-
-#: ../server/currant_util.py:169 ../web/src/partials/i18n.html:487
-#: ../web/src/partials/i18n_admin.html:357
-msgid "德国"
-msgstr ""
-
-#: ../server/currant_util.py:170 ../web/src/partials/i18n.html:488
-#: ../web/src/partials/i18n_admin.html:358
-msgid "法国"
-msgstr ""
-
-#: ../server/currant_util.py:171 ../web/src/partials/i18n.html:489
-#: ../web/src/partials/i18n_admin.html:359
-msgid "意大利"
-msgstr ""
-
-#: ../server/currant_util.py:172 ../web/src/partials/i18n.html:490
-#: ../web/src/partials/i18n_admin.html:360
-msgid "西班牙"
-msgstr ""
-
-#: ../server/currant_util.py:173 ../web/src/partials/i18n.html:491
-msgid "荷兰"
-msgstr ""
-
-#: ../server/currant_util.py:174 ../web/src/partials/i18n.html:492
-#: ../web/src/partials/i18n_admin.html:352
-msgid "香港"
-msgstr ""
-
-#: ../server/currant_util.py:175 ../web/src/partials/i18n.html:493
-msgid "台湾"
-msgstr ""
-
-#: ../server/currant_util.py:176 ../web/src/partials/i18n.html:494
-msgid "新加坡"
-msgstr ""
-
-#: ../server/currant_util.py:177 ../web/src/partials/i18n.html:495
-msgid "马来西亚"
-msgstr ""
-
-#: ../server/currant_util.py:178 ../web/src/partials/i18n.html:496
-msgid "爱尔兰"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:501
+#: ../web/src/partials/i18n.html:500
 msgid "收益"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:502
+#: ../web/src/partials/i18n.html:501
 msgid "提现"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:503
+#: ../web/src/partials/i18n.html:502
 msgid "回收本金"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:504
+#: ../web/src/partials/i18n.html:503
 msgid "性别不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:505
+#: ../web/src/partials/i18n.html:504
 msgid "国家不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:506
+#: ../web/src/partials/i18n.html:505
 msgid "更新成功, 正在刷新页面..."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:507
+#: ../web/src/partials/i18n.html:506
 msgid "更新失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:508
+#: ../web/src/partials/i18n.html:507
 msgid "取消收藏失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:509
+#: ../web/src/partials/i18n.html:508
 msgid "撤销失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:510
+#: ../web/src/partials/i18n.html:509
 msgid "电话区号不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:511
+#: ../web/src/partials/i18n.html:510
 msgid "发送失败，请重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:512
+#: ../web/src/partials/i18n.html:511
 msgid "生日不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:513
+#: ../web/src/partials/i18n.html:512
 msgid "省份不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:514
+#: ../web/src/partials/i18n.html:513
 msgid "城市不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:515
+#: ../web/src/partials/i18n.html:514
 msgid "地址不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:516
+#: ../web/src/partials/i18n.html:515
 msgid "邮政编码不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:517
+#: ../web/src/partials/i18n.html:516
 msgid "更新成功"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:518
+#: ../web/src/partials/i18n.html:517
 msgid "已提交"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:519
+#: ../web/src/partials/i18n.html:518
 msgid "已指派销售人员"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:520 ../web/src/partials/i18n_admin.html:272
+#: ../web/src/partials/i18n.html:519 ../web/src/partials/i18n_admin.html:272
 msgid "受理中"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:521 ../web/src/partials/i18n_admin.html:273
+#: ../web/src/partials/i18n.html:520 ../web/src/partials/i18n_admin.html:273
 msgid "定金已支付"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:522 ../web/src/partials/i18n_admin.html:274
+#: ../web/src/partials/i18n.html:521 ../web/src/partials/i18n_admin.html:274
 msgid "未达成定金"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:523 ../web/src/partials/i18n_admin.html:275
+#: ../web/src/partials/i18n.html:522 ../web/src/partials/i18n_admin.html:275
 msgid "购房已成功"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:524 ../web/src/partials/i18n_admin.html:276
+#: ../web/src/partials/i18n.html:523 ../web/src/partials/i18n_admin.html:276
 msgid "未达成购房"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:525
+#: ../web/src/partials/i18n.html:524
 msgid "求租中"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:526
+#: ../web/src/partials/i18n.html:525
 msgid "已租到"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:527 ../web/src/partials/i18n_admin.html:282
+#: ../web/src/partials/i18n.html:526 ../web/src/partials/i18n_admin.html:282
 msgid "已取消"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:528
+#: ../web/src/partials/i18n.html:527
 msgid "邀请码生成错误请刷新页面后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:529
+#: ../web/src/partials/i18n.html:528
 msgid "洋房东 ' + discountDisplayValue + '租房优惠"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:530
+#: ../web/src/partials/i18n.html:529
 msgid ""
 "发福利啦，需要租房的小伙伴们看过来，点击以下链接注册洋房东在线查看出租房源，租房成功者即可得到' + discountDisplayValue +"
 " '的租房优惠哦。不要太感谢我，请叫我雷锋，造福大家是我的使命"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:531
+#: ../web/src/partials/i18n.html:530
 msgid "该邮箱已经注册"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:532
+#: ../web/src/partials/i18n.html:531
 msgid "无法执行该操作，请检查您的房产状态后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:533
+#: ../web/src/partials/i18n.html:532
 msgid "您要找的房产不存在或者已被删除"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:534
+#: ../web/src/partials/i18n.html:533
 msgid "刚刚刷新过"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:535
+#: ../web/src/partials/i18n.html:534
 msgid "不好意思，每天只能刷新一个房源"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:536
+#: ../web/src/partials/i18n.html:535
 msgid "刷新失败，请检查后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:537
+#: ../web/src/partials/i18n.html:536
 msgid "已经成功出租了吗？确定将不再接收系统刷新提醒"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:538
+#: ../web/src/partials/i18n.html:537
 msgid "今天更新过"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:540
+#: ../web/src/partials/i18n.html:539
 msgid "无法更新，请检查后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:541
+#: ../web/src/partials/i18n.html:540
 msgid "确定删除该出租房吗？注意：此操作不可逆"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:542
+#: ../web/src/partials/i18n.html:541
 msgid "无法删除，请检查后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:543
+#: ../web/src/partials/i18n.html:542
 msgid "确定删除该房产吗？"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:544
+#: ../web/src/partials/i18n.html:543
 msgid "移除失败，请检查后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:545
+#: ../web/src/partials/i18n.html:544
 msgid "邮件已发送，如果没有收到，请在60秒后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:546
+#: ../web/src/partials/i18n.html:545
 msgid "发送验证邮件失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:547
+#: ../web/src/partials/i18n.html:546
 msgid "修改邮箱失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:550
+#: ../web/src/partials/i18n.html:549
 msgid "验证码已成功发送到您填写的手机号"
 msgstr ""
 
@@ -7477,12 +7727,6 @@ msgstr ""
 #: ../web/src/partials/i18n_admin.html:176
 #: ../web/src/partials/i18n_scripts.html:216
 msgid "亮点"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:148
-#: ../web/src/partials/i18n_admin.html:177
-#: ../web/src/partials/i18n_scripts.html:222
-msgid "详情"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:178
@@ -12039,13 +12283,6 @@ msgstr ""
 msgid "请填写姓名"
 msgstr ""
 
-#: ../server/user_setting_interface.py:16
-#: ../server/user_setting_interface.py:199
-#: ../web/src/partials/user_settings.html:1
-#: ../web/src/partials/user_settings_phone.html:2
-msgid "账户信息"
-msgstr ""
-
 #: ../web/src/partials/user_settings.html:14
 msgid "手机号是您在洋房东的登录和找回密码凭证"
 msgstr ""
@@ -13171,11 +13408,6 @@ msgstr ""
 msgid "请点击下面的按钮，根据提示重设您的密码："
 msgstr ""
 
-#: ../server/main_interface.py:248
-#: ../web/src/static/emails/reset_password_by_email.html:10
-msgid "重置密码"
-msgstr ""
-
 #: ../web/src/static/emails/reset_password_by_email.html:12
 msgid "或者您可以复制下面的链接到您的浏览器："
 msgstr ""
@@ -13435,245 +13667,5 @@ msgstr ""
 
 #: ../web/src/static/templates/surrouding_search_input.tpl.html:3
 msgid "输入关键字搜索添加周边学校, 地铁..."
-msgstr ""
-
-#: ../server/crowdfunding_interface.py:66
-msgid "众筹列表-洋房东"
-msgstr ""
-
-#: ../server/crowdfunding_interface.py:78
-msgid "用户声明"
-msgstr ""
-
-#: ../server/crowdfunding_interface.py:86
-msgid "补充个人信息"
-msgstr ""
-
-#: ../server/crowdfunding_interface.py:112
-msgid "众筹模式介绍页面"
-msgstr ""
-
-#: ../server/currant_util.py:308
-msgid "洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业体验。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
-msgstr ""
-
-#: ../server/main_interface.py:85
-msgid "洋房东致力于为想在英国投资或居住的华人房东和租客提供专业和靠谱的租房找房和海外置业省时省力贴心安全快捷便利华人互联网房产平台"
-msgstr ""
-
-#: ../server/main_interface.py:86
-msgid ""
-"洋房东,租房,买房,出租,租房中介,找房子,短租,长租,租金,楼盘,公寓,别墅,学区房,英国置业,留学生租房,海外租房,英国出租,英国租房,伦敦租房,伦敦买房,海外置业,海外投资,英国房价,Youngfunding,for"
-" rent,to let,room to rent,property to rent,investment,overseas "
-"investment,property,apartment,house,UK property"
-msgstr ""
-
-#: ../server/main_interface.py:205
-msgid "Affiliate 注册"
-msgstr ""
-
-#: ../server/main_interface.py:214
-msgid "选择服务需求"
-msgstr ""
-
-#: ../server/main_interface.py:255
-msgid "使用手机验证码重置密码"
-msgstr ""
-
-#: ../server/main_interface.py:262 ../server/main_interface.py:272
-msgid "使用绑定邮箱重置密码"
-msgstr ""
-
-#: ../server/main_interface.py:280
-msgid "二手房出售"
-msgstr ""
-
-#: ../server/main_interface.py:288
-msgid "出售预览"
-msgstr ""
-
-#: ../server/main_interface.py:319 ../server/property_to_rent_interface.py:167
-msgid "快来围观"
-msgstr ""
-
-#: ../server/main_interface.py:357
-msgid "洋房东平台 - 录制/上传您的看房视频"
-msgstr ""
-
-#: ../server/main_interface.py:370
-msgid "洋房东平台 - 预订"
-msgstr ""
-
-#: ../server/main_interface.py:386
-msgid "洋房东平台 - 收据"
-msgstr ""
-
-#: ../server/main_interface.py:408
-msgid "没有访问该页面的权限"
-msgstr ""
-
-#: ../server/main_interface.py:415
-msgid "无法访问该页面"
-msgstr ""
-
-#: ../server/main_interface.py:422
-msgid "找不到页面"
-msgstr ""
-
-#: ../server/main_interface.py:429
-msgid "服务器开小差了"
-msgstr ""
-
-#: ../server/main_interface.py:789
-msgid "洋房东APP下载页"
-msgstr ""
-
-#: ../server/main_interface.py:790
-msgid "洋房东官方手机app客户端应用下载PC电脑端网站英国英国大不列颠英格兰苏格兰伦敦租客搜索房源租房找房住宿房东发布房源省时省力贴心安全快捷便利"
-msgstr ""
-
-#: ../server/main_interface.py:791
-msgid ""
-"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,官方应用,官方app,Youngfunding,for"
-" rent,to let,room to rent,property to rent,property,apartment,house,UK "
-"property,official app, official application"
-msgstr ""
-
-#: ../server/main_interface.py:868
-msgid "求租意向单编辑"
-msgstr ""
-
-#: ../server/main_interface_phone.py:24
-msgid "提交租房需求"
-msgstr ""
-
-#: ../server/main_interface_phone.py:25
-msgid "洋房东求租意向单满足英国腐国英国大不列颠英格兰苏格兰伦敦找房租房住宿房源需求提供精准优质足不出户快速便捷的服务第一时间联系您省时省力贴心安全快捷便利"
-msgstr ""
-
-#: ../server/main_interface_phone.py:26
-msgid ""
-"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,求租意向,求租需求,租房需要,租房需求单,租房申请,Youngfunding,for"
-" rent,to let,room to rent,property to rent,property,apartment,house,UK "
-"property, wish list, submitting wishes"
-msgstr ""
-
-#: ../server/main_interface_phone.py:33
-msgid "提交求租咨询"
-msgstr ""
-
-#: ../server/main_interface_phone.py:55
-msgid "微信分享"
-msgstr ""
-
-#: ../server/main_interface_phone.py:84
-msgid "房贷计算器"
-msgstr ""
-
-#: ../server/news_interface.py:17
-msgid "洋房东英国英国大不列颠英格兰苏格兰伦敦房源房产房地产不动产房屋购房购屋买房投资资讯咨询信息新闻省时省力贴心安全快捷便利"
-msgstr ""
-
-#: ../server/news_interface.py:18
-msgid ""
-"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资信息,投资新闻,Youngfunding,investment,overseas"
-" investment,property,apartment,house,UK property,investment information"
-msgstr ""
-
-#: ../server/news_interface.py:52
-msgid "洋房东英国英国大不列颠英格兰苏格兰伦敦期房房源房产房地产不动产房屋购房购屋买房投资常见问题疑惑产权类型买房购房付款交钱投资流程过程解惑解答疑问指南帮助选房找房服务助手省时省力贴心安全快捷便利"
-msgstr ""
-
-#: ../server/news_interface.py:53
-msgid ""
-"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,常见问题解答,投资问答,Youngfunding,investment,overseas"
-" investment,property,apartment,house,UK property,Q&A,investment "
-"information"
-msgstr ""
-
-#: ../server/property_interface.py:61
-msgid "房产列表-洋房东"
-msgstr ""
-
-#: ../server/property_interface.py:62
-msgid "专业的英国置业顾问，详实的英国投资建议，优质的购房服务，全方位协助完成在英房地产购买"
-msgstr ""
-
-#: ../server/property_interface.py:63
-msgid ""
-"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资项目,Youngfunding,investment,overseas"
-" investment,property,apartment,house,UK property,investment progects"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:85
-msgid "出租列表-洋房东"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:86
-msgid "英国华人的线上租赁神器，最全面的房源信息，最宽广的招租平台，最先进的交流系统，更快更直接地找到理想的房源或房客"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:87
-msgid ""
-"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,租房列表,房源列表,Youngfunding,for"
-" rent,to let,room to rent,property to rent,property,apartment,house,UK "
-"property,list of property"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:195
-msgid "出租房源发布"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:196
-msgid "洋房东英国大不列颠英格兰苏格兰伦敦快速便捷方便迅速上传发布登记房源房产广告出租找租客提交数据信息填写详情描述周边上传图片照片省时省力贴心安全快捷便利"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:197
-msgid ""
-"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,提交房源,上传房产,Youngfunding,for"
-" rent,to let,room to rent,property to rent,property,apartment,house,UK "
-"property,listing submission"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:206
-msgid "出租房源编辑"
-msgstr ""
-
-#: ../server/property_to_rent_interface.py:232
-msgid "房源发布成功"
-msgstr ""
-
-#: ../server/region_report_interface.py:28
-msgid "街区分析报告"
-msgstr ""
-
-#: ../server/region_report_interface.py:29
-msgid "洋房东街区投资分析报告"
-msgstr ""
-
-#: ../server/user_setting_interface.py:34
-msgid "更改邮箱"
-msgstr ""
-
-#: ../server/user_setting_interface.py:44
-msgid "更改密码"
-msgstr ""
-
-#: ../server/user_setting_interface.py:53
-#: ../server/user_setting_interface.py:62
-msgid "更改手机号"
-msgstr ""
-
-#: ../server/user_setting_interface.py:71
-#: ../server/user_setting_interface.py:80
-msgid "验证手机号"
-msgstr ""
-
-#: ../server/user_setting_interface.py:178
-msgid "洋房东优惠券"
-msgstr ""
-
-#: ../server/libfelix/f_push/f_http_streaming.py:51
-msgid "ssl"
 msgstr ""
 
