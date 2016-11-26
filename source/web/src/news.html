@@ -175,7 +175,8 @@
 
         $('[data-fn=shareToWeibo]').on('click', function () {
             var news = JSON.parse($('#newsData').text())
-            var params = {'title': news.title, 'url': window.location.href}
+            console.log(news)
+            var params = {'title': news.title? news.title: window.location.href, 'url': window.location.href}
             if (news.images && news.images.length > 0) {
                 params.pic = news.images[0]
             }
