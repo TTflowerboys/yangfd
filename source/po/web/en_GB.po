@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-11-26 10:52+0800\n"
+"POT-Creation-Date: 2016-11-26 11:06+0800\n"
 "PO-Revision-Date: 2016-11-23 17:12+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
@@ -15545,7 +15545,7 @@ msgstr "Enter keywords to search & add universities, underground…"
 #~ msgstr "Accommodates"
 
 #~ msgid "请选择结束日期"
-#~ msgstr "End date"
+#~ msgstr "Please select the end date"
 
 #~ msgid "请输入位置，如Isle of dogs,UCL..."
 #~ msgstr "Please enter location like sle of dogs,UCL..."
@@ -16667,16 +16667,16 @@ msgstr "Enter keywords to search & add universities, underground…"
 #~ msgstr "Send failed"
 
 #~ msgid "请选择起租日期"
-#~ msgstr "Start date"
+#~ msgstr "Please select the start date"
 
 #~ msgid "请选择租期结束日期"
-#~ msgstr "End date"
+#~ msgstr "Please select the end date"
 
 #~ msgid "起租日期不能早于今天"
 #~ msgstr "Rent start date can’t earlier than today"
 
 #~ msgid "起租日期不能晚于结束日期"
-#~ msgstr "End date"
+#~ msgstr "Start Date End Date require more than"
 
 #~ msgid "请填写您入住的原因和对房东的问题"
 #~ msgstr "Please enter your reason to move in and your questions for landlord"
