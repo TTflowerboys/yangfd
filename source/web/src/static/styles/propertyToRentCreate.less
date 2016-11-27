@@ -550,12 +550,20 @@ main {
                 .requirement{
                     select{
                         width: 118px;
+                        body[lang=en_GB] & {
+	                    width: 138px;
+                        }
                         &.wide{
                             width: 178px;
                         }
                     }
                     .chosen-container{
                         margin-right: 14px;
+                        &.occupation {
+                            body[lang=en_GB] & {
+	                        margin-top: 24px;
+                            }
+                        }
                     }
                     .separator{
                         margin-left: -10px;

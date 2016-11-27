@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-11-26 15:17+0800\n"
-"PO-Revision-Date: 2016-11-26 15:19+0800\n"
+"POT-Creation-Date: 2016-11-23 17:12+0800\n"
+"PO-Revision-Date: 2016-11-27 10:46+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -4265,7 +4265,7 @@ msgstr "N/A No contact viewed properties"
 
 #: ../web/src/user_properties.html:88
 msgid "没有已咨询过的房产"
-msgstr "No properties enquiries"
+msgstr "No property enquiries"
 
 #: ../web/src/user_verify_email.html:10 ../web/src/verify_email_status.html:10
 #: ../server/user_setting_interface.py:25
@@ -4590,7 +4590,7 @@ msgstr "Free Enquiry"
 
 #: ../web/src/masters/master.html:196
 msgid "朋友圈里的极速出租发布APP"
-msgstr "Ultimate WeChat integrated rental app"
+msgstr "Ultimate Rental app"
 
 #: ../web/src/masters/master.html:198
 msgid "立即获取"
