@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-11-23 17:12+0800\n"
-"PO-Revision-Date: 2016-11-27 10:46+0800\n"
+"PO-Revision-Date: 2016-11-28 18:28+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -1075,7 +1075,7 @@ msgstr "The landlord will respond to your request within 24 hours"
 #: ../web/src/partials/host_contact_partner.html:46
 #: ../web/src/partials/host_contact_request.html:51
 msgid "我要预订"
-msgstr "I would like to book"
+msgstr "Book Now"
 
 #: ../web/src/host_contact_request-phone.html:39
 #: ../web/src/property_to_rent.html:569 ../web/src/property_to_rent.html:846
