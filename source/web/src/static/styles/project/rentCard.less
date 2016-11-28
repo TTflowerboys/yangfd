@@ -173,8 +173,8 @@
                 font-family: @font-normal;
                 max-width:75%;
                 .limitedLines(1, 30px, transparent);
-                line-height: 1;
-
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 @media @phone {
                     display:none;
                 }
@@ -229,8 +229,9 @@
 
             > .partner, .noServiceFee, .canVisit {
                 display: none;
-                width:100px;
-                padding: 1px;
+                width:auto;
+                white-space: nowrap;
+                padding: 1px 5px;
                 text-align:center;
                 color: @light-blue;
                 border:1px solid @light-blue;
