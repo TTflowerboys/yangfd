@@ -232,7 +232,8 @@
                     singleDate: true,
                     showShortcuts: false,
                     lookBehind: false,
-                    container: container,
+                    container: container,                    
+                    startDate: window.moment().format(),
                     getValue: function() {
                         return $(this).val()
                     }
