@@ -194,9 +194,9 @@
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
+//            else if (task.exception) {
+//                [SVProgressHUD showErrorWithException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [SVProgressHUD showErrorWithCancellation];
             }
@@ -249,9 +249,9 @@
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
+//                else if (task.exception) {
+//                    [SVProgressHUD showErrorWithException:task.exception];
+//                }
                 else if (task.isCancelled) {
                     [SVProgressHUD showErrorWithCancellation];
                 }
@@ -303,7 +303,7 @@
             Sequencer *sequencer = [Sequencer new];
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
                 [[[CUTERentTicketPublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
+                    if (task.error || task.isCancelled) {
                         [SVProgressHUD showErrorWithError:task.error];
                         reenableRightBarButtonItem();
                     }

@@ -63,7 +63,7 @@
         NSNumber *aValue = self.value? [formatter numberFromString:self.value]: nil;
         NSNumber *bVlaue = [(CUTEArea *)object value]? [formatter numberFromString:[(CUTEArea *)object value]]: nil;
         if (aValue && bVlaue) {
-            return [self.unit isEqualToString:[object unit]] && [aValue isEqualToNumber: bVlaue];
+            return [self.unit isEqualToString:[(CUTEArea *)object unit]] && [aValue isEqualToNumber: bVlaue];
         }
     }
 

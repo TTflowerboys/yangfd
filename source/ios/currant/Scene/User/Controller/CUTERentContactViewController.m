@@ -70,9 +70,9 @@
             if (task.error) {
                 [tcs setError:task.error];
             }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
+//            else if (task.exception) {
+//                [tcs setException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [tcs cancel];
             }
@@ -297,7 +297,7 @@
         }
         else {
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
+                if (task.error || task.isCancelled) {
                     [self setVerficationButtonEnable:YES];
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -341,7 +341,7 @@
         if (_retUser) {
             [SVProgressHUD showWithStatus:STR(@"RentContact/发送中...")];
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
+                if (task.error || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                     [self setVerficationButtonEnable:YES];
                 }
@@ -362,7 +362,7 @@
             }
             
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/fast-register" parameters:params resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
+                if (task.error || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                     [self setVerficationButtonEnable:YES];
                     return nil;
@@ -447,9 +447,9 @@
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
+//            else if (task.exception) {
+//                [SVProgressHUD showErrorWithException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [SVProgressHUD showErrorWithCancellation];
             }
@@ -476,7 +476,7 @@
             [[[CUTERentTicketPublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
                 [SVProgressHUD showWithStatus:status];
             }] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
+                if (task.error || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                     return nil;
                 } else {
@@ -512,9 +512,9 @@
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
+//        else if (task.exception) {
+//            [SVProgressHUD showErrorWithException:task.exception];
+//        }
         else if (task.isCancelled) {
             [SVProgressHUD showErrorWithCancellation];
         }
@@ -547,9 +547,9 @@
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
+//        else if (task.exception) {
+//            [SVProgressHUD showErrorWithException:task.exception];
+//        }
         else if (task.isCancelled) {
             [SVProgressHUD showErrorWithCancellation];
         }

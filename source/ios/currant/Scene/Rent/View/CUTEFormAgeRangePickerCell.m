@@ -99,7 +99,7 @@
         return STR(@"不限");
     }
     else {
-        return [NSString stringWithFormat:@"%d", row ];
+        return [NSString stringWithFormat:@"%ld", (long)row ];
     }
 }
 

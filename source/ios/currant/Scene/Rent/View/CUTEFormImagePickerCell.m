@@ -306,9 +306,9 @@
                 [SVProgressHUD showErrorWithError:task.error];
             }
         }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
+//        else if (task.exception) {
+//            [SVProgressHUD showErrorWithException:task.exception];
+//        }
         else if (task.isCancelled) {
             [SVProgressHUD showErrorWithCancellation];
         }
@@ -344,9 +344,9 @@
                     [SVProgressHUD showErrorWithError:task.error];
                 }
             }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
+//            else if (task.exception) {
+//                [SVProgressHUD showErrorWithException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [SVProgressHUD showErrorWithCancellation];
             }
@@ -364,9 +364,9 @@
                 [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"ImagePickerCell/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 }];
             }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
+//            else if (task.exception) {
+//                [SVProgressHUD showErrorWithException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [SVProgressHUD showErrorWithCancellation];
             }
@@ -462,9 +462,9 @@
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
+//            else if (task.exception) {
+//                [SVProgressHUD showErrorWithException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [SVProgressHUD showErrorWithCancellation];
             }
@@ -585,9 +585,9 @@
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
+//        else if (task.exception) {
+//            [SVProgressHUD showErrorWithException:task.exception];
+//        }
         else if (task.isCancelled) {
             [SVProgressHUD showErrorWithCancellation];
         }
@@ -596,9 +596,9 @@
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
+//                else if (task.exception) {
+//                    [SVProgressHUD showErrorWithException:task.exception];
+//                }
                 else if (task.isCancelled) {
                     [SVProgressHUD showErrorWithCancellation];
                 }
@@ -673,9 +673,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
+//                else if (task.exception) {
+//                    [SVProgressHUD showErrorWithException:task.exception];
+//                }
                 else if (task.isCancelled) {
                     [SVProgressHUD showErrorWithCancellation];
                 }

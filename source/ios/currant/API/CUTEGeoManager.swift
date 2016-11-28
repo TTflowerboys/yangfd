@@ -379,9 +379,9 @@ class CUTEGeoManager: NSObject {
                 else if task.error != nil {
                     tcs.setError(task.error!)
                 }
-                else if task.exception != nil {
-                    tcs.setException(task.exception!)
-                }
+//                else if task.exception != nil {
+//                    tcs.setException(task.exception!)
+//                }
                 else {
                     tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                 }
@@ -617,7 +617,7 @@ class CUTEGeoManager: NSObject {
                     }
                 }
             })
-        } as! (Data?, URLResponse?, Error?) -> Void) 
+        } ) 
 
         cancellationToken?.registerCancellationObserver({ () -> Void in
             task.cancel()

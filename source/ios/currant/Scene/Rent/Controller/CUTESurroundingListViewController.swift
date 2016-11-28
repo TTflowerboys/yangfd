@@ -207,9 +207,9 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
             else if task.error != nil {
                 SVProgressHUD.showErrorWithError(task.error)
             }
-            else if task.exception != nil {
-                SVProgressHUD.showError(with: task.exception)
-            }
+//            else if task.exception != nil {
+//                SVProgressHUD.showError(with: task.exception)
+//            }
             else if let surroundings = task.result as? [CUTESurrounding] {
                 if surroundings.count > 0 {
                     let completedSurrounding = surroundings[0]

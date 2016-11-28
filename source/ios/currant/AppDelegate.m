@@ -195,13 +195,8 @@
 
     if ([CUTEConfiguration enableAPNS]) {
         //from ios 8.0
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil]];
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-        }
-        else {
-            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
-        }
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -511,10 +506,10 @@
                     [SVProgressHUD showErrorWithError:task.error];
                     [tcs setResult:nil];
                 }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                    [tcs setResult:nil];
-                }
+//                else if (task.exception) {
+//                    [SVProgressHUD showErrorWithException:task.exception];
+//                    [tcs setResult:nil];
+//                }
                 else if (task.isCancelled) {
                     [SVProgressHUD showErrorWithCancellation];
                     [tcs setResult:nil];
@@ -803,9 +798,9 @@
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
+//            else if (task.exception) {
+//                [SVProgressHUD showErrorWithException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [SVProgressHUD showErrorWithCancellation];
             }
@@ -875,9 +870,9 @@
                     if (task.error) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
-                    else if (task.exception) {
-                        [SVProgressHUD showErrorWithException:task.exception];
-                    }
+//                    else if (task.exception) {
+//                        [SVProgressHUD showErrorWithException:task.exception];
+//                    }
                     else if (task.isCancelled) {
                         [SVProgressHUD showErrorWithCancellation];
                     }
@@ -908,9 +903,9 @@
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
+//        else if (task.exception) {
+//            [SVProgressHUD showErrorWithException:task.exception];
+//        }
         else if (task.isCancelled) {
             [SVProgressHUD showErrorWithCancellation];
         }

@@ -45,7 +45,7 @@
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [[self createProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error || task.isCancelled) {
                 [tcs setError:task.error];
             }
             else {
@@ -64,9 +64,9 @@
             if (task.error) {
                 [tcs setError:task.error];
             }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
+//            else if (task.exception) {
+//                [tcs setException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [tcs cancel];
             }
@@ -82,9 +82,9 @@
             if (task.error) {
                 [tcs setError:task.error];
             }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
+//            else if (task.exception) {
+//                [tcs setException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [tcs cancel];
             }
@@ -112,9 +112,9 @@
         if (task.error) {
             [tcs setError:task.error];
         }
-        else if (task.exception) {
-            [tcs setException:task.exception];
-        }
+//        else if (task.exception) {
+//            [tcs setException:task.exception];
+//        }
         else if (task.isCancelled) {
             [tcs cancel];
         }
@@ -193,9 +193,9 @@
                     else if (task.error) {
                         [tcs setError:task.error];
                     }
-                    else if (task.exception) {
-                        [tcs setException:task.exception];
-                    }
+//                    else if (task.exception) {
+//                        [tcs setException:task.exception];
+//                    }
                     return nil;
                 }];
             }];
@@ -212,9 +212,9 @@
                 if (task.error) {
                     [tcs setError:task.error];
                 }
-                else if (task.exception) {
-                    [tcs setException:task.exception];
-                }
+//                else if (task.exception) {
+//                    [tcs setException:task.exception];
+//                }
                 else if (task.isCancelled) {
                     [tcs cancel];
                 }
@@ -242,9 +242,9 @@
                     if (task.error) {
                         [tcs setError:task.error];
                     }
-                    else if (task.exception) {
-                        [tcs setException:task.exception];
-                    }
+//                    else if (task.exception) {
+//                        [tcs setException:task.exception];
+//                    }
                     else if (task.isCancelled) {
                         [tcs cancel];
                     }
@@ -274,9 +274,9 @@
                 if (task.error) {
                     [tcs setError:task.error];
                 }
-                else if (task.exception) {
-                    [tcs setException:task.exception];
-                }
+//                else if (task.exception) {
+//                    [tcs setException:task.exception];
+//                }
                 else if (task.isCancelled) {
                     [tcs cancel];
                 }
@@ -308,9 +308,9 @@
                     if (task.error) {
                         [tcs setError:task.error];
                     }
-                    else if (task.exception) {
-                        [tcs setException:task.exception];
-                    }
+//                    else if (task.exception) {
+//                        [tcs setException:task.exception];
+//                    }
                     else if (task.isCancelled) {
                         [tcs cancel];
                     }
@@ -366,9 +366,9 @@
         if (task.error) {
             [tcs setError:task.error];
         }
-        else if (task.exception) {
-            [tcs setException:task.exception];
-        }
+//        else if (task.exception) {
+//            [tcs setException:task.exception];
+//        }
         else if (task.isCancelled) {
             [tcs cancel];
         }

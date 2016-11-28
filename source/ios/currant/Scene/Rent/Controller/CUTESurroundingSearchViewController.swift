@@ -205,9 +205,9 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
             else if task.isCancelled {
                 SVProgressHUD.showErrorWithCancellation()
             }
-            else if task.exception != nil {
-                SVProgressHUD.showError(with: task.exception)
-            }
+//            else if task.exception != nil {
+//                SVProgressHUD.showError(with: task.exception)
+//            }
             else if let surroundings = task.result as? [CUTESurrounding] {
                 self.searchResultSurroundings = surroundings
                 self.tableView.reloadData()

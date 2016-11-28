@@ -64,7 +64,7 @@
         [[[CUTERentTicketPublisher sharedInstance] publishTicket:self.ticket updateStatus:^(NSString *status) {
             [SVProgressHUD showWithStatus:status];
         }] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
             else {

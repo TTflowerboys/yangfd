@@ -107,9 +107,9 @@ extension UINavigationController {
                 if (task.error != nil) {
                     SVProgressHUD.showErrorWithError(task.error)
                 }
-                else if (task.exception != nil) {
-                    SVProgressHUD.showError(with: task.exception)
-                }
+//                else if (task.exception != nil) {
+//                    SVProgressHUD.showError(with: task.exception)
+//                }
                 else if (task.isCancelled) {
                     SVProgressHUD.showErrorWithCancellation()
                 }
@@ -182,7 +182,7 @@ extension UINavigationController {
                 trackOpenScreen(screenname)
             }
 
-            if toURL.path != nil && toURL.path.hasPrefix("/property-to-rent") {
+            if toURL.path.hasPrefix("/property-to-rent") {
                 let components:[String]? = (toURL.path.components(separatedBy: "/"))
                 if components != nil && components!.count >= 3 {
                     let ticketId = components![2]

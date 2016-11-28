@@ -193,7 +193,9 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
 
     //MARK: - Field Action 
     func onGenderRequirementEdit(_ sender:AnyObject)  {
-        self.navigationController?.popViewController(animated: true)
+        if let navigationController = self.navigationController {
+            navigationController.popViewController(animated: true)
+        }
         var gender:String = ""
         if let text = self.form().genderRequirement {
             if text == STR("男") {
@@ -235,7 +237,9 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
     }
     
     func onOccupationEdit(_ sender:AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        if let navigationController = self.navigationController {
+            navigationController.popViewController(animated: true)
+        }
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! CUTEEnum
 
@@ -386,9 +390,9 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                 if task.error != nil {
                     SVProgressHUD.showErrorWithError(task.error)
                 }
-                else if task.exception != nil {
-                    SVProgressHUD.showError(with: task.exception)
-                }
+//                else if task.exception != nil {
+//                    SVProgressHUD.showError(with: task.exception)
+//                }
                 else if task.isCancelled {
                     SVProgressHUD.showErrorWithCancellation()
                 }

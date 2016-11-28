@@ -58,7 +58,7 @@
         NSNumber *aValue = self.value? [formatter numberFromString:self.value]: nil;
         NSNumber *bVlaue = [(CUTECurrency *)object value]? [formatter numberFromString:[(CUTECurrency *)object value]]: nil;
         if (aValue && bVlaue) {
-            return [self.unit isEqualToString:[object unit]] && [aValue isEqualToNumber: bVlaue];
+            return [self.unit isEqualToString:[(CUTECurrency *)object unit]] && [aValue isEqualToNumber: bVlaue];
         }
     }
 

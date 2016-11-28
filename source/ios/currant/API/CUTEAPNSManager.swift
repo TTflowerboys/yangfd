@@ -64,7 +64,7 @@ class CUTEAPNSManager : NSObject {
 
         request.allHTTPHeaderFields =  ((headersDic as NSDictionary) as! Dictionary<String, String>)
         let operation = CUTEAPIManager.sharedInstance().backingManager().httpRequestOperation(with: request as URLRequest, success: { (operation:AFHTTPRequestOperation, responseObject:Any) -> Void in
-            tcs.setResult(responseObject as? AnyObject)
+            tcs.setResult(responseObject as AnyObject)
             }) { (operation:AFHTTPRequestOperation, error:Error) -> Void in
                 tcs.setError(error)
         }

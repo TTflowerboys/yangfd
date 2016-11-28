@@ -17,7 +17,7 @@ class CUTERouter : NSObject {
         let mappings: Dictionary<String, String>? = CUTEWebConfiguration.sharedInstance().getRoutes()
         let router = HHRouter.shared() as HHRouter
         for (key, value) in mappings! {
-            let cls = NSClassFromString(value)
+            let cls:AnyClass! = NSClassFromString(value)
             router.map(key, toControllerClass: cls)
         }
     }

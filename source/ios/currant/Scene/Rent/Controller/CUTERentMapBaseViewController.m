@@ -214,7 +214,7 @@
         }];
     }
     else {
-        [tcs setError:nil];
+        [tcs setError:[NSError errorWithDomain:CUTE_ERROR_DOMAIN code:-1 userInfo:@{NSLocalizedDescriptionKey: @""}]];
     }
     return tcs.task;
 }
@@ -285,9 +285,9 @@
         else if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
+//        else if (task.exception) {
+//            [SVProgressHUD showErrorWithException:task.exception];
+//        }
         else {
             if (task.result) {
                 CUTEPlacemark *placemark = task.result;
@@ -325,7 +325,7 @@
         [[self checkNeedUpdateAddressWithCancellationToken:_cancellationTokenSource.token] continueWithBlock:^id(BFTask *task) {
             [self.textField.indicatorView stopAnimating];
             _cancellationTokenSource = nil;
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
                 return nil;
             } else {

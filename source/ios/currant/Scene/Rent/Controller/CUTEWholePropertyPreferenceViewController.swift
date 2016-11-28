@@ -98,9 +98,9 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
                 if task.error != nil {
                     SVProgressHUD.showErrorWithError(task.error)
                 }
-                else if task.exception != nil {
-                    SVProgressHUD.showError(with: task.exception)
-                }
+//                else if task.exception != nil {
+//                    SVProgressHUD.showError(with: task.exception)
+//                }
                 else if task.isCancelled {
                     SVProgressHUD.showErrorWithCancellation()
                 }

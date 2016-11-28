@@ -98,9 +98,9 @@
                 if (task.error) {
                     [tcs setError:task.error];
                 }
-                else if (task.exception) {
-                    [tcs setException:task.exception];
-                }
+//                else if (task.exception) {
+//                    [tcs setException:task.exception];
+//                }
                 else if (task.isCancelled) {
                     [tcs cancel];
                 }
@@ -122,9 +122,9 @@
                     if (task.error) {
                         [tcs setError:task.error];
                     }
-                    else if (task.exception) {
-                        [tcs setException:task.exception];
-                    }
+//                    else if (task.exception) {
+//                        [tcs setException:task.exception];
+//                    }
                     else if (task.isCancelled) {
                         [tcs cancel];
                     }
@@ -513,9 +513,9 @@
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
+//        else if (task.exception) {
+//            [SVProgressHUD showErrorWithException:task.exception];
+//        }
         else if (task.isCancelled) {
             [SVProgressHUD showErrorWithCancellation];
         }
@@ -585,9 +585,9 @@
                     if (task.error) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
-                    else if (task.exception) {
-                        [SVProgressHUD showErrorWithException:task.exception];
-                    }
+//                    else if (task.exception) {
+//                        [SVProgressHUD showErrorWithException:task.exception];
+//                    }
                     else if (task.isCancelled) {
                         [SVProgressHUD showErrorWithCancellation];
                     }
@@ -670,9 +670,9 @@
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
+//                else if (task.exception) {
+//                    [SVProgressHUD showErrorWithException:task.exception];
+//                }
                 else if (task.isCancelled) {
                     [SVProgressHUD showErrorWithCancellation];
                 }
@@ -698,9 +698,9 @@
                         if (task.error) {
                             [SVProgressHUD showErrorWithError:task.error];
                         }
-                        else if (task.exception) {
-                            [SVProgressHUD showErrorWithException:task.exception];
-                        }
+//                        else if (task.exception) {
+//                            [SVProgressHUD showErrorWithException:task.exception];
+//                        }
                         else if (task.isCancelled) {
                             [SVProgressHUD showErrorWithCancellation];
                         }

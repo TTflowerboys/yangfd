@@ -54,9 +54,9 @@
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
+//            else if (task.exception) {
+//                [SVProgressHUD showErrorWithException:task.exception];
+//            }
             else if (task.isCancelled) {
                 [SVProgressHUD showErrorWithCancellation];
             }
@@ -128,10 +128,10 @@
             [[CUTETracker sharedInstance] trackError:task.error];
             [SVProgressHUD showErrorWithError:task.error];
         }
-        else if (task.exception) {
-            [[CUTETracker sharedInstance] trackException:task.exception];
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
+//        else if (task.exception) {
+//            [[CUTETracker sharedInstance] trackException:task.exception];
+//            [SVProgressHUD showErrorWithException:task.exception];
+//        }
         else if (task.isCancelled) {
             TrackScreen(GetScreenName(@"share-cancellation"));
             if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION]) {

@@ -82,9 +82,9 @@
         [mainResource setObject:anEncoding forKey:@"WebResourceTextEncodingName"];
         [mainResource setObject:[anURL absoluteString] forKey:@"WebResourceURL"];
         [archiveSource setObject:mainResource forKey:@"WebMainResource"];
-        NSData *webArchive = [NSPropertyListSerialization dataFromPropertyList:archiveSource
-                                                                        format:NSPropertyListBinaryFormat_v1_0
-                                                              errorDescription:NULL];
+
+        NSError *error = nil;
+        NSData *webArchive = [NSPropertyListSerialization dataWithPropertyList:archiveSource format:NSPropertyListBinaryFormat_v1_0 options:0 error:&error];
         completion(webArchive);
     });
 }

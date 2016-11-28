@@ -148,9 +148,9 @@
                 if (task.error) {
                     responseCallback(@{@"msg":@"error"});
                 }
-                else if (task.exception) {
-
-                }
+//                else if (task.exception) {
+//
+//                }
                 else if (task.isCancelled) {
                     responseCallback(@{@"msg":@"cancel"});
                 }

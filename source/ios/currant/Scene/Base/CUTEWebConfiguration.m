@@ -121,7 +121,7 @@
                 NSString *propertyId = paths[2];
                 [SVProgressHUD show];
                 [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", propertyId) parameters:nil resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
+                    if (task.error || task.isCancelled) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
                     else {
@@ -144,7 +144,7 @@
                 NSString *ticketId = paths[2];
                 [SVProgressHUD show];
                 [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticketId) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
+                    if (task.error || task.isCancelled) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
                     else {
@@ -165,7 +165,7 @@
                 NSString *ticketId = paths[2];
                 [SVProgressHUD show];
                 [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticketId) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
+                    if (task.error || task.isCancelled) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
                     else {
