@@ -1,15 +1,12 @@
 <ul class="rmm-menu" style="display:none;">
-    <li><a href="/">{{_('首页')}}</a></li>
-    % if _.lang != "en_GB":
-    <li><a href="/property-list">{{_('置业投资')}}</a></li>
-    % end
-    <!-- @if ENV!='production' -->
-    <!--<li><a href="/crowdfunding-introduce">{{_('海外众筹')}}</a></li>-->
-    <!-- @endif -->
-    <li><a href="/property-to-rent-list">{{_('英国租房')}}</a></li>
-    % if _.lang != "en_GB":
-    <li><a href="/news-list">{{_('投资资讯')}}</a></li>
+    % if _.lang == "en_GB":
+        <li><a href="/">{{_('首页')}}</a></li>
+        <li><a href="/property-to-rent-list">Property List</a></li>
+        <li><a href="/how-it-works/tenant">How It Works</a></li>
     % else:
-    <li><a href="/how-it-works/tenant">How It Works</a></li>
+        <li><a href="/">{{_('首页')}}</a></li>
+        <li><a href="/property-list">{{_('置业投资')}}</a></li>
+        <li><a href="/property-to-rent-list">{{_('英国租房')}}</a></li>
+        <li><a href="/news-list">{{_('投资资讯')}}</a></li>
     % end
 </ul>
