@@ -204,8 +204,8 @@ def get_phone_code_by_country(code):
 
 def get_phone_numbers(use="display"):
     if use == "display":
-        CN = "4008299318"
-        GB = "02030402258"
+        CN = "400-8299318"
+        GB = "020 3040 2258"
     elif use == "link":
         CN = "4008299318"
         GB = "02030402258"
