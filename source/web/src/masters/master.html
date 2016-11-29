@@ -262,9 +262,11 @@
                             <a href="/about">{{_('关于我们')}}</a>
                             <a href="/terms">{{_('服务声明')}}</a>
                             <a href="/qa-rent">{{_('帮助中心')}}</a>
+                            % if _.lang != "en_GB":
                             <a class="hideInMobile" href="/about/marketing">{{_('市场合作')}}</a>
                             <a class="hideInMobile" href="/about/media">{{_('媒体合作')}}</a>
                             <a class="hideInMobile" href="/partner">{{_('合作伙伴')}}</a>
+                            % end
                         </div>
                         <div class="clear showInMobile"></div>
                         <div class="localizationChanger showInMobile">
