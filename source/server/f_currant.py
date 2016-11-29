@@ -845,7 +845,7 @@ class currant_plugin(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["ping_sitemap", "extract_ticket_search_keywords"]
+    task = ["ping_sitemap", "extract_ticket_search_keywords", "weibo_crawler"]
 
     def user_output_permission_check(self, result, user):
         if result is None:
@@ -1006,6 +1006,11 @@ class currant_plugin(f_app.plugin_base):
                 if 'success' not in result:
                     raise Exception("baidu_zhanzhang")
 
+    def task_on_weibo_crawler(self, task):
+        from search_sina import run_crawler
+        run_crawler()
+        f_app.task.repeat(task, timedelta(days=1))
+
     def task_on_extract_ticket_search_keywords(self, task):
         params = {
             "query": {"$exists": True},
@@ -1030,10 +1035,7 @@ class currant_plugin(f_app.plugin_base):
 
         self.logger.debug("Ticket search keywords updated.")
 
-        f_app.task.put(dict(
-            type="extract_ticket_search_keywords",
-            start=datetime.utcnow() + timedelta(days=1),
-        ))
+        f_app.task.repeat(task, timedelta(days=1))
 
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):

@@ -1,6 +1,5 @@
 # coding: utf-8
 from __future__ import unicode_literals, print_function
-import sys
 from app import f_app
 from datetime import datetime, timedelta
 from datetime import date
@@ -18,7 +17,6 @@ from time import sleep
 import requests
 import time
 
-day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the date how many days before will be loaded
 time_start_hours = 9
 
 
@@ -133,7 +131,7 @@ def get_weibo_search_result(keywords_list):
     def reduce_weibo(weibo_list):
         result = []
         today = date.today()
-        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
+        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=f_app.common.weibo_crawler_day_shift + 1)
         cleanr = re.compile('<.*?>')
         total = 0
         count = 0
@@ -207,7 +205,7 @@ def get_weibo_search_result(keywords_list):
         page = 1
         result_list = []
         today = date.today()
-        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
+        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=f_app.common.weibo_crawler_day_shift + 1)
         while(page <= 8):
             print('page: ' + six.text_type(page))
             target_url = list_url + '?page=' + six.text_type(page)
@@ -291,7 +289,7 @@ def get_weibo_search_result(keywords_list):
             return result
         index = 0
         today = date.today()
-        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
+        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=f_app.common.weibo_crawler_day_shift + 1)
         while(index <= 250):
             max_time = datetime(1970, 1, 1)
             try:
@@ -421,7 +419,6 @@ def get_weibo_search_result(keywords_list):
         return city_list
 
     def crawler_ybirds(session, city_name, city_switch_url, page_id=None):
-
         def ua_generator():
             ua_list = [
                 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)',
@@ -479,7 +476,7 @@ def get_weibo_search_result(keywords_list):
             return result
         index = 1
         today = date.today()
-        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
+        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=f_app.common.weibo_crawler_day_shift + 1)
         while(index <= 5):
             max_time = datetime(1970, 1, 1)
             try:
@@ -728,8 +725,8 @@ def get_weibo_search_result(keywords_list):
     today = date.today()
     result = six.BytesIO()
     wb.save(result)
-    if day_shift:
-        attachments['other_platform_search' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx'] = result
+    if f_app.common.weibo_crawler_day_shift:
+        attachments['other_platform_search' + six.text_type(today - timedelta(days=f_app.common.weibo_crawler_day_shift - 1)) + '~' + six.text_type(today) + '.xlsx'] = result
     else:
         attachments['other_platform_search' + six.text_type(today) + '.xlsx'] = result
 
@@ -786,21 +783,38 @@ def get_weibo_search_result(keywords_list):
 
     result = six.BytesIO()
     weibo_wb.save(result)
-    if day_shift:
-        attachments['weibo-search-' + six.text_type(today - timedelta(days=day_shift - 1)) + '~' + six.text_type(today) + '.xlsx'] = result
+    if f_app.common.weibo_crawler_day_shift:
+        attachments['weibo-search-' + six.text_type(today - timedelta(days=f_app.common.weibo_crawler_day_shift - 1)) + '~' + six.text_type(today) + '.xlsx'] = result
     else:
         attachments['weibo-search-' + six.text_type(today) + '.xlsx'] = result
 
     return attachments
 
 
-list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
-attachments = get_weibo_search_result(list_keyw)
-f_app.email.schedule(
-    target="felixonmars@gmail.com",
-    subject="Test",
-    text="Meow",
-    display="html",
-    tag="channel_data",
-    attachments=attachments,
-)
+def run_crawler():
+    list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
+    attachments = get_weibo_search_result(list_keyw)
+    f_app.email.send(
+        target="felixyan@bbtechgroup.com, mzhang@youngfunding.co.uk, fyin@bbtechgroup.com, g.hoy@youngfunding.co.uk, cczhou@youngfunding.co.uk, steven.yang@youngfunding.co.uk, ting.lei@youngfunding.co.uk",
+        subject=str(date.today()) + " 微博等渠道数据",
+        text="见附件。",
+        display="html",
+        tag="channel_data",
+        sender="Data Bot <developer+databot@bbtechgroup.com>",
+        method="smtp",
+        smtp_server="email-smtp.eu-west-1.amazonaws.com",
+        smtp_port=25,
+        smtp_username="AKIAJZ2N4GI54HVQIQWQ",
+        smtp_password="AkKsosmd8FEqDGKMUQIxOTGDRyYm53aIXMIbZpExDgg1",
+        smtp_tls=True,
+        attachments=attachments,
+    )
+
+
+f_app.common.weibo_crawler_day_shift = 0
+
+
+if __name__ == '__main__':
+    import sys
+    f_app.common.weibo_crawler_day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0
+    run_crawler()
