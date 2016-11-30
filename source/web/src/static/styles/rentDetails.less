@@ -1325,7 +1325,10 @@ body {
             .name{
                 display: inline-block;
                 margin-left: 6px;
-                width: 538px;
+                width: 560px;
+                body[lang=en_GB] & {
+                    width: 530px;
+                }
                 color: #666;
                 vertical-align: middle;
                 @media @phone{
@@ -1337,16 +1340,22 @@ body {
             }
             show-travel-time{
                 display: inline-block;
-                vertical-align: middle;
-                width: 210px;
+                vertical-align: middle;                
+                width: 184px;
+                body[lang=en_GB] & {
+                    width: 214px;
+                }
                 select{
-                    width: 150px;
+                    width: 118px;
+                    body[lang=en_GB] & {
+                        width: 158px;
+                    }
                     @media @phone{
                         width: 80px;
                     }
                 }
                 .chosen-container .chosen-single{
-                    padding: 0 10px 0 0;
+                    padding: 0 8px 0 0;
                     span {
                         @media @phone{
                             margin-right: 10px;
