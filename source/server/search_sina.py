@@ -728,9 +728,9 @@ def get_weibo_search_result(keywords_list):
     result = six.BytesIO()
     wb.save(result)
     if f_app.common.weibo_crawler_day_shift:
-        attachments['other_platform_search' + six.text_type(today - timedelta(days=f_app.common.weibo_crawler_day_shift - 1)) + '~' + six.text_type(today) + '.xlsx'] = result
+        attachments['other-platform-search-' + six.text_type(today - timedelta(days=f_app.common.weibo_crawler_day_shift - 1)) + '~' + six.text_type(today) + '.xlsx'] = result
     else:
-        attachments['other_platform_search' + six.text_type(today) + '.xlsx'] = result
+        attachments['other-platform-search-' + six.text_type(today) + '.xlsx'] = result
 
     # wb = Workbook()
     # ws = wb.active
