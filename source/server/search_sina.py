@@ -373,7 +373,7 @@ def get_weibo_search_result(keywords_list):
                 "Connection": "keep-alive",
             }
         )
-        match = re.compile(r'href=\"\.\\/(.*?)\">(.*?)<')
+        match = re.compile(r'href=\"\.\\(.*?)\">(.*?)<')
         source = match.findall(six.text_type(page.content, 'unicode-escape'))
         city_list = {}
         for single in source:
