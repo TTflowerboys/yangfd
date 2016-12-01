@@ -116,7 +116,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
         return modifiedJsonDic
     }
 
-    func getAdaptedResponseObject(_ responseObject:AnyObject!, jsonData:Data?, resultClass: AnyClass!, keyPath: String!) -> BFTask<AnyObject>! {
+    func getAdaptedResponseObject(_ responseObject:AnyObject!, jsonData:AnyObject?, resultClass: AnyClass!, keyPath: String!) -> BFTask<AnyObject>! {
         let tcs = BFTaskCompletionSource<AnyObject>()
 
 
@@ -125,12 +125,11 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
             CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continue({ (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
-                    let result = try JSONSerialization .jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions(rawValue: 0)) as AnyObject
+                    let result = jsonData!
 
                     if let val = result.value(forKeyPath: keyPath) as? [String:AnyObject] {
 
-                        //TODO fix this warning
-                        let model = MTLJSONAdapter.model(of: resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(val, types: types)) as AnyObject
+                        let model = try MTLJSONAdapter.model(of: resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(val, types: types)) as AnyObject
 
                         tcs.setResult(model)
                     }
@@ -146,10 +145,10 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
             CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continue({ (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
-                    let result = try JSONSerialization .jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions(rawValue: 0)) as AnyObject
+                    let result = jsonData!
                     let array = result.value(forKeyPath: keyPath) as! [[String:AnyObject]]
-                    let models = array.map({ (dic:[String:AnyObject]) -> CUTEProperty in
-                        return  MTLJSONAdapter.model(of: resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(dic, types: types)) as! CUTEProperty
+                    let models = try array.map({ (dic:[String:AnyObject]) -> CUTEProperty in
+                        return  try MTLJSONAdapter.model(of: resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(dic, types: types)) as! CUTEProperty
                     }) as AnyObject
                     tcs.setResult(models)
                 }
@@ -173,7 +172,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
         self.getAdaptedParamters(parameters as! [String : AnyObject]?).continue({ (task:BFTask!) -> AnyObject! in
             let modifiedParamters  = task.result as? [String : AnyObject]
 
-            let task = self.apiManager.proxyMethod(method, urlString: URLString, parameters: modifiedParamters, resultClass: resultClass, resultKeyPath: keyPath, cancellationToken: cancellationToken).continue({ (task:BFTask!) -> Any? in
+            let task = self.apiManager.forwardMethod(method, urlString: URLString, parameters: modifiedParamters, resultClass: resultClass, resultKeyPath: keyPath, cancellationToken: cancellationToken).continue({ (task:BFTask!) -> Any? in
                 //trySetCancelled will cancel this request
                 if tcs.task.isCancelled {
                     return tcs.task
@@ -188,9 +187,14 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                         tcs.setError(NSError(domain: "com.bbtechgroup", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bad Result"]))
                         return nil
                     }
-                    let jsonData = resultArray![0] as? Data
+                    let jsonData = resultArray![0]
                     let responseObject = resultArray![1]
-                    self.getAdaptedResponseObject(responseObject as AnyObject!, jsonData: jsonData, resultClass: resultClass, keyPath:keyPath).continue(successBlock: { (task:BFTask!) -> AnyObject! in
+
+                    if (jsonData as? NSNull) != nil || (responseObject as? NSNull) != nil {
+                        tcs.setResult(nil)
+                        return nil
+                    }
+                    self.getAdaptedResponseObject(responseObject as AnyObject!, jsonData: jsonData as AnyObject?, resultClass: resultClass, keyPath:keyPath).continue(successBlock: { (task:BFTask!) -> AnyObject! in
                         tcs.setResult(task.result)
                         return task
                     })

@@ -7,7 +7,7 @@
 //
 
 #import "CUTENeighborhood.h"
-#import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
+#import <MTLJSONAdapter.h>
 #import "CUTECommonMacro.h"
 
 @implementation CUTENeighborhood
@@ -21,7 +21,7 @@
 }
 
 + (NSValueTransformer *)parentJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTENeighborhood class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTENeighborhood class]];
 }
 
 

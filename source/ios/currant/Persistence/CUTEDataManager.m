@@ -11,6 +11,7 @@
 #import "CUTEUserDefaultKey.h"
 #import "CUTECommonMacro.h"
 #import <NSArray+ObjectiveSugar.h>
+#import <MTLJSONAdapter.h>
 #import <YTKKeyValueStore.h>
 
 #define DomainKey(key) [NSString stringWithFormat:@"%@/%@", [CUTEConfiguration host], key]
@@ -146,14 +147,15 @@
 - (void)restoreUser {
     YTKKeyValueItem *item = [_store getYTKKeyValueItemById:KSETTING_USER fromTable:KTABLE_SETTINGS];
     if (item && item.itemObject) {
-        _user = (CUTEUser *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:item.itemObject modelClass:[CUTEUser class] error:nil] model];
+        MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTEUser class]];
+        _user = [adapter modelFromJSONDictionary:item.itemObject error:nil];
     }
 }
 
 - (void)saveUser:(CUTEUser *)user {
     _user = user;
     if (user) {
-        [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:user] withId:KSETTING_USER intoTable:KTABLE_SETTINGS];
+        [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:user error:nil] withId:KSETTING_USER intoTable:KTABLE_SETTINGS];
     }
     else {
         [self clearUser];
@@ -170,14 +172,14 @@
 
 - (void)saveRentTicket:(CUTETicket *)ticket {
     DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,ticket.identifier);
-    [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket] withId:ticket.identifier intoTable:KTABLE_RENT_TICKETS];
+    [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket error:nil] withId:ticket.identifier intoTable:KTABLE_RENT_TICKETS];
 }
 
 - (CUTETicket *)getRentTicketById:(NSString *)ticketId {
     id item = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
     if (item) {
-        MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:item modelClass:[CUTETicket class] error:nil];
-        return (CUTETicket *)[ticket model];
+        MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTETicket class]];
+        return [adapter modelFromJSONDictionary:item error:nil];;
     }
 
     return nil;
@@ -187,8 +189,8 @@
     return [[[[_store getAllItemsFromTable:KTABLE_RENT_TICKETS] sortedArrayUsingComparator:^NSComparisonResult(YTKKeyValueItem *obj1, YTKKeyValueItem *obj2) {
         return [obj2.createdTime compare:obj1.createdTime];
     }] map:^id(YTKKeyValueItem *object) {
-        MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:object.itemObject modelClass:[CUTETicket class] error:nil];
-        return [ticket model];
+        MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTETicket class]];
+        return [adapter modelFromJSONDictionary:object.itemObject error:nil];
     }] select:^BOOL(CUTETicket *object) {
         return [object.status isEqualToString:kTicketStatusDraft];
     }];

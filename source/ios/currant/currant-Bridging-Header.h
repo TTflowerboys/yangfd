@@ -31,9 +31,9 @@
 //#define MAS_SHORTHAND
 #import "MasonryMake.h"
 #import <UIButton+BBT.h>
-#import <UIImageView+AFNetworking.h>
 #import <Aspects.h>
 #import <NSDate-Utilities.h>
+#import <UIImageView+AFNetworking.h>
 
 
 //Constant

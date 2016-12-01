@@ -9,7 +9,7 @@
 #import "CUTEPostcodePlace.h"
 #import "CUTENeighborhood.h"
 #import "MTLValueTransformer.h"
-#import <NSValueTransformer+MTLPredefinedTransformerAdditions.h>
+#import <MTLJSONAdapter.h>
 #import "MTLValueTransformer+NumberString.h"
 
 @implementation CUTEPostcodePlace
@@ -35,7 +35,7 @@
 }
 
 + (NSValueTransformer *)neighborhoodsJSONTransformer {
-    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTENeighborhood class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[CUTENeighborhood class]];
 }
 
 @end

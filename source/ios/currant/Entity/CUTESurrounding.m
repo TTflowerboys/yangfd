@@ -10,6 +10,7 @@
 #import <NSArray+ObjectiveSugar.h>
 #import <EXTKeyPathCoding.h>
 #import "CUTECommonMacro.h"
+#import <MTLJSONAdapter.h>
 #import "MTLValueTransformer+NumberString.h"
 
 @implementation CUTESurrounding
@@ -28,11 +29,11 @@
 }
 
 + (NSValueTransformer *)typeJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
 + (NSValueTransformer *)trafficTimesJSONTransformer {
-    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTETrafficTime class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[CUTETrafficTime class]];
 }
 
 + (NSValueTransformer *)latitudeJSONTransformer {

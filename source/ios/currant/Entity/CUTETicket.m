@@ -8,6 +8,7 @@
 
 #import "CUTETicket.h"
 #import "CUTECommonMacro.h"
+#import <MTLJSONAdapter.h>
 #import <EXTKeyPathCoding.h>
 
 NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
@@ -57,47 +58,47 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
 
 + (NSValueTransformer *)propertyJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEProperty class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEProperty class]];
 }
 
 + (NSValueTransformer *)rentTypeJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
 + (NSValueTransformer *)landlordTypeJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
 + (NSValueTransformer *)minimumRentPeriodJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTETimePeriod class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTETimePeriod class]];
 }
 
 + (NSValueTransformer *)depositJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
 + (NSValueTransformer *)holdingDepositJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
 + (NSValueTransformer *)spaceJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEArea class]];
 }
 
 + (NSValueTransformer *)priceJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
 + (NSValueTransformer *)occupationJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
 - (void)appendPart:(NSString *)part forString:(NSMutableString *)string {

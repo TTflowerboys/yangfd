@@ -8,6 +8,7 @@
 
 #import "CUTEUser.h"
 #import "CUTECommonMacro.h"
+#import <MTLJSONAdapter.h>
 #import <EXTKeyPathCoding.h>
 
 @implementation CUTEUser
@@ -31,12 +32,12 @@
 
 + (NSValueTransformer *)countryJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECountry class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECountry class]];
 }
 
 + (NSValueTransformer *)userTypesJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
 

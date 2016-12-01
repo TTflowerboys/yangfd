@@ -19,24 +19,30 @@
 
 //Be compatible with old data with value type as NSNumber
 + (NSValueTransformer *)valueJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSString *(id value) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         if ([value isKindOfClass:[NSNumber class]]) {
+            *success = YES;
             return [(NSNumber *)value stringValue];
         }
         else if ([value isKindOfClass:[NSString class]]) {
+            *success = YES;
             return value;
         }
         else {
+            *success = NO;
             return nil;
         }
-    } reverseBlock:^NSString *(id value) {
+    } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         if ([value isKindOfClass:[NSNumber class]]) {
+            *success = YES;
             return [(NSNumber *)value stringValue];
         }
         else if ([value isKindOfClass:[NSString class]]) {
+            *success = YES;
             return value;
         }
         else {
+            *success = NO;
             return nil;
         }
     }];

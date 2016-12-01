@@ -7,6 +7,7 @@
 //
 
 #import "CUTETrafficTime.h"
+#import <MTLJSONAdapter.h>
 
 @implementation CUTETrafficTime
 
@@ -15,11 +16,11 @@
 }
 
 + (NSValueTransformer *)typeJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
 + (NSValueTransformer *)timeJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTETimePeriod class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTETimePeriod class]];
 }
 
 

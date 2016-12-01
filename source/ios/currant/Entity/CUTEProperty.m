@@ -9,6 +9,7 @@
 #import "CUTEProperty.h"
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
+#import "CUTESurrounding.h"
 #import <NSArray+ObjectiveSugar.h>
 #import <MapKit/MapKit.h>
 #import "NSURL+CUTE.h"
@@ -19,7 +20,7 @@
 #import <MTLValueTransformer.h>
 #import <NSValueTransformer+MTLInversionAdditions.h>
 #import "MTLValueTransformer+NumberString.h"
-#import "currant-Swift.h"
+//#import "currant-Swift.h"
 
 @implementation CUTEProperty
 
@@ -96,14 +97,15 @@
 + (NSValueTransformer *)neighborhoodJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^CUTENeighborhood *(id dic) {
         if ([dic isKindOfClass:[NSDictionary class]]) {
-            return (CUTENeighborhood *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:dic modelClass:[CUTENeighborhood class] error:nil] model];
+            MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTENeighborhood class]];
+            return [adapter modelFromJSONDictionary:dic error:nil];
         }
         else {
             return nil;
         }
     } reverseBlock:^id(CUTENeighborhood *neighbood) {
         if (neighbood && [neighbood isKindOfClass:[CUTENeighborhood class]]) {
-            return [[[MTLJSONAdapter alloc] initWithModel:neighbood] JSONDictionary];
+            return [MTLJSONAdapter JSONDictionaryFromModel:neighbood error:nil];
         }
         return nil;
     }];

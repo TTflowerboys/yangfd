@@ -7,19 +7,20 @@
 //
 
 #import "CUTEAPIManager.h"
-#import <BBTRestClient.h>
+#import <AFNetworking.h>
 #import <UIImageView+AFNetworking.h>
 #import <NSArray+ObjectiveSugar.h>
 #import <RegExCategories.h>
+#import <Mantle.h>
+#import <NSDictionary+MTLJSONKeyPath.h>
 #import "CUTEConfiguration.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUserAgentUtil.h"
-//#import <currant-Swift.h>
 
 
 @interface CUTEAPIManager () {
 
-    BBTRestClient *_backingManager;
+    AFHTTPSessionManager *_backingManager;
 
     UIImageView *_imageDownloader;
 
@@ -47,10 +48,9 @@
 {
     self = [super init];
     if (self) {
-        _backingManager = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
+        _backingManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]]];
         _backingManager.requestSerializer = [AFJSONRequestSerializer new];
         [_backingManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//        [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
         [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
         [_backingManager.requestSerializer setValue:[CUTEUserAgentUtil userAgent] forHTTPHeaderField:@"User-Agent"];
 
@@ -140,34 +140,62 @@
     return [self method:@"POST" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:cancellationToken];
 }
 
-- (BFTask *)proxyMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken {
+- (id)getTransformedObjectWithJSON:(NSObject *)jsonObject resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath {
+    if (jsonObject != nil) {
+        NSError *error = nil;
+        if (keyPath && [keyPath length] && [jsonObject isKindOfClass:[NSDictionary class]]) {
+            BOOL success = NO;
+            jsonObject = [(NSDictionary *)jsonObject mtl_valueForJSONKeyPath:keyPath success:&success error:&error];
+            if (!success) {
+                return nil;
+            }
+        }
+
+        if (resultClass != nil) {
+            if ([jsonObject isKindOfClass:[NSDictionary class]]) {
+                return [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:(NSDictionary *)jsonObject error:&error];
+            }
+            else if ([jsonObject isKindOfClass:[NSArray class]]) {
+                return [MTLJSONAdapter modelsOfClass:resultClass fromJSONArray:(NSArray *)jsonObject error:&error];
+            }
+        }
+
+        return jsonObject;
+    }
+    return nil;
+}
+
+- (BFTask *)forwardMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken {
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
     NSURLRequest *request = [_backingManager.requestSerializer requestWithMethod:method URLString:[NSURL URLWithString:URLString relativeToURL:_backingManager.baseURL].absoluteString parameters:parameters error:nil];
-    AFHTTPRequestOperation *operation = [_backingManager HTTPRequestOperationWithRequest:request resultClass:resultClass resultKeyPath:keyPath completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+
+    NSURLSessionDataTask *dataTask = [_backingManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
 
         //trySetCancelled will cancel this request
         if (tcs.task.isCancelled) {
             return;
         }
-        
+
         if (error) {
             [tcs setError:error];
         }
         else {
-            [tcs setResult:@[operation.responseData? operation.responseData: [NSData new], responseObject]];
+            id transformedObject = [self getTransformedObjectWithJSON:responseObject resultClass:resultClass resultKeyPath:keyPath];
+            [tcs setResult:@[responseObject? responseObject: [NSNull null], transformedObject? transformedObject: [NSNull null]]];
         }
+
     }];
 
     if (cancellationToken) {
         [cancellationToken registerCancellationObserverWithBlock:^{
-            [operation cancel];
+            [dataTask cancel];
             [tcs trySetCancelled];
         }];
     }
 
-    [_backingManager.operationQueue addOperation:operation];
+    [dataTask resume];
 
     return tcs.task;
 }
@@ -183,7 +211,8 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
     NSURLRequest *request = [_backingManager.requestSerializer requestWithMethod:method URLString:[NSURL URLWithString:URLString relativeToURL:_backingManager.baseURL].absoluteString parameters:parameters error:nil];
-    AFHTTPRequestOperation *operation = [_backingManager HTTPRequestOperationWithRequest:request resultClass:resultClass resultKeyPath:keyPath completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+
+    NSURLSessionDataTask *dataTask = [_backingManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
 
         //trySetCancelled will cancel this request
         if (tcs.task.isCancelled) {
@@ -194,18 +223,19 @@
             [tcs setError:error];
         }
         else {
-            [tcs setResult:responseObject];
+            id transformedObject = [self getTransformedObjectWithJSON:responseObject resultClass:resultClass resultKeyPath:keyPath];
+            [tcs setResult:transformedObject];
         }
     }];
 
     if (cancellationToken) {
         [cancellationToken registerCancellationObserverWithBlock:^{
-            [operation cancel];
+            [dataTask cancel];
             [tcs trySetCancelled];
         }];
     }
-
-    [_backingManager.operationQueue addOperation:operation];
+    
+    [dataTask resume];
     
     return tcs.task;
 }

@@ -7,7 +7,7 @@
 //
 
 #import "CUTEHouseType.h"
-#import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
+#import <MTLJSONAdapter.h>
 
 @implementation CUTEHouseType
 
@@ -20,17 +20,17 @@
 
 + (NSValueTransformer *)totalPriceJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
 + (NSValueTransformer *)totalPriceMinJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
 + (NSValueTransformer *)unitPriceJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
 

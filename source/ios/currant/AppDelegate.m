@@ -37,9 +37,6 @@
 #import <ATConnect.h>
 #import <JDFTooltips.h>
 #import <ALActionBlocks.h>
-#ifdef DEBUG
-#import <AFNetworkActivityLogger.h>
-#endif
 #import "CUTESplashViewController.h"
 #import "CUTEUserDefaultKey.h"
 #import "MemoryReporter.h"

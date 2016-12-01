@@ -11,14 +11,16 @@
 @implementation MTLValueTransformer (NumberString)
 
 + (instancetype)numberStringTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(id value) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         if ([value isKindOfClass:[NSString class]]) {
             return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
         }
         return value;
-
-    } reverseBlock:^NSString *(NSNumber *number) {
-        return number.stringValue;
+    } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return [(NSNumber *)value stringValue];
+        }
+        return value;
     }];
 }
 
