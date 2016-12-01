@@ -54,21 +54,46 @@ class CUTEAPNSManager : NSObject {
         //TODO:
         let tcs = BFTaskCompletionSource<AnyObject>()
         let url = URL(string: "/api/1/user/apns/" + uuid + "/unregister", relativeTo: URL(string: CUTEConfiguration.apiEndpoint()))
-        let request = CUTEAPIManager.sharedInstance().backingManager().requestSerializer.request(withMethod: "POST", urlString: (url?.absoluteString)!, parameters: [], error:nil)
-        let cookieHeaders = HTTPCookie.requestHeaderFields(with: [cookie])
-        let headersDic = NSMutableDictionary()
-        if request.allHTTPHeaderFields != nil {
-            headersDic.addEntries(from: request.allHTTPHeaderFields!)
-        }
-        headersDic.addEntries(from: cookieHeaders)
+        var request:URLRequest? = nil
+        do {
+            request =  try CUTEAPIManager.sharedInstance().request(withMethod: "POST", urlString: (url?.absoluteString)!, parameters: [:])
+            let cookieHeaders = HTTPCookie.requestHeaderFields(with: [cookie])
+            let headersDic = NSMutableDictionary()
+            if request!.allHTTPHeaderFields != nil {
+                headersDic.addEntries(from: request!.allHTTPHeaderFields!)
+            }
+            headersDic.addEntries(from: cookieHeaders)
 
-        request.allHTTPHeaderFields =  ((headersDic as NSDictionary) as! Dictionary<String, String>)
-        let operation = CUTEAPIManager.sharedInstance().backingManager().httpRequestOperation(with: request as URLRequest, success: { (operation:AFHTTPRequestOperation, responseObject:Any) -> Void in
-            tcs.setResult(responseObject as AnyObject)
-            }) { (operation:AFHTTPRequestOperation, error:Error) -> Void in
-                tcs.setError(error)
+            request!.allHTTPHeaderFields =  ((headersDic as NSDictionary) as! Dictionary<String, String>)
+
         }
-        CUTEAPIManager.sharedInstance().backingManager().operationQueue.addOperation(operation)
+        catch let error {
+            tcs.setError(error)
+        }
+
+        let dataTask = URLSession.shared.dataTask(with: request!, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) -> Void in
+
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                tcs.setError(error!)
+                return
+            }
+
+            do {
+                let result = try JSONSerialization .jsonObject(with: data!, options: JSONSerialization.ReadingOptions(rawValue: 0))
+
+                guard let dic = result as? Dictionary<String, AnyObject>, let retNum = dic["ret"] as? NSNumber, retNum.int32Value == 0 else {
+                    tcs.setError(NSError(domain: "com.bbtechgroup.apns", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bad Ret code"]))
+                    return
+                }
+
+                tcs.setResult(data! as AnyObject?)
+            }
+            catch let error as NSError {
+                tcs.setError(error)
+            }
+        })
+
+        dataTask.resume()
         return tcs.task;
 
     }

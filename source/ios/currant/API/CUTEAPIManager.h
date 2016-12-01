@@ -8,13 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import <Bolts.h>
-#import <BBTRestClient.h>
+
+@class CUTEAPIManager;
+
+@protocol CUTEAPIProxyProtocol <NSObject>
+
+@property (nonatomic, assign) CUTEAPIManager *apiManager;
+
+- (BFTask *)method:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken;
+
+@end
+
 
 @interface CUTEAPIManager : NSObject
 
 + (instancetype)sharedInstance;
 
-- (BBTRestClient *)backingManager;
+- (NSURL *)baseURL;
+
+- (NSURLRequest *)requestWithMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing *)error;
+
+- (void)setMaxConcurrentOperationCount:(NSInteger)count;
 
 - (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
@@ -33,6 +47,8 @@
 - (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken;
 
 - (BFTask *)method:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken;
+
+- (BFTask *)proxyMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken;
 
 - (BFTask *)downloadImage:(NSString *)URLString;
 

@@ -10,12 +10,11 @@ import UIKit
 
 @objc(CUTEMainMixedIndexAPIProxy) class CUTEMainMixedIndexAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
-    init(restClient:BBTRestClient) {
-        self.restClient = restClient
+    override init() {
         super.init()
     }
 
-    var restClient:BBTRestClient
+    var apiManager:CUTEAPIManager!
 
     func getModifiedJsonDictionary(_ jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
 
@@ -65,39 +64,39 @@ import UIKit
     }
 
 
-    func method(_ method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask<AnyObject>! {
+    public func method(_ method: String!, urlString URLString: String!, parameters: [AnyHashable : Any]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken!) -> BFTask<AnyObject>! {
         let tcs = BFTaskCompletionSource<AnyObject>()
-        let URL = Foundation.URL(string: URLString, relativeTo:self.restClient.baseURL)
-        var absURLString = URLString
-        if URL != nil {
-            absURLString = URL!.absoluteString
-        }
-        let request = self.restClient.requestSerializer.request(withMethod: method, urlString: absURLString!, parameters: parameters, error: nil)
-        let operation = self.restClient.httpRequestOperation(with: request as URLRequest!, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation?, responseObject:Any?, error:Error?) -> Void in
-
+        let task = self.apiManager.proxyMethod(method, urlString: URLString, parameters: parameters, resultClass: resultClass, resultKeyPath: keyPath, cancellationToken: cancellationToken).continue({ (task:BFTask!) -> Any? in
             //trySetCancelled will cancel this request
             if tcs.task.isCancelled {
-                return;
+                return tcs.task
             }
 
-            if error != nil {
-                tcs.setError(error!)
+            if task.error != nil {
+                tcs.setError(task.error!)
             }
             else {
-                self.getAdaptedResponseObject(responseObject as AnyObject!, jsonData: operation!.responseData, resultClass: resultClass, keyPath:keyPath).continue(successBlock: { (task:BFTask!) -> AnyObject! in
+                let resultArray = task.result
+                guard ((resultArray as? Array<AnyObject>) != nil), resultArray!.count == 2 else {
+                    tcs.setError(NSError(domain: "com.bbtechgroup", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bad Result"]))
+                    return nil
+                }
+                let jsonData = resultArray![0] as? Data
+                let responseObject = resultArray![1]
+                self.getAdaptedResponseObject(responseObject as AnyObject!, jsonData: jsonData, resultClass: resultClass, keyPath:keyPath).continue(successBlock: { (task:BFTask!) -> AnyObject! in
                     tcs.setResult(task.result)
                     return task
                 })
             }
+
+            return task
         })
 
         if cancellationToken != nil {
             cancellationToken!.registerCancellationObserver({ () -> Void in
-                operation!.cancel()
                 tcs.trySetCancelled()
             })
         }
-        self.restClient.operationQueue.addOperation(operation!)
         return tcs.task
     }
 

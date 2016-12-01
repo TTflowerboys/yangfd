@@ -128,19 +128,19 @@ PODS:
   - NSTimer-Blocks (0.0.1)
   - ObjectiveSugar (1.1.0)
   - OCHamcrest (6.0.0)
-  - OHHTTPStubs (5.2.2):
-    - OHHTTPStubs/Default (= 5.2.2)
-  - OHHTTPStubs/Core (5.2.2)
-  - OHHTTPStubs/Default (5.2.2):
+  - OHHTTPStubs (5.2.3):
+    - OHHTTPStubs/Default (= 5.2.3)
+  - OHHTTPStubs/Core (5.2.3)
+  - OHHTTPStubs/Default (5.2.3):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (5.2.2):
+  - OHHTTPStubs/JSON (5.2.3):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (5.2.2):
+  - OHHTTPStubs/NSURLSession (5.2.3):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (5.2.2)
+  - OHHTTPStubs/OHPathHelpers (5.2.3)
   - Overcoat (1.2.1):
     - AFNetworking (~> 2.0)
     - Mantle (~> 1.3)
@@ -279,7 +279,7 @@ SPEC CHECKSUMS:
   NSTimer-Blocks: 88faf9aef5f250ead087f3f67ae642517083bf36
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   OCHamcrest: fc8ab38149b97df8db8029a3f2157c951bf9081d
-  OHHTTPStubs: 34d9d0994e64fcf8552dbfade5ce82ada913ee31
+  OHHTTPStubs: e238cd5b66d8efa51c861db45895de8fe079f4a7
   Overcoat: 45e4d20eafc02c8d7fcde3cb89d35f0630a9fa80
   PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4
   RegExCategories: e68befacacd5bda853c88f70ec745cb2d0cfb89c

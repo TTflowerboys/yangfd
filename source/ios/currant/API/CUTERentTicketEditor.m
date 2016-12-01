@@ -73,7 +73,7 @@ propertyParams:(NSDictionary *)propertyParams {
     if (_apiManager == nil) {
         // the editing use seperate queue, the queue only perform one request for one time, may need one queuer for per ticket, buy now no need, just a shared queue is ok
         _apiManager = [CUTEAPIManager new];
-        _apiManager.backingManager.operationQueue.maxConcurrentOperationCount = 1;
+        [_apiManager setMaxConcurrentOperationCount:1];
     }
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];

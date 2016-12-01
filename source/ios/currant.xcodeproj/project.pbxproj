@@ -409,13 +409,9 @@
 		2C9AFF7F1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */; };
 		2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */; };
 		2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */; };
-		2C9D32201BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D321E1BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift */; };
 		2C9D32211BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D321F1BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift */; };
-		2C9D32221BEC5C6A00424CAC /* CUTEAPIProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D321E1BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift */; };
 		2C9D32231BEC5C6A00424CAC /* CUTEPropertyAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D321F1BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift */; };
-		2C9D32241BEC5C6A00424CAC /* CUTEAPIProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D321E1BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift */; };
 		2C9D32251BEC5C6A00424CAC /* CUTEPropertyAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D321F1BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift */; };
-		2C9D32261BEC5C6B00424CAC /* CUTEAPIProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D321E1BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift */; };
 		2C9D32271BEC5C6B00424CAC /* CUTEPropertyAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D321F1BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift */; };
 		2C9F1CCF1B37E93E0034487F /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */; };
 		2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
@@ -1141,7 +1137,6 @@
 		2C9AFF7C1AF2355500E5F0BC /* BBTWebBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTWebBarButtonItem.h; sourceTree = "<group>"; };
 		2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTWebBarButtonItem.m; sourceTree = "<group>"; };
 		2C9D32121BEA0FB200424CAC /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
-		2C9D321E1BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEAPIProxyProtocol.swift; sourceTree = "<group>"; };
 		2C9D321F1BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPropertyAPIProxy.swift; sourceTree = "<group>"; };
 		2C9F1CC81B34300A0034487F /* CUTEPropertyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyTest.m; sourceTree = "<group>"; };
 		2C9F1CCD1B37E4CF0034487F /* CUTEURLTest+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEURLTest+CUTE.m"; sourceTree = "<group>"; };
@@ -1976,7 +1971,6 @@
 				2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */,
 				2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */,
 				2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */,
-				2C9D321E1BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift */,
 				2C9D321F1BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift */,
 				2C41E28A1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift */,
 				2CBE99011BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift */,
@@ -3095,7 +3089,6 @@
 				2C056D961B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EE1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
-				2C9D32241BEC5C6A00424CAC /* CUTEAPIProxyProtocol.swift in Sources */,
 				2CC1F3261C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */,
 				2C2FCDDB1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
@@ -3295,7 +3288,6 @@
 				2C056D971B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EF1B1C085400351DED /* CUTEMapListViewController.m in Sources */,
-				2C9D32261BEC5C6B00424CAC /* CUTEAPIProxyProtocol.swift in Sources */,
 				2CC1F3271C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */,
 				2C2FCDDC1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
@@ -3495,7 +3487,6 @@
 				2C056D951B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67ED1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
-				2C9D32221BEC5C6A00424CAC /* CUTEAPIProxyProtocol.swift in Sources */,
 				2CC1F3251C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */,
 				2C2FCDDA1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
@@ -3695,7 +3686,6 @@
 				2C3DE2331B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EC1B1C084A00351DED /* CUTEMapListViewController.m in Sources */,
 				2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
-				2C9D32201BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift in Sources */,
 				2CC1F3241C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */,
 				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62C1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,

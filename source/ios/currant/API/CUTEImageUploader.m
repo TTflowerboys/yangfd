@@ -8,7 +8,6 @@
 
 #import "CUTEImageUploader.h"
 #import <Bolts.h>
-#import <BBTRestClient.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "CUTEConfiguration.h"
 #import "CUTEDataManager.h"
@@ -24,8 +23,6 @@
 #import "NSObject+Attachment.h"
 
 @interface CUTEImageUploader () {
-
-    BBTRestClient *_imageUploader;
 
     NSOperationQueue *_uploadQueue;
 
@@ -53,7 +50,6 @@
 {
     self = [super init];
     if (self) {
-        _imageUploader = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
         _uploadQueue = [NSOperationQueue new];
         _uploadQueue.maxConcurrentOperationCount = 1;
         _requestTaskDictionary = [NSMutableDictionary dictionary];
@@ -151,33 +147,46 @@
             NSData *imageData = task.result;
             if (imageData) {
 
-                AFHTTPRequestOperation *operation = [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration hostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSDictionary *responseDic = (NSDictionary *)responseObject;
-                    if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
-                        NSString *urlStr = responseDic[@"val"][@"url"];
-                        [[CUTEDataManager sharedInstance] saveImageURLString:urlStr forAssetURLString:assetURLStr];
-                        [[CUTEDataManager sharedInstance] saveAssetURLString:assetURLStr forImageURLString:urlStr];
+                NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration hostURL]] data:imageData]  completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    if (error != nil) {
                         [_requestTaskDictionary removeObjectForKey:assetURLStr];
-
                         if (!tcs.task.isCancelled) {
-                            [tcs setResult:urlStr];
+                            [tcs setError:error];
                         }
                     }
                     else {
-                        [_requestTaskDictionary removeObjectForKey:assetURLStr];
-                        if (!tcs.task.isCancelled) {
-                            [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
+                        NSError *error = nil;
+                        id responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                        if (error) {
+                            [_requestTaskDictionary removeObjectForKey:assetURLStr];
+                            if (!tcs.task.isCancelled) {
+                                [tcs setError:task.error];
+                            }
+                            return;
+                        }
+
+                        NSDictionary *responseDic = (NSDictionary *)responseObject;
+                        if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
+                            NSString *urlStr = responseDic[@"val"][@"url"];
+                            [[CUTEDataManager sharedInstance] saveImageURLString:urlStr forAssetURLString:assetURLStr];
+                            [[CUTEDataManager sharedInstance] saveAssetURLString:assetURLStr forImageURLString:urlStr];
+                            [_requestTaskDictionary removeObjectForKey:assetURLStr];
+
+                            if (!tcs.task.isCancelled) {
+                                [tcs setResult:urlStr];
+                            }
+                        }
+                        else {
+                            [_requestTaskDictionary removeObjectForKey:assetURLStr];
+                            if (!tcs.task.isCancelled) {
+                                [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
+                            }
                         }
                     }
+                }];
 
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    [_requestTaskDictionary removeObjectForKey:assetURLStr];
-                    if (!tcs.task.isCancelled) {
-                        [tcs setError:error];
-                    }
-                }] ;
-                tcs.task.attachment = operation;
-                [operation start];
+                tcs.task.attachment = dataTask;
+                [dataTask resume];
             }
             else {
                 [_requestTaskDictionary removeObjectForKey:assetURLStr];
@@ -260,8 +269,8 @@
 
 - (void)cancelTaskForAssetURLString:(NSString *)assetURLStr {
     BFTask *task = [_requestTaskDictionary objectForKey:assetURLStr];
-    if (task && task.attachment && [task.attachment isKindOfClass:[AFHTTPRequestOperation class]]) {
-        [(AFHTTPRequestOperation *)task.attachment cancel];
+    if (task && task.attachment && [task.attachment isKindOfClass:[NSURLSessionDataTask class]]) {
+        [(NSURLSessionDataTask *)task.attachment cancel];
         [_requestTaskDictionary removeObjectForKey:assetURLStr];
     }
 }

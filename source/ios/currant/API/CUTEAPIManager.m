@@ -14,7 +14,7 @@
 #import "CUTEConfiguration.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUserAgentUtil.h"
-#import <currant-Swift.h>
+//#import <currant-Swift.h>
 
 
 @interface CUTEAPIManager () {
@@ -25,8 +25,6 @@
 
     NSMutableDictionary *_adapterURLRuleMappings;
 }
-
-@property (nonatomic, readonly) BBTRestClient *backingManager;
 
 @end
 
@@ -77,10 +75,6 @@
     return self;
 }
 
-- (BBTRestClient *)backingManager {
-    return _backingManager;
-}
-
 - (void)registerAPIProxyClassName:(NSString *)className withURLRule:(NSString *)rule {
     NSAssert([NSClassFromString(className) conformsToProtocol:@protocol(CUTEAPIProxyProtocol)], @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
 
@@ -93,12 +87,25 @@
     }];
     if (rule) {
         NSString  *className = [_adapterURLRuleMappings objectForKey:rule];
-        id<CUTEAPIProxyProtocol> adapter = [[NSClassFromString(className) alloc] initWithRestClient:_backingManager];
+        id<CUTEAPIProxyProtocol> adapter = [[NSClassFromString(className) alloc] init];
+        adapter.apiManager = self;
         return adapter;
 
     }
 
     return nil;
+}
+
+- (NSURL *)baseURL {
+    return _backingManager.baseURL;
+}
+
+- (NSURLRequest *)requestWithMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing *)error {
+    return [[_backingManager requestSerializer] requestWithMethod:method URLString:URLString parameters:parameters error:error];
+}
+
+- (void)setMaxConcurrentOperationCount:(NSInteger)count {
+    _backingManager.operationQueue.maxConcurrentOperationCount = count;
 }
 
 - (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass  {
@@ -133,6 +140,38 @@
     return [self method:@"POST" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:cancellationToken];
 }
 
+- (BFTask *)proxyMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken {
+
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    NSURLRequest *request = [_backingManager.requestSerializer requestWithMethod:method URLString:[NSURL URLWithString:URLString relativeToURL:_backingManager.baseURL].absoluteString parameters:parameters error:nil];
+    AFHTTPRequestOperation *operation = [_backingManager HTTPRequestOperationWithRequest:request resultClass:resultClass resultKeyPath:keyPath completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+
+        //trySetCancelled will cancel this request
+        if (tcs.task.isCancelled) {
+            return;
+        }
+        
+        if (error) {
+            [tcs setError:error];
+        }
+        else {
+            [tcs setResult:@[operation.responseData? operation.responseData: [NSData new], responseObject]];
+        }
+    }];
+
+    if (cancellationToken) {
+        [cancellationToken registerCancellationObserverWithBlock:^{
+            [operation cancel];
+            [tcs trySetCancelled];
+        }];
+    }
+
+    [_backingManager.operationQueue addOperation:operation];
+
+    return tcs.task;
+}
+
 - (BFTask *)method:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken {
 
     id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
@@ -150,7 +189,7 @@
         if (tcs.task.isCancelled) {
             return;
         }
-        
+
         if (error) {
             [tcs setError:error];
         }
@@ -167,7 +206,7 @@
     }
 
     [_backingManager.operationQueue addOperation:operation];
-
+    
     return tcs.task;
 }
 

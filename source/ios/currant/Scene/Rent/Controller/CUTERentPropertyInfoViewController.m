@@ -13,7 +13,6 @@
 #import <Bolts/Bolts.h>
 #import "CUTEProperty.h"
 #import <UIKit/UIKit.h>
-#import <BBTRestClient.h>
 #import "CUTEConfiguration.h"
 #import <BBTJSON.h>
 #import <NSArray+ObjectiveSugar.h>

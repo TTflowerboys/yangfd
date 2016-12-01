@@ -10,13 +10,6 @@
 #import "CUTEUserAgentUtil.h"
 #import <UIKit/UIKit.h>
 #import "CUTEAPIManager.h"
-#import "BBTRestClient.h"
-
-@interface CUTEAPIManager (Private)
-
-@property (nonatomic, readonly) BBTRestClient *backingManager;
-
-@end
 
 SpecBegin(UserAgentUtil)
 
@@ -32,18 +25,6 @@ describe(@"setupWebViewUserAgent", ^ {
     it(@"webview should have correct user agent", ^{
         UIWebView *webView = [UIWebView new];
         NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-        assertThat(userAgent, notNilValue());
-        assertThat(userAgent, equalTo([CUTEUserAgentUtil userAgent]));
-        assertThat(userAgent, containsString(@"currant"));
-    });
-});
-
-describe(@"setUpAPIUserAgent", ^{
-
-    it(@"should set user agent ok", ^{
-
-        NSURLRequest *request = [[[[CUTEAPIManager sharedInstance] backingManager] requestSerializer] requestWithMethod:@"GET" URLString:@"www.baidu.com" parameters:nil error:nil];
-        NSString *userAgent = [request allHTTPHeaderFields][@"User-Agent"];
         assertThat(userAgent, notNilValue());
         assertThat(userAgent, equalTo([CUTEUserAgentUtil userAgent]));
         assertThat(userAgent, containsString(@"currant"));

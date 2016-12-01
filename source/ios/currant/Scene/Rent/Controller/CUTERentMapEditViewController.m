@@ -18,7 +18,6 @@
 #import "CUTEEnum.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEDataManager.h"
-#import <BBTRestClient.h>
 #import "CUTEConfiguration.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import <AddressBook/AddressBook.h>
