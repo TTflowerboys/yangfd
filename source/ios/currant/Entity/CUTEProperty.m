@@ -18,7 +18,7 @@
 #import <EXTKeyPathCoding.h>
 #import "EXTKeyPathCoding.h"
 #import <MTLValueTransformer.h>
-#import <NSValueTransformer+MTLInversionAdditions.h>
+#import <MTLJSONAdapter.h>
 #import "MTLValueTransformer+NumberString.h"
 //#import "currant-Swift.h"
 
@@ -55,35 +55,36 @@
 }
 
 + (NSValueTransformer *)propertyTypeJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
 + (NSValueTransformer *)countryJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECountry class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECountry class]];
 }
 
 + (NSValueTransformer *)cityJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECity class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTECity class]];
 }
 
 + (NSValueTransformer *)spaceJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[CUTEArea class]];
 }
 
 + (NSValueTransformer *)mainHouseTypesJSONTransformer {
-    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEHouseType class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[CUTEHouseType class]];
 }
 
 + (NSValueTransformer *)indoorFacilitiesJSONTransformer {
-    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
 + (NSValueTransformer *)communityFacilitiesJSONTransformer {
-    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
 + (NSValueTransformer *)surroundingsJSONTransformer {
-    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTESurrounding class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[CUTESurrounding class]];
 }
 
 + (NSValueTransformer *)latitudeJSONTransformer {
@@ -95,32 +96,41 @@
 }
 
 + (NSValueTransformer *)neighborhoodJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^CUTENeighborhood *(id dic) {
-        if ([dic isKindOfClass:[NSDictionary class]]) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+        if ([value isKindOfClass:[NSDictionary class]]) {
             MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTENeighborhood class]];
-            return [adapter modelFromJSONDictionary:dic error:nil];
+            *success = YES;
+            return [adapter modelFromJSONDictionary:value error:nil];
         }
         else {
+            *success = NO;
             return nil;
         }
-    } reverseBlock:^id(CUTENeighborhood *neighbood) {
-        if (neighbood && [neighbood isKindOfClass:[CUTENeighborhood class]]) {
-            return [MTLJSONAdapter JSONDictionaryFromModel:neighbood error:nil];
+
+    } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+        if (value && [value isKindOfClass:[CUTENeighborhood class]]) {
+            *success = YES;
+            return [MTLJSONAdapter JSONDictionaryFromModel:value error:nil];
         }
+        *success = NO;
         return nil;
     }];
 }
 
 + (NSValueTransformer *)propertyDescriptionJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSString *(id str) {
-        if ([str isKindOfClass:[NSString class]]) {
-            return str;
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+        if (value != nil && [value isKindOfClass:[NSString class]]) {
+            *success = YES;
+            return value;
         }
         else {
+            *success = NO;
             return nil;
         }
-    } reverseBlock:^id(NSString *str) {
-        return str;
+
+    } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+        *success = YES;
+        return value;
     }];
 }
 
