@@ -12,11 +12,11 @@
 #import "CUTECommonMacro.h"
 #import "CUTEStringMatcher.h"
 
-@interface CUTEFormFieldOptionViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
+@interface CUTEFormFieldOptionViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 {
     FXFormField *_field;
 
-    UISearchDisplayController *_searchDisplayController;
+    UISearchController *_searchController;
 }
 
 @property (nonatomic, retain) NSArray *sections;
@@ -25,25 +25,26 @@
 
 @property (nonatomic, strong) NSArray *filterResults;
 
-@property (nonatomic, strong) UISearchBar *searchBar;
-
 
 @end
 
 @implementation CUTEFormFieldOptionViewController
-@synthesize field = _field, searchBar = _searchBar;
+@synthesize field = _field;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.rowHeight = CUTE_CELL_DEFAULT_HEIGHT;
 
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
-    searchBar.delegate = self;
-    self.tableView.tableHeaderView = searchBar;
-    _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-    _searchDisplayController.delegate = self;
-    _searchDisplayController.searchResultsDataSource = self;
-    _searchDisplayController.searchResultsDelegate = self;
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    _searchController.delegate = self;
+    _searchController.searchResultsUpdater = self;
+    _searchController.searchBar.delegate = self;
+    self.tableView.tableHeaderView = _searchController.searchBar;
+    _searchController.searchBar.tintColor = CUTE_BAR_COLOR;
+    _searchController.hidesNavigationBarDuringPresentation = YES;
+    //http://stackoverflow.com/questions/28373733/uisearchcontroller-in-a-uitableviewcontroller-rows-not-selectable-and-table-view
+    _searchController.dimsBackgroundDuringPresentation = NO;
+    self.definesPresentationContext = YES;
 
 
     NSInteger count = self.field.optionCount;
@@ -91,7 +92,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (_searchController.active) {
         return self.filterResults.count;
     }
 
@@ -99,7 +100,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (_searchController.active) {
         return 1;
     }
     return self.sections.count;
@@ -108,14 +109,14 @@
 - (NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (_searchController.active) {
         return nil;
     }
     return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section];
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (_searchController.active) {
         return nil;
     }
     return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
@@ -138,7 +139,7 @@ sectionForSectionIndexTitle:(NSString *)title
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (_searchController.active) {
         cell.textLabel.text = [[self.filterResults objectAtIndex:indexPath.row] fieldDescription];
     }
     else {
@@ -149,7 +150,7 @@ sectionForSectionIndexTitle:(NSString *)title
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (_searchController.active) {
         self.field.value = self.filterResults[indexPath.row];
     }
     else {
@@ -171,19 +172,13 @@ sectionForSectionIndexTitle:(NSString *)title
 
 }
 
-#pragma - mark UISearchDisplayDelegate
+#pragma - mark UISearchResultsUpdating
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.fieldDescription contains[c] %@", searchString];
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.fieldDescription contains[c] %@", searchController.searchBar.text];
     self.filterResults = [self.rawResults filteredArrayUsingPredicate:predicate];
-//    self.filterResults = [CUTEStringMatcher matchElementsWithString:searchString sourceElements:self.rawResults keyPath:@"name"];
-    return YES;
+    [self.tableView reloadData];
 }
-
-- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
-
-}
-
 
 @end
