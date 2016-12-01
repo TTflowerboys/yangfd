@@ -850,8 +850,19 @@ def how_it_works_landlord():
 @f_get('/how-it-works/tenant')
 @currant_util.check_ip_and_redirect_domain
 def how_it_works_tenant():
-    title = _('洋房东租客服务')
+    title = _('洋房东租客服务')    
     return currant_util.common_template("how_it_works_tenant", title=title)
+
+
+@f_get('/how-it-works')
+@currant_util.check_ip_and_redirect_domain
+def how_it_works():
+    lang = getattr(f_app.i18n, "get_gettext")("web").lang
+    title = _('洋房东租客服务')
+    if lang == "en_GB":
+        return currant_util.common_template("how_it_works_en", title=title)
+    else:
+        return currant_util.common_template("how_it_works_tenant", title=title)
 
 
 @f_get('/how-it-works/student-house')

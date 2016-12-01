@@ -10,6 +10,9 @@
     margin-bottom: 48px;
     height: 440px;
     background-image: url("/static/images/background/how_it_works_banner.jpg");
+    body[lang=en_GB] & {
+        background-image: url("/static/images/background/how_it_works_banner_en.jpg");
+    }
     background-size: cover;
     background-position: 50% 50%;
     color: #fff;
@@ -18,16 +21,34 @@
         margin-bottom: 5vw;
         height: 56.25vw;
         background-image: url("/static/images/background/how_it_works_banner_mobile.jpg");
+        body[lang=en_GB] & {
+            margin-bottom: 0;
+            background-image: url("/static/images/background/how_it_works_banner_mobile_en.jpg");
+        }
     }
     .content{
+        background: transparent;
         h1{
             margin: 110px 0 70px;
             text-align: center;
             font-size: 44px;
             .lighter;
+            body[lang=en_GB] & {
+                margin: 180px 0 0;
+                font-size: 52px;
+                color: #333;
+                white-space: nowrap;
+            }
             @media @phone{
                 margin: 11vw 0 0;
                 font-size: 5.625vw;
+                body[lang=en_GB] & {
+                    margin: 20vw 0 0;
+                    font-size: 38px;
+                }
+            }
+            >storng{
+                font-weight: bold;
             }
         }
         ul{
@@ -76,6 +97,7 @@
     overflow: hidden;
     @media @phone{
         width: 100%;
+        background: #f4f7f3;
     }
     section{
         padding: 60px 0;
@@ -207,6 +229,24 @@
         }
         &.tiny .arrow{
             font-size: 36px;
+        }
+    }
+    .infomation{
+        margin: 52px auto 220px;
+        background-image: url("/static/images/how_it_works/how_it_works_infomation.gif");
+        background-position: top center;
+        background-repeat: no-repeat;
+        width: 932px;
+        height: 1322px;
+        text-align: center;
+        @media @phone{
+            background: none;
+            width: 100%;
+            height: auto;
+            margin-bottom: 110px;
+        }
+        img{
+            max-width: 100%;
         }
     }
     .button{
