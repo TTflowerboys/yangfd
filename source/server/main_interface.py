@@ -857,11 +857,12 @@ def how_it_works_tenant():
 @f_get('/how-it-works')
 @currant_util.check_ip_and_redirect_domain
 def how_it_works():
-    lang = getattr(f_app.i18n, "get_gettext")("web").lang
-    title = _('洋房东租客服务')
+    lang = getattr(f_app.i18n, "get_gettext")("web").lang    
     if lang == "en_GB":
+        title = _('Young Funding Service')
         return currant_util.common_template("how_it_works_en", title=title)
     else:
+        title = _('洋房东租客服务')
         return currant_util.common_template("how_it_works_tenant", title=title)
 
 
