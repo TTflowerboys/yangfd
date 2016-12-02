@@ -286,8 +286,10 @@
             border-top: 1px solid #ccc;
             >.left {
                 float: left;
-                width:50%; // for ie
-
+                width:58%; // for ie
+                body[lang=en_GB] & {
+                    width: 50%;
+                }
                 .label{
                     font-family: @font-normal;
                     margin-bottom: 2px;
@@ -307,6 +309,7 @@
                         font-size: @root-font-size;
                         body[lang=en_GB] & {
                             font-size: 0.8rem;
+                            margin-right: 4px;
                         }
                     }
                     b{
@@ -332,13 +335,16 @@
             }
 
             >.right {
-                width: 50%;
+                width: 40%;
                 text-align: right;
                 bottom: 0;
                 position: absolute;
                 right: 0;
                 margin-right: @padding-top;              
-
+                body[lang=en_GB] & {
+                    width: 50%;
+                    margin-right: 10px;
+                }
                 > .date {
                     font-size: @root-font-size * 0.9;                                                            
                 }
