@@ -56,13 +56,13 @@ main {
         &.propertyType {
             width: 170px;
             body[lang=en_GB] & {
-                width: 220px;
+                width: 210px;
             }
 
         }
         &.rentType {
             body[lang=en_GB] & {
-                width: 150px;
+                width: 136px;
             }
         }
         select{
@@ -128,6 +128,9 @@ main {
         location-search-box{
             @media @pc{
                 width: 530px;
+                body[lang=en_GB] & {
+                    width: 520px;
+                }
             }
             padding-bottom: 0;
             .inputWrapper input{
@@ -276,6 +279,9 @@ main {
             padding: 0;
             text-align: center;
             margin-left: 50px;
+            body[lang=en_GB] & {
+                margin-left: 38px;
+            }
             i {
                 font-size: 16px;
                 //vertical-align: middle;
