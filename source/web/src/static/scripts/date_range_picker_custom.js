@@ -13,19 +13,20 @@ $.fn.dateRangePickerCustom = function (inputObj) {
             box.find('.month-name').attr('colspan', '3')
         }
         function bindEvents () {
+            var formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
             box.find('.prevYear').on('click', function () {
                 if(inputObj.val()){
-                    setDate(window.moment(inputObj.val()).subtract(1, 'years').format('YYYY-MM-DD'))
+                    setDate(window.moment(inputObj.val()).subtract(1, 'years').format(formatter))
                 }else{
-                    setDate(window.moment().subtract(1, 'years').format('YYYY-MM-DD'))
+                    setDate(window.moment().subtract(1, 'years').format(formatter))
                 }
 
             })
             box.find('.nextYear').on('click', function () {
                 if(inputObj.val()){
-                    setDate(window.moment(inputObj.val()).add(1, 'years').format('YYYY-MM-DD'))
+                    setDate(window.moment(inputObj.val()).add(1, 'years').format(formatter))
                 }else{
-                    setDate(window.moment().add(1, 'years').format('YYYY-MM-DD'))
+                    setDate(window.moment().add(1, 'years').format(formatter))
                 }
             })
         }
