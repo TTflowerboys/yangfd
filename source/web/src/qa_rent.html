@@ -284,14 +284,14 @@
     window.updateCategoryFixed = function () {
         if (!window.team.isPhone()) {
             var scrollOffset = $(window).scrollTop()
-            var iEndScroll = $('#footer').offset().top
+            var footerOffset = $('#footer').offset().top
             var $list = $('.content')
             var listTop = $list.offset().top
             var $category = $('.category')
             var tagsLeft = $list.offset().left + $list.width()
             if (scrollOffset > listTop - 20) {            
-                if (scrollOffset > iEndScroll - $category.height()) {
-                    $category.css({'position':'absolute', 'top':iEndScroll - listTop - $category.height() - 60, left:tagsLeft})
+                if (scrollOffset > footerOffset - $category.height()) {
+                    $category.css({'position':'absolute', 'top':footerOffset - listTop - $category.height() - 60, left:tagsLeft})
                 }else{
                     $category.css({'position':'fixed', 'top':'20px', left:tagsLeft + 40})
                 }
