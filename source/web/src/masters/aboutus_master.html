@@ -38,6 +38,7 @@
                 <h3>{{_('众筹投资帮助中心')}}</h3>
             </a></li>-->
             <!-- @endif -->
+            %if _.lang == 'zh_Hans_CN':
             <li><a href="/about/marketing">
                 <img id="icon-marketing" alt="" src="/static/images/news/marketing.png"/>
                 <img id="icon-marketing-active"  style="display:none" alt="" src="/static/images/news/marketing-active.png"/>
@@ -53,6 +54,7 @@
                 <img id="icon-partner-active" style="display:none" alt="" src="/static/images/news/partner-active.png"/>
                 <h3>{{_('合作伙伴')}}</h3>
             </a></li>
+            % end
         </ul>
     </div>
 </div>
