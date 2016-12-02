@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-11-30 13:16+0800\n"
-"PO-Revision-Date: 2016-12-02 12:07+0800\n"
+"PO-Revision-Date: 2016-12-02 16:37+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -7122,12 +7122,12 @@ msgstr "Username mustn't contain phone number or email"
 #: ../web/src/partials/i18n.html:476
 #, fuzzy
 msgid "今天"
-msgstr "day(s)"
+msgstr " today"
 
 #: ../web/src/partials/i18n.html:477
 #, fuzzy
 msgid "昨天"
-msgstr "day(s)"
+msgstr " yestoday"
 
 #: ../web/src/partials/i18n.html:478
 #, fuzzy
@@ -7137,7 +7137,7 @@ msgstr "day(s)"
 #: ../web/src/partials/i18n.html:479
 #, fuzzy
 msgid "上周"
-msgstr " week(s)"
+msgstr " last week"
 
 #: ../server/currant_util.py:163 ../web/src/partials/i18n.html:480
 #: ../web/src/partials/i18n_admin.html:351
