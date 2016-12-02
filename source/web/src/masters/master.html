@@ -270,7 +270,6 @@
                         </div>
                         <div class="clear showInMobile"></div>
                         <div class="localizationChanger showInMobile">
-                            <!-- @if ENV!='production' -->
                             <div class="language">
                                 <select name="language" class="ghostSelect" style="min-width: 140px;">
                                     <option value="zh_Hans_CN" selected>{{_('简体中文(中国)')}}</option>
@@ -286,19 +285,6 @@
                                     <option value="HKD">{{_('港币')}}</option>
                                 </select>
                             </div>
-                            <!-- @endif -->
-                            <!-- @if ENV='production' -->
-                           
-                            <div class="currency">
-                                <select name="currency" class="ghostSelect" style="min-width: 140px;">
-                                    <option value="CNY" selected>{{_('人民币')}}</option>
-                                    <option value="GBP">{{_('英镑')}}</option>
-                                    <option value="USD">{{_('美元')}}</option>
-                                    <option value="EUR">{{_('欧元')}}</option>
-                                    <option value="HKD">{{_('港币')}}</option>
-                                </select>
-                            </div>
-                            <!-- @endif -->
                         </div> <!-- localizationChanger end -->
                         <div class="social">
                             <h3>{{_('关注我们')}}</h3>
