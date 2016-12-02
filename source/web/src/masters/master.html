@@ -204,7 +204,6 @@
                 <div id="footer" class="siteFooter_wrapper hiddenInClient">
                     <footer class="siteFooter clearfix">
                         <div class="localizationChanger">
-                            <!-- @if ENV!='production' -->
                             <a href="/"><img class="logo" src="/static/images/logo/logo_footer.png" alt=""/></a>
                             <div class="language hideInMobile">
                                 <select name="language" class="ghostSelect" style="min-width: 140px;">
@@ -221,19 +220,6 @@
                                     <option value="HKD">{{_('港币')}}</option>
                                 </select>
                             </div>
-                            <!-- @endif -->
-                            <!-- @if ENV='production' -->
-                            <a href="/"><img class="logo" src="/static/images/logo/logo_footer.png" alt=""/></a>
-                            <div class="currency">
-                                <select name="currency" class="ghostSelect" style="min-width: 140px;">
-                                    <option value="CNY" selected>{{_('人民币')}}</option>
-                                    <option value="GBP">{{_('英镑')}}</option>
-                                    <option value="USD">{{_('美元')}}</option>
-                                    <option value="EUR">{{_('欧元')}}</option>
-                                    <option value="HKD">{{_('港币')}}</option>
-                                </select>
-                            </div>
-                            <!-- @endif -->
                         </div> <!-- localizationChanger end -->
                         <div class="clear showInMobile"></div>
                         <div class="contact">
@@ -292,7 +278,6 @@
                                 <img src="/static/images/media/wechat_medium_en.png" alt="{{_('微信订阅号')}}"/>
                             </div>
                         </div>
-                        
                     </footer>
                 </div>
                 %if _.lang == 'zh_Hans_CN':
