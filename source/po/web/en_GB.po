@@ -7,8 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
+<<<<<<< 26c3e840ca432a8dae8591a84d50856fe9c381b4
 "POT-Creation-Date: 2016-11-30 13:16+0800\n"
 "PO-Revision-Date: 2016-12-02 16:51+0800\n"
+=======
+"POT-Creation-Date: 2016-12-02 17:57+0800\n"
+"PO-Revision-Date: 2016-12-02 16:37+0800\n"
+>>>>>>> [Web] Fix:rent list en style.
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -224,12 +229,12 @@ msgstr ""
 msgid "洋房东"
 msgstr "Young Funding"
 
-#: ../web/src/coming_soon.html:94 ../web/src/masters/master.html:315
+#: ../web/src/coming_soon.html:94 ../web/src/masters/master.html:286
 msgid "鄂ICP备14015315号-1"
 msgstr ""
 
-#: ../web/src/coming_soon.html:100 ../web/src/masters/master.html:211
-#: ../web/src/masters/master.html:276 ../web/src/partials/i18n.html:263
+#: ../web/src/coming_soon.html:100 ../web/src/masters/master.html:210
+#: ../web/src/masters/master.html:261 ../web/src/partials/i18n.html:263
 #: ../web/src/partials/user_settings.html:128
 #: ../web/src/partials/user_settings.html:135
 #: ../web/src/partials/user_settings_phone.html:129
@@ -239,7 +244,7 @@ msgstr "Simplified Chinese(China)"
 
 #: ../web/src/coming_soon.html:101
 #: ../web/src/masters/big_picture_bg_master.html:60
-#: ../web/src/masters/master.html:212 ../web/src/masters/master.html:277
+#: ../web/src/masters/master.html:211 ../web/src/masters/master.html:262
 #: ../web/src/partials/i18n.html:264 ../web/src/partials/user_settings.html:126
 #: ../web/src/partials/user_settings.html:136
 #: ../web/src/partials/user_settings_phone.html:127
@@ -249,8 +254,7 @@ msgstr "English (United Kingdom)"
 
 #: ../web/src/coming_soon.html:107
 #: ../web/src/masters/big_picture_bg_master.html:66
-#: ../web/src/masters/master.html:217 ../web/src/masters/master.html:229
-#: ../web/src/masters/master.html:282 ../web/src/masters/master.html:294
+#: ../web/src/masters/master.html:216 ../web/src/masters/master.html:267
 #: ../web/src/partials/current_currency.html:2
 #: ../web/src/partials/i18n.html:265
 #: ../web/src/partials/property_to_rent_edit.html:141
@@ -267,8 +271,7 @@ msgstr "Chinese Yuan"
 
 #: ../web/src/coming_soon.html:108
 #: ../web/src/masters/big_picture_bg_master.html:67
-#: ../web/src/masters/master.html:218 ../web/src/masters/master.html:230
-#: ../web/src/masters/master.html:283 ../web/src/masters/master.html:295
+#: ../web/src/masters/master.html:217 ../web/src/masters/master.html:268
 #: ../web/src/partials/current_currency.html:4
 #: ../web/src/partials/i18n.html:266
 #: ../web/src/partials/property_to_rent_edit.html:146
@@ -285,8 +288,7 @@ msgstr "Pound Sterling"
 
 #: ../web/src/coming_soon.html:109
 #: ../web/src/masters/big_picture_bg_master.html:68
-#: ../web/src/masters/master.html:219 ../web/src/masters/master.html:231
-#: ../web/src/masters/master.html:284 ../web/src/masters/master.html:296
+#: ../web/src/masters/master.html:218 ../web/src/masters/master.html:269
 #: ../web/src/partials/current_currency.html:6
 #: ../web/src/partials/i18n.html:267
 #: ../web/src/partials/property_to_rent_edit.html:151
@@ -303,8 +305,7 @@ msgstr "U.S. Dollar"
 
 #: ../web/src/coming_soon.html:110
 #: ../web/src/masters/big_picture_bg_master.html:69
-#: ../web/src/masters/master.html:220 ../web/src/masters/master.html:232
-#: ../web/src/masters/master.html:285 ../web/src/masters/master.html:297
+#: ../web/src/masters/master.html:219 ../web/src/masters/master.html:270
 #: ../web/src/partials/current_currency.html:8
 #: ../web/src/partials/i18n.html:268
 #: ../web/src/partials/property_to_rent_edit.html:156
@@ -321,8 +322,7 @@ msgstr "Euro"
 
 #: ../web/src/coming_soon.html:111
 #: ../web/src/masters/big_picture_bg_master.html:70
-#: ../web/src/masters/master.html:221 ../web/src/masters/master.html:233
-#: ../web/src/masters/master.html:286 ../web/src/masters/master.html:298
+#: ../web/src/masters/master.html:220 ../web/src/masters/master.html:271
 #: ../web/src/partials/current_currency.html:10
 #: ../web/src/partials/i18n.html:269
 #: ../web/src/partials/property_to_rent_edit.html:161
@@ -363,7 +363,7 @@ msgstr "Remaining "
 #: ../web/src/static/emails/rent_intention_matched_4.html:125
 #: ../web/src/static/emails/rent_ticket_publish_success.html:115
 msgid "天"
-msgstr "day(s)"
+msgstr " day(s)"
 
 #: ../web/src/crowdfunding.html:127 ../web/src/partials/i18n_admin.html:299
 #: ../web/src/partials/i18n_scripts.html:374 ../web/src/property.html:175
@@ -385,7 +385,7 @@ msgstr "From %s"
 #: ../web/src/crowdfunding.html:676 ../web/src/crowdfunding.html:680
 #, fuzzy, python-format
 msgid "%s年锁定"
-msgstr "In the lock"
+msgstr "In the lock %s"
 
 #: ../web/src/crowdfunding.html:195 ../web/src/crowdfunding.html:663
 #: ../web/src/user_finish_investment.html:39
@@ -1236,7 +1236,7 @@ msgstr "List Your Space"
 msgid "如需更多帮助，请点击查阅帮助中心"
 msgstr "If you need more help, please click on our help centre"
 
-#: ../server/main_interface.py:860 ../web/src/how_it_works_student_house.html:7
+#: ../server/main_interface.py:872 ../web/src/how_it_works_student_house.html:7
 msgid "洋房东学生公寓服务"
 msgstr "Young Funding Student Accomdation Service"
 
@@ -1303,7 +1303,8 @@ msgstr ""
 msgid "查找学生公寓"
 msgstr "Search student property"
 
-#: ../server/main_interface.py:853 ../web/src/how_it_works_tenant.html:8
+#: ../server/main_interface.py:853 ../server/main_interface.py:865
+#: ../web/src/how_it_works_tenant.html:8
 msgid "洋房东租客服务"
 msgstr "Young Funding Tenant Service"
 
@@ -1617,8 +1618,8 @@ msgstr "Related news"
 msgid "网站公告"
 msgstr "Announcement"
 
-#: ../server/news_interface.py:130 ../web/src/masters/aboutus_master.html:54
-#: ../web/src/masters/master.html:268 ../web/src/partner.html:14
+#: ../server/news_interface.py:130 ../web/src/masters/aboutus_master.html:55
+#: ../web/src/masters/master.html:254 ../web/src/partner.html:14
 msgid "合作伙伴"
 msgstr "Partners"
 
@@ -1740,7 +1741,7 @@ msgstr "Main House Type"
 #: ../web/src/static/templates/featured_house_card.html:318
 #: ../web/src/wechat_poster.html:102
 msgid "室"
-msgstr "Bedroom(s)"
+msgstr " Bedroom(s)"
 
 #: ../server/property_interface.py:177
 #: ../web/src/partials/i18n_scripts.html:865
@@ -1751,7 +1752,7 @@ msgstr "Bedroom(s)"
 #: ../web/src/static/templates/featured_house_card.html:165
 #: ../web/src/wechat_poster.html:102
 msgid "厅"
-msgstr "Living Room(s)"
+msgstr " Living Room(s)"
 
 #: ../web/src/property.html:514 ../web/src/property_to_rent.html:420
 #: ../web/src/region_report.html:213
@@ -4434,7 +4435,7 @@ msgstr "About Young Funding"
 
 #: ../web/src/masters/aboutus_master.html:27
 #: ../web/src/masters/big_picture_bg_master.html:54
-#: ../web/src/masters/master.html:263 ../web/src/partials/i18n_scripts.html:843
+#: ../web/src/masters/master.html:249 ../web/src/partials/i18n_scripts.html:843
 msgid "服务声明"
 msgstr "Terms Of Use"
 
@@ -4446,11 +4447,11 @@ msgstr "Overseas rental Help Center"
 msgid "众筹投资帮助中心"
 msgstr "Raise investments to help center"
 
-#: ../web/src/masters/aboutus_master.html:44 ../web/src/masters/master.html:266
+#: ../web/src/masters/aboutus_master.html:45 ../web/src/masters/master.html:252
 msgid "市场合作"
 msgstr "Marketing cooperation"
 
-#: ../web/src/masters/aboutus_master.html:49 ../web/src/masters/master.html:267
+#: ../web/src/masters/aboutus_master.html:50 ../web/src/masters/master.html:253
 msgid "媒体合作"
 msgstr "Media cooperation"
 
@@ -4582,38 +4583,38 @@ msgstr "Ultimate WeChat integrated rental app"
 msgid "立即获取"
 msgstr "Get it now!"
 
-#: ../web/src/masters/master.html:240
+#: ../web/src/masters/master.html:226
 #: ../web/src/partials/requirement_popup.html:12
 #: ../web/src/partials/requirement_rent_popup.html:19
 #: ../web/src/partials/requirement_rent_popup.html:258
 msgid "联系我们"
 msgstr "Contact Us"
 
-#: ../web/src/masters/master.html:254
+#: ../web/src/masters/master.html:240
 msgid "中国总部"
 msgstr "China Head Office"
 
-#: ../web/src/masters/master.html:261
+#: ../web/src/masters/master.html:247
 msgid "服务支持"
 msgstr "Support"
 
-#: ../web/src/masters/master.html:262
+#: ../web/src/masters/master.html:248
 msgid "关于我们"
 msgstr "About Us"
 
-#: ../web/src/masters/master.html:264
+#: ../web/src/masters/master.html:250
 msgid "帮助中心"
 msgstr "Help Center"
 
-#: ../web/src/masters/master.html:304
+#: ../web/src/masters/master.html:276
 msgid "关注我们"
 msgstr "Follow Us"
 
-#: ../web/src/masters/master.html:306
+#: ../web/src/masters/master.html:278
 msgid "微信订阅号"
 msgstr "Wechat Official Account"
 
-#: ../web/src/masters/master.html:316
+#: ../web/src/masters/master.html:287
 msgid "洋房东乃英国正式登记注册商标，为武汉兄弟桥科技发展有限公司直属企业"
 msgstr ""
 
@@ -5124,7 +5125,7 @@ msgstr " week(s)"
 #: ../web/src/static/emails/rent_intention_matched_4.html:129
 #: ../web/src/static/emails/rent_ticket_publish_success.html:119
 msgid "个月"
-msgstr "month(s)"
+msgstr " month(s)"
 
 #: ../web/src/partials/get_unit_price.html:13
 msgid "参考价格"
@@ -7132,7 +7133,11 @@ msgstr " yestoday"
 #: ../web/src/partials/i18n.html:478
 #, fuzzy
 msgid "天前"
+<<<<<<< 26c3e840ca432a8dae8591a84d50856fe9c381b4
 msgstr " days ago"
+=======
+msgstr " day(s)"
+>>>>>>> [Web] Fix:rent list en style.
 
 #: ../web/src/partials/i18n.html:479
 #, fuzzy
@@ -14769,7 +14774,11 @@ msgid ""
 "property,official app, official application"
 msgstr ""
 
-#: ../server/main_interface.py:868
+#: ../server/main_interface.py:862
+msgid "Young Funding Service"
+msgstr ""
+
+#: ../server/main_interface.py:880
 msgid "求租意向单编辑"
 msgstr "Edit rent requirement ticket"
 
