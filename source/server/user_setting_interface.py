@@ -155,6 +155,24 @@ def user_messages(user):
     return currant_util.common_template("user_messages", user=user, message_list=message_list, title=title)
 
 
+@f_get('/user_chat', '/user-chat')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def user_chat(user):
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
+    title = _('聊天')
+    return currant_util.common_template("user_chat", user=user,  title=title)
+
+
+@f_get('/user_chat/details')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def user_chat_details(user):
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
+    title = _('聊天')
+    return currant_util.common_template("user_chat_details", user=user,  title=title)
+
+
 @f_get('/user_invite', '/user-invite')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)

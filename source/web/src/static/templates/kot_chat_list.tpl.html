@@ -1,0 +1,39 @@
+<template id="kotChatListTemplate">
+    <div class="contentHeader">
+        <h1>{{_('聊天')}}<a href="/user_chat/details">link</a></h1>
+    </div>
+    <div class="list" data-bind="foreach: chatList">
+        <div class="cell">
+            <label data-bind="
+                click: toggleExpand,
+                text: title,
+                css: {
+                    readType: hasRead(),
+                    unreadType: !hasRead()}"></label>
+            <div class="rightParts">
+                <label class="date" data-bind="text: time"></label>
+                <button class="showHide" data-bind="click: toggleExpand, text: expandStatus"></button>
+            </div>
+            <p class="content" data-bind="visible: expand, text: content"></p>
+        </div>
+    </div>
+    <div class="pager" data-bind="visible: chatList().length > 0">
+        <button data-bind="
+            click: pagePreTrigger,
+            attr: {'disabled': pagePreDisabled}">
+            <img data-bind="
+                attr: {src: pagePreImgUrl},
+                css: {'pre': pagePreStatus}"/>
+            <span data-bind="text: pagePreText"></span>
+        </button>
+        <span data-bind="text: pageShowIndex" style="color: red; font-size: 16px; font-weight: bold"></span>
+        <button data-bind="
+            click: pageNexTrigger,
+            attr: {'disabled': pageNexDisabled}">
+            <span data-bind="text: pageNexText"></span>
+            <img data-bind="
+                attr: {src: pageNexImgUrl},
+                css: {'next': pageNexStatus}"/>
+        </button>
+    </div>
+</template>
