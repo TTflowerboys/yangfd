@@ -34,6 +34,7 @@
             <li><a href="/user-messages">{{_('消息')}}</a></li>
             <li><a href="/user-invite">{{_('邀请有奖')}}</a></li>
             <li><a href="/user-vouchers">{{_('优惠券')}}</a></li>
+            <li><a href="/user-chat">{{_('聊天')}}</a></li>
             %if _.lang == 'zh_Hans_CN':
             <li data-show-client="app,wechat"><a href="/user-coupons">{{_('会员专享')}}</a></li>
             %end
@@ -144,6 +145,12 @@
                     </a>
                     {{_('优惠券')}}
                 </li>
+                <li><a href="/user-chat">
+                    <i id="icon-user-chat" class="icon-bubbles"></i>
+                    <i id="icon-user-chat-active" class="icon-bubbles active" style="display: none;"></i>
+                    </a>
+                    {{_('聊天')}}
+                </li>
             </ul>
         </div>
         <!--@@include=../partials/user_info.html  -->
@@ -187,6 +194,9 @@
         }
         else if (urlPath === 'user-vouchers') {
             userPageHeaderTitle.innerHTML = "{{_('优惠券')}}"
+        }
+        else if (urlPath === 'user-chat' || urlPath === 'user-chat') {
+            userPageHeaderTitle.innerHTML = "{{_('聊天')}}"
         }
 
     })()
