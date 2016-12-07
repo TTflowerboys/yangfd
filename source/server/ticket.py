@@ -735,10 +735,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 tag="draft_not_publish_day_3",
             )
 
-        f_app.task.put(dict(
-            type="rent_ticket_reminder",
-            start=datetime.utcnow() + timedelta(days=1),
-        ))
+        f_app.task.repeat(task, timedelta(days=1))
 
     def task_on_fill_featured_facilities(self, task):
         ticket = f_app.ticket.output([task["ticket_id"]], permission_check=False)[0]
