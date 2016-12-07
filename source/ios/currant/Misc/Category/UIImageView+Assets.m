@@ -7,7 +7,7 @@
 //
 
 #import "UIImageView+Assets.h"
-#import <UIImageView+AFNetworking.h>
+#import "UIImageView+HTTP.h"
 #import "AssetsLibraryProvider.h"
 #import "NSURL+Assets.h"
 #import <UIImage+Resize.h>
@@ -32,7 +32,7 @@
 
     }
     else {
-        [self setImageWithURL:url];
+        [self HTTP_setImageWithURL:url];
     }
 }
 

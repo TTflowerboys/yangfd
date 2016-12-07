@@ -52,6 +52,7 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 }
                 catch let error as NSError {
                     print(error)
+                    tcs.setError(error)
                 }
 
                 return task
@@ -70,6 +71,7 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 }
                 catch let error as NSError {
                     print(error)
+                    tcs.setError(error)
                 }
 
 
@@ -89,7 +91,7 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
         self.apiManager.forwardMethod(method, urlString: URLString, parameters: parameters, resultClass: resultClass, resultKeyPath: keyPath, cancellationToken: cancellationToken).continue({ (task:BFTask!) -> Any? in
             //trySetCancelled will cancel this request
             if tcs.task.isCancelled {
-                return tcs.task
+                return nil
             }
 
             if task.error != nil {
@@ -99,14 +101,14 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 let resultArray = task.result
                 guard ((resultArray as? Array<AnyObject>) != nil), resultArray!.count == 2 else {
                     tcs.setError(NSError(domain: "com.bbtechgroup", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bad Result"]))
-                    return task
+                    return nil
                 }
                 let jsonData = resultArray![0]
                 let responseObject = resultArray![1]
 
                 if (jsonData as? NSNull) != nil || (responseObject as? NSNull) != nil {
                     tcs.setResult(nil)
-                    return task
+                    return nil
                 }
                 self.getAdaptedResponseObject(responseObject as AnyObject!, jsonData: jsonData as AnyObject?, resultClass: resultClass, keyPath:keyPath).continue(successBlock: { (task:BFTask!) -> AnyObject! in
                     tcs.setResult(task.result)

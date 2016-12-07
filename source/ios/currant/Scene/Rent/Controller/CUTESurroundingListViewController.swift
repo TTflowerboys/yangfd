@@ -157,7 +157,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         if let type = surrounding.type {
             if let image = type.image {
                 if let url = URL(string: image) {
-                    surroundingCell.typeImageView.setImageWith(url)
+                    surroundingCell.typeImageView.http_setImage(with: url)
                 }
             }
         }

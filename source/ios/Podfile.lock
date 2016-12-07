@@ -1,20 +1,5 @@
 PODS:
   - ActionSheetPicker-3.0 (2.0.5)
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
   - ALActionBlocks (1.0.3)
   - apptentive-ios (2.0.5)
   - Aspects (1.4.1)
@@ -151,7 +136,6 @@ PODS:
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0.3)
-  - AFNetworking
   - ALActionBlocks (= 1.0.3)
   - apptentive-ios (~> 2.0.5)
   - Aspects (= 1.4.1)
@@ -221,7 +205,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   ALActionBlocks: ac91b1a37b60a8004fb687ddade0600446f3d3fa
   apptentive-ios: 2452dc0843647d545b318c1e1729370f43f63b0c
   Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
@@ -275,6 +258,6 @@ SPEC CHECKSUMS:
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 5fa0edc28ed16d7af8c3d52846bc8dad425b0990
+PODFILE CHECKSUM: f471cca61ba4b7dec92f4e70c672169df46b5d6a
 
 COCOAPODS: 1.0.1

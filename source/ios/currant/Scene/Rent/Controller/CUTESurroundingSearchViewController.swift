@@ -143,7 +143,7 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
             if let type = surrounding.type {
                 if let image = type.image {
                     if let url = URL(string: image) {
-                        imageView.setImageWith(url)
+                        imageView.http_setImage(with: url)
                     }
                 }
             }

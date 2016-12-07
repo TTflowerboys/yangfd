@@ -25,7 +25,7 @@
 #import "CUTERentTicketPublisher.h"
 #import "CUTEImageUploader.h"
 #import <Sequencer/Sequencer.h>
-#import <UIImageView+AFNetworking.h>
+#import "UIImageView+HTTP.h"
 #import "UIImageView+Assets.h"
 #import "NSURL+Assets.h"
 #import <UIAlertView+Blocks.h>

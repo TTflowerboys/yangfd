@@ -7,7 +7,6 @@ target 'currant' do
 
     pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git"
     pod 'BBTAppUpdater', :git => "git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git"
-    pod 'AFNetworking'
     pod 'Mantle'
     pod 'FXForms', '1.2.12'
     pod 'SMCalloutView', '2.1.2'

@@ -33,7 +33,7 @@
 #import <UIButton+BBT.h>
 #import <Aspects.h>
 #import <NSDate-Utilities.h>
-#import <UIImageView+AFNetworking.h>
+#import "UIImageView+HTTP.h"
 
 
 //Constant

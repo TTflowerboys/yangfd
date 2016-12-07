@@ -178,6 +178,10 @@
 		2C2D2E2C1BAFFA8E008CFFE6 /* CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D2E2A1BAFFA8E008CFFE6 /* CUTERouter.swift */; };
 		2C2D2E2D1BAFFA8E008CFFE6 /* CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D2E2A1BAFFA8E008CFFE6 /* CUTERouter.swift */; };
 		2C2D2E2E1BAFFA8E008CFFE6 /* CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D2E2A1BAFFA8E008CFFE6 /* CUTERouter.swift */; };
+		2C2F27421DF7EBB6001E3879 /* UIImageView+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F27411DF7EBB6001E3879 /* UIImageView+HTTP.m */; };
+		2C2F27431DF7EBB6001E3879 /* UIImageView+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F27411DF7EBB6001E3879 /* UIImageView+HTTP.m */; };
+		2C2F27441DF7EBB6001E3879 /* UIImageView+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F27411DF7EBB6001E3879 /* UIImageView+HTTP.m */; };
+		2C2F27451DF7EBB6001E3879 /* UIImageView+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F27411DF7EBB6001E3879 /* UIImageView+HTTP.m */; };
 		2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
 		2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
 		2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
@@ -1006,6 +1010,8 @@
 		2C2895031C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingSearchViewController.swift; sourceTree = "<group>"; };
 		2C2D2E251BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationViewController+CUTERouter.swift"; sourceTree = "<group>"; };
 		2C2D2E2A1BAFFA8E008CFFE6 /* CUTERouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTERouter.swift; sourceTree = "<group>"; };
+		2C2F27401DF7EBB6001E3879 /* UIImageView+HTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HTTP.h"; sourceTree = "<group>"; };
+		2C2F27411DF7EBB6001E3879 /* UIImageView+HTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HTTP.m"; sourceTree = "<group>"; };
 		2C2FCDBB1AFCC689002594D7 /* BBTInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTInputAccessoryView.h; sourceTree = "<group>"; };
 		2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTInputAccessoryView.m; sourceTree = "<group>"; };
 		2C2FCDC21AFCC7B1002594D7 /* CUTEFormTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormTextFieldCell.h; sourceTree = "<group>"; };
@@ -1783,6 +1789,8 @@
 				2C1C5A511BF4939C007E0584 /* NSURLRequest+Debug.m */,
 				2CC6C1CD1AEE03D7002758A7 /* UIImageView+Assets.h */,
 				2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */,
+				2C2F27401DF7EBB6001E3879 /* UIImageView+HTTP.h */,
+				2C2F27411DF7EBB6001E3879 /* UIImageView+HTTP.m */,
 				2CB66C1C1AFB373D00C3CDED /* UIImage+FixJPEGRotation.h */,
 				2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */,
 				2CA81F981B0F244F006E993C /* UIImage+CalculatedSize.h */,
@@ -3034,6 +3042,7 @@
 				2CC1F3321C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */,
 				2CA81FB81B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
+				2C2F27441DF7EBB6001E3879 /* UIImageView+HTTP.m in Sources */,
 				2CA81F9C1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -3233,6 +3242,7 @@
 				2CC1F3331C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */,
 				2CA81FB91B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
+				2C2F27451DF7EBB6001E3879 /* UIImageView+HTTP.m in Sources */,
 				2CA81F9D1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C427E571AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -3432,6 +3442,7 @@
 				2CC1F3311C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */,
 				2CA81FB71B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF7F1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
+				2C2F27431DF7EBB6001E3879 /* UIImageView+HTTP.m in Sources */,
 				2CA81F9B1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C427E551AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -3631,6 +3642,7 @@
 				2CC1F3301C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */,
 				2C9AFF7E1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9A1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
+				2C2F27421DF7EBB6001E3879 /* UIImageView+HTTP.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A71AF0C2620080DF10 /* BBTPickerView.m in Sources */,

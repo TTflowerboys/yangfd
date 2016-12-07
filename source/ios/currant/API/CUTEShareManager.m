@@ -22,6 +22,7 @@
 #import <UMSocialSinaHandler.h>
 #import <MessageUI/MessageUI.h>
 #import <WeiboSDK.h>
+#import <SDWebImageDownloader.h>
 #import "AppDelegate.h"
 #import "UIActionSheet+Blocks.h"
 #import "ATConnect.h"
@@ -203,7 +204,7 @@ NSString * const CUTEShareServiceEmail = @"Email";
     else if (imageURLString && [NSURL URLWithString:imageURLString].isHttpOrHttpsURL) {
         [SVProgressHUD showWithStatus:STR(@"ShareManager/获取房产中...")];
 
-        [[[CUTEAPIManager sharedInstance] downloadImage:imageURLString] continueWithBlock:^id(BFTask *task) {
+        [[self downloadImage:imageURLString] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [tcs setError:task.error];
                 [SVProgressHUD showErrorWithError:task.error];
@@ -518,7 +519,7 @@ NSString * const CUTEShareServiceEmail = @"Email";
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (imageUrl && [NSURL URLWithString:imageUrl].isHttpOrHttpsURL) {
 
-            [[[CUTEAPIManager sharedInstance] downloadImage:imageUrl] continueWithBlock:^id(BFTask *task) {
+            [[self downloadImage:imageUrl] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [tcs setError:task.error];
                 }
@@ -623,6 +624,23 @@ NSString * const CUTEShareServiceEmail = @"Email";
     return tcs.task;
 }
 
+
+- (BFTask *)downloadImage:(NSString *)URLString {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:URLString] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+
+    } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+        if (image) {
+            [tcs setResult:image];
+        }
+        else {
+            [tcs setError:error];
+        }
+    }];
+    return tcs.task;
+    
+}
 
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

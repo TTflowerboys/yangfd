@@ -11,7 +11,6 @@
 #import "CUTEShareManager.h"
 #import "CUTEConfiguration.h"
 #import "MasonryMake.h"
-#import <UIImageView+AFNetworking.h>
 #import "CUTEConfiguration.h"
 #import "NSString+Encoding.h"
 #import "CUTEQrcodeCell.h"

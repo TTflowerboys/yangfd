@@ -19,7 +19,6 @@
 #import "CUTECommonMacro.h"
 #import "CUTEAPICacheManager.h"
 #import "CUTERentTypeListForm.h"
-#import <AFNetworkActivityIndicatorManager.h>
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEShareManager.h"
 #import "CUTENotificationKey.h"
@@ -160,7 +159,7 @@
     [SVProgressHUD setBackgroundColor:[UIColor whiteColor]];
     [SVProgressHUD setFont:[UIFont systemFontOfSize:12]];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
-    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+//    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];
     [self checkSetupLanguageNeedShowAlert:NO];
     [[CUTEShareManager sharedInstance] setUpShareSDK];
@@ -246,14 +245,6 @@
 
     //TOOD 可以考虑第一次进来，加载 app 所有的 tab 需要的网页 archive 和 enums ，但是不去渲染 tab 里面的 view controller
 
-//#warning DEBUG_CODE
-#ifdef DEBUG
-
-//    [CrashlyticsKit crash];
-//    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
-//    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
-//    [[AFNetworkActivityLogger sharedLogger] startLogging];
-#endif
 
     if ([CUTEConfiguration enableFabric]) {
         [Fabric with:@[CrashlyticsKit]];
