@@ -562,7 +562,7 @@
             </div>
             <div class="rentRequestFlow">
                 %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
-                    <button class="button red hiddenOnMobile ajaxButton" data-bind="click: function() { openRentRequestForm('{{rent.get('id')}}', true)}">
+                    <button class="button red hiddenOnMobile ajaxButton" data-bind="click: function() { openChatRequestForm('{{rent.get('id')}}', true)}">
                         %if is_student_house(rent):
                         {{_('我要预订')}}
                         %else:
@@ -833,7 +833,7 @@
     </div>
 
     <!--出租申请单-->
-    <!--@@include = static/templates/rent_request.tpl.html -->
+    <!--@@include = static/templates/chat_request.tpl.html -->
     <rent-request params="price: {{json_dumps(rent.get('price'))}}, holdingDeposit: {{json_dumps(rent.get('holding_deposit'))}}"></rent-request>
 
     <ul class="floatBar_phone">
@@ -928,7 +928,7 @@
     <script src="/static/scripts/common_ko.js"></script>
     <script src="/static/scripts/featured_facility_ko.js"></script>
     <script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
-    <script src="/static/scripts/rent_request.js"></script>
+    <script src="/static/scripts/chat_request.js"></script>
     <script src="/static/scripts/property_to_rent_ko.js"></script>
     <!--endbuild-->
     <script>
