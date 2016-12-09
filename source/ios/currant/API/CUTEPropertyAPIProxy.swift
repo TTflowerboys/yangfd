@@ -182,15 +182,15 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                     tcs.setError(task.error!)
                 }
                 else {
-                    let resultArray = task.result
-                    guard ((resultArray as? Array<AnyObject>) != nil), resultArray!.count == 2 else {
+                    let result = task.result
+                    guard (result as? Dictionary<String, AnyObject>) != nil, result!.count == 2 else {
                         tcs.setError(NSError(domain: "com.bbtechgroup", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bad Result"]))
                         return nil
                     }
-                    let jsonData = resultArray![0]
-                    let responseObject = resultArray![1]
+                    let jsonData = result!["json"]
+                    let responseObject = result!["model"]
 
-                    if (jsonData as? NSNull) != nil || (responseObject as? NSNull) != nil {
+                    if jsonData == nil || responseObject == nil {
                         tcs.setResult(nil)
                         return nil
                     }

@@ -152,7 +152,7 @@
     return [self method:@"POST" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:cancellationToken];
 }
 
-- (id)getTransformedObjectWithJSON:(NSObject *)jsonObject resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath {
+- (NSObject *)getObjecWithJSON:(NSObject *)jsonObject resultKeyPath:(NSString *)keyPath {
     if (jsonObject != nil) {
         NSError *error = nil;
         if (keyPath && [keyPath length] && [jsonObject isKindOfClass:[NSDictionary class]]) {
@@ -161,8 +161,15 @@
             if (!success) {
                 return nil;
             }
-        }
+        }        
+        return jsonObject;
+    }
+    return nil;
+}
 
+- (id)getTransformedObjectWithJSON:(NSObject *)jsonObject resultClass:(Class)resultClass {
+    if (jsonObject != nil) {
+        NSError *error = nil;
         if (resultClass != nil) {
             if ([jsonObject isKindOfClass:[NSDictionary class]]) {
                 return [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:(NSDictionary *)jsonObject error:&error];
@@ -203,8 +210,9 @@
                                               else {
                                                   if ([responseObject isKindOfClass:[NSDictionary class]]) {
                                                       if ([responseObject[@"ret"] intValue] == 0) {//Response OK
-                                                          id transformedObject = [self getTransformedObjectWithJSON:responseObject resultClass:resultClass resultKeyPath:keyPath];
-                                                          [tcs setResult:@[responseObject? responseObject: [NSNull null], transformedObject? transformedObject: [NSNull null]]];
+                                                          id object = [self getObjecWithJSON:responseObject resultKeyPath:keyPath];
+                                                          id transformedObject = [self getTransformedObjectWithJSON:object resultClass:resultClass];
+                                                          [tcs setResult:@{@"json": object, @"model": transformedObject}];
                                                       }
                                                       else { //Response Error
                                                           return [tcs setError:[NSError errorWithDomain:@"BBTAPIDomain" code:[responseObject[@"ret"] intValue] userInfo:[responseObject copy]]];
@@ -239,8 +247,8 @@
     return [[self forwardMethod:method URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:cancellationToken] continueWithBlock:^id _Nullable(BFTask * _Nonnull task) {
 
         if (task.result && [task.result count] == 2) {
-            id transformedObject = task.result[1];
-            if (transformedObject && ![transformedObject isEqual:[NSNull null]]) {
+            id transformedObject = task.result[@"model"];
+            if (transformedObject) {
                 return [BFTask taskWithResult:transformedObject];
             }
             else {
