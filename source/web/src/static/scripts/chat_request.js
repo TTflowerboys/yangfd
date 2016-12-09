@@ -25,7 +25,7 @@
             $('.buttonLoading').trigger('end')
         }
     }
-    ko.components.register('chat-request', {
+    ko.components.register('rent-request', {
         viewModel: function(params) {
             var rentTicket = JSON.parse($('#rentTicketData').text())
             var oldUser = window.user
