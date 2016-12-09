@@ -49,6 +49,9 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
                         let model = try MTLJSONAdapter.model(of: resultClass, fromJSONDictionary:CUTERentTicketAPIProxy.getModifiedJsonDictionary(val, types: types))
                         tcs.setResult(model as AnyObject?)
                     }
+                    else {
+                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error"]))
+                    }
                 }
                 catch let error as NSError {
                     print(error)

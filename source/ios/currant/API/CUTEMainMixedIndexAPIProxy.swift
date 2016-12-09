@@ -53,6 +53,7 @@ import UIKit
                 }
                 catch let error as NSError {
                     print(error)
+                    tcs.setError(error)
                 }
                 return task
             })

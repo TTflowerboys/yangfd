@@ -210,9 +210,18 @@
                                               else {
                                                   if ([responseObject isKindOfClass:[NSDictionary class]]) {
                                                       if ([responseObject[@"ret"] intValue] == 0) {//Response OK
-                                                          id object = [self getObjecWithObject:responseObject resultKeyPath:keyPath];
-                                                          id transformedObject = [self getTransformedObjectWithObject:object resultClass:resultClass];
-                                                          [tcs setResult:@{@"json": object, @"model": transformedObject}];
+
+                                                          id transformedObject = [self getTransformedObjectWithObject:[self getObjecWithObject:responseObject resultKeyPath:keyPath] resultClass:resultClass];
+                                                          NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+                                                          if (responseObject != nil) {
+                                                              resultDic[@"json"] = responseObject;
+                                                          }
+
+                                                          if (transformedObject != nil) {
+                                                              resultDic[@"model"] = transformedObject;
+                                                          }
+
+                                                          [tcs setResult:resultDic];
                                                       }
                                                       else { //Response Error
                                                           return [tcs setError:[NSError errorWithDomain:@"BBTAPIDomain" code:[responseObject[@"ret"] intValue] userInfo:[responseObject copy]]];

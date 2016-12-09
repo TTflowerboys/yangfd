@@ -133,9 +133,13 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
                         tcs.setResult(model)
                     }
+                    else {
+                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error"]))
+                    }
                 }
                 catch let error as NSError {
                     print(error)
+                    tcs.setError(error)
                 }
 
                 return task
@@ -154,6 +158,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 }
                 catch let error as NSError {
                     print(error)
+                    tcs.setError(error)
                 }
 
 
