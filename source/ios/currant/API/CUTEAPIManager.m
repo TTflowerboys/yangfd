@@ -152,7 +152,7 @@
     return [self method:@"POST" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:cancellationToken];
 }
 
-- (NSObject *)getObjecWithJSON:(NSObject *)jsonObject resultKeyPath:(NSString *)keyPath {
+- (NSObject *)getObjecWithObject:(NSObject *)jsonObject resultKeyPath:(NSString *)keyPath {
     if (jsonObject != nil) {
         NSError *error = nil;
         if (keyPath && [keyPath length] && [jsonObject isKindOfClass:[NSDictionary class]]) {
@@ -161,13 +161,13 @@
             if (!success) {
                 return nil;
             }
-        }        
+        }
         return jsonObject;
     }
     return nil;
 }
 
-- (id)getTransformedObjectWithJSON:(NSObject *)jsonObject resultClass:(Class)resultClass {
+- (id)getTransformedObjectWithObject:(NSObject *)jsonObject resultClass:(Class)resultClass {
     if (jsonObject != nil) {
         NSError *error = nil;
         if (resultClass != nil) {
@@ -210,8 +210,8 @@
                                               else {
                                                   if ([responseObject isKindOfClass:[NSDictionary class]]) {
                                                       if ([responseObject[@"ret"] intValue] == 0) {//Response OK
-                                                          id object = [self getObjecWithJSON:responseObject resultKeyPath:keyPath];
-                                                          id transformedObject = [self getTransformedObjectWithJSON:object resultClass:resultClass];
+                                                          id object = [self getObjecWithObject:responseObject resultKeyPath:keyPath];
+                                                          id transformedObject = [self getTransformedObjectWithObject:object resultClass:resultClass];
                                                           [tcs setResult:@{@"json": object, @"model": transformedObject}];
                                                       }
                                                       else { //Response Error
