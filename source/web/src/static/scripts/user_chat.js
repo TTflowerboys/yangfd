@@ -3,7 +3,7 @@ var chat = {
     $('#btn_send').on('click',function(){
       if (chat.isSendMsg()) { chat.sendTextMessage() }
     })
-    $('#edit_area').on('keypress', function(e) {
+    $('#edit_area').on('keydown', function(e) {
       if(e.keyCode === team.keyCode.KEYCODE_ENTER){
         if (chat.isSendMsg()) { chat.sendTextMessage() }
         e.preventDefault()
@@ -24,7 +24,7 @@ var chat = {
   },
   sendTextMessage : function(){
     $.ajax({
-      url: '/api/1/rent_ticket/search?_i18n=disabled&per_page=10',
+      url: '/api/1/message',
       type: 'post',
       data:null,
       dataType: 'json',

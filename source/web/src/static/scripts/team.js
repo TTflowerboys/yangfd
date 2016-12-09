@@ -389,6 +389,10 @@
                 return false
             }
         },
+        isIEBrowser: function () {
+            var ua = navigator.userAgent.toLowerCase()
+            return /msie/.test(ua)
+        },
         isQQBrowser: function () {
             var ua = navigator.userAgent.toLowerCase()
             return /mqqbrowser/.test(ua)
