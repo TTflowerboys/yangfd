@@ -971,6 +971,19 @@ def rent_intention_ticket_sms_receive(params):
         m.nexmo_parts.delete_many({"concat-ref": params["concat-ref"]})
 
 
+@f_api('/rent_intention_ticket/<rent_intention_ticket_id>/chat/send', params=dict(
+    target_user_id=(ObjectId, True),
+    display=(str, "text"),
+    message=(str, True),
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'support', 'jr_support'])
+def rent_intention_ticket_chat_send(rent_intention_ticket_id, user, params):
+    assert params["display"] in ("text",), abort(40000, "invalid display")
+    ticket = f_app.ticket.get(rent_intention_ticket_id)
+    assert ticket["type"] == "rent_intention", abort(40000, "Invalid rent_intention ticket")
+    return f_app.message.chat.send(params["target_user_id"], params["message"], params["display"], user["id"], ticket_id=rent_intention_ticket_id)
+
+
 @f_api('/rent_request_ticket/search', params=dict(
     status=(list, None, str),
     per_page=int,
