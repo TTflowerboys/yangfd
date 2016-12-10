@@ -309,6 +309,30 @@ def rent_ticket_get(rent_ticket_id, user):
     return currant_util.common_template("host_contact_request-phone", rent=rent_ticket, title=title, contact_info_already_fetched=contact_info_already_fetched, private_contact_methods=private_contact_methods)
 
 
+@f_get('/host-chat-request/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(check_role=True)
+def rent_ticket_get(rent_ticket_id, user):
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
+    if rent_ticket["status"] not in ["draft", "to rent"]:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
+
+    # report = None
+    # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('code') == 'GB':
+    #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
+
+    title = _('我要聊天')
+    contact_info_already_fetched = len(f_app.order.search({
+        "items.id": f_app.common.view_rent_ticket_contact_info_id,
+        "ticket_id": rent_ticket_id,
+        "user.id": user["id"],
+    })) > 0 if user else False
+
+    private_contact_methods = rent_ticket.get('creator_user', {}).get('private_contact_methods', [])
+    private_contact_methods = [] if private_contact_methods is None else private_contact_methods
+    return currant_util.common_template("host_chat_request-phone", rent=rent_ticket, title=title, contact_info_already_fetched=contact_info_already_fetched, private_contact_methods=private_contact_methods)
+
+
 @f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
 def wechat_poster(rent_ticket_id):

@@ -840,7 +840,7 @@
     <ul class="floatBar_phone">
         <li class="phone">
             %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
-                <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" >
+                <a href="/host-chat-request/{{rent.get('id','')}}?requestContact=true" >
                     %if is_student_house(rent):
                     {{_('我要预订')}}
                     %else:
