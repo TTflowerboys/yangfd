@@ -37,6 +37,7 @@
             var lastItem = $scope.list[$scope.list.length - 1]
             if (lastItem.time) {
                 params.time = lastItem.time
+                params.sort = 'time,desc'
             }
             if (lastItem.last_modified_time) {
                 params.last_modified_time = lastItem.last_modified_time
@@ -68,6 +69,7 @@
             if (lastItem) {
                 if (lastItem.time) {
                     params.time = lastItem.time
+                    params.sort = 'time,desc'
                 }
                 if (lastItem.last_modified_time) {
                     params.last_modified_time = lastItem.last_modified_time
