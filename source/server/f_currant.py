@@ -845,7 +845,7 @@ class currant_plugin(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["ping_sitemap", "extract_ticket_search_keywords", "weibo_crawler"]
+    task = ["ping_sitemap", "extract_ticket_search_keywords", "weibo_crawler", "chat_sms_notification", "chat_email_notification"]
 
     def user_output_permission_check(self, result, user):
         if result is None:
@@ -1036,6 +1036,40 @@ class currant_plugin(f_app.plugin_base):
         self.logger.debug("Ticket search keywords updated.")
 
         f_app.task.repeat(task, timedelta(days=1))
+
+    def task_on_chat_sms_notification(self, task):
+        try:
+            message = f_app.message.get(task["message_id"])
+            if message["state"] != "new":
+                self.logger.info("User aknowledged message, ignoring (re)sending SMS notification for", task["message_id"])
+                return
+        except:
+            self.logger.debug("Failed to load message, not (re)sending SMS notification for", task["message_id"])
+            return
+
+        user = f_app.user.get(message["user_id"])
+        if "phone" not in user:
+            self.logger.debug("User don't have a phone field, not (re)sending SMS notification for", task["message_id"])
+            return
+
+        f_app.sms.send(target=user["phone"], text="You have an unread message at Young Funding")
+
+    def task_on_chat_email_notification(self, task):
+        try:
+            message = f_app.message.get(task["message_id"])
+            if message["state"] != "new":
+                self.logger.info("User aknowledged message, ignoring (re)sending Email notification for", task["message_id"])
+                return
+        except:
+            self.logger.debug("Failed to load message, not (re)sending Email notification for", task["message_id"])
+            return
+
+        user = f_app.user.get(message["user_id"])
+        if "email" not in user:
+            self.logger.debug("User don't have a email field, not (re)sending Email notification for", task["message_id"])
+            return
+
+        f_app.email.send(target=user["email"], subject="You have an unread message at Young Funding", text="Click to reply: <URL>", tag="chat_notification")
 
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):
