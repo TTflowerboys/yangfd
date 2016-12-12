@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import <MTLJSONAdapter.h>
 #import <EXTKeyPathCoding.h>
+#import "MTLValueTransformer+NumberString.h"
 
 NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     if (roomCount == 0) {
@@ -55,6 +56,59 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
              @"independentBathroom": @"indenpendent_bathroome",
              };
 }
+
++ (NSValueTransformer *)billConverdJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)rentAvailableTimeJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)rentDeadlineTimeJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)lastModifiedTimeJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)minAgeJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)maxAgeJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)noSmokingJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)noPetJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)noBabyJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)currentMaleRoommatesJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)currentFemaleRoommatesJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)accommodatesJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
++ (NSValueTransformer *)independentBathroomJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
 
 + (NSValueTransformer *)propertyJSONTransformer
 {

@@ -99,20 +99,29 @@
     return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         if ([value isKindOfClass:[NSDictionary class]]) {
             MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTENeighborhood class]];
-            *success = YES;
-            return [adapter modelFromJSONDictionary:value error:nil];
+            NSError *error = nil;
+            id model = [adapter modelFromJSONDictionary:value error:&error];
+            return model;
         }
         else {
-            *success = NO;
+#ifdef DEBUG
+            NSAssert(nil, @"Error : %@", value);
+#endif
             return nil;
         }
 
     } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         if (value && [value isKindOfClass:[CUTENeighborhood class]]) {
-            *success = YES;
-            return [MTLJSONAdapter JSONDictionaryFromModel:value error:nil];
+            NSError *error = nil;
+            NSDictionary *dic = [MTLJSONAdapter JSONDictionaryFromModel:value error:&error];
+#ifdef DEBUG
+            NSAssert(!error, @"Error : %@", error);
+#endif
+            return dic;
         }
-        *success = NO;
+#ifdef DEBUG
+        NSAssert(nil, @"Error : %@", value);
+#endif
         return nil;
     }];
 }
@@ -120,16 +129,16 @@
 + (NSValueTransformer *)propertyDescriptionJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         if (value != nil && [value isKindOfClass:[NSString class]]) {
-            *success = YES;
             return value;
         }
         else {
-            *success = NO;
+#ifdef DEBUG
+            NSAssert(nil, @"Error : %@", value);
+#endif
             return nil;
         }
 
     } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
-        *success = YES;
         return value;
     }];
 }

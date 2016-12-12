@@ -39,6 +39,9 @@
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
             NSError *error = nil;
             user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:&error];
+#ifdef DEBUG
+            NSAssert(!error, @"Error : %@", error);
+#endif
         }
 
         if (user && [user isKindOfClass:[CUTEUser class]]) {
@@ -86,6 +89,9 @@
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
             NSError *error = nil;
             user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:&error];
+#ifdef DEBUG
+            NSAssert(!error, @"Error : %@", error);
+#endif
             if (!error && [user isKindOfClass:[CUTEUser class]]) {
                 [[CUTEDataManager sharedInstance] saveUser:user];
                 [[CUTEDataManager sharedInstance] persistAllCookies];
@@ -125,6 +131,9 @@
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
             NSError *error = nil;
             CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
+#ifdef DEBUG
+            NSAssert(!error, @"Error : %@", error);
+#endif
             if (!error && ticket) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_WECHAT_SHARE object:self userInfo:@{@"ticket": ticket}];
             }
@@ -234,6 +243,9 @@
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
             NSError *error = nil;
             CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
+#ifdef DEBUG
+            NSAssert(!error, @"Error : %@", error);
+#endif
             if (!error && ticket) {
                 [[CUTEDataManager sharedInstance] deleteTicket:ticket];
                 [NotificationCenter postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:webViewController];

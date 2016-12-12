@@ -172,10 +172,18 @@
         NSError *error = nil;
         if (resultClass != nil) {
             if ([jsonObject isKindOfClass:[NSDictionary class]]) {
-                return [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:(NSDictionary *)jsonObject error:&error];
+                MTLModel *model = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:(NSDictionary *)jsonObject error:&error];
+#ifdef DEBUG
+                NSAssert(!error, @"Error : %@", error);
+#endif
+                return model;
             }
             else if ([jsonObject isKindOfClass:[NSArray class]]) {
-                return [MTLJSONAdapter modelsOfClass:resultClass fromJSONArray:(NSArray *)jsonObject error:&error];
+                NSArray *array = [MTLJSONAdapter modelsOfClass:resultClass fromJSONArray:(NSArray *)jsonObject error:&error];
+#ifdef DEBUG
+                NSAssert(!error, @"Error : %@", error);
+#endif
+                return array;
             }
         }
 

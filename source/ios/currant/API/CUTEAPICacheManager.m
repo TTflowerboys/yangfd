@@ -98,9 +98,13 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
                           @{@"code": @"CN"},
                           @{@"code": @"US"}];
     [tcs setResult:[rawArray map:^id(id object) {
+        NSError *error = nil;
         MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTECountry class]];
-        CUTECountry *country = [adapter modelFromJSONDictionary:object error:nil];
+        CUTECountry *country = [adapter modelFromJSONDictionary:object error:&error];
         country.showCountryCode =showCountryCode;
+#ifdef DEBUG
+        NSAssert(!error, @"Error : %@", error);
+#endif
         return country;
     }]];
     return tcs.task;

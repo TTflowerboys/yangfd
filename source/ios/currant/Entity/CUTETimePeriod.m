@@ -8,6 +8,7 @@
 
 #import "CUTETimePeriod.h"
 #import "CUTECommonMacro.h"
+#import "MTLValueTransformer+NumberString.h"
 
 @implementation CUTETimePeriod
 
@@ -28,6 +29,11 @@
 {
     return @{@"second": STR(@"TimePeriod/秒"), @"minute": STR(@"TimePeriod/分"), @"hour": STR(@"TimePeriod/小时"),  @"day": STR(@"TimePeriod/天"), @"week": STR(@"TimePeriod/周"), @"month": STR(@"TimePeriod/月")}[unit];
 }
+
++ (NSValueTransformer *)valueJSONTransformer {
+    return [MTLValueTransformer numberStringTransformer];
+}
+
 
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[self class]]) {

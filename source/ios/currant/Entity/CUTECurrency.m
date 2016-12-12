@@ -22,30 +22,30 @@
 + (NSValueTransformer *)valueJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         if ([value isKindOfClass:[NSNumber class]]) {
-            *success = YES;
             return [(NSNumber *)value stringValue];
         }
         else if ([value isKindOfClass:[NSString class]]) {
-            *success = YES;
             return value;
         }
         else {
-            *success = NO;
+#ifdef DEBUG
+            NSAssert(nil, @"Error : %@", value);
+#endif
             return nil;
         }
 
 
     } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         if ([value isKindOfClass:[NSNumber class]]) {
-            *success = YES;
             return [(NSNumber *)value stringValue];
         }
         else if ([value isKindOfClass:[NSString class]]) {
-            *success = YES;
             return value;
         }
         else {
-            *success = NO;
+#ifdef DEBUG
+            NSAssert(nil, @"Error : %@", value);
+#endif
             return nil;
         }
     }];

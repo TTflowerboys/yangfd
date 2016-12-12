@@ -147,15 +147,23 @@
 - (void)restoreUser {
     YTKKeyValueItem *item = [_store getYTKKeyValueItemById:KSETTING_USER fromTable:KTABLE_SETTINGS];
     if (item && item.itemObject) {
+        NSError *error = nil;
         MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTEUser class]];
-        _user = [adapter modelFromJSONDictionary:item.itemObject error:nil];
+        _user = [adapter modelFromJSONDictionary:item.itemObject error:&error];
+#ifdef DEBUG
+        NSAssert(!error, @"Error : %@", error);
+#endif
     }
 }
 
 - (void)saveUser:(CUTEUser *)user {
     _user = user;
     if (user) {
-        [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:user error:nil] withId:KSETTING_USER intoTable:KTABLE_SETTINGS];
+        NSError *error = nil;
+        [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:user error:&error] withId:KSETTING_USER intoTable:KTABLE_SETTINGS];
+#ifdef DEBUG
+        NSAssert(!error, @"Error : %@", error);
+#endif
     }
     else {
         [self clearUser];
@@ -172,14 +180,24 @@
 
 - (void)saveRentTicket:(CUTETicket *)ticket {
     DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,ticket.identifier);
-    [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket error:nil] withId:ticket.identifier intoTable:KTABLE_RENT_TICKETS];
+    NSError *error = nil;
+    id object = [MTLJSONAdapter JSONDictionaryFromModel:ticket error:&error];
+#ifdef DEBUG
+    NSAssert(!error, @"Error : %@", error);
+#endif
+    [_store putObject:object withId:ticket.identifier intoTable:KTABLE_RENT_TICKETS];
 }
 
 - (CUTETicket *)getRentTicketById:(NSString *)ticketId {
     id item = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
     if (item) {
         MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTETicket class]];
-        return [adapter modelFromJSONDictionary:item error:nil];;
+        NSError *error = nil;
+        id model = [adapter modelFromJSONDictionary:item error:&error];;
+#ifdef DEBUG
+        NSAssert(!error, @"Error : %@", error);
+#endif
+        return model;
     }
 
     return nil;
@@ -190,7 +208,12 @@
         return [obj2.createdTime compare:obj1.createdTime];
     }] map:^id(YTKKeyValueItem *object) {
         MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:[CUTETicket class]];
-        return [adapter modelFromJSONDictionary:object.itemObject error:nil];
+        NSError *error = nil;
+        id model = [adapter modelFromJSONDictionary:object.itemObject error:&error];
+#ifdef DEBUG
+        NSAssert(!error, @"Error : %@", error);
+#endif
+        return model;
     }] select:^BOOL(CUTETicket *object) {
         return [object.status isEqualToString:kTicketStatusDraft];
     }];
