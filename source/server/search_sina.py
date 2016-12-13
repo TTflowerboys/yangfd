@@ -19,7 +19,7 @@ import time
 import logging
 logger = logging.getLogger(__name__)
 
-time_start_hours = 9
+time_start_hours = 8
 
 
 def generate_keyword_list(filename):
