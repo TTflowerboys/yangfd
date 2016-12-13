@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-12-02 18:52+0800\n"
-"PO-Revision-Date: 2016-12-02 16:51+0800\n"
+"PO-Revision-Date: 2016-12-13 10:59+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -701,7 +701,7 @@ msgstr "I Agree "
 
 #: ../web/src/affiliate_signup.html:38 ../web/src/partials/signup_form.html:35
 msgid "会员服务须知"
-msgstr "Terms Of Services"
+msgstr "Terms of Services"
 
 #: ../web/src/affiliate_signup.html:41 ../web/src/partials/signup_form.html:38
 msgid "已经拥有账号？请"
@@ -2552,7 +2552,7 @@ msgstr "The host will upload photo shortly"
 #: ../web/src/partials/i18n_templates.html:18
 #: ../web/src/property_to_rent.html:147 ../web/src/property_to_rent.html:464
 msgid "免服务费"
-msgstr "Free Of Charge"
+msgstr "Free of Charge"
 
 #: ../web/src/partials/i18n_scripts.html:859
 #: ../web/src/partials/i18n_templates.html:19
