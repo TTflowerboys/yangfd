@@ -679,11 +679,27 @@
     var titlePendingUpdate = false
     function updateTitle() {
         var $title = $('#title')
-        var defaultTitle = ($('#community').val() ? $('#community').val() : ($('#neighborhood-select').val() ? $('#neighborhood-select').find(':selected').text().replace(/,.+$/,'') : $('#street').val())) + ' ' + ($('#bedroom_count').children('option:selected').val() > 0 ? $('#bedroom_count').children('option:selected').val() + window.i18n('居室') : 'Studio')  + ' ' +  $('#rentalType .selected').text().trim()  + ' ' +  window.i18n('出租')
+        var addressPart = ($('#community').val() ? $('#community').val() : ($('#neighborhood-select').val() ? $('#neighborhood-select').find(':selected').text().replace(/,.+$/,'') : $('#street').val())) ;
+        var bedroomCount = $('#bedroom_count').children('option:selected').val()
+        var isStudio = parseInt(bedroomCount) === 0
+        var isOneBedroom = parseInt(bedroomCount) === 1
+        var bedroomPart = isStudio ? 'Studio': bedroomCount + window.i18n('居室')
+        var isSingleRoom = module.appViewModel.propertyViewModel.rentTypeSlug() === 'rent_type:single'
+        var defaultTitle = ''
+        if (isSingleRoom && isStudio) {
+            defaultTitle = addressPart + ' ' + bedroomPart + ' ' +  window.i18n('出租')
+        }
+        else if (isSingleRoom && isOneBedroom) {
+            defaultTitle = addressPart + ' ' +  $('#rentalType .selected').text().trim()  + ' ' +  window.i18n('出租')
+        }
+        else {
+            defaultTitle = addressPart + ' ' + bedroomPart + ' ' +  $('#rentalType .selected').text().trim()  + ' ' +  window.i18n('出租')
+        }
+
         $title.attr('placeholder', defaultTitle)
 
         if ($title.val() && $title.val() !== $title.attr('placeholder')) {
-            titlePendingUpdate = true                    
+            titlePendingUpdate = true
         }
     }
     $('#title').on('focus', function () {
@@ -700,8 +716,8 @@
     })
 
     // Check title has pending update
-    $(window).on('scroll', function () {       
-        var $title = $('#title')             
+    $(window).on('scroll', function () {
+        var $title = $('#title')
         var currentYOffset = window.pageYOffset
         var titleOffset = $title.offset().top
 
