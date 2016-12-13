@@ -129,6 +129,10 @@
                                 <li><a href="/property-to-rent-list">Property List</a></li>
                                 <li><a href="/how-it-works">How It Works</a></li>
                             </ul>
+                            <a href="/property-to-rent/create" class="rentalCreate ghostButton">
+                                <i class="icon-edit"></i>
+                                <span class="big">{{_('发布租房信息')}}</span>
+                            </a>
                         % else:
                             <ul class="navbar">
                                 <li><a href="/">{{_('首页')}}</a></li>
@@ -136,23 +140,23 @@
                                 <li><a href="/property-to-rent-list">{{_('英国租房')}}</a></li>
                                 <li><a href="/news-list">{{_('投资资讯')}}</a></li>
                             </ul>
-                        %end
-                        % if request.url.find('/property-to-rent-list') < 0 :
-                            <div class="callus">
-                                <i class="icon-phone_icon"></i>
-                                <div class="contact">
-                                    <span class="title">{{_('免费咨询')}}</span>
-                                    <span class="phone">
-                                        <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
-                                    </span>
+                            % if request.url.find('/property-to-rent-list') < 0 :
+                                <div class="callus">
+                                    <i class="icon-phone_icon"></i>
+                                    <div class="contact">
+                                        <span class="title">{{_('免费咨询')}}</span>
+                                        <span class="phone">
+                                            <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        % else :
-                            <a href="/property-to-rent/create" class="rentalCreate ghostButton">
-                                <i class="icon-edit"></i>
-                                <span class="big">{{_('发布租房信息')}}</span>
-                            </a>
-                        % end
+                            % else :
+                                <a href="/property-to-rent/create" class="rentalCreate ghostButton">
+                                    <i class="icon-edit"></i>
+                                    <span class="big">{{_('发布租房信息')}}</span>
+                                </a>
+                            % end
+                        %end
                     </header>
                 % end
 
@@ -224,6 +228,12 @@
                         <div class="clear showInMobile"></div>
                         <div class="contact">
                             <h3>{{_('联系我们')}}</h3>
+                            % if _.lang == "en_GB":
+                                <p class="email">
+                                    <a href="mailto:rental@youngfunding.co.uk?subject=Feedback">rental@youngfunding.co.uk</a>
+                                </p>
+                            <p class="address">Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
+                            % else:
                             <p class="phone">
                                 <a href="tel:{{get_phone_numbers('link')[0]}}">
                                     <i class="icon-phone_icon"></i>
@@ -233,9 +243,6 @@
                             <p class="email">
                                 <a href="mailto:services@youngfunding.co.uk?subject=Feedback">services@youngfunding.co.uk</a>
                             </p>
-                            % if _.lang == "en_GB":
-                            <p class="address">Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
-                            % else:
                             <p class="address">Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
                             <p class="address">{{_('中国总部')}}：湖北省武汉市群光中心22楼</p>
                             % end
