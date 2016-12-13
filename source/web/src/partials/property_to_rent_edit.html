@@ -262,6 +262,10 @@
                                 </select>
                             </div>
                             <div><span>{{_('卫')}}</span></div>
+                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'">
+                                <input type="checkbox" id="independentBathroom" data-bind="checked: independentBathroom"/>
+                                <label for="independentBathroom">{{_('独立卫浴')}}</label>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -286,10 +290,6 @@
                                     %end
                                     >{{_('平方英尺')}}</option>
                                 </select>
-                                <!-- ko if: rentTypeSlug() === 'rent_type:single' -->
-                                <input type="checkbox" id="independentBathroom" data-bind="checked: independentBathroom"/>
-                                <label for="independentBathroom">{{_('独立卫浴')}}</label>
-                                <!-- /ko -->
                             </div>
                         </td>
                     </tr>
