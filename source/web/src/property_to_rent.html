@@ -835,7 +835,7 @@
 
     <!--出租申请单-->
     <!--@@include = static/templates/chat_request.tpl.html -->
-    <rent-request params="price: {{json_dumps(rent.get('price'))}}, holdingDeposit: {{json_dumps(rent.get('holding_deposit'))}}"></rent-request>
+    <chat-request params="price: {{json_dumps(rent.get('price'))}}, holdingDeposit: {{json_dumps(rent.get('holding_deposit'))}}"></chat-request>
 
     <ul class="floatBar_phone">
         <li class="phone">

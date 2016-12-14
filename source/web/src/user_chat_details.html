@@ -9,7 +9,56 @@
 <!--@@block = main-->
 
 <div class="chatWrap">
-    <!-- @@include= ./partials/chat_popup.html-->
+	<textarea id="rentTicketData" style="display: none">
+    {{json_dumps(rent_intention_ticket)}}
+</textarea>
+    <div class="main_container clearfix">
+		<div class="chatUserInfo">
+			<div class="userHeader">
+				<span class="userHeader_pic"><img src="/static/images/chat/hostHeader.jpg" alt=""></span>
+				<div class="userHeader_type">HOST</div>
+				<div class="userHeader_name">{{rent_intention_ticket.get('nickname','')}}</div>
+			</div>
+			<div class="chatDetails">
+		        <dl class="userDetailsList">
+		            <dt>Ticket List</dt>
+		            <dd><span>{{_('租期开始日期')}}</span><strong data-utc-time="{{rent_intention_ticket.get('rent_available_time','')}}"></strong></dd>
+		            <dd><span>{{_('租期结束日期')}}</span><strong data-utc-time="{{rent_intention_ticket.get('rent_deadline_time','')}}"></strong></dd>
+		        </dl>
+		        <dl class="userDetailsList">
+		            <dt>order</dt>
+		            <dd><span>Move in time</span><strong>userId:</strong></dd>
+		            <dd><span>Move in time</span><strong>creatorUserId:</strong></dd>
+		            <dd class="total"><span>total</span><strong>$ 12345</strong></dd>
+		        </dl>
+		    </div>
+		</div>
+		<div class="chatCenter">
+			<div class="box_hd">
+				<div class="fl">
+					<div class="content">
+						<textarea id="edit_area" class="edit_area" placeholder="sent msg"></textarea>
+						<div class="toolbar"><a href="javascript:;"><i class="icon-art"></i></a></div>
+					</div>
+					<div class="action"><a href="javascript:;" class="btn btn_send" id="btn_send">send</a></div>
+				</div>
+				<div class="fr">
+					<img src="/static/images/chat/hostHeader.jpg" alt="" class="avatar">
+				</div>
+			</div>
+			<div class="chatContent" id="chatContent">
+				<img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator">
+			</div>
+		</div>
+	</div>
+	<div class="floatChat_phone">
+		<div class="chat_center_phone">
+			<a href="" class="chat_toolbar"><i class="icon-art"></i></a>
+			<input type="text" class="chat_edit_area" id="chat_edit_area">
+			<a href="javascript:;" class="btn_send_phone" id="btn_send_phone">SEND</a>
+		</div>
+	</div>
+
 </div>
 <!--@@close-->
 

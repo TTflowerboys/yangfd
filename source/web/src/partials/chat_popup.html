@@ -3,21 +3,21 @@
 		<div class="userHeader">
 			<span class="userHeader_pic"><img src="/static/images/chat/hostHeader.jpg" alt=""></span>
 			<div class="userHeader_type">HOST</div>
-			<div class="userHeader_name">Tom.lei Guster</div>
+			<div class="userHeader_name">{{rent_intention_ticket.get('nickname','')}}</div>
 		</div>
 		<div class="chatDetails">
-			<dl class="userDetailsList">
-				<dt>Ticket List</dt>
-				<dd><span>Move in time</span><strong>Dec.12.2016</strong></dd>
-				<dd><span>Move in time</span><strong>Dec.12.2016</strong></dd>
-			</dl>
-			<dl class="userDetailsList">
-				<dt>order</dt>
-				<dd><span>Move in time</span><strong>Dec.12.2016</strong></dd>
-				<dd><span>Move in time</span><strong>Dec.12.2016</strong></dd>
-				<dd class="total"><span>total</span><strong>$ 12345</strong></dd>
-			</dl>
-		</div>		
+	        <dl class="userDetailsList">
+	            <dt>Ticket List</dt>
+	            <dd><span>{{_('租期开始日期')}}</span><strong data-utc-time="{{rent_intention_ticket.get('rent_available_time','')}}"></strong></dd>
+	            <dd><span>{{_('租期结束日期')}}</span><strong data-utc-time="{{rent_intention_ticket.get('rent_deadline_time','')}}"></strong></dd>
+	        </dl>
+	        <dl class="userDetailsList">
+	            <dt>order</dt>
+	            <dd><span>Move in time</span><strong>userId:{{user.get('id')}}</strong></dd>
+	            <dd><span>Move in time</span><strong>creatorUserId:{{rent.get('creator_user',{}).get('id','')}}</strong></dd>
+	            <dd class="total"><span>total</span><strong>$ 12345</strong></dd>
+	        </dl>
+	    </div>
 	</div>
 	<div class="chatCenter">
 		<div class="box_hd">
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div class="chatContent" id="chatContent">
-			
+			<img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator">
 		</div>
 	</div>
 </div>
