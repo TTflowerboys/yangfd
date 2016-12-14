@@ -101,7 +101,7 @@ var chat = {
           window.alert('服务端出错！');
       },
       success: function(res){//成功
-        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val(),chat.sendTime()));
+        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val()));
         chat.clearEditArea()
       }
     });
@@ -110,6 +110,8 @@ var chat = {
     $('#edit_area,#chat_edit_area').val('');
   }
 }
+
+
 $(function(){
   chat.init();
 })
