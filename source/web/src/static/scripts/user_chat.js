@@ -26,6 +26,9 @@ var chat = {
   defMsgTpl : function(picUrl,plain,time){
     return '<div class="message"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
   },
+  sendMsgTpl : function(picUrl,plain){
+      return '<div class="message me"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'</div></div></div></div></div>'
+  },
   noMessageTpl: function(){
     return '<div class="noMessage">sorry,no message!</div>'
   },
@@ -58,21 +61,15 @@ var chat = {
       dataType: 'json',
       timeout: 20000,
       cache: false,
-      error: function(){//出错
+      error: function(){
           window.alert('服务端出错！');
       },
-      success: function(res){//成功
-        //$('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val()));
-        //chat.clearEditArea()
+      success: function(res){
         $('#loadIndicator').hide()
         var data = res.val
         chat.historyTpl(data)
-        //chat.historyTpl(res.from_user.id)
       }
     });
-  },
-  sendTime : function(){
-    return window.moment.utc(new Date()).format(window.team.timeFormatter());
   },
   sendTextMessage : function(){
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
@@ -83,11 +80,11 @@ var chat = {
       dataType: 'json',
       timeout: 20000,
       cache: false,
-      error: function(){//出错
+      error: function(){
           window.alert('服务端出错！');
       },
-      success: function(res){//成功
-        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val(),new Date(),chat.sendTime()));
+      success: function(res){
+        $('#chatContent').prepend(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val()));
         chat.clearEditArea()
       }
     });
