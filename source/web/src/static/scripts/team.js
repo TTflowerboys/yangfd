@@ -651,6 +651,12 @@
             KEYCODE_NUM_MINUS: 109,
             KEYCODE_ADD: 187,
             KEYCODE_MINUS: 189
+        },
+        dataFormatter: function(){
+            return window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
+        },
+        timeFormatter: function(){
+            return window.lang === 'en_GB'? 'DD-MM-YYYY HH:mm:ss': 'YYYY-MM-DD HH:mm:ss'
         }
     }
 })

@@ -71,6 +71,9 @@ var chat = {
       }
     });
   },
+  sendTime : function(){
+    return window.moment.utc(new Date()).format(window.team.timeFormatter());
+  },
   sendTextMessage : function(){
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
     $.ajax({
@@ -84,7 +87,7 @@ var chat = {
           window.alert('服务端出错！');
       },
       success: function(res){//成功
-        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val()));
+        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val(),new Date(),chat.sendTime()));
         chat.clearEditArea()
       }
     });
@@ -101,7 +104,7 @@ var chat = {
           window.alert('服务端出错！');
       },
       success: function(res){//成功
-        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val()));
+        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val(),chat.sendTime()));
         chat.clearEditArea()
       }
     });
@@ -110,4 +113,6 @@ var chat = {
     $('#edit_area,#chat_edit_area').val('');
   }
 }
-chat.init();
+$(function(){
+  chat.init();
+})

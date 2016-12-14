@@ -906,14 +906,6 @@ def rent_intention_edit(rent_intention_ticket_id):
     return currant_util.common_template("rent_intention_edit", title=title, rent_intention_ticket=rent_intention_ticket)
 
 
-<<<<<<< 33b7cca0f6113e57acb87ef5ffb81484edb60f7c
-# @f_get('/email-test')
-# @currant_util.check_ip_and_redirect_domain
-# def email_test():
-#     title = _('洋房东Email')
-#     university = 'King College of London'
-#     return currant_util.common_template("static/emails/university_promotion", title=title, university=university)
-=======
 @f_get('/user-chat/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>/details')
 @currant_util.check_ip_and_redirect_domain
 def user_chat_details(rent_intention_ticket_id):
@@ -925,7 +917,6 @@ def user_chat_details(rent_intention_ticket_id):
         redirect('/')
 
     return currant_util.common_template("user_chat_details", title=title, rent_intention_ticket=rent_intention_ticket)
->>>>>>> [Web] Add:chat send message and show message history.
 
 
 @f_api('/aggregation-general', params=dict(
