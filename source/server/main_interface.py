@@ -850,14 +850,14 @@ def how_it_works_landlord():
 @f_get('/how-it-works/tenant')
 @currant_util.check_ip_and_redirect_domain
 def how_it_works_tenant():
-    title = _('洋房东租客服务')    
+    title = _('洋房东租客服务')
     return currant_util.common_template("how_it_works_tenant", title=title)
 
 
 @f_get('/how-it-works')
 @currant_util.check_ip_and_redirect_domain
 def how_it_works():
-    lang = getattr(f_app.i18n, "get_gettext")("web").lang    
+    lang = getattr(f_app.i18n, "get_gettext")("web").lang
     if lang == "en_GB":
         title = _('Young Funding Service')
         return currant_util.common_template("how_it_works_en", title=title)
@@ -884,6 +884,14 @@ def rent_intention_edit(rent_intention_ticket_id):
         redirect('/')
 
     return currant_util.common_template("rent_intention_edit", title=title, rent_intention_ticket=rent_intention_ticket)
+
+
+# @f_get('/email-test')
+# @currant_util.check_ip_and_redirect_domain
+# def email_test():
+#     title = _('洋房东Email')
+#     university = 'King College of London'
+#     return currant_util.common_template("static/emails/university_promotion", title=title, university=university)
 
 
 @f_api('/aggregation-general', params=dict(
