@@ -101,7 +101,7 @@ var chat = {
           window.alert('服务端出错！');
       },
       success: function(res){//成功
-        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val()));
+        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val(),chat.sendTime()));
         chat.clearEditArea()
       }
     });
@@ -111,6 +111,13 @@ var chat = {
   }
 }
 
+;(function poll() {
+   setTimeout(function() {
+       $.ajax({ url: "http://currant-test.bbtechgroup.com:8286/polling", success: function(data) {
+            window.console.log('data:'+data)
+       }, dataType: "json", complete: poll });
+    }, 30000);
+})();
 
 $(function(){
   chat.init();
