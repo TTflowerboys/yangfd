@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-15 12:42+0800\n"
+"POT-Creation-Date: 2016-12-15 19:54+0800\n"
 "PO-Revision-Date: 2016-12-14 21:24+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language: en_GB\n"
@@ -2680,6 +2680,10 @@ msgstr "If you have additional questions, please feel free to contact us:"
 #: ../web/src/qa_crowdfunding.html:62 ../web/src/qa_rent.html:254
 #: ../web/src/qa_rent.html:262 ../web/src/partials/float_bar.html:29
 #: ../web/src/partials/float_bar.html:30
+#: ../web/src/static/emails/receive_rent_intention.html:19
+#: ../web/src/static/emails/rent_intention_digest.html:147
+#: ../web/src/static/emails/rent_suspend_notice.html:79
+#: ../web/src/static/emails/reset_password_by_email.html:23
 msgid "电话："
 msgstr "Phone: "
 
@@ -4116,6 +4120,7 @@ msgstr "Simplified chinese （China）"
 #: ../web/src/masters/email_new.html:78
 #: ../web/src/static/emails/affiliate_promotion.html:211
 #: ../web/src/static/emails/property_ad.html:103
+#: ../web/src/static/emails/university_promotion.html:170
 msgid "该邮件为自动发送，请勿直接回复。"
 msgstr "This email is sent automatically, please do not reply."
 
@@ -4124,6 +4129,7 @@ msgstr "This email is sent automatically, please do not reply."
 #: ../web/src/partials/i18n_scripts.html:66
 #: ../web/src/static/emails/affiliate_promotion.html:214
 #: ../web/src/static/emails/property_ad.html:106
+#: ../web/src/static/emails/university_promotion.html:173
 msgid "如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。"
 msgstr "If you have any questions then please feel free to contact us. We will be more than happy to help."
 
@@ -4132,6 +4138,7 @@ msgstr "If you have any questions then please feel free to contact us. We will b
 #: ../web/src/partials/i18n_scripts.html:67
 #: ../web/src/static/emails/affiliate_promotion.html:218
 #: ../web/src/static/emails/property_ad.html:110
+#: ../web/src/static/emails/university_promotion.html:177
 msgid "不想收到此类邮件？"
 msgstr "Don't want to receive our emails?"
 
@@ -4140,6 +4147,7 @@ msgstr "Don't want to receive our emails?"
 #: ../web/src/partials/i18n_scripts.html:68
 #: ../web/src/static/emails/affiliate_promotion.html:218
 #: ../web/src/static/emails/property_ad.html:110
+#: ../web/src/static/emails/university_promotion.html:177
 msgid "点击退订"
 msgstr "Click to unsubscribe"
 
@@ -4148,6 +4156,7 @@ msgstr "Click to unsubscribe"
 #: ../web/src/partials/i18n_scripts.html:69
 #: ../web/src/static/emails/affiliate_promotion.html:222
 #: ../web/src/static/emails/property_ad.html:114
+#: ../web/src/static/emails/university_promotion.html:181
 msgid "Email："
 msgstr "Email："
 
@@ -4156,6 +4165,7 @@ msgstr "Email："
 #: ../web/src/partials/i18n_scripts.html:70
 #: ../web/src/static/emails/affiliate_promotion.html:225
 #: ../web/src/static/emails/property_ad.html:117
+#: ../web/src/static/emails/university_promotion.html:184
 msgid "英国客服电话："
 msgstr "UK Phone: "
 
@@ -4164,6 +4174,7 @@ msgstr "UK Phone: "
 #: ../web/src/partials/i18n_scripts.html:71
 #: ../web/src/static/emails/affiliate_promotion.html:228
 #: ../web/src/static/emails/property_ad.html:120
+#: ../web/src/static/emails/university_promotion.html:187
 msgid "中国客服电话："
 msgstr "China Phone: "
 
@@ -8284,6 +8295,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:19
 #: ../web/src/static/emails/affiliate_register_success.html:6
+#: ../web/src/static/emails/receive_rent_intention.html:4
 #: ../web/src/static/emails/rent_intention_digest.html:4
 #: ../web/src/static/emails/rent_intention_matched_1.html:5
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:4
@@ -12752,7 +12764,6 @@ msgstr "Affiliate Registration Successful "
 
 #: ../web/src/static/emails/affiliate_register_success.html:6
 #: ../web/src/static/emails/landlord_recruit.html:3
-#: ../web/src/static/emails/rent_intention_digest.html:4
 #: ../web/src/static/emails/rent_intention_matched_1.html:5
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:4
 #: ../web/src/static/emails/rent_intention_matched_4.html:5
@@ -12937,7 +12948,7 @@ msgstr "YFD Rental support team reminds you that your rental information \""
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:8
 msgid "”在草稿箱中已经躺了3天了呢！为了尽快出租您的房源，请您尽快将该草稿发布出去，点击下面的按钮继续发布："
-msgstr "has been lying in your drafts for 3 days! Please post the property now to ensure it is rented out as soon as possible. Click on button below to complete post"
+msgstr "\" has been lying in your drafts for 3 days! Please post the property now to ensure it is rented out as soon as possible. Click on button below to complete post"
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:10
 #: ../web/src/static/emails/draft_not_publish_day_7.html:10
@@ -12961,7 +12972,7 @@ msgstr "Thank you for reading. Best regards!"
 
 #: ../web/src/static/emails/draft_not_publish_day_7.html:8
 msgid "”在草稿箱中已经躺了7天了呢！为了尽快出租您的房源，请您尽快将该草稿发布出去，点击下面的按钮继续发布："
-msgstr "has been lying in your drafts for 7 days! Please post the property now to ensure it is rented out as soon as possible. Click buttons below to complete post"
+msgstr "\" has been lying in your drafts for 7 days! Please post the property now to ensure it is rented out as soon as possible. Click buttons below to complete post"
 
 #: ../web/src/static/emails/happy_new_year.html:5
 msgid " 洋房东全体员工祝您新年快乐！"
@@ -12969,6 +12980,7 @@ msgstr "Happy New Year from the entire YFD team!"
 
 #: ../web/src/static/emails/invitation.html:3
 #: ../web/src/static/emails/rent_suspend_notice.html:13
+#: ../web/src/static/emails/reset_password_by_email.html:4
 msgid "尊敬的用户您好："
 msgstr "Dear user:"
 

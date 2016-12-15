@@ -33,7 +33,7 @@
                                     <td style="width: 35%;text-align: right;font-size: 14px;color: #e60012;">
                                         <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
                                         <span style="font-size: 18px;">
-                                            {{int(float(rent.get('price',{}).get('value','')))}}
+                                            {{int(float(rent.get('price',{}).get('value', 0)))}}
                                         </span>
                                         {{_('/周')}}
                                         % if 'bill_covered' in rent and rent.get('bill_covered'):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-15 12:42+0800\n"
+"POT-Creation-Date: 2016-12-15 19:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2664,6 +2664,10 @@ msgstr ""
 #: ../web/src/qa_crowdfunding.html:62 ../web/src/qa_rent.html:254
 #: ../web/src/qa_rent.html:262 ../web/src/partials/float_bar.html:29
 #: ../web/src/partials/float_bar.html:30
+#: ../web/src/static/emails/receive_rent_intention.html:19
+#: ../web/src/static/emails/rent_intention_digest.html:147
+#: ../web/src/static/emails/rent_suspend_notice.html:79
+#: ../web/src/static/emails/reset_password_by_email.html:23
 msgid "电话："
 msgstr ""
 
@@ -4087,6 +4091,7 @@ msgstr ""
 #: ../web/src/masters/email_new.html:78
 #: ../web/src/static/emails/affiliate_promotion.html:211
 #: ../web/src/static/emails/property_ad.html:103
+#: ../web/src/static/emails/university_promotion.html:170
 msgid "该邮件为自动发送，请勿直接回复。"
 msgstr ""
 
@@ -4095,6 +4100,7 @@ msgstr ""
 #: ../web/src/partials/i18n_scripts.html:66
 #: ../web/src/static/emails/affiliate_promotion.html:214
 #: ../web/src/static/emails/property_ad.html:106
+#: ../web/src/static/emails/university_promotion.html:173
 msgid "如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。"
 msgstr ""
 
@@ -4103,6 +4109,7 @@ msgstr ""
 #: ../web/src/partials/i18n_scripts.html:67
 #: ../web/src/static/emails/affiliate_promotion.html:218
 #: ../web/src/static/emails/property_ad.html:110
+#: ../web/src/static/emails/university_promotion.html:177
 msgid "不想收到此类邮件？"
 msgstr ""
 
@@ -4111,6 +4118,7 @@ msgstr ""
 #: ../web/src/partials/i18n_scripts.html:68
 #: ../web/src/static/emails/affiliate_promotion.html:218
 #: ../web/src/static/emails/property_ad.html:110
+#: ../web/src/static/emails/university_promotion.html:177
 msgid "点击退订"
 msgstr ""
 
@@ -4119,6 +4127,7 @@ msgstr ""
 #: ../web/src/partials/i18n_scripts.html:69
 #: ../web/src/static/emails/affiliate_promotion.html:222
 #: ../web/src/static/emails/property_ad.html:114
+#: ../web/src/static/emails/university_promotion.html:181
 msgid "Email："
 msgstr ""
 
@@ -4127,6 +4136,7 @@ msgstr ""
 #: ../web/src/partials/i18n_scripts.html:70
 #: ../web/src/static/emails/affiliate_promotion.html:225
 #: ../web/src/static/emails/property_ad.html:117
+#: ../web/src/static/emails/university_promotion.html:184
 msgid "英国客服电话："
 msgstr ""
 
@@ -4135,6 +4145,7 @@ msgstr ""
 #: ../web/src/partials/i18n_scripts.html:71
 #: ../web/src/static/emails/affiliate_promotion.html:228
 #: ../web/src/static/emails/property_ad.html:120
+#: ../web/src/static/emails/university_promotion.html:187
 msgid "中国客服电话："
 msgstr ""
 
@@ -8076,6 +8087,7 @@ msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:19
 #: ../web/src/static/emails/affiliate_register_success.html:6
+#: ../web/src/static/emails/receive_rent_intention.html:4
 #: ../web/src/static/emails/rent_intention_digest.html:4
 #: ../web/src/static/emails/rent_intention_matched_1.html:5
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:4
@@ -12212,7 +12224,6 @@ msgstr ""
 
 #: ../web/src/static/emails/affiliate_register_success.html:6
 #: ../web/src/static/emails/landlord_recruit.html:3
-#: ../web/src/static/emails/rent_intention_digest.html:4
 #: ../web/src/static/emails/rent_intention_matched_1.html:5
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:4
 #: ../web/src/static/emails/rent_intention_matched_4.html:5
@@ -12429,6 +12440,7 @@ msgstr ""
 
 #: ../web/src/static/emails/invitation.html:3
 #: ../web/src/static/emails/rent_suspend_notice.html:13
+#: ../web/src/static/emails/reset_password_by_email.html:4
 msgid "尊敬的用户您好："
 msgstr ""
 
