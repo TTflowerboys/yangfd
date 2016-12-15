@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-15 21:38+0800\n"
-"PO-Revision-Date: 2016-12-15 21:06+0800\n"
+"POT-Creation-Date: 2016-12-15 23:52+0800\n"
+"PO-Revision-Date: 2016-12-15 23:52+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -4113,7 +4113,7 @@ msgid "中文简体（中国）"
 msgstr "Simplified chinese （China）"
 
 #: ../web/src/masters/email_colorful.html:147
-#: ../web/src/masters/email_new.html:78
+#: ../web/src/masters/email_new.html:82
 #: ../web/src/static/emails/affiliate_promotion.html:211
 #: ../web/src/static/emails/property_ad.html:103
 #: ../web/src/static/emails/university_promotion.html:170
@@ -4121,7 +4121,7 @@ msgid "该邮件为自动发送，请勿直接回复。"
 msgstr "This email is sent automatically, please do not reply."
 
 #: ../web/src/masters/email_colorful.html:150
-#: ../web/src/masters/email_new.html:81
+#: ../web/src/masters/email_new.html:85
 #: ../web/src/partials/i18n_scripts.html:66
 #: ../web/src/static/emails/affiliate_promotion.html:214
 #: ../web/src/static/emails/property_ad.html:106
@@ -4130,7 +4130,7 @@ msgid "如有任何问题，欢迎您与我们联系，我们将竭诚为您服�
 msgstr "If you have any questions then please feel free to contact us. We will be more than happy to help."
 
 #: ../web/src/masters/email_colorful.html:154
-#: ../web/src/masters/email_new.html:85
+#: ../web/src/masters/email_new.html:89
 #: ../web/src/partials/i18n_scripts.html:67
 #: ../web/src/static/emails/affiliate_promotion.html:218
 #: ../web/src/static/emails/property_ad.html:110
@@ -4139,7 +4139,7 @@ msgid "不想收到此类邮件？"
 msgstr "Don't want to receive our emails?"
 
 #: ../web/src/masters/email_colorful.html:154
-#: ../web/src/masters/email_new.html:85
+#: ../web/src/masters/email_new.html:89
 #: ../web/src/partials/i18n_scripts.html:68
 #: ../web/src/static/emails/affiliate_promotion.html:218
 #: ../web/src/static/emails/property_ad.html:110
@@ -4148,31 +4148,13 @@ msgid "点击退订"
 msgstr "Click to unsubscribe"
 
 #: ../web/src/masters/email_colorful.html:158
-#: ../web/src/masters/email_new.html:89
+#: ../web/src/masters/email_new.html:93
 #: ../web/src/partials/i18n_scripts.html:69
 #: ../web/src/static/emails/affiliate_promotion.html:222
 #: ../web/src/static/emails/property_ad.html:114
 #: ../web/src/static/emails/university_promotion.html:181
 msgid "Email："
 msgstr "Email："
-
-#: ../web/src/masters/email_colorful.html:161
-#: ../web/src/masters/email_new.html:92
-#: ../web/src/partials/i18n_scripts.html:70
-#: ../web/src/static/emails/affiliate_promotion.html:225
-#: ../web/src/static/emails/property_ad.html:117
-#: ../web/src/static/emails/university_promotion.html:184
-msgid "英国客服电话："
-msgstr "UK Phone: "
-
-#: ../web/src/masters/email_colorful.html:164
-#: ../web/src/masters/email_new.html:95
-#: ../web/src/partials/i18n_scripts.html:71
-#: ../web/src/static/emails/affiliate_promotion.html:228
-#: ../web/src/static/emails/property_ad.html:120
-#: ../web/src/static/emails/university_promotion.html:187
-msgid "中国客服电话："
-msgstr "China Phone: "
 
 #: ../web/src/masters/master.html:77
 msgid "我的账户"
@@ -8467,6 +8449,18 @@ msgstr ""
 #, fuzzy
 msgid "YoungFunding Team"
 msgstr "洋房東"
+
+#: ../web/src/partials/i18n_scripts.html:70
+#: ../web/src/static/emails/affiliate_promotion.html:225
+#: ../web/src/static/emails/property_ad.html:117
+msgid "英国客服电话："
+msgstr "UK Phone: "
+
+#: ../web/src/partials/i18n_scripts.html:71
+#: ../web/src/static/emails/affiliate_promotion.html:228
+#: ../web/src/static/emails/property_ad.html:120
+msgid "中国客服电话："
+msgstr "China Phone: "
 
 #: ../web/src/partials/i18n_scripts.html:72
 msgid "您好，您的房源"
@@ -12917,7 +12911,6 @@ msgstr "Hi"
 #: ../web/src/static/emails/rent_intention_matched_1.html:8
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:7
 #: ../web/src/static/emails/rent_intention_matched_4.html:8
-#: ../web/src/static/emails/rent_suspend_notice.html:15
 #: ../web/src/static/emails/rent_ticket_publish_success.html:7
 msgid "我是洋房东的"
 msgstr "I am YFD Rental Platform’s"
@@ -13364,6 +13357,7 @@ msgid "祝您在洋房东的旅程愉快"
 msgstr "We hope you enjoy our platform"
 
 #: ../web/src/static/emails/receive_rent_intention.html:7
+#: ../web/src/static/emails/rent_suspend_notice.html:15
 #, fuzzy, python-format
 msgid "我是洋房东的%s"
 msgstr "I am %s from the YFD Rental team"
@@ -13538,7 +13532,7 @@ msgstr "YFD Rental creates a fantastic mobile homepage for your property. Scan t
 
 #: ../web/src/static/emails/rent_notice.html:89
 msgid "扫描二维码分享房源信息"
-msgstr "Share property information"
+msgstr "Scan to share"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:16
 msgid "首先感谢您对洋房东的支持! "

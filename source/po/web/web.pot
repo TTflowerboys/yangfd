@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-15 21:38+0800\n"
+"POT-Creation-Date: 2016-12-15 23:52+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4084,7 +4084,7 @@ msgid "中文简体（中国）"
 msgstr ""
 
 #: ../web/src/masters/email_colorful.html:147
-#: ../web/src/masters/email_new.html:78
+#: ../web/src/masters/email_new.html:82
 #: ../web/src/static/emails/affiliate_promotion.html:211
 #: ../web/src/static/emails/property_ad.html:103
 #: ../web/src/static/emails/university_promotion.html:170
@@ -4092,7 +4092,7 @@ msgid "该邮件为自动发送，请勿直接回复。"
 msgstr ""
 
 #: ../web/src/masters/email_colorful.html:150
-#: ../web/src/masters/email_new.html:81
+#: ../web/src/masters/email_new.html:85
 #: ../web/src/partials/i18n_scripts.html:66
 #: ../web/src/static/emails/affiliate_promotion.html:214
 #: ../web/src/static/emails/property_ad.html:106
@@ -4101,7 +4101,7 @@ msgid "如有任何问题，欢迎您与我们联系，我们将竭诚为您服�
 msgstr ""
 
 #: ../web/src/masters/email_colorful.html:154
-#: ../web/src/masters/email_new.html:85
+#: ../web/src/masters/email_new.html:89
 #: ../web/src/partials/i18n_scripts.html:67
 #: ../web/src/static/emails/affiliate_promotion.html:218
 #: ../web/src/static/emails/property_ad.html:110
@@ -4110,7 +4110,7 @@ msgid "不想收到此类邮件？"
 msgstr ""
 
 #: ../web/src/masters/email_colorful.html:154
-#: ../web/src/masters/email_new.html:85
+#: ../web/src/masters/email_new.html:89
 #: ../web/src/partials/i18n_scripts.html:68
 #: ../web/src/static/emails/affiliate_promotion.html:218
 #: ../web/src/static/emails/property_ad.html:110
@@ -4119,30 +4119,12 @@ msgid "点击退订"
 msgstr ""
 
 #: ../web/src/masters/email_colorful.html:158
-#: ../web/src/masters/email_new.html:89
+#: ../web/src/masters/email_new.html:93
 #: ../web/src/partials/i18n_scripts.html:69
 #: ../web/src/static/emails/affiliate_promotion.html:222
 #: ../web/src/static/emails/property_ad.html:114
 #: ../web/src/static/emails/university_promotion.html:181
 msgid "Email："
-msgstr ""
-
-#: ../web/src/masters/email_colorful.html:161
-#: ../web/src/masters/email_new.html:92
-#: ../web/src/partials/i18n_scripts.html:70
-#: ../web/src/static/emails/affiliate_promotion.html:225
-#: ../web/src/static/emails/property_ad.html:117
-#: ../web/src/static/emails/university_promotion.html:184
-msgid "英国客服电话："
-msgstr ""
-
-#: ../web/src/masters/email_colorful.html:164
-#: ../web/src/masters/email_new.html:95
-#: ../web/src/partials/i18n_scripts.html:71
-#: ../web/src/static/emails/affiliate_promotion.html:228
-#: ../web/src/static/emails/property_ad.html:120
-#: ../web/src/static/emails/university_promotion.html:187
-msgid "中国客服电话："
 msgstr ""
 
 #: ../web/src/masters/master.html:77
@@ -8248,6 +8230,18 @@ msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:65
 msgid "YoungFunding Team"
+msgstr ""
+
+#: ../web/src/partials/i18n_scripts.html:70
+#: ../web/src/static/emails/affiliate_promotion.html:225
+#: ../web/src/static/emails/property_ad.html:117
+msgid "英国客服电话："
+msgstr ""
+
+#: ../web/src/partials/i18n_scripts.html:71
+#: ../web/src/static/emails/affiliate_promotion.html:228
+#: ../web/src/static/emails/property_ad.html:120
+msgid "中国客服电话："
 msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:72
@@ -12377,7 +12371,6 @@ msgstr ""
 #: ../web/src/static/emails/rent_intention_matched_1.html:8
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:7
 #: ../web/src/static/emails/rent_intention_matched_4.html:8
-#: ../web/src/static/emails/rent_suspend_notice.html:15
 #: ../web/src/static/emails/rent_ticket_publish_success.html:7
 msgid "我是洋房东的"
 msgstr ""
@@ -12824,6 +12817,7 @@ msgid "祝您在洋房东的旅程愉快"
 msgstr ""
 
 #: ../web/src/static/emails/receive_rent_intention.html:7
+#: ../web/src/static/emails/rent_suspend_notice.html:15
 #, python-format
 msgid "我是洋房东的%s"
 msgstr ""
