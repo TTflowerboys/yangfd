@@ -52,7 +52,7 @@ elif template_name == "rent_suspend_notice":
 
 elif template_name == "rent_ticket_publish_success":
     template_params = dict(
-        rent={},
+        rent=dict(property=dict()),
         get_country_name_by_code=currant_util.get_country_name_by_code,
     )
 
