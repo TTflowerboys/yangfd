@@ -3,7 +3,7 @@ import six
 
 
 def babel_extract(fileobj, keywords, comment_tags, options):
-    keyword_regex = re.compile("(" + "|".join(keywords) + r")\(['\"](.*?[^\\])['\"]\)")
+    keyword_regex = re.compile("(" + "|".join(keywords) + r")\(u?['\"](.*?[^\\])['\"]\)")
 
     for lineno, line in enumerate(fileobj):
         if isinstance(line, six.binary_type):
