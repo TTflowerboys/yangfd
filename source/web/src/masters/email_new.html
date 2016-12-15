@@ -50,7 +50,11 @@
                             <tr>
                                 <td style="font-size: 22px; color: #FFFFFF; letter-spacing: 3px;">
                                     <div style="padding: 20px 0 20px 10px;text-align: left;">
+                                        % if _.lang != "en_GB":
                                         <img class="logoEmailHeader" src="http://upload.yangfd.com/logo_email_header.png" alt="" style="vertical-align: middle; width: 250px;height: auto;"/>
+                                    % else:
+                                        <img class="logoEmailHeader" src="/static/images/logo/logo_header_en.png" alt="" style="vertical-align: middle; width: 250px;height: auto;"/>
+                                    % end
                                     </div>
                                 </td>
                             </tr>

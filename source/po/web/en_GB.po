@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-15 20:30+0800\n"
+"POT-Creation-Date: 2016-12-15 21:38+0800\n"
 "PO-Revision-Date: 2016-12-15 21:06+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language: en_GB\n"
@@ -197,7 +197,7 @@ msgstr "Your investment requirement has been submitted. We will get in touch sho
 
 #: ../web/src/coming_soon.html:94 ../web/src/news.html:85
 #: ../web/src/masters/big_picture_bg_master.html:47
-#: ../web/src/masters/email.html:53 ../web/src/masters/master.html:171
+#: ../web/src/masters/email.html:57 ../web/src/masters/master.html:171
 #: ../web/src/partials/i18n.html:260 ../server/currant_util.py:306
 #: ../server/main_interface.py:84
 msgid "洋房东"
@@ -2680,23 +2680,19 @@ msgstr "If you have additional questions, please feel free to contact us:"
 #: ../web/src/qa_crowdfunding.html:62 ../web/src/qa_rent.html:254
 #: ../web/src/qa_rent.html:262 ../web/src/partials/float_bar.html:29
 #: ../web/src/partials/float_bar.html:30
-#: ../web/src/static/emails/receive_rent_intention.html:19
-#: ../web/src/static/emails/rent_intention_digest.html:147
-#: ../web/src/static/emails/rent_suspend_notice.html:79
-#: ../web/src/static/emails/reset_password_by_email.html:23
 msgid "电话："
 msgstr "Phone: "
 
 #: ../web/src/qa_app.html:226 ../web/src/qa_crowdfunding.html:70
 #: ../web/src/qa_rent.html:270
 #: ../web/src/static/emails/receive_intention.html:28
-#: ../web/src/static/emails/receive_rent_intention.html:27
-#: ../web/src/static/emails/rent_intention_digest.html:155
-#: ../web/src/static/emails/rent_intention_matched_1.html:150
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:31
-#: ../web/src/static/emails/rent_intention_matched_4.html:157
-#: ../web/src/static/emails/rent_suspend_notice.html:87
-#: ../web/src/static/emails/reset_password_by_email.html:31
+#: ../web/src/static/emails/receive_rent_intention.html:17
+#: ../web/src/static/emails/rent_intention_digest.html:145
+#: ../web/src/static/emails/rent_intention_matched_1.html:140
+#: ../web/src/static/emails/rent_intention_matched_2_3.html:21
+#: ../web/src/static/emails/rent_intention_matched_4.html:147
+#: ../web/src/static/emails/rent_suspend_notice.html:77
+#: ../web/src/static/emails/reset_password_by_email.html:21
 msgid "邮箱："
 msgstr "Email: "
 
@@ -4202,13 +4198,6 @@ msgstr "App Download"
 #: ../web/src/partials/i18n_admin.html:350
 #: ../web/src/static/emails/national_day.html:15
 #: ../web/src/static/emails/receive_intention.html:23
-#: ../web/src/static/emails/receive_rent_intention.html:22
-#: ../web/src/static/emails/rent_intention_digest.html:150
-#: ../web/src/static/emails/rent_intention_matched_1.html:145
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:26
-#: ../web/src/static/emails/rent_intention_matched_4.html:152
-#: ../web/src/static/emails/rent_suspend_notice.html:82
-#: ../web/src/static/emails/reset_password_by_email.html:26
 #: ../server/currant_util.py:164
 msgid "英国"
 msgstr "UK"
@@ -6749,13 +6738,6 @@ msgstr " last week"
 #: ../web/src/partials/i18n.html:480 ../web/src/partials/i18n_admin.html:351
 #: ../web/src/static/emails/national_day.html:18
 #: ../web/src/static/emails/receive_intention.html:25
-#: ../web/src/static/emails/receive_rent_intention.html:24
-#: ../web/src/static/emails/rent_intention_digest.html:152
-#: ../web/src/static/emails/rent_intention_matched_1.html:147
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:28
-#: ../web/src/static/emails/rent_intention_matched_4.html:154
-#: ../web/src/static/emails/rent_suspend_notice.html:84
-#: ../web/src/static/emails/reset_password_by_email.html:28
 #: ../server/currant_util.py:163
 msgid "中国"
 msgstr "China"
@@ -13372,12 +13354,12 @@ msgid "如果您在使用过程中有任何问题或建议，请直接联系我�
 msgstr "If you have any questions or suggestions, please contact us directly:"
 
 #: ../web/src/static/emails/receive_intention.html:29
-#: ../web/src/static/emails/receive_rent_intention.html:28
-#: ../web/src/static/emails/rent_intention_digest.html:156
-#: ../web/src/static/emails/rent_intention_matched_1.html:151
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:32
-#: ../web/src/static/emails/rent_intention_matched_4.html:158
-#: ../web/src/static/emails/rent_suspend_notice.html:88
+#: ../web/src/static/emails/receive_rent_intention.html:18
+#: ../web/src/static/emails/rent_intention_digest.html:146
+#: ../web/src/static/emails/rent_intention_matched_1.html:141
+#: ../web/src/static/emails/rent_intention_matched_2_3.html:22
+#: ../web/src/static/emails/rent_intention_matched_4.html:148
+#: ../web/src/static/emails/rent_suspend_notice.html:78
 msgid "祝您在洋房东的旅程愉快"
 msgstr "We hope you enjoy our platform"
 
@@ -13426,7 +13408,7 @@ msgstr "Investment"
 
 #: ../web/src/static/emails/register_notice.html:24
 #: ../web/src/static/emails/register_notice_with_default_password.html:27
-#: ../web/src/static/emails/reset_password_by_email.html:32
+#: ../web/src/static/emails/reset_password_by_email.html:22
 msgid "祝您在洋房东的旅程愉快!"
 msgstr "We hope you enjoy our platform"
 
