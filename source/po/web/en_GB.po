@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-15 19:54+0800\n"
-"PO-Revision-Date: 2016-12-14 21:24+0800\n"
+"POT-Creation-Date: 2016-12-15 20:30+0800\n"
+"PO-Revision-Date: 2016-12-15 21:06+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -12929,7 +12929,6 @@ msgstr "Hi"
 #: ../web/src/static/emails/draft_not_publish_day_3.html:7
 #: ../web/src/static/emails/draft_not_publish_day_7.html:7
 #: ../web/src/static/emails/receive_intention.html:7
-#: ../web/src/static/emails/receive_rent_intention.html:7
 #: ../web/src/static/emails/register_notice.html:7
 #: ../web/src/static/emails/register_notice_with_default_password.html:7
 #: ../web/src/static/emails/rent_intention_digest.html:7
@@ -12944,7 +12943,7 @@ msgstr "I am YFD Rental Platform’s"
 #: ../web/src/static/emails/draft_not_publish_day_3.html:8
 #: ../web/src/static/emails/draft_not_publish_day_7.html:8
 msgid "洋房东小贴士提醒您，您的租房信息“"
-msgstr "YFD Rental support team reminds you that your rental information \""
+msgstr "We would like to remind you that \""
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:8
 msgid "”在草稿箱中已经躺了3天了呢！为了尽快出租您的房源，请您尽快将该草稿发布出去，点击下面的按钮继续发布："
@@ -12968,7 +12967,7 @@ msgstr "If you encounter any problems whilst using our platform you can check ou
 #: ../web/src/static/emails/draft_not_publish_day_3.html:20
 #: ../web/src/static/emails/draft_not_publish_day_7.html:20
 msgid "感谢您的阅读,祝您生活愉快！"
-msgstr "Thank you for reading. Best regards!"
+msgstr "Thank you for your attention. Regards!"
 
 #: ../web/src/static/emails/draft_not_publish_day_7.html:8
 msgid "”在草稿箱中已经躺了7天了呢！为了尽快出租您的房源，请您尽快将该草稿发布出去，点击下面的按钮继续发布："
@@ -13307,7 +13306,7 @@ msgstr "New rent request received"
 #: ../web/src/static/emails/new_user.html:4
 #, fuzzy, python-format
 msgid "您已经成功注册为洋房东会员，请使用手机号码(%s)登录"
-msgstr "Congratulations! You have successfully registered as YFD Rental user, please use your phone number (%s) to login."
+msgstr "Congratulations! Your YFD Rental account registration was successful. Please use your phone number (%s) to login."
 
 #: ../web/src/static/emails/new_user.html:5
 msgid "初始密码为： "
@@ -13382,13 +13381,18 @@ msgstr "If you have any questions or suggestions, please contact us directly:"
 msgid "祝您在洋房东的旅程愉快"
 msgstr "We hope you enjoy our platform"
 
+#: ../web/src/static/emails/receive_rent_intention.html:7
+#, fuzzy, python-format
+msgid "我是洋房东的%s"
+msgstr "I am %s from the YFD Rental team"
+
 #: ../web/src/static/emails/receive_rent_intention.html:8
 msgid "感谢您对洋房东的支持，我们已经收到您的求租意向单。我们将在未来的几天不断推送给您符合您需求的房源。"
 msgstr "Thank you for supporting YFD Rental. Your rental requirement request has been received. We will send across properties that meet your requirements over the next few days.  "
 
 #: ../web/src/static/emails/receive_rent_intention.html:11
 msgid "查看平台出租房源"
-msgstr "View rental housing on platform"
+msgstr "View rental properties on platform"
 
 #: ../web/src/static/emails/register_notice.html:8
 #: ../web/src/static/emails/register_notice_with_default_password.html:8
@@ -13528,7 +13532,7 @@ msgstr "There is a high volume of properties posted daily. Refreshing your prope
 
 #: ../web/src/static/emails/rent_notice.html:57
 msgid "现在就去"
-msgstr "Go now"
+msgstr "Refresh now"
 
 #: ../web/src/static/emails/rent_notice.html:70
 msgid "优化您的房源资料"
@@ -13540,7 +13544,7 @@ msgstr "Platform statistics indicate that a detailed property description and hi
 
 #: ../web/src/static/emails/rent_notice.html:71
 msgid "现在就去>"
-msgstr "Go now >"
+msgstr "Optimise now >"
 
 #: ../web/src/static/emails/rent_notice.html:81
 msgid "分享您的房源资料"
@@ -13552,11 +13556,11 @@ msgstr "YFD Rental creates a fantastic mobile homepage for your property. Scan t
 
 #: ../web/src/static/emails/rent_notice.html:89
 msgid "扫描二维码分享房源信息"
-msgstr "Scan the QR code to share property information"
+msgstr "Share property information"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:16
 msgid "首先感谢您对洋房东的支持! "
-msgstr "First of all, thank you for supporting for YFD Rental!"
+msgstr "Firstly I would like to thank you for support YFD Rental!"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:19
 msgid "您的出租房产可能存在以下问题，已经被下架，请进行修改后重新上架："
@@ -13592,7 +13596,7 @@ msgstr "4. Information does not match:"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:48
 msgid "经洋房东系统检测，您所选择的‘房东类型’有错误，如果您是中介，请如实填写，屡次不改者将进行封号处理。"
-msgstr "YFD Rental detects that you have chosen the wrong ' landlord type '.  If you are an agent, please fill out your true status.  If you fail to update your details then your account will suspended. "
+msgstr "YFD Rental detects that you have chosen the wrong ' host type '.  If you are an agent, please fill out your true status.  If you fail to update your details then your account will suspended. "
 
 #: ../web/src/static/emails/rent_suspend_notice.html:54
 msgid "5.收取额外费用："
@@ -13616,11 +13620,11 @@ msgstr "In order to help you have your property rented as quickly as possible, p
 
 #: ../web/src/static/emails/rent_suspend_notice.html:72
 msgid "PC 我的房产"
-msgstr "My Properties (Desktop users)"
+msgstr "Desktop user"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:73
 msgid "Mobile 我的房产"
-msgstr "My Properties (Mobile user)"
+msgstr "Mobile user"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:76
 msgid "如果您有任何宝贵意见，请直接联系我们"
@@ -13657,7 +13661,7 @@ msgstr "Reset password"
 
 #: ../web/src/static/emails/reset_password_by_email.html:12
 msgid "或者您可以复制下面的链接到您的浏览器："
-msgstr "Or you can copy this link to your browser"
+msgstr "Alternatively you can copy this link to your browser"
 
 #: ../web/src/static/emails/set_as_admin.html:6
 msgid "你已被授予以下权限："
@@ -13669,7 +13673,7 @@ msgstr "Thanks for using YFD Rental. To verify your email address, please click 
 
 #: ../web/src/static/emails/verify_email.html:7
 msgid "为保障您的账户安全，请在24小时内点击该链接。如果您无法访问以上链接，请将该网址复制并粘贴至浏览器地址栏中访问。"
-msgstr "To ensure account security, please click the link above within 24 hours. If you can't click the link, please copy and paste above url to a new tab or browser's address bar."
+msgstr "To ensure account security, please click the link above within 24 hours. If you can't click the link, please copy and paste above URL to a new browser window or a new tab."
 
 #: ../web/src/static/emails/verify_email_title.html:1
 msgid "请验证您的邮箱"
