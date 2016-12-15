@@ -21,14 +21,14 @@ generate:
 	cd ../web; npm run generate_i18n_js; cd ../po
 
 extract:
-	$(PYBABEL) extract -F web/.pybabel.cfg --copyright-holder=$(ORGANIZATION) --msgid-bugs-address=$(BUGSADDR) --project=$(PROJECT_NAME) --version=$(VERSION) -o web/web.pot ../web/src ../server
+	$(PYBABEL) extract --no-wrap -F web/.pybabel.cfg --copyright-holder=$(ORGANIZATION) --msgid-bugs-address=$(BUGSADDR) --project=$(PROJECT_NAME) --version=$(VERSION) -o web/web.pot ../web/src ../server
 
 update:
 	for file in */*.po; \
 	do \
 		package=$$($(PYTHON) -c "print('$$file'.split('/')[0])"); \
 		lang=$$($(PYTHON) -c "print('$$file'.split('/')[-1].split('.po')[0])"); \
-		$(PYBABEL) update -i $$package/$$package.pot -l $$lang -o $$package/$$lang.po; \
+		$(PYBABEL) update --no-wrap -i $$package/$$package.pot -l $$lang -o $$package/$$lang.po; \
 	done
 
 install:
