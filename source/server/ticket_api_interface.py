@@ -981,7 +981,7 @@ def rent_intention_ticket_chat_send(rent_intention_ticket_id, user, params):
     assert params["display"] in ("text",), abort(40000, "invalid display")
     ticket = f_app.ticket.get(rent_intention_ticket_id)
     assert ticket["type"] == "rent_intention", abort(40000, "Invalid rent_intention ticket")
-    message_id = f_app.message.chat.send(params["target_user_id"], params["message"], params["display"], user["id"], ticket_id=rent_intention_ticket_id)
+    message_id = f_app.message.chat.send(params["target_user_id"], params["message"], params["display"], user["id"], ticket_id=ObjectId(rent_intention_ticket_id))
 
     f_app.task.put(dict(
         message_id=message_id,
@@ -1009,7 +1009,7 @@ def rent_intention_ticket_chat_history(rent_intention_ticket_id, user, params):
         assert set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300)
     else:
         params["user_id"] = user["id"]
-    return f_app.message.chat.history(params["target_user_id"], dict(ticket_id=rent_intention_ticket_id), params["user_id"])
+    return f_app.message.chat.history(params["target_user_id"], dict(ticket_id=ObjectId(rent_intention_ticket_id)), params["user_id"])
 
 
 @f_api('/rent_request_ticket/search', params=dict(
