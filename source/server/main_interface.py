@@ -22,7 +22,6 @@ from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.writer.excel import save_virtual_workbook
 from pytz import timezone
-# import pytz
 from bson.code import Code
 import re
 f_experiment()
