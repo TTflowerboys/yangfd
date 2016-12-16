@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-15 23:52+0800\n"
+"POT-Creation-Date: 2016-12-16 11:33+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12364,15 +12364,14 @@ msgstr ""
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:7
 #: ../web/src/static/emails/draft_not_publish_day_7.html:7
-#: ../web/src/static/emails/receive_intention.html:7
-#: ../web/src/static/emails/register_notice.html:7
-#: ../web/src/static/emails/register_notice_with_default_password.html:7
+#: ../web/src/static/emails/receive_rent_intention.html:7
 #: ../web/src/static/emails/rent_intention_digest.html:7
 #: ../web/src/static/emails/rent_intention_matched_1.html:8
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:7
 #: ../web/src/static/emails/rent_intention_matched_4.html:8
+#: ../web/src/static/emails/rent_suspend_notice.html:15
 #: ../web/src/static/emails/rent_ticket_publish_success.html:7
-msgid "我是洋房东的"
+#, python-format
+msgid "我是洋房东的%s"
 msgstr ""
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:8
@@ -12779,6 +12778,13 @@ msgstr ""
 msgid "邻近坎宁(Canning Town)地铁和轻轨站，4分钟抵达金丝雀码头（Canary Wharf），6分钟抵达引领伦敦东区新时尚生活的欧洲最大购物中心韦斯特菲尔德购物中心（Westfield Stratford City）。这里拥有各类潮店等300户商铺，70个酒吧及餐厅，以及电影院、豪华赌场等娱乐会所。"
 msgstr ""
 
+#: ../web/src/static/emails/receive_intention.html:7
+#: ../web/src/static/emails/register_notice.html:7
+#: ../web/src/static/emails/register_notice_with_default_password.html:7
+#: ../web/src/static/emails/rent_intention_matched_2_3.html:7
+msgid "我是洋房东的"
+msgstr ""
+
 #: ../web/src/static/emails/receive_intention.html:8
 msgid "感谢您对洋房东的支持，我们已经收到您的投资意向单"
 msgstr ""
@@ -12814,12 +12820,6 @@ msgstr ""
 #: ../web/src/static/emails/rent_intention_matched_4.html:148
 #: ../web/src/static/emails/rent_suspend_notice.html:78
 msgid "祝您在洋房东的旅程愉快"
-msgstr ""
-
-#: ../web/src/static/emails/receive_rent_intention.html:7
-#: ../web/src/static/emails/rent_suspend_notice.html:15
-#, python-format
-msgid "我是洋房东的%s"
 msgstr ""
 
 #: ../web/src/static/emails/receive_rent_intention.html:8
