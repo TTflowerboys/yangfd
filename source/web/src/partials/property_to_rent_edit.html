@@ -388,7 +388,7 @@
                             <div class="text">{{_('入住限制')}}</div>
                         </td>
                         <td class="requirement">
-                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 20px;">
+                            <div style="margin-bottom: 20px;">
                                 <select data-bind="chosen: availableRoommatesList,
                                 optionsText: function(item){return item + roommateUnit},
                                 value: availableRoommates,
@@ -405,7 +405,7 @@
                                 value: occupation,
                                 optionsCaption: '{{_('不限职业')}}'"></select>
                             </div>
-                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 14px;">
+                            <div style="margin-bottom: 14px;">
                                 <select class="wide" data-bind="chosen: minAgeList,
                                 optionsText: function(item){return item + ageUnit},
                                 value: minAge,
@@ -418,7 +418,7 @@
                                 optionsCaption: '{{_('不限最大年龄')}}'">
                                 </select>
                             </div>
-                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 24px;">
+                            <div style="margin-bottom: 24px;">
                                 <input type="checkbox" id="allowSmoking" data-bind="checked: allowSmoking"/>
                                 <label for="allowSmoking">{{_('允许吸烟')}}</label>
                                 <input type="checkbox" id="allowPet" data-bind="checked: allowPet"/>
