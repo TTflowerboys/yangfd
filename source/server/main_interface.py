@@ -8,10 +8,7 @@ from datetime import date
 from hashlib import sha1
 from lxml import etree
 from six.moves import urllib
-try:
-    import qrcode
-except ImportError:
-    pass
+import qrcode
 import bottle
 from bson.objectid import ObjectId
 from app import f_app
