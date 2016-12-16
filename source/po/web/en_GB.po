@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-12-16 11:33+0800\n"
-"PO-Revision-Date: 2016-12-15 23:52+0800\n"
+"PO-Revision-Date: 2016-12-16 17:31+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -13368,7 +13368,7 @@ msgstr "Thank you for supporting YFD Rental. Your rental requirement request has
 
 #: ../web/src/static/emails/receive_rent_intention.html:11
 msgid "查看平台出租房源"
-msgstr "View rental properties on platform"
+msgstr "View rental properties"
 
 #: ../web/src/static/emails/register_notice.html:8
 #: ../web/src/static/emails/register_notice_with_default_password.html:8
