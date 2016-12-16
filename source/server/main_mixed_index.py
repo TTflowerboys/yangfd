@@ -161,6 +161,7 @@ class f_doogal(f_app.module_base):
                     if count % 20 == 1:
                         self.logger.debug("doogal station imported", count, "records...")
 
+
 f_doogal()
 
 
@@ -300,6 +301,7 @@ class f_maponics(f_app.plugin_base):
                     self.logger.debug("Assigning other neighborhoods", postcode["neighborhoods"][1:], "to property", property["id"])
                     f_app.property.update_set(property["id"], {"maponics_parent_neighborhood": [{"_maponics_neighborhood": True, "_id": ObjectId(x)} for x in postcode["neighborhoods"][1:]]})
 
+
 f_maponics()
 
 
@@ -393,6 +395,7 @@ class f_hesa(f_app.plugin_base):
 
     def university_search(self, params, per_page=0):
         return f_app.mongo_index.search(self.university.get_database, params, notime=True, sort_field="population", count=False, per_page=per_page)["content"]
+
 
 f_hesa()
 
@@ -611,5 +614,6 @@ class f_main_mixed_index(f_app.plugin_base):
 
                 if processed % 100 == 0:
                     self.logger.info("gazetteer", processed, "processed.")
+
 
 f_main_mixed_index()
