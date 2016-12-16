@@ -92,7 +92,7 @@ template_params.update(dict(
 
 
 f_app.email.schedule(
-    target="felixonmars@gmail.com,fyin@bbtechgroup.com, g.hoy@youngfunding.co.uk",
+    target="felixonmars@gmail.com,fyin@bbtechgroup.com, g.hoy@youngfunding.co.uk, gjh54321@gmail.com",
     subject="Test Email: " + template_name,
     text=template("static/emails/" + template_name, **template_params),
     display="html",

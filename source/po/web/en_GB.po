@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-16 11:33+0800\n"
-"PO-Revision-Date: 2016-12-16 17:31+0800\n"
+"POT-Creation-Date: 2016-12-16 19:14+0800\n"
+"PO-Revision-Date: 2016-12-16 19:13+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -77,7 +77,7 @@ msgstr "Terms of Services"
 #: ../web/src/partials/signin_form.html:17
 #: ../web/src/static/templates/rent_request.tpl.html:160
 #: ../web/src/static/templates/rent_request_phone.tpl.html:150
-#: ../server/main_interface.py:140 ../server/main_interface.py:167
+#: ../server/main_interface.py:136 ../server/main_interface.py:163
 msgid "注册"
 msgstr "Sign Up"
 
@@ -95,7 +95,7 @@ msgstr "Already registered? Please "
 #: ../web/src/partials/signin_form.html:16
 #: ../web/src/partials/signup_form.html:38
 #: ../web/src/static/emails/new_admin.html:4
-#: ../web/src/static/emails/set_as_admin.html:4 ../server/main_interface.py:186
+#: ../web/src/static/emails/set_as_admin.html:4 ../server/main_interface.py:182
 msgid "登录"
 msgstr "Log In"
 
@@ -199,7 +199,7 @@ msgstr "Your investment requirement has been submitted. We will get in touch sho
 #: ../web/src/masters/big_picture_bg_master.html:47
 #: ../web/src/masters/email.html:57 ../web/src/masters/master.html:171
 #: ../web/src/partials/i18n.html:260 ../server/currant_util.py:306
-#: ../server/main_interface.py:84
+#: ../server/main_interface.py:80
 msgid "洋房东"
 msgstr "YFD Rental "
 
@@ -1007,7 +1007,7 @@ msgstr "I would like to book"
 #: ../web/src/partials/i18n_scripts.html:870
 #: ../web/src/partials/i18n_templates.html:31
 #: ../web/src/static/templates/featured_house_card.html:376
-#: ../server/main_interface.py:304
+#: ../server/main_interface.py:300
 msgid "我要咨询"
 msgstr "Enquire Now"
 
@@ -1036,7 +1036,7 @@ msgstr "check property investment processes"
 msgid "查看平台上的"
 msgstr "check the platform"
 
-#: ../web/src/how_it_works_landlord.html:8 ../server/main_interface.py:846
+#: ../web/src/how_it_works_landlord.html:8 ../server/main_interface.py:842
 msgid "洋房东房东服务"
 msgstr "YFD Rental Host Service"
 
@@ -1146,7 +1146,7 @@ msgstr "List Your Space"
 msgid "如需更多帮助，请点击查阅帮助中心"
 msgstr "If you need more help, please click on our help centre"
 
-#: ../web/src/how_it_works_student_house.html:7 ../server/main_interface.py:872
+#: ../web/src/how_it_works_student_house.html:7 ../server/main_interface.py:868
 msgid "洋房东学生公寓服务"
 msgstr "YFD Rental Student Accomdation Service"
 
@@ -1200,8 +1200,8 @@ msgstr "In accordance with the requirements of each student accommodation you ne
 msgid "查找学生公寓"
 msgstr "Search student property"
 
-#: ../web/src/how_it_works_tenant.html:8 ../server/main_interface.py:853
-#: ../server/main_interface.py:865
+#: ../web/src/how_it_works_tenant.html:8 ../server/main_interface.py:849
+#: ../server/main_interface.py:861
 msgid "洋房东租客服务"
 msgstr "YFD Rental Tenant Service"
 
@@ -3068,7 +3068,7 @@ msgstr "Contact the landlord"
 msgid "详情请您添加洋房东客服微信yangfd1(房东客服)、yangfd9（租客客服）或拨打（中国）：400-829-9318；（英国）：020-3040-2258与我们联系。"
 msgstr "For further details please add YFD Rental customer services WeChat yangfd1 (Landlords) or yangfd9 (Tenants) . Alternatively you can call 027-8764-8381(China) or 020-3040-2258(UK)."
 
-#: ../web/src/rental_available.html:25 ../server/main_interface.py:839
+#: ../web/src/rental_available.html:25 ../server/main_interface.py:835
 msgid "洋房东租房服务"
 msgstr "YFD Rental Service"
 
@@ -3952,7 +3952,7 @@ msgstr "Congratulations, Email successfully verified"
 msgid "不好意思，邮箱验证失败，请重新验证"
 msgstr "Sorry, email verification has failed because the link is incorrect or has expired, please try again."
 
-#: ../web/src/verify_phone.html:13 ../server/main_interface.py:148
+#: ../web/src/verify_phone.html:13 ../server/main_interface.py:144
 msgid "手机验证"
 msgstr "Phone Verification"
 
@@ -12740,10 +12740,6 @@ msgstr "Affiliate Registration Successful "
 
 #: ../web/src/static/emails/affiliate_register_success.html:6
 #: ../web/src/static/emails/landlord_recruit.html:3
-#: ../web/src/static/emails/rent_intention_matched_1.html:5
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:4
-#: ../web/src/static/emails/rent_intention_matched_4.html:5
-#: ../web/src/static/emails/rent_ticket_publish_success.html:4
 msgid "您好："
 msgstr "Hi"
 
@@ -13482,61 +13478,56 @@ msgid "另外，我们为你匹配到了："
 msgstr "In addition, we have matched the below property;"
 
 #: ../web/src/static/emails/rent_notice.html:36
-#, fuzzy
-msgid "您在洋房东上发布的出租房"
-msgstr "Rental property published by you on the YFD Rental "
-
-#: ../web/src/static/emails/rent_notice.html:38
 msgid "已经在洋房东平台上收到了不少的关注。如果该房产已经成功出租，为避免您收到其他租客的询问，您可以点击下面的“我已成功出租”，则您的房源将不再在平台展示。"
 msgstr "The above property has already received a lot of views. If you have already rented out your property then please update the status by clicking the button below. This ensures that fellow users have the best possible experience and ensures you do not continue to receive enquiries. "
 
-#: ../web/src/static/emails/rent_notice.html:39
+#: ../web/src/static/emails/rent_notice.html:37
 msgid "我已成功租出"
 msgstr "Already rented out!"
 
-#: ../web/src/static/emails/rent_notice.html:42
+#: ../web/src/static/emails/rent_notice.html:40
 msgid "如果您还未出租出去，我们建议您尝试下面的方法，帮您尽快将房产租出去："
 msgstr "If you still have't rented out your property then we suggest you try the below measures to help you rent out your flat as quick as possible:"
 
-#: ../web/src/static/emails/rent_notice.html:54
+#: ../web/src/static/emails/rent_notice.html:52
 msgid "去平台上刷新您的房源"
 msgstr "Go to our platform to refresh your property"
 
-#: ../web/src/static/emails/rent_notice.html:56
+#: ../web/src/static/emails/rent_notice.html:54
 msgid "洋房东每天都有大量新房源出租，刷新将为您赢得排名提升，让平台的租客更容易找到您的房产。同时，洋房东会将当天的新房源和刷新的房源同步到全英各大媒体和论坛，刷新可以尽可能多的曝光您的房源。"
 msgstr "There is a high volume of properties posted daily. Refreshing your property will help improve your ranking and allow potential tenants on our platform to view your property easier. At the same time YFD Rental will update newly posted and refreshed properties to all major media and forums across the UK. Refreshing guarantees the maximum exposure."
 
-#: ../web/src/static/emails/rent_notice.html:57
+#: ../web/src/static/emails/rent_notice.html:55
 msgid "现在就去"
 msgstr "Refresh now"
 
-#: ../web/src/static/emails/rent_notice.html:70
+#: ../web/src/static/emails/rent_notice.html:68
 msgid "优化您的房源资料"
 msgstr "Optimise your property information"
 
-#: ../web/src/static/emails/rent_notice.html:71
+#: ../web/src/static/emails/rent_notice.html:69
 msgid "平台的统计数据表明详细的房源描述，优质的房源图片能提升您房源的访问量。"
 msgstr "Platform statistics indicate that a detailed property description and high quality pictures can enhance exposure."
 
-#: ../web/src/static/emails/rent_notice.html:71
+#: ../web/src/static/emails/rent_notice.html:69
 msgid "现在就去>"
 msgstr "Optimise now >"
 
-#: ../web/src/static/emails/rent_notice.html:81
+#: ../web/src/static/emails/rent_notice.html:79
 msgid "分享您的房源资料"
 msgstr "Share your property information"
 
-#: ../web/src/static/emails/rent_notice.html:82
+#: ../web/src/static/emails/rent_notice.html:80
 msgid "洋房东为您的房源制作了高大上的移动主页，扫描下方二维码，将移动主页分享到您的朋友圈，发动您的好友们帮您找靠谱租客吧。"
 msgstr "YFD Rental creates a fantastic mobile homepage for your property. Scan the QR code to share to WeChat Friends circle to allow your friends to help find you a reliable tenant.  "
 
-#: ../web/src/static/emails/rent_notice.html:89
+#: ../web/src/static/emails/rent_notice.html:87
 msgid "扫描二维码分享房源信息"
 msgstr "Scan to share"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:16
 msgid "首先感谢您对洋房东的支持! "
-msgstr "Firstly I would like to thank you for support YFD Rental!"
+msgstr "Firstly I would like to thank you for supporting YFD Rental!"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:19
 msgid "您的出租房产可能存在以下问题，已经被下架，请进行修改后重新上架："
@@ -13596,11 +13587,11 @@ msgstr "In order to help you have your property rented as quickly as possible, p
 
 #: ../web/src/static/emails/rent_suspend_notice.html:72
 msgid "PC 我的房产"
-msgstr "Desktop user"
+msgstr "My Properties (Desktop)"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:73
 msgid "Mobile 我的房产"
-msgstr "Mobile user"
+msgstr "My Properties (Mobile)"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:76
 msgid "如果您有任何宝贵意见，请直接联系我们"
@@ -13631,7 +13622,7 @@ msgid "请点击下面的按钮，根据提示重设您的密码："
 msgstr "Please click the button below and follow the instructions to reset your password:"
 
 #: ../web/src/static/emails/reset_password_by_email.html:10
-#: ../server/main_interface.py:248
+#: ../server/main_interface.py:244
 msgid "重置密码"
 msgstr "Reset password"
 
@@ -13909,92 +13900,92 @@ msgstr "Crowdfunding Introduction"
 msgid "洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业体验。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
 msgstr "Youngfunding is dedicated to provide professional and simple experience for the Chinese landlord and tenant in UK. Bring fast experience for the landlord to rent publishing, unique London street life, house prices report, magazine-like housing mobile home page. To find room for tenants with personalized experience, good properties, long and short lets, find room on map, make overseas rental simple and convenient."
 
-#: ../server/main_interface.py:85
+#: ../server/main_interface.py:81
 msgid "洋房东致力于为想在英国投资或居住的华人房东和租客提供专业和靠谱的租房找房和海外置业省时省力贴心安全快捷便利华人互联网房产平台"
 msgstr ""
 
-#: ../server/main_interface.py:86
+#: ../server/main_interface.py:82
 msgid "洋房东,租房,买房,出租,租房中介,找房子,短租,长租,租金,楼盘,公寓,别墅,学区房,英国置业,留学生租房,海外租房,英国出租,英国租房,伦敦租房,伦敦买房,海外置业,海外投资,英国房价,Youngfunding,for rent,to let,room to rent,property to rent,investment,overseas investment,property,apartment,house,UK property"
 msgstr ""
 
-#: ../server/main_interface.py:205
+#: ../server/main_interface.py:201
 msgid "Affiliate 注册"
 msgstr "Affiliate Sign Up"
 
-#: ../server/main_interface.py:214
+#: ../server/main_interface.py:210
 msgid "选择服务需求"
 msgstr "Select your type"
 
-#: ../server/main_interface.py:255
+#: ../server/main_interface.py:251
 #, fuzzy
 msgid "使用手机验证码重置密码"
 msgstr "Use registered mobile number to reset password"
 
-#: ../server/main_interface.py:262 ../server/main_interface.py:272
+#: ../server/main_interface.py:258 ../server/main_interface.py:268
 msgid "使用绑定邮箱重置密码"
 msgstr "Use registered email address to reset password"
 
-#: ../server/main_interface.py:280
+#: ../server/main_interface.py:276
 msgid "二手房出售"
 msgstr "Second-hand housing for sale"
 
-#: ../server/main_interface.py:288
+#: ../server/main_interface.py:284
 msgid "出售预览"
 msgstr "Sale Preview"
 
-#: ../server/main_interface.py:319 ../server/property_to_rent_interface.py:167
+#: ../server/main_interface.py:315 ../server/property_to_rent_interface.py:167
 msgid "快来围观"
 msgstr "Come and try!"
 
-#: ../server/main_interface.py:357
+#: ../server/main_interface.py:353
 msgid "洋房东平台 - 录制/上传您的看房视频"
 msgstr "YFD Rental Platform - Record/Upload  your viewing video"
 
-#: ../server/main_interface.py:370
+#: ../server/main_interface.py:366
 msgid "洋房东平台 - 预订"
 msgstr "YFD Rental Platform - Booking Process"
 
-#: ../server/main_interface.py:386
+#: ../server/main_interface.py:382
 msgid "洋房东平台 - 收据"
 msgstr "YFD Rental Platform"
 
-#: ../server/main_interface.py:408
+#: ../server/main_interface.py:404
 msgid "没有访问该页面的权限"
 msgstr "Do not have permission to access"
 
-#: ../server/main_interface.py:415
+#: ../server/main_interface.py:411
 msgid "无法访问该页面"
 msgstr "Unable to access this page"
 
-#: ../server/main_interface.py:422
+#: ../server/main_interface.py:418
 msgid "找不到页面"
 msgstr "Page Not Found"
 
-#: ../server/main_interface.py:429
+#: ../server/main_interface.py:425
 msgid "服务器开小差了"
 msgstr "Server is down"
 
-#: ../server/main_interface.py:789
+#: ../server/main_interface.py:785
 msgid "洋房东APP下载页"
 msgstr "YFD Rental APP Download page"
 
-#: ../server/main_interface.py:790
+#: ../server/main_interface.py:786
 msgid "洋房东官方手机app客户端应用下载PC电脑端网站英国英国大不列颠英格兰苏格兰伦敦租客搜索房源租房找房住宿房东发布房源省时省力贴心安全快捷便利"
 msgstr ""
 
-#: ../server/main_interface.py:791
+#: ../server/main_interface.py:787
 msgid "洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,官方应用,官方app,Youngfunding,for rent,to let,room to rent,property to rent,property,apartment,house,UK property,official app, official application"
 msgstr ""
 
-#: ../server/main_interface.py:862
+#: ../server/main_interface.py:858
 msgid "Young Funding Service"
 msgstr "YFD Rental Service"
 
-#: ../server/main_interface.py:880
+#: ../server/main_interface.py:876
 msgid "求租意向单编辑"
 msgstr "Edit rent requirement ticket"
 
-#: ../server/main_interface.py:892
+#: ../server/main_interface.py:888
 #, fuzzy
 msgid "洋房东Email"
 msgstr "Email"
@@ -18364,4 +18355,7 @@ msgstr ""
 
 #~ msgid "立即享受"
 #~ msgstr "Enjoy it immediately!"
+
+#~ msgid "您在洋房东上发布的出租房"
+#~ msgstr "Rental property published by you on the YFD Rental "
 
