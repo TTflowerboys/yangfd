@@ -2,6 +2,7 @@
 <!--@@block = head-->
 <!--build:css(dist) /static/styles/requirement-rent-phone.html.css-->
 <link rel="stylesheet" href="/static/styles/chatPage.css"/>
+<link rel="stylesheet" href="/static/styles/dropload.css">
 <!--endbuild-->
 
 <!--@@close-->
@@ -15,10 +16,21 @@
     <div class="main_container clearfix">
 		<div class="chatUserInfo">
 			<div class="userHeader">
-				<span class="userHeader_pic"><img src="/static/images/chat/hostHeader.jpg" alt=""></span>
-				<div class="userHeader_type">HOST</div>
-				<div class="userHeader_name">{{rent_intention_ticket.get('nickname','')}}</div>
+				%if (user and user.get('id') == rent_intention_ticket.get('interested_rent_tickets')[0].get('creator_user').get('id')):			
+					<span class="userHeader_pic"><img src="/static/images/chat/hostHeader.jpg" alt=""></span>
+					<div class="userHeader_type">					
+						{{_('租客')}}
+					</div>
+					<div class="userHeader_name">{{rent_intention_ticket.get('nickname')}}</div>
+				%else:
+					<span class="userHeader_pic"><img src="/static/images/chat/hostHeader.jpg" alt=""></span>
+					<div class="userHeader_type">					
+						{{_('房东')}}
+					</div>
+					<div class="userHeader_name">{{rent_intention_ticket.get('interested_rent_tickets')[0].get('creator_user').get('nickname')}}</div>
+				%end
 			</div>
+
 			<div class="chatDetails">
 		        <dl class="userDetailsList">
 		            <dt>Ticket List</dt>
@@ -46,9 +58,8 @@
 					<img src="/static/images/chat/hostHeader.jpg" alt="" class="avatar">
 				</div>
 			</div>
-			<div class="chatContent" id="chatContent">
-				<img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator">
-			</div>
+			<div class="chatContent" id="chatContent"></div>
+			<img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator">
 		</div>
 	</div>
 	<div class="floatChat_phone">
@@ -64,6 +75,7 @@
 
 <!--@@block = scripts -->
 <script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="http://ximan.github.io/dropload/dist/dropload.min.js"></script>
 <script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/user_chat.js"></script>
 <!--@@close -->

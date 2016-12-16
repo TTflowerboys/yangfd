@@ -7,37 +7,8 @@
 <!--@@close-->
 
 <!--@@block = main-->
-<!--出租申请单-->
-<rent-request></rent-request>
-<!--租房流程-->
-<div class="rentRequestContainer">
-    <div class="host_wrapper fullHeightInClient">
-        <form action="" class="requirement_rent_form">        
-            <div class="row">
-                <div class="col rentPeriod">
-                    <p class="inputPlaceholder">{{_('租期开始日期')}}</p>
-                    <div class="date inputWrapper">
-                        <input type="date" dir="rtl" class="rentAvailableTime" min="{{currentDate}}" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
-                    </div>
-
-                </div>
-                <div class="col rentPeriod">
-                    <p class="inputPlaceholder">{{_('租期结束日期')}}</p>
-                    <div class="date inputWrapper">
-                        <input type="date" dir="rtl" class="rentDeadlineTime" min="{{currentDate}}" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row tenantCount">
-                <p class="inputPlaceholder">{{_('入住人数')}}</p>
-                <select data-bind="chosen: tenantCountList,
-                        optionsText: function(item){return item},
-                        value: tenantCount
-                        "></select>
-            </div>
-        </form>
-    </div>
-</div>
+<!--@@include static/templates/chat_request_phone.tpl.html -->
+<chat-request params="price: {{json_dumps(rent_ticket.get('price'))}}, holdingDeposit: {{json_dumps(rent_ticket.get('holding_deposit'))}}"></chat-request>
 <!--@@close-->
 
 <!--@@block = scripts -->
@@ -45,6 +16,11 @@
 <script src="/static/bower_components/knockout/dist/knockout.js"></script>
 <script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/host_chat_request.js"></script>
+<script>
+    $('body').on('rentRequestReady', function () {
+        window.openRentRequestForm(window.team.getQuery('ticketId'), false)
+    })
+</script>
 <!--endbuild-->
 
 <!--@@close -->

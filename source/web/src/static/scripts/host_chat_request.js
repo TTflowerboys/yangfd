@@ -8,6 +8,7 @@
                     var array = data
                     if (array && array.length > 0) {
                         window.dhtmlx.message({ type: 'error', text: window.i18n('您已经对此房源提交过咨询，如需继续咨询请您使用洋房东为您已匹配的邮件或短信系统沟通，谢谢。') })
+                        location.href = '/user-chat/'+array[0].id+'/details'
                     } else {
                         $('body').trigger('openRentRequestForm', Array.prototype.slice.call(args))
                     }
@@ -24,7 +25,7 @@
             $('.buttonLoading').trigger('end')
         }
     }
-    ko.components.register('rent-request', {
+    ko.components.register('chat-request', {
         viewModel: function(params) {
             var rentTicket = JSON.parse($('#rentTicketData').text())
             var oldUser = window.user
@@ -115,10 +116,6 @@
             this.tenantCountList = ko.observableArray([1,2,3,4,5,6,7,8])
             this.tenantCount = ko.observable(1)
 
-            this.smoke = ko.observable(false)
-            this.baby = ko.observable(false)
-            this.pet = ko.observable(false)
-
             this.description = ko.observable()
 
             this.visa = ko.observable()
@@ -203,7 +200,7 @@
                 if(window.team.getClients().indexOf('ipad') >= 0) {
                     uploadFileConfig.allowDuplicates = true
                 }
-                $('#fileuploader').uploadFile(uploadFileConfig)
+                //$('#fileuploader').uploadFile(uploadFileConfig)
 
             }
 
@@ -448,9 +445,6 @@
                     this.rentDeadlineTime(params.rent_deadline_time)
                 }
                 this.tenantCount(params.tenant_count.toString())
-                this.smoke(params.smoke)
-                this.baby(params.baby)
-                this.pet(params.pet)
                 this.visa(params.visa)
                 this.description(params.description)
                 this.birthTime(params.date_of_birth)
@@ -502,9 +496,6 @@
                     gender: this.gender(),
                     date_of_birth: this.birthTime(),
                     occupation: this.occupation(),
-                    smoke: this.smoke(),
-                    baby: this.baby(),
-                    pet: this.pet(),
                     visa: this.visa(),
                     disable_matching: true,
                     interested_rent_tickets: JSON.stringify([this.ticketId()]),
@@ -685,11 +676,9 @@
                             window.user = val
                             this.user(val)
                             this.getSmsCode()
-                            ga('send', 'event', 'rent-request', 'result', 'signup-success')
                         }, this))
                         .fail(_.bind(function (ret, data) {
                             this.errorMsg(window.getErrorMessageFromErrorCode(ret, '', data))
-                            ga('send', 'event', 'rent-request', 'result', 'signup-failed',window.getErrorMessageFromErrorCode(ret))
                             window.project.showRecaptcha('captcha_div')
                         }, this))
                         .always(_.bind(function () {
@@ -700,7 +689,7 @@
 
             this.id = ko.observable()
             this.requirements = (function () {
-                var keyList = ['no_pet', 'no_smoking', 'no_baby', 'occupation', 'min_age', 'max_age', 'gender_requirement', 'accommodates', 'rent_available_time', 'rent_deadline_time', 'minimum_rent_period']
+                var keyList = ['occupation', 'min_age', 'max_age', 'gender_requirement', 'accommodates', 'rent_available_time', 'rent_deadline_time', 'minimum_rent_period']
                 var requirements = {}
                 _.each(keyList, function (key) {
                     if(rentTicket[key] !== undefined && rentTicket[key] !== false && rentTicket[key] !== '') {
@@ -721,24 +710,6 @@
             this.unmatchRequirements = ko.computed(function () {
                 var unmatchRequirements = []
                 var age = new Date().getYear() - new Date(this.birthTime() * 1000).getYear()
-                if(this.requirements.no_smoking && this.smoke() === true) {
-                    unmatchRequirements.push({
-                        request: i18n('入住者吸烟'),
-                        requirement: i18n('禁止吸烟'),
-                    })
-                }
-                if(this.requirements.no_pet && this.pet() === true) {
-                    unmatchRequirements.push({
-                        request: i18n('入住者携带宠物'),
-                        requirement: i18n('禁止携带宠物'),
-                    })
-                }
-                if(this.requirements.no_baby && this.baby() === true) {
-                    unmatchRequirements.push({
-                        request: i18n('入住者携带小孩'),
-                        requirement: i18n('禁止携带小孩'),
-                    })
-                }
                 if(this.requirements.occupation && this.occupation() !== this.requirements.occupation.id) {
                     unmatchRequirements.push({
                         request: i18n('入住者职业：') + this.getOccupationName(this.occupation()),
@@ -852,14 +823,27 @@
                         this.requestTicketId(val)
                         this.showSuccessWrap()
                         this.fetchCoupon()
+                        this.submitChat(val)
                         window.team.setUserType('tenant')
-                        ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success')
-                        ga('send', 'pageview', '/submit-rent-request-intention/submit-success')
-                        //_hmt.push(['_trackPageview', '/submit-rent-request-intention/submit-success'])
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
                         ga('send', 'event', 'rentRequestIntention', 'result', 'submit-failed',window.getErrorMessageFromErrorCode(ret))
+                    }, this))
+                    .always(_.bind(function () {
+                        this.submitDisabled(false)
+                    }, this))
+            }
+            this.submitChat = function (ticketId) {
+                $.betterPost('/api/1/rent_intention_ticket/'+ticketId+'/chat/send', { 
+                    target_user_id: window.user.id,
+                    message: this.params().description                    
+                })
+                    .done(_.bind(function (val) {
+            
+                    }, this))
+                    .fail(_.bind(function (ret) {
+                        
                     }, this))
                     .always(_.bind(function () {
                         this.submitDisabled(false)
@@ -955,7 +939,6 @@
                 this.isConfirmed(true)
                 $.betterPost('/api/1/rent_intention_ticket/' + this.requestTicketId() +'/edit', {custom_fields: JSON.stringify([{key: 'payment_confirmed', value: 'true'}])})
                     .done(_.bind(function () {
-                        ga('send', 'event', 'rent-request', 'result', 'payment-confirmed')
                         if(window.team.isPhone()) {
                             if (team.isCurrantClient('>1.2.0')) {
                                 if (window.bridge !== undefined) {
@@ -988,7 +971,6 @@
             }
             this.isLearnMore = ko.observable(false)
             this.learnMore = function () {
-                ga('send', 'event', 'rent-request', 'result', 'learn-more')
                 this.isLearnMore(true)
             }
             $('body').on('openRentRequestForm', function (e, ticketId, isPopup) {
@@ -996,12 +978,12 @@
                 this.open(isPopup)
 
                 //Let the phone field number only for editing and paste
-                var phoneInput = $('rent-request input.phone').get(0)                
+                var phoneInput = $('chat-request input.phone').get(0)                
                 window.inputTypeNumberPolyfill.polyfillElement(phoneInput)
             }.bind(this))
             $('body').trigger('rentRequestReady')
         },
-        template: { element: 'rent-request-tpl' }
+        template: { element: 'chat-request-tpl' }
     })
 
     ko.components.register('whether-radio', {

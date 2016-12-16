@@ -1,10 +1,10 @@
 var chat = {
   init : function(){
-    $('#btn_send,#btn_send_phone').on('click',function(){
+    $('#btn_send').on('click',function(){
       if (chat.isSendMsg()) { chat.sendTextMessage() }
     })
     $('#btn_send_phone').on('click',function(){
-      if (chat.isMobileSendMsg()) { chat.sendMobileTextMessage() }
+      if ($('#chat_edit_area').val().trim().length ? true : false) { chat.sendMobileTextMessage() }
     })
     $('#edit_area').on('keydown', function(e) {
       if(e.keyCode === team.keyCode.KEYCODE_ENTER){
@@ -40,7 +40,7 @@ var chat = {
           if (va.from_user.id === window.user.id) {
             if (va.display === 'text') {
               Tpl += chat.meMsgTpl(mePicUrl,va.message,va.time)
-            }            
+            }
           }else{
             if (va.display === 'text') {
               Tpl += chat.defMsgTpl(mePicUrl,va.message,va.time)
@@ -54,10 +54,14 @@ var chat = {
   },
   historyMessage: function(){
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
+    var rentTicketData = JSON.parse($('#rentTicketData').text());
+    var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
     $.ajax({
       url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/history',
       type: 'post',
-      data:{target_user_id: window.user.id},
+      data:{
+        target_user_id: target_user_id
+      },
       dataType: 'json',
       timeout: 20000,
       cache: false,
@@ -73,10 +77,12 @@ var chat = {
   },
   sendTextMessage : function(){
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
+    var rentTicketData = JSON.parse($('#rentTicketData').text());
+    var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
     $.ajax({
       url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send',
       type: 'post',
-      data:{target_user_id: window.user.id, message:$('#edit_area').val()},
+      data:{target_user_id: target_user_id, message: $('#edit_area').val()},
       dataType: 'json',
       timeout: 20000,
       cache: false,
@@ -90,18 +96,21 @@ var chat = {
     });
   },
   sendMobileTextMessage : function(){
+    var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
+    var rentTicketData = JSON.parse($('#rentTicketData').text());
+    var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
     $.ajax({
-      url: '/api/1/rent_intention_ticket/56653ea7571cd914a879a2e5/chat/history',
+      url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send',
       type: 'post',
-      data:null,
+      data:{target_user_id: target_user_id, message:$('#edit_area').val()},
       dataType: 'json',
       timeout: 20000,
       cache: false,
-      error: function(){//出错
+      error: function(){
           window.alert('服务端出错！');
       },
-      success: function(res){//成功
-        $('#chatContent').prepend(chat.meMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val(),chat.sendTime()));
+      success: function(res){
+        $('#chatContent').append(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val()));
         chat.clearEditArea()
       }
     });
@@ -111,14 +120,48 @@ var chat = {
   }
 }
 
-;(function poll() {
+/*;(function poll() {
    setTimeout(function() {
-       $.ajax({ url: "http://currant-test.bbtechgroup.com:8286/polling", success: function(data) {
+       $.ajax({ url: 'http://currant-test.bbtechgroup.com:8286/polling', success: function(data) {
             window.console.log('data:'+data)
-       }, dataType: "json", complete: poll });
+       }, dataType: 'json', complete: poll });
     }, 30000);
-})();
+})();*/
 
 $(function(){
   chat.init();
+  /*var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
+    $('#chatContent').dropload({
+        domUp: {
+            domClass: 'dropload-up',
+            domRefresh: '<div class="dropload-refresh">↓ ' + i18n('下拉刷新') + '</div>',
+            domUpdate: '<div class="dropload-update">↑ ' + i18n('松开刷新') + '</div>',
+            domLoad: '<div class="dropload-load"><span class="loading"></span>' + i18n('加载中...') + '</div>'
+        },
+        loadDownFn: function (me) {
+            $.ajax({
+                url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/history',
+                type: 'post',
+                data:{target_user_id: window.user.id,per_page: 5},
+                dataType: 'json',
+                timeout: 20000,
+                cache: false,
+                error: function(){
+                    $('.dropload-load').html(i18n('加载失败'))
+                    setTimeout(function () {
+                        me.resetload()
+                    }, 500)
+                },
+                success: function(res){
+                  $('#loadIndicator').hide()
+                  var data = res.val
+                  chat.historyTpl(data)
+                  $('.dropload-load').html(i18n('加载成功'))
+                  setTimeout(function () {
+                      me.resetload()
+                  }, 500)
+                }
+            });
+        }
+    });*/
 })

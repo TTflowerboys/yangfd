@@ -35,6 +35,15 @@ def rent_request(params):
     return currant_util.common_template("rent_request_phone", title=title, rent_ticket=rent_ticket)
 
 
+
+@f_get('/host-chat-request', params=dict(ticketId=str))
+@currant_util.check_ip_and_redirect_domain
+def rent_request(params):
+    title = _('求租咨询')
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([params.get('ticketId')], fuzzy_user_info=True)[0])
+    return currant_util.common_template("host_chat_request-phone", title=title, rent_ticket=rent_ticket)
+
+
 @f_get('/delegate-rent')
 @currant_util.check_ip_and_redirect_domain
 def delegate_rent():

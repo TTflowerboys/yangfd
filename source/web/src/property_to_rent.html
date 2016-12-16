@@ -840,7 +840,7 @@
     <ul class="floatBar_phone">
         <li class="phone">
             %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
-                <a href="/host-chat-request/{{rent.get('id','')}}?requestContact=true" >
+                <a data-id="{{rent.get('id')}}" id="chatPhone">
                     %if is_student_house(rent):
                     {{_('我要预订')}}
                     %else:
@@ -1075,6 +1075,31 @@
       * */
     
     $(function(){
+        $('#chatPhone').click(function () {
+            var ticketId = $(this).attr('data-id')
+            if (window.user) {
+                $.betterPost('/api/1/rent_intention_ticket/search', { interested_rent_tickets: ticketId, user_id: window.user.id})
+                    .done(function (data) {
+                        var array = data
+                        if (array && array.length > 0) {
+                            location.href = '/user-chat/'+array[0].id+'/details'
+                        } else {
+                            location.href = '/host-chat-request?ticketId=' + ticketId
+                        }
+                        $('.buttonLoading').trigger('end')
+
+                    })
+                    .fail(function (ret) {
+                        window.alert(window.getErrorMessageFromErrorCode(ret))
+                        $('.buttonLoading').trigger('end')
+                    })
+            }
+            else {
+                location.href = '/host-chat-request?ticketId=' + ticketId
+                $('.buttonLoading').trigger('end')
+            }
+        })
+
         $.ajaxSetup({ cache: true });
         $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
             FB.init({
