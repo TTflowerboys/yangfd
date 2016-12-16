@@ -26,3 +26,5 @@ python email_test.py new_user
 
 python email_test.py draft_not_publish_day_3
 python email_test.py draft_not_publish_day_7
+
+python email_test.py coupon_code_share
