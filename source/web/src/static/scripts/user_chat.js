@@ -71,7 +71,7 @@ var chat = {
       success: function(res){
         $('#loadIndicator').hide()
         var data = res.val
-        chat.historyTpl(data)
+        chat.historyTpl(jsonSort(data, 'time'))
       }
     });
   },
@@ -90,6 +90,9 @@ var chat = {
           window.alert('服务端出错！');
       },
       success: function(res){
+        if ($('#chatContent .noMessage').length>0) {
+          $('#chatContent .noMessage').hide()
+        }
         $('#chatContent').prepend(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val()));
         chat.clearEditArea()
       }
@@ -102,7 +105,7 @@ var chat = {
     $.ajax({
       url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send',
       type: 'post',
-      data:{target_user_id: target_user_id, message:$('#edit_area').val()},
+      data:{target_user_id: target_user_id, message:$('#chat_edit_area').val()},
       dataType: 'json',
       timeout: 20000,
       cache: false,
@@ -110,6 +113,9 @@ var chat = {
           window.alert('服务端出错！');
       },
       success: function(res){
+        if ($('#chatContent .noMessage').length>0) {
+          $('#chatContent .noMessage').hide()
+        }
         $('#chatContent').append(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val()));
         chat.clearEditArea()
       }
@@ -164,4 +170,21 @@ $(function(){
             });
         }
     });*/
-})
+});
+function jsonSort(array, field, reverse) {
+  //数组长度小于2 或 没有指定排序字段 或 不是json格式数据
+  if(array.length < 2 || !field || typeof array[0] !== 'object'){ return array; }
+  //数字类型排序
+  if(typeof array[0][field] === 'number') {
+    array.sort(function(x, y) { return x[field] - y[field]});
+  }
+  //字符串类型排序
+  if(typeof array[0][field] === 'string') {
+    array.sort(function(x, y) { return x[field].localeCompare(y[field])});
+  }
+  //倒序
+  if(reverse) {
+    array.reverse();
+  }
+  return array;
+}
