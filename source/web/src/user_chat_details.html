@@ -1,0 +1,92 @@
+<!--@@master = ./masters/master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/requirement-rent-phone.html.css-->
+<link rel="stylesheet" href="/static/styles/chatPage.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block = main-->
+
+<div class="chatWrap">
+    <!-- @@include= ./partials/chat_popup.html-->
+</div>
+<!--@@close-->
+
+<!--@@block = scripts -->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+
+<script>
+  var k = {
+  	KEYCODE_BACKSPACE: 8,
+    KEYCODE_ENTER: 13,
+    KEYCODE_SHIFT: 16,
+    KEYCODE_ESC: 27,
+    KEYCODE_DELETE: 34,
+    KEYCODE_ARROW_LEFT: 37,
+    KEYCODE_ARROW_UP: 38,
+    KEYCODE_ARROW_RIGHT: 39,
+    KEYCODE_ARROW_DOWN: 40,
+    KEYCODE_NUM2: 50,
+    KEYCODE_AT: 64,
+    KEYCODE_NUM_ADD: 107,
+    KEYCODE_NUM_MINUS: 109,
+    KEYCODE_ADD: 187,
+    KEYCODE_MINUS: 189
+  }
+  var chat = {
+  	init : function(){
+		$("#btn_send").on('click',function(){
+			if (chat.isSendMsg()) {
+				chat.sendTextMessage()
+			}
+		})
+  		$('#edit_area').on('keypress', function(e) {
+  			var o = e.keyCode;
+            if(o == k.KEYCODE_ENTER){
+            	if (chat.isSendMsg()) {
+            		chat.sendTextMessage()
+            	}
+                e.preventDefault()
+            }
+        });
+  	},
+  	isSendMsg : function(){
+  		return $("#edit_area").val().trim().length ? true : false;
+  	},
+    meMsgTpl : function(picUrl,plain){
+        return '<div class="message me"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain"><pre>'+plain+'</pre></div></div></div></div></div>'
+    },
+    defMsgTpl : function(picUrl,plain){
+      return '<div class="message"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain"><pre>'+plain+'</pre></div></div></div></div></div>'
+    },
+    meMsgImgTpl : function(picUrl,img){
+    	return '<div class="message me"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain"><img src="'+img+'"></div></div></div></div></div>'
+    },
+    sendTextMessage : function(){
+      // 1. get #edit_area value
+      $.ajax({
+            url: '/api/1/rent_ticket/search?_i18n=disabled&per_page=10',
+            type: "post",
+            data:null,
+            dataType: "json",
+            timeout: 20000,
+            cache: false,
+            error: function(){//出错
+                alert('服务端出错！');
+            },
+            success: function(res){//成功
+              $(".chatContent").prepend(chat.meMsgTpl('http://127.0.0.1:8181/static/images/chat/hostHeader.jpg',$("#edit_area").val()));
+              chat.clearEditArea()
+            }
+        });
+    },
+    clearEditArea : function(){
+    	$("#edit_area").val('');
+    }
+  }
+  chat.init();
+</script>
+
+<!--@@close -->
