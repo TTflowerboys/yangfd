@@ -1,5 +1,132 @@
 /*! Created by frank on 14-9-19.  */
 @import "project/_imports";
+.content{
+    .contentHeader{
+        display: block;
+        @media @phone {
+            display: none;
+        }
+        h1{
+            font-size: 24px;
+            color: #333;
+            display: inline-block;
+        }
+        .buttons{
+            float: right;
+            button {
+                margin-left: 10px;
+            }
+            .button{
+                padding: 4px 26px;
+                line-height: 24px;
+                font-size: 12px;
+            }
+        }
+    }
+    .emptyPlaceHolder {
+        text-align: center;
+        margin: 150px auto 0 auto;
+        overflow: hidden;
+        @media @phone {
+            margin: 80px auto;
+        }
+        img {
+            display: inline-block;
+            vertical-align: top;
+            @media @phone {
+                display: block;
+                margin: 0 auto 20px;
+            }
+        }
+
+        .holderText {
+            display: inline-block;
+            vertical-align: top;
+            line-height: 52px;
+            margin-left: 20px;
+            text-align: left;
+            color: #999;
+            @media @phone {
+                display: block;
+                margin-left: 0px;
+                text-align: center;
+            }
+            h2 {
+                margin: 0;
+                font-size: 24px;
+                @media @phone {
+                    font-size: 21px;
+                }
+            }
+            p{
+                margin: 0;
+                font-size: 16px;
+                color: #ccc;
+                line-height: 36px;
+                a{
+                    text-decoration: none;
+                    color: #e60012;
+                }
+            }
+        }
+    }
+
+    .ui-tabs {
+        text-align: center;
+        display: none;
+        @media @phone {
+            display: block;
+        }
+        .ui-tabs-nav {
+            min-width: 140px;
+            padding: 20px 0 20px 0;
+            background: transparent;
+            border-width: 0;
+            margin: 0 auto;
+            width: 98%;
+            overflow: hidden;
+        }
+        .ui-tabs-nav li {
+            float: none;
+            width: 33%;
+            text-align: center;
+            color: red;
+            min-width: 40px;
+            position: static;
+            margin: 0;
+            border: 2px solid red !important;
+            -moz-border-radius: 0;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            display: inline-flex;
+            a {
+                padding: 6px;
+                width: 100%;
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        .ui-tabs-nav li:first-child {
+            -moz-border-radius: 6px 0 0 6px;
+            -webkit-border-radius: 6px 0 0 6px;
+            border-radius: 6px 0 0 6px;
+            border-right: 0 !important;
+            margin-right: -3px;
+        }
+        .ui-tabs-nav li:last-child {
+            -moz-border-radius: 0 6px 6px 0;
+            -webkit-border-radius: 0 6px 6px 0;
+            border-radius: 0 6px 6px 0;
+            border-left: 0 !important;
+        }
+        .ui-tabs-nav li.ui-tabs-selected {
+            background: red;
+            color: #ffffff;
+        }
+    }
+}
 .userPage {
     .clearfix();
     width: 100%;
@@ -21,9 +148,11 @@
         width: 63%;
         margin-left: 7%;
         font-size: 12px;
+        min-height: 300px;
         @media @phone {
             width: 100%;
             margin-left: 0;
+            background-color: #eee;
         }
         > .caption {
             font-size: 24px;

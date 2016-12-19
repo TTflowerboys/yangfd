@@ -1,34 +1,73 @@
 <!--@@master = masters/user_master.html-->
 <!--@@block =head -->
 <!--build:css(dist) /static/styles/project/user_chat.html.css-->
-<link rel="stylesheet" href="/static/styles/userMessages.css"/>
+<link rel="stylesheet" href="/static/styles/userChat.css"/>
 <link rel="stylesheet" href="/static/styles/pager.css"/>
+<link rel="stylesheet" href="/static/styles/dropload.css">
+<link rel="stylesheet" href="/static/styles/userPage.css"/>
 <!--endbuild-->
 <link rel="stylesheet" href="/static/vendors/jquery/jquery-ui-1.10.3.custom.min.css"/>
 
 <!--@@close-->
 <!--@@block = main -->
 
-<span class="chatData" style="display:none">
-    {{json_dumps(user)}}
-</span>
-
-
 <div class="content">
 
-    <kot-chat-list></kot-chat-list>
+    <div class="contentHeader">
+        <h1>{{_('聊天')}}</h1>
+        <div class="buttons" style="">
+            <button id="showIntentionBtn" class="intention button red">我的咨询</button>   
+            <button id="showRentBtn" class="rent ghostButton red">咨询我的</button>
+        </div>
+    </div>
+    <div class="tabs ui-tabs ui-widget" style="display: none">
+        <ul class="ui-tabs-nav">
+            <li id="showIntentionTab" class="ui-tabs-selected intention">
+                <a>{{_('我的咨询')}}</a>
+            </li>
+            <li id="showRentTab" class="rent">
+                <a>{{_('咨询我的')}}</a>
+            </li>            
+        </ul>
+    </div>
+
+    <div id="rentPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+        <img src="/static/images/icon/notice.png" alt="">
+        <div class="holderText">
+            <h2>{{_('没有咨询我的房产')}}</h2>
+            <p>
+                去<a href="/property-to-rent-list">出租房产列表</a>看看吧
+            </p>
+        </div>
+    </div>
+
+    <div id="intentionPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+        <img src="/static/images/icon/notice.png" alt="">
+        <div class="holderText">
+            <h2>{{_('没有我咨询过的房产')}}</h2>
+            <p>
+                去<a href="/property-to-rent-list">出租房产列表</a>看看吧
+            </p>
+        </div>
+    </div>
+
+
+    <div class="chatList">	    
+        <div class="chatListHeader" style="display: none;">
+            <div class="title">rent name</div>
+            <div class="info">username & massage</div>
+        </div>
+        <div id="chatListContent"></div>
+        <img src="/static/images/common/ajax-loader.gif" class="loadIndicator" style="display: none;">
+    </div>
 
 </div>
-
-<!-- @@include=/static/templates/kot_chat_list.tpl.html-->
-
 
 <!--@@close-->
 
 <!--@@block=scripts-->
 <!--build:js /static/scripts/user_chat.html.js-->
-<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
-<script src="/static/scripts/common_ko.js"></script> 
+<script src="http://ximan.github.io/dropload/dist/dropload.min.js"></script>
 <script src="/static/scripts/chat_list.js"></script>
 <!--endbuild-->
 <!--@@close-->

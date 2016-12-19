@@ -1,81 +1,95 @@
 @import "/project/_imports";
 
-.chatListHeader{
-    border-bottom: 2px solid #ccc;
-    margin-top: 22px;
-    height: 26px;
-    font-size: 14px;
-    line-height: 26px;
-    color: #666;
-    .title{
-        width: 30%;
-        float: left;
-    }
-    .info{
-        width: 70%;
-        float:left;
-    }
-}
-
-.chatListItmes{
-    border-bottom: 1px solid #ccc;
-    padding: 18px 0 24px 0;
-    height: 106px;
-    .title{
-        float: left;
-        width: 25%;
-        height: 64px;
-        padding: 10px 0;
-        margin-right: 5%;
-        a{
-            text-decoration: none;
-            color: #e61919;
-            font-size: 16px;
-            line-height: 22px;
-            height: 44px;
-            display: inline-block;
-            overflow: hidden;
-            &:hover{
-                text-decoration: underline;
-            }
-        }
-    }
-    .info{
+.chatList{
+    
+    .chatListHeader{
+        border-bottom: 2px solid #ccc;
+        margin-top: 22px;
+        height: 26px;
         font-size: 14px;
-        height: 64px;
-        width: 70%;
-        padding-right: 16%;
-        float: left;
-        position: relative;
-        .name{
-            font-weight: bold;
-            color: #666;
-            margin-bottom: 6px;
-        }
-        .massage{
-            color: #999;
-            line-height: 18px;
-            .text{                
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-            .reply{
-                position: absolute;
-                top: 50%;
-                right: 2%;
-                margin-top: -15px;
-                background: #e61919;
-                border-radius: 3px;
+        line-height: 26px;
+        color: #666;
+        .title{
+            width: 30%;
+            float: left;
+            @media @phone {
                 text-align: center;
-                color: #fff;
-                height: 30px;
-                line-height: 30px;
-                padding: 0 16px;
-                display: inline-block;
-                text-decoration: none;
+            }
+        }
+        .info{
+            width: 70%;
+            float:left;
+            @media @phone {
+                text-align: center;
             }
         }
     }
 
+    .chatListItmes{
+        border-bottom: 1px solid #ccc;
+        padding: 18px 0 24px 0;
+        height: 106px;
+        background: #fff;
+        .title{
+            float: left;
+            width: 25%;
+            height: 64px;
+            padding: 10px 0;
+            margin: 0 3% 0 2%;
+            a{
+                text-decoration: none;
+                color: #e61919;
+                font-size: 16px;
+                line-height: 22px;
+                height: 44px;
+                display: inline-block;
+                overflow: hidden;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+        .info{
+            font-size: 14px;
+            height: 64px;
+            width: 70%;
+            padding-right: 16%;
+            float: left;
+            position: relative;
+            .name{
+                font-weight: bold;
+                color: #666;
+                margin-bottom: 6px;
+            }
+            .massage{
+                color: #999;
+                line-height: 18px;
+                .text{                
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                .reply{
+                    position: absolute;
+                    top: 50%;
+                    right: 2%;
+                    margin-top: -15px;
+                    background: #e61919;
+                    border-radius: 3px;
+                    text-align: center;
+                    color: #fff;
+                    height: 30px;
+                    line-height: 30px;
+                    padding: 0 16px;
+                    display: inline-block;
+                    text-decoration: none;
+                }
+            }
+        }
+
+    }
+    .loadIndicator{
+        display: block;
+        margin: 0 auto;
+    }
 }
