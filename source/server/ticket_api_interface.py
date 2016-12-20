@@ -702,6 +702,7 @@ def rent_intention_ticket_history_edit(user, ticket_id, ticket_history_id, param
     pet=bool,
     disable_matching=bool,
     interested_rent_tickets=(list, None, ObjectId),
+    interested_rent_ticket_user_id=ObjectId,
     phone=str,
     country="country",
     maponics_neighborhood="maponics_neighborhood",
@@ -729,6 +730,12 @@ def rent_intention_ticket_search(user, params):
     params["$and"] = []
     property_params = {"$and": []}
     user_params = {}
+
+    if "interested_rent_ticket_user_id" in params:
+        if "interested_rent_tickets" in params:
+            abort(40000, "interested_rent_ticket_user_id and interested_rent_tickets cannot co-exist")
+
+        params["interested_rent_tickets"] = f_app.tickets.search({"type": "rent", "user_id": params.pop("interested_rent_ticket_user_id")}, per_page=-1)
 
     if "interested_rent_tickets" in params:
         params["interested_rent_tickets"] = {"$in": params["interested_rent_tickets"]}
@@ -823,7 +830,7 @@ def rent_intention_ticket_search(user, params):
         params["assignee"] = ObjectId(user["id"])
     elif set(user_roles) & set(f_app.common.special_roles):
         enable_custom_fields = False
-        if (user['id'] != f_app.user.get(params['user_id']).get('referral')):
+        if user['id'] != f_app.user.get(params['user_id']).get('referral'):
             params["user_id"] = ObjectId(user["id"])
     elif not set(user_roles) & set(f_app.common.admin_roles):
         # General users
