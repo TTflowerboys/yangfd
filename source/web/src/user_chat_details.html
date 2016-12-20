@@ -32,16 +32,42 @@
 			</div>
 
 			<div class="chatDetails">
+				<div class="chatRentMeta">
+					<h1 class="title">
+						<a href="/property-to-rent/{{rent_intention_ticket.get('interested_rent_tickets')[0].get('id')}}" target="_blank">{{rent_intention_ticket.get('interested_rent_tickets')[0].get('title')}}</a>
+					</h1>
+					<div class="meta">
+						<i class="icon-location_fill"></i>
+						{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('street')}}
+						{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('city',{}).get('name')}}
+						{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('zipcode')}}
+					</div>
+				</div>
 		        <dl class="userDetailsList">
-		            <dt>Ticket List</dt>
-		            <dd><span>{{_('租期开始日期')}}</span><strong data-utc-time="{{rent_intention_ticket.get('rent_available_time','')}}"></strong></dd>
-		            <dd><span>{{_('租期结束日期')}}</span><strong data-utc-time="{{rent_intention_ticket.get('rent_deadline_time','')}}"></strong></dd>
-		        </dl>
-		        <dl class="userDetailsList">
-		            <dt>order</dt>
-		            <dd><span>Move in time</span><strong>userId:</strong></dd>
-		            <dd><span>Move in time</span><strong>creatorUserId:</strong></dd>
-		            <dd class="total"><span>total</span><strong>$ 12345</strong></dd>
+		            <dt>Ticket List</dt>	            
+	            	% if 'rent_available_time' in rent_intention_ticket and rent_intention_ticket.get('rent_available_time',''):
+	            		<dd>
+	            		<span>{{_('租期开始日期')}}</span>
+	            		<strong data-utc-time="{{rent_intention_ticket.get('rent_available_time','')}}"></strong>
+	                    </dd>
+	                % end		            
+		            % if 'rent_deadline_time' in rent_intention_ticket and rent_intention_ticket.get('rent_deadline_time',''):
+		            	<dd><span>{{_('租期结束日期')}}</span>
+                        % string2 = """<strong data-utc-time='""" + str(rent_intention_ticket.get('rent_deadline_time')) + """'> </strong>"""
+                        {{!_('%s') %string2}}
+                        </dd>
+                    % end
+		            <dd><span>{{_('租期')}}</span>
+		            % if 'minimum_rent_period' in rent_intention_ticket:
+                        <strong>
+                            {{_('最短租期')}}
+                        </strong>
+                    % else :
+                        <strong>
+                            {{_('租期不限')}}
+                        </strong>
+                    % end
+                    </dd>
 		        </dl>
 		    </div>
 		</div>
