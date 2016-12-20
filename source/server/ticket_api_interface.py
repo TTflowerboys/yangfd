@@ -726,12 +726,17 @@ def rent_intention_ticket_search(user, params):
     ``status`` must be one of these values: "new", "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in", "canceled"
     """
     params.setdefault("type", "rent_intention")
+    user_roles = f_app.user.get_role(user["id"])
 
     params["$and"] = []
     property_params = {"$and": []}
     user_params = {}
 
+    force_user_id = True
     if "interested_rent_ticket_user_id" in params:
+        if not set(user_roles) & set(["admin", "jr_admin", "sales", "operation", "jr_operation"]):
+            assert str(params["interested_rent_ticket_user_id"]) == user["id"], abort(40000)
+        force_user_id = False
         if "interested_rent_tickets" in params:
             abort(40000, "interested_rent_ticket_user_id and interested_rent_tickets cannot co-exist")
 
@@ -822,7 +827,6 @@ def rent_intention_ticket_search(user, params):
     if "short_id" in params:
         params["short_id"] = params["short_id"].upper()
 
-    user_roles = f_app.user.get_role(user["id"])
     enable_custom_fields = True
     if set(user_roles) & set(["admin", "jr_admin", "sales", "operation", "jr_operation"]):
         pass
@@ -834,7 +838,8 @@ def rent_intention_ticket_search(user, params):
             params["user_id"] = ObjectId(user["id"])
     elif not set(user_roles) & set(f_app.common.admin_roles):
         # General users
-        params["user_id"] = ObjectId(user["id"])
+        if force_user_id:
+            params["user_id"] = ObjectId(user["id"])
         enable_custom_fields = False
     else:
         abort(40300)
