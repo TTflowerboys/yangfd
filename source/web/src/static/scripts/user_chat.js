@@ -71,7 +71,11 @@ var chat = {
       success: function(res){
         $('#loadIndicator').hide()
         var data = res.val
-        chat.historyTpl(jsonSort(data, 'time'))
+        if (team.isPhone()) {
+          chat.historyTpl(team.jsonSort(data, 'time'))
+        }else{
+          chat.historyTpl(data, 'time')
+        }
       }
     });
   },
@@ -136,55 +140,4 @@ var chat = {
 
 $(function(){
   chat.init();
-  /*var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
-    $('#chatContent').dropload({
-        domUp: {
-            domClass: 'dropload-up',
-            domRefresh: '<div class="dropload-refresh">↓ ' + i18n('下拉刷新') + '</div>',
-            domUpdate: '<div class="dropload-update">↑ ' + i18n('松开刷新') + '</div>',
-            domLoad: '<div class="dropload-load"><span class="loading"></span>' + i18n('加载中...') + '</div>'
-        },
-        loadDownFn: function (me) {
-            $.ajax({
-                url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/history',
-                type: 'post',
-                data:{target_user_id: window.user.id,per_page: 5},
-                dataType: 'json',
-                timeout: 20000,
-                cache: false,
-                error: function(){
-                    $('.dropload-load').html(i18n('加载失败'))
-                    setTimeout(function () {
-                        me.resetload()
-                    }, 500)
-                },
-                success: function(res){
-                  $('#loadIndicator').hide()
-                  var data = res.val
-                  chat.historyTpl(data)
-                  $('.dropload-load').html(i18n('加载成功'))
-                  setTimeout(function () {
-                      me.resetload()
-                  }, 500)
-                }
-            });
-        }
-    });*/
 });
-function jsonSort(array, field, reverse) {
-  //数组长度小于2 或 没有指定排序字段 或 不是json格式数据
-  if(array.length < 2 || !field || typeof array[0] !== 'object'){ return array; }
-  //数字类型排序
-  if(typeof array[0][field] === 'number') {
-    array.sort(function(x, y) { return x[field] - y[field]});
-  }
-  //字符串类型排序
-  if(typeof array[0][field] === 'string') {
-    array.sort(function(x, y) { return x[field].localeCompare(y[field])});
-  }
-  //倒序
-  if(reverse) {
-    array.reverse();
-  }
-  return array;
-}
