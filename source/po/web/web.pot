@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-21 16:05+0800\n"
+"POT-Creation-Date: 2016-12-21 16:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,7 +193,7 @@ msgstr ""
 #: ../web/src/coming_soon.html:94 ../web/src/news.html:85
 #: ../web/src/masters/big_picture_bg_master.html:47
 #: ../web/src/masters/email.html:57 ../web/src/masters/master.html:171
-#: ../web/src/partials/i18n.html:266 ../server/currant_util.py:306
+#: ../web/src/partials/i18n.html:266 ../server/currant_util.py:303
 #: ../server/main_interface.py:80
 msgid "洋房东"
 msgstr ""
@@ -984,8 +984,8 @@ msgstr ""
 #: ../web/src/host_contact_request-phone.html:37
 #: ../web/src/property_to_rent.html:567 ../web/src/property_to_rent.html:844
 #: ../web/src/wechat_poster.html:366
-#: ../web/src/partials/host_contact_partner.html:39
-#: ../web/src/partials/host_contact_partner.html:46
+#: ../web/src/partials/host_contact_partner.html:51
+#: ../web/src/partials/host_contact_partner.html:58
 #: ../web/src/partials/host_contact_request.html:51
 msgid "我要预订"
 msgstr ""
@@ -993,8 +993,8 @@ msgstr ""
 #: ../web/src/host_contact_request-phone.html:39
 #: ../web/src/property_to_rent.html:569 ../web/src/property_to_rent.html:846
 #: ../web/src/wechat_poster.html:368
-#: ../web/src/partials/host_contact_partner.html:41
-#: ../web/src/partials/host_contact_partner.html:48
+#: ../web/src/partials/host_contact_partner.html:53
+#: ../web/src/partials/host_contact_partner.html:60
 #: ../web/src/partials/host_contact_request.html:53
 #: ../web/src/partials/i18n_scripts.html:870
 #: ../web/src/partials/i18n_templates.html:31
@@ -1005,7 +1005,7 @@ msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:46
 #: ../web/src/property_to_rent.html:575 ../web/src/wechat_poster.html:379
-#: ../web/src/partials/host_contact_partner.html:55
+#: ../web/src/partials/host_contact_partner.html:67
 #: ../web/src/partials/host_contact_request.html:102
 msgid "房源编号: "
 msgstr ""
@@ -2660,15 +2660,22 @@ msgstr ""
 msgid "如您有其他问题，请随时联系我们："
 msgstr ""
 
-#: ../web/src/qa_app.html:210 ../web/src/qa_app.html:218
-#: ../web/src/qa_crowdfunding.html:62 ../web/src/qa_rent.html:254
-#: ../web/src/qa_rent.html:262 ../web/src/partials/float_bar.html:29
-#: ../web/src/partials/float_bar.html:30
+#: ../web/src/qa_app.html:211 ../web/src/qa_app.html:213
+#: ../web/src/qa_app.html:223 ../web/src/qa_app.html:225
+#: ../web/src/qa_crowdfunding.html:62 ../web/src/qa_rent.html:255
+#: ../web/src/qa_rent.html:257 ../web/src/qa_rent.html:267
+#: ../web/src/qa_rent.html:269 ../web/src/partials/float_bar.html:31
+#: ../web/src/partials/float_bar.html:33 ../web/src/partials/float_bar.html:38
+#: ../web/src/partials/float_bar.html:40
+#: ../web/src/partials/host_contact_partner.html:14
+#: ../web/src/partials/host_contact_partner.html:16
+#: ../web/src/partials/host_contact_partner.html:24
+#: ../web/src/partials/host_contact_partner.html:26
 msgid "电话："
 msgstr ""
 
-#: ../web/src/qa_app.html:226 ../web/src/qa_crowdfunding.html:70
-#: ../web/src/qa_rent.html:270
+#: ../web/src/qa_app.html:234 ../web/src/qa_crowdfunding.html:70
+#: ../web/src/qa_rent.html:278
 #: ../web/src/static/emails/receive_intention.html:28
 #: ../web/src/static/emails/receive_rent_intention.html:17
 #: ../web/src/static/emails/rent_intention_digest.html:145
@@ -4664,11 +4671,11 @@ msgstr ""
 msgid "提交求租需求"
 msgstr ""
 
-#: ../web/src/partials/float_bar.html:43
+#: ../web/src/partials/float_bar.html:55
 msgid "客户端"
 msgstr ""
 
-#: ../web/src/partials/float_bar.html:46
+#: ../web/src/partials/float_bar.html:58
 msgid "点击进入APP下载页面"
 msgstr ""
 
@@ -4722,12 +4729,6 @@ msgstr ""
 
 #: ../web/src/partials/host_contact_partner.html:4
 msgid "洋房东官方"
-msgstr ""
-
-#: ../web/src/partials/host_contact_partner.html:12
-#: ../web/src/partials/host_contact_partner.html:16
-#: ../web/src/partials/i18n_scripts.html:20
-msgid "："
 msgstr ""
 
 #: ../web/src/partials/host_contact_request.html:62
@@ -8067,6 +8068,10 @@ msgstr ""
 #: ../web/src/static/emails/rent_intention_matched_4.html:5
 #: ../web/src/static/emails/rent_ticket_publish_success.html:4
 msgid "尊敬的"
+msgstr ""
+
+#: ../web/src/partials/i18n_scripts.html:20
+msgid "："
 msgstr ""
 
 #: ../web/src/partials/i18n_scripts.html:21
@@ -13362,7 +13367,7 @@ msgstr ""
 msgid "众筹模式介绍页面"
 msgstr ""
 
-#: ../server/currant_util.py:308
+#: ../server/currant_util.py:305
 msgid "洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业体验。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
 msgstr ""
 
