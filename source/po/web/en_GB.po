@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-12-16 19:14+0800\n"
-"PO-Revision-Date: 2016-12-16 19:13+0800\n"
+"PO-Revision-Date: 2016-12-21 15:56+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -5082,7 +5082,7 @@ msgstr "Already Favourited"
 
 #: ../web/src/partials/i18n.html:58
 msgid "没有访问权限，请登录后重试。"
-msgstr ""
+msgstr "Do not have permission to access, please log in and try again."
 
 #: ../web/src/partials/i18n.html:59
 msgid "频率达到上限，请稍后重试。"
@@ -5102,7 +5102,7 @@ msgstr "Sorry, cannot manipulate the order of others."
 
 #: ../web/src/partials/i18n.html:63
 msgid "对不起，不能查看他人的订单。"
-msgstr "Sorry, can't view others ' orders."
+msgstr "Sorry, can't view the order of others."
 
 #: ../web/src/partials/i18n.html:64
 msgid "没有权限！"
