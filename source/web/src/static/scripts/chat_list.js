@@ -83,10 +83,10 @@ $(function(){
 
         var params = {
             'status': 'requested',
-            'user_id': window.user.id,
+            'interested_rent_ticket_user_id': window.user.id,
             'per_page': -1
         }
-        xhr = $.post('/api/1/rent_ticket/search', params)
+        xhr = $.post('/api/1/rent_intention_ticket/search', params)
             .success(function (data) {
                 var val = data.val
                 var array = val
