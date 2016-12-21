@@ -35,7 +35,6 @@ def rent_request(params):
     return currant_util.common_template("rent_request_phone", title=title, rent_ticket=rent_ticket)
 
 
-
 @f_get('/host-chat-request', params=dict(ticketId=str))
 @currant_util.check_ip_and_redirect_domain
 def rent_request(params):
