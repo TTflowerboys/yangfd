@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-12-21 16:43+0800\n"
-"PO-Revision-Date: 2016-12-21 16:42+0800\n"
+"POT-Creation-Date: 2016-12-21 16:54+0800\n"
+"PO-Revision-Date: 2016-12-21 16:53+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -2506,7 +2506,7 @@ msgstr "YFD Rental APP Help Center"
 
 #: ../web/src/qa_app.html:17 ../web/src/qa_rent.html:18
 msgid "洋房东致力于为英国华人房东和租客提供专业简单的租房找房工具。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。"
-msgstr "Youngfunding is dedicated to provide professional and simple experience for the Chinese landlord and tenant in UK. Bring fast experience for the landlord to rent publishing, unique London street life, house prices report, magazine-like housing mobile home page. To find room for tenants with personalized experience, good properties, long and short lets, find room on map, make overseas rental simple and convenient."
+msgstr "YFD Rental is dedicated to provide professional and simple experience for the Chinese landlord and tenant in UK. Bring fast experience for the landlord to rent publishing, unique London street life, house prices report, magazine-like housing mobile home page. To find room for tenants with personalized experience, good properties, long and short lets, find room on map, make overseas rental simple and convenient."
 
 #: ../web/src/qa_app.html:23
 msgid "App安装遇到问题?"
@@ -2578,7 +2578,7 @@ msgstr "How is my property rented out?"
 
 #: ../web/src/qa_app.html:93
 msgid "当您发布出租信息后，平台的租客会第一时间看到您的房产信息，通过平台获取您的联系方式主动与您联系。注：房客与房东接触或租金谈判，洋房东不会介入。洋房东团队不会以任何形式收取任何费用！"
-msgstr "N/A - When you publish your rental information, tenant of the platform will be the first to see your property information and get your contact to contact you through the platform. Note: Youngfunding would not interfere contact or rent negotiations between the tenant and the landlord. Youngfunding does not charge any fees in any form!"
+msgstr "N/A - When you publish your rental information, tenant of the platform will be the first to see your property information and get your contact to contact you through the platform. Note: YFD Rental  would not interfere contact or rent negotiations between the tenant and the landlord. YFD Rental  does not charge any fees in any form!"
 
 #: ../web/src/qa_app.html:99 ../web/src/qa_rent.html:109
 msgid "房子租出去后，怎么删除在平台上的出租信息？"
@@ -8396,7 +8396,7 @@ msgstr ""
 #: ../web/src/partials/i18n_scripts.html:49
 #, fuzzy
 msgid "房东姓名 "
-msgstr "YoungFunding"
+msgstr "Host Name"
 
 #: ../web/src/partials/i18n_scripts.html:50
 msgid "Your application details 申请原因"
@@ -8550,7 +8550,7 @@ msgstr ""
 #: ../web/src/partials/i18n_scripts.html:87
 #, fuzzy
 msgid "收到房东"
-msgstr "YoungFunding"
+msgstr "Receive from Host"
 
 #: ../web/src/partials/i18n_scripts.html:88
 msgid "回复本邮件直接与房东沟通（系统将检测回复中关键词协助交流）"
@@ -10564,7 +10564,7 @@ msgstr "I am a tenant"
 #: ../web/src/partials/i18n_scripts.html:649
 #, fuzzy
 msgid "房东行为"
-msgstr "YoungFunding"
+msgstr "Host Operations"
 
 #: ../web/src/partials/i18n_scripts.html:650
 #, fuzzy
@@ -12242,7 +12242,7 @@ msgstr "Select Location"
 #: ../web/src/partials/requirement_rent_phone.html:15
 #, fuzzy
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，提交您的求租需求订阅心仪房源。"
-msgstr "Youngfunding is committed to providing the most accurate quality service to every customer, please submitted rent requirement to get landlord contact"
+msgstr "YFD Rental is committed to providing the most accurate quality service to every customer, please submitted rent requirement to get landlord contact"
 
 #: ../web/src/partials/requirement_rent_phone.html:16
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东，"
@@ -12443,12 +12443,12 @@ msgstr "Share YFD Rental  APP"
 
 #: ../web/src/partials/requirement_rent_popup.html:14
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，提交您的求租需求，当平台有满足您需求的房源出现时，可以第一时间通知您。"
-msgstr "Youngfunding is committed to providing the best service to every customer, submit your rent requirement to subscribe our listings."
+msgstr "YFD Rental is committed to providing the best service to every customer, submit your rent requirement to subscribe our listings."
 
 #: ../web/src/partials/requirement_rent_popup.html:15
 #, fuzzy
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东。同时当平台有满足您需求的房源出现时，会第一时间邮件通知您。"
-msgstr "Youngfunding is committed to providing the best service to every customer, please submit your rent requirement to continue to contact the landlord"
+msgstr "YFD Rental is committed to providing the best service to every customer, please submit your rent requirement to continue to contact the landlord"
 
 #: ../web/src/partials/requirement_rent_popup.html:16
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后等待平台租房顾问与您取得联系。同时当平台有满足您需求的房源出现时，会第一时间邮件通知您。"
