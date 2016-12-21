@@ -1,10 +1,10 @@
 var chat = {
   init : function(){
-    $('#btn_send').on('click',function(){
+    $('#btn_send,#btn_send_phone').on('click',function(){
       if (chat.isSendMsg()) { chat.sendTextMessage() }
     })
     $('#btn_send_phone').on('click',function(){
-      if ($('#chat_edit_area').val().trim().length ? true : false) { chat.sendMobileTextMessage() }
+      if (chat.isMobileSendMsg()) { chat.sendMobileTextMessage() }
     })
     $('#edit_area').on('keydown', function(e) {
       if(e.keyCode === team.keyCode.KEYCODE_ENTER){
@@ -59,9 +59,7 @@ var chat = {
     $.ajax({
       url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/history',
       type: 'post',
-      data:{
-        target_user_id: target_user_id
-      },
+      data:{target_user_id: window.user.id},
       dataType: 'json',
       timeout: 20000,
       cache: false,
@@ -86,7 +84,7 @@ var chat = {
     $.ajax({
       url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send',
       type: 'post',
-      data:{target_user_id: target_user_id, message: $('#edit_area').val()},
+      data:{target_user_id: window.user.id, message:$('#edit_area').val()},
       dataType: 'json',
       timeout: 20000,
       cache: false,
