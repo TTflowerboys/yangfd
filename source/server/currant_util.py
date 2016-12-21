@@ -212,9 +212,6 @@ def get_phone_numbers(use="display"):
     elif use == "country":
         CN = "CN"
         GB = "GB"
-    elif use == "country_name":
-        CN = get_country_name_by_code("CN")
-        GB = get_country_name_by_code("GB")
     else:
         raise NotImplementedError
 
