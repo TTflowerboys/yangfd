@@ -53,8 +53,7 @@
 	                % end		            
 		            % if 'rent_deadline_time' in rent_intention_ticket and rent_intention_ticket.get('rent_deadline_time',''):
 		            	<dd><span>{{_('租期结束日期')}}</span>
-                        % string2 = """<strong data-utc-time='""" + str(rent_intention_ticket.get('rent_deadline_time')) + """'> </strong>"""
-                        {{!_('%s') %string2}}
+                        <strong data-utc-time="{{rent_intention_ticket.get('rent_deadline_time')}}"> </strong>
                         </dd>
                     % end
 		            <dd><span>{{_('租期')}}</span>
