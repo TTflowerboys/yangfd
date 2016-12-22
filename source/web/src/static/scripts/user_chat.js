@@ -59,7 +59,7 @@ var chat = {
     $.ajax({
       url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/history',
       type: 'post',
-      data:{target_user_id: window.user.id},
+      data:{target_user_id: target_user_id},
       dataType: 'json',
       timeout: 20000,
       cache: false,
@@ -84,7 +84,7 @@ var chat = {
     $.ajax({
       url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send',
       type: 'post',
-      data:{target_user_id: window.user.id, message:$('#edit_area').val()},
+      data:{target_user_id: target_user_id, message: $('#edit_area').val()},
       dataType: 'json',
       timeout: 20000,
       cache: false,

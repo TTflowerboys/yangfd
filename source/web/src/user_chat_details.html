@@ -32,6 +32,17 @@
 			</div>
 
 			<div class="chatDetails">
+				<div class="chatRentMeta">
+ 					<h1 class="title">
+ 						<a href="/property-to-rent/{{rent_intention_ticket.get('interested_rent_tickets')[0].get('id')}}" target="_blank">{{rent_intention_ticket.get('interested_rent_tickets')[0].get('title')}}</a>
+ 					</h1>
+ 					<div class="meta">
+ 						<i class="icon-location_fill"></i>
+ 						{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('street')}}
+ 						{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('city',{}).get('name')}}
+ 						{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('zipcode')}}
+ 					</div>
+ 				</div>
 		        <dl class="userDetailsList">
 		            <dt>Ticket List</dt>	            
 	            	% if 'rent_available_time' in rent_intention_ticket and rent_intention_ticket.get('rent_available_time',''):
