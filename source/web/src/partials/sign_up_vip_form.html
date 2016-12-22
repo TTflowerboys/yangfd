@@ -1,7 +1,11 @@
 <div class="vipForm">
     <div>
         <div class="textCenter">
-            <a href="/"><img class="logo" src="/static/images/logo/logo-login.png" alt=""/></a>
+            %if _.lang == 'en_GB':
+                <a href="/"><img class="logo" src="/static/images/logo/logo_login_en.png" alt=""/></a>
+            %else:
+                <a href="/"><img class="logo" src="/static/images/logo/logo_login.png" alt=""/></a>
+            %end
         </div>
         <!-- @@include =signup_form.html {"button":"<button type=\"submit\" class=\"register button red\">{{_('限时申请')}}</button>"} -->
     </div>

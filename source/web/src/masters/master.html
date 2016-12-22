@@ -119,7 +119,7 @@
                     <header class="siteHeader">
 
                         % if _.lang != "en_GB":
-                            <a href="/"><img class="logo" src="/static/images/logo/logo-header.png" alt=""/></a>
+                            <a href="/"><img class="logo" src="/static/images/logo/logo_header.png" alt=""/></a>
                         % else:
                             <a href="/"><img class="logo" src="/static/images/logo/logo_header_en.png" alt=""/></a>
                         % end
@@ -305,7 +305,11 @@
         % if not is_mobile_client():
             <div id="modal_shadow" class="modal_shadow" style="display: none"></div>
             <div id="modal" class="modal" style="display: none">
-                <a href="/"><img class="logo" src="/static/images/logo/logo-login.png" alt=""/></a>
+                %if _.lang == 'en_GB':
+                    <a href="/"><img class="logo" src="/static/images/logo/logo_login_en.png" alt=""/></a>
+                %else:
+                    <a href="/"><img class="logo" src="/static/images/logo/logo_login.png" alt=""/></a>
+                %end
                 <!-- @@include =../partials/signin_form.html -->
             </div>
         % end
