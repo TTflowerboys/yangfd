@@ -630,6 +630,23 @@
             }else{
                 return val;
             }
+        },
+        keyCode: {
+            KEYCODE_BACKSPACE: 8,
+            KEYCODE_ENTER: 13,
+            KEYCODE_SHIFT: 16,
+            KEYCODE_ESC: 27,
+            KEYCODE_DELETE: 34,
+            KEYCODE_ARROW_LEFT: 37,
+            KEYCODE_ARROW_UP: 38,
+            KEYCODE_ARROW_RIGHT: 39,
+            KEYCODE_ARROW_DOWN: 40,
+            KEYCODE_NUM2: 50,
+            KEYCODE_AT: 64,
+            KEYCODE_NUM_ADD: 107,
+            KEYCODE_NUM_MINUS: 109,
+            KEYCODE_ADD: 187,
+            KEYCODE_MINUS: 189
         }
     }
 })
