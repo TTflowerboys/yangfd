@@ -208,7 +208,11 @@
                 <div id="footer" class="siteFooter_wrapper hiddenInClient">
                     <footer class="siteFooter clearfix">
                         <div class="localizationChanger">
-                            <a href="/"><img class="logo" src="/static/images/logo/logo_footer.png" alt=""/></a>
+                            %if _.lang == 'en_GB':
+                                <a href="/"><img class="logo" src="/static/images/logo/logo_footer_en.png" alt=""/></a>
+                            %else:
+                                <a href="/"><img class="logo" src="/static/images/logo/logo_footer.png" alt=""/></a>
+                            %end
                             <div class="language hideInMobile">
                                 <select name="language" class="ghostSelect" style="min-width: 140px;">
                                     <option value="zh_Hans_CN" selected>{{_('简体中文(中国)')}}</option>
