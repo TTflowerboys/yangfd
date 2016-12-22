@@ -740,7 +740,7 @@ def rent_intention_ticket_search(user, params):
         if "interested_rent_tickets" in params:
             abort(40000, "interested_rent_ticket_user_id and interested_rent_tickets cannot co-exist")
 
-        params["interested_rent_tickets"] = f_app.tickets.search({"type": "rent", "user_id": params.pop("interested_rent_ticket_user_id")}, per_page=-1)
+        params["interested_rent_tickets"] = f_app.ticket.search({"type": "rent", "user_id": params.pop("interested_rent_ticket_user_id")}, per_page=-1)
 
     if "interested_rent_tickets" in params:
         params["interested_rent_tickets"] = {"$in": params["interested_rent_tickets"]}
