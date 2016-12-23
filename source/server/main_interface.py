@@ -882,19 +882,6 @@ def rent_intention_edit(rent_intention_ticket_id):
     return currant_util.common_template("rent_intention_edit", title=title, rent_intention_ticket=rent_intention_ticket)
 
 
-@f_get('/user-chat/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>/details')
-@currant_util.check_ip_and_redirect_domain
-def user_chat_details(rent_intention_ticket_id):
-
-    title = _('聊天')
-    rent_intention_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id], fuzzy_user_info=True)[0])
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields())
-    if not user or user.get('id') != rent_intention_ticket.get('creator_user', {}).get('id'):
-        redirect('/')
-
-    return currant_util.common_template("user_chat_details", title=title, rent_intention_ticket=rent_intention_ticket)
-
-
 @f_api('/aggregation-general', params=dict(
     date_from=(datetime, None),
     date_to=(datetime, None)
