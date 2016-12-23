@@ -16,6 +16,9 @@ body{
     -ms-user-select: none;
     user-select: none;
     background: #ddd;
+    @media @phone{
+        background: #fff;
+    }
 }
 /* bubble style */
 .bubble {
@@ -98,36 +101,6 @@ body{
         }
     }
 }
-
-/* message */
-.message{
-    width: 100%;
-    margin-bottom: 30px;
-    float: left;
-    .avatar{
-        width: 80px;
-        height: 80px;
-        @media @phone{
-            width: 60px;
-            height: 60px;
-        }
-        border-radius: 50%;
-        float: left;
-    }
-    .content{
-        overflow:hidden;
-    }
-    &.me{
-        float: right;
-        text-align: right;
-        clear: right;
-        .avatar{
-            float: right;
-        }
-    }
-}
-
-
 
 .chatWrap{
     width: 1080px;
@@ -215,8 +188,11 @@ body{
         padding: 24px;
         height: 230px;
         background-color: @chat-blue-color;
-        .chatHost & {
+        &.userHeaderTenant{
             background-color: @chat-green-color;
+            .userHeader_type{
+                color: #c1e480;
+            }
         }
         text-align: center;
         &_pic{
@@ -238,9 +214,6 @@ body{
             font-weight: bold;
             font-size: 12px;
             color: #8adbf1;
-            .chatHost & {
-                color: #c1e480;
-            }
         }
         &_name{
             font-size: 16px;
@@ -584,6 +557,32 @@ body{
     padding-top: 20px;
     @media @phone{
         border-top-width: 0;
+    }
+    .message{
+        width: 100%;
+        margin-bottom: 30px;
+        float: left;
+        .avatar{
+            width: 80px;
+            height: 80px;
+            @media @phone{
+                width: 60px;
+                height: 60px;
+            }
+            border-radius: 50%;
+            float: left;
+        }
+        .content{
+            overflow:hidden;
+        }
+        &.me{
+            float: right;
+            text-align: right;
+            clear: right;
+            .avatar{
+                float: right;
+            }
+        }
     }
     .noMessage{
         margin: 0 auto;

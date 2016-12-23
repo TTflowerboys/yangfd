@@ -30,7 +30,7 @@
             var rentTicket = JSON.parse($('#rentTicketData').text())
             var oldUser = window.user
             var formatter = window.lang === 'en_GB'? 'DD-MM-YYYY': 'YYYY-MM-DD'
-            this.rentTicket = ko.observable(JSON.parse($('#rentTicketData').text()))
+            this.rentTicket = ko.observable(rentTicket)
             this.openChatRequestForm = function (ticketId, isPopup) {
                 return function () {
                     window.openChatRequestForm(ticketId, isPopup)
@@ -83,9 +83,9 @@
             }
 
             this.rentusertype = ko.observable(window.i18n('房东'))
-            this.rentnickname = ko.observable(JSON.parse($('#rentTicketData').text()).user.nickname)
-            this.renttitle = ko.observable(JSON.parse($('#rentTicketData').text()).title)
-            this.rentmeta = ko.observable(JSON.parse($('#rentTicketData').text()).property.street+' '+JSON.parse($('#rentTicketData').text()).property.zipcode)
+            this.rentnickname = ko.observable(rentTicket.user.nickname)
+            this.renttitle = ko.observable(rentTicket.title)
+            this.rentmeta = ko.observable(rentTicket.property.street+' '+rentTicket.property.zipcode)
 
             this.ticketId = ko.observable()
 
@@ -819,13 +819,9 @@
                         this.fetchCoupon()
                         window.team.setUserType('tenant')
                         this.submitChat(val)
-                        ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success')
-                        ga('send', 'pageview', '/submit-rent-request-intention/submit-success')
-                        //_hmt.push(['_trackPageview', '/submit-rent-request-intention/submit-success'])
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
-                        ga('send', 'event', 'rentRequestIntention', 'result', 'submit-failed',window.getErrorMessageFromErrorCode(ret))
                     }, this))
                     .always(_.bind(function () {
                         this.submitDisabled(false)
@@ -833,14 +829,14 @@
             }
             this.submitChat = function (ticketId) {
                 $.betterPost('/api/1/rent_intention_ticket/'+ticketId+'/chat/send', { 
-                    target_user_id: JSON.parse($('#rentTicketData').text()).property.user_id,
+                    target_user_id: rentTicket.user.id,
                     message: this.params().description                    
                 })
                     .done(_.bind(function (val) {
-            
+                        location.href = '/user-chat/'+ticketId+'/details'
                     }, this))
                     .fail(_.bind(function (ret) {
-                        
+                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
                     }, this))
                     .always(_.bind(function () {
                         this.submitDisabled(false)
