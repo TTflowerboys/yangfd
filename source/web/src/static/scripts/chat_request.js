@@ -116,7 +116,7 @@
             this.visa = ko.observable()
             this.uploadProgressVisible = ko.observable(false)
             this.uploading = ko.observable()
-            this.initUpload = function() {
+            /*this.initUpload = function() {
                 var uploadFileConfig = {
                     url: '/api/1/upload_image',
                     fileName: 'data',
@@ -196,7 +196,7 @@
                 }
                 $('#fileuploader').uploadFile(uploadFileConfig)
 
-            }
+            }*/
 
             this.user = ko.observable(window.user) //当前登录用户
 
@@ -467,14 +467,14 @@
                                 }
                                 this.setParams(lastParams)
                             }
-                            this.initUpload()
+                            //this.initUpload()
                         }, this))
                         .fail(_.bind(function (ret) {
                             window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
-                            this.initUpload()
+                            //this.initUpload()
                         }, this))
                 } else {
-                    this.initUpload()
+                    //this.initUpload()
                 }
             }
 
@@ -978,7 +978,7 @@
                 this.open(isPopup)
 
                 //Let the phone field number only for editing and paste
-                var phoneInput = $('rent-request input.phone').get(0)                
+                var phoneInput = $('chat-request input.phone').get(0)                
                 window.inputTypeNumberPolyfill.polyfillElement(phoneInput)
             }.bind(this))
             $('body').trigger('rentRequestReady')

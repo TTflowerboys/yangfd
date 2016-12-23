@@ -14,6 +14,10 @@ var chat = {
     });
     chat.historyMessage()
   },
+  placeholderPic : {
+    'HOST' : '/static/images/chat/placeholder_host.png',
+    'Tenant' : '/static/images/chat/placeholder_tenant.png'
+  },
   isSendMsg : function(){
     return $('#edit_area').val().trim().length ? true : false;
   },
@@ -138,4 +142,18 @@ var chat = {
 
 $(function(){
   chat.init();
+  $('#edit_area').on('keyup', function(e) {
+    if($('#edit_area').val().trim().length>0){
+        $('.btn_send').removeAttr('disabled')
+    }else{
+        $('.btn_send').attr('disabled','disabled')
+    }
+  });
 });
+;(function(){
+    if($('#edit_area').val().trim().length){
+        $('.btn_send').attr('disabled',' ')
+    }else{
+        $('.btn_send').attr('disabled','disabled')
+    }    
+})();
