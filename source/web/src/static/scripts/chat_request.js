@@ -473,9 +473,9 @@
                             window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                             //this.initUpload()
                         }, this))
-                } else {
-                    //this.initUpload()
-                }
+                }/* else {
+                    this.initUpload()
+                }*/
             }
 
             this.params = ko.computed(function () {
