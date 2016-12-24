@@ -129,16 +129,6 @@ $(function(){
         location.hash = state + (param ? '?' + param : '')
     }
 
-
-
-    function lastChatInfo(obj,val){
-        var lastChatTpl  = '<div class="name">**</div>';
-            lastChatTpl += '<div class="massage">'+val+'</div>';
-            lastChatTpl += '<div class="time"></div>';
-            lastChatTpl += '<a href="/user-chat/'+val+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
-            obj.innerHTML = lastChatTpl;
-    }
-
     $(window).on('hashchange', function () {
         var hash = location.hash.slice(1)
         var state = hash.split('?')[0]
