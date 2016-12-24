@@ -45,15 +45,14 @@ $(function(){
                     var Tpl = '';
                     chatListHeader.show()
                     $(array).each(function (i, va){
-                        Tpl += '<div class="chatListItmes"><div class="title">';
-                        Tpl += '<a href="/property-to-rent/'+va.interested_rent_tickets[0].id+'" target="_blank">'+va.interested_rent_tickets[0].title+'</a></div>';
-                        Tpl += '<div class="info"><div class="name">'+(va.interested_rent_tickets[0].user.nickname).substring(1,-1)+'***</div>';
-                        Tpl += '<div class="massage"><div class="text">'+(va.interested_rent_tickets[0].description === undefined? ''+i18n('没有最新留言')+'': va.interested_rent_tickets[0].description)+'</div>';
-                        Tpl += '<div class="time"  data-utc-time="">'+team.parsePublishDate(parseInt(va.interested_rent_tickets[0].time))+'</div>';
+                        Tpl += '<div class="chatListItmes">';
+                        Tpl += '<div class="title"><a href="/property-to-rent/'+va.interested_rent_tickets[0].id+'" target="_blank">'+va.interested_rent_tickets[0].title+'</a></div>';
+                        Tpl += '<div class="info" data-id="'+va.id+'" data-user_id="'+va.interested_rent_tickets[0].user.id+'"><div class="loading">'+i18n('用户消息加载中')+'...</div></div>';
                         Tpl += '<a href="/user-chat/'+va.id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
-                        Tpl += '</div></div></div>';
+                        Tpl += '</div>';
                     })
                     $('#chatListContent').html(Tpl);
+                    completeMsg()
                 } else {
                     chatListHeader.hide()
                     $('#intentionPlaceHolder').show()
@@ -65,6 +64,7 @@ $(function(){
                 defer.reject()
             }).complete(function () {
                 $('.loadIndicator').hide()
+                $('.chatListItmes .info').trigger('loadChatMsg')
                 isLoading = false
             })
         return defer.promise()
@@ -94,15 +94,14 @@ $(function(){
                     var Tpl = '';
                     chatListHeader.show()
                     $(array).each(function (i, va){
-                        Tpl += '<div class="chatListItmes"><div class="title">';
-                        Tpl += '<a href="/property-to-rent/'+va.interested_rent_tickets[0].id+'" target="_blank">'+va.interested_rent_tickets[0].title+'</a></div>';
-                        Tpl += '<div class="info"><div class="name">'+va.user.nickname+'</div>';
-                        Tpl += '<div class="massage"><div class="text">'+(va.description === undefined ? '': va.description)+'</div>';
-                        Tpl += '<div class="time"  data-utc-time="">'+team.parsePublishDate(parseInt(va.time))+'</div>';
+                        Tpl += '<div class="chatListItmes">';
+                        Tpl += '<div class="title"><a href="/property-to-rent/'+va.interested_rent_tickets[0].id+'" target="_blank">'+va.interested_rent_tickets[0].title+'</a></div>';
+                        Tpl += '<div class="info" data-id="'+va.id+'" data-user_id="'+va.user.id+'"><div class="loading">'+i18n('用户消息加载中')+'...</div></div>';
                         Tpl += '<a href="/user-chat/'+va.id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
-                        Tpl += '</div></div></div>';
+                        Tpl += '</div>';
                     })
                     $('#chatListContent').html(Tpl);
+                    completeMsg()
                 } else {
                     chatListHeader.hide()
                     $('#rentPlaceHolder').show()
@@ -115,6 +114,7 @@ $(function(){
             }).complete(function () {
                 $('.loadIndicator').hide()
                 isLoading = false
+                $('.chatListItmes .info').trigger('loadChatMsg')
             })
         return defer.promise()
     }
@@ -127,6 +127,16 @@ $(function(){
         $('.buttons .button').removeClass('button').addClass('ghostButton')
         $('.buttons .' + state.replace('Only', '')).removeClass('ghostButton').addClass('button')
         location.hash = state + (param ? '?' + param : '')
+    }
+
+
+
+    function lastChatInfo(obj,val){
+        var lastChatTpl  = '<div class="name">**</div>';
+            lastChatTpl += '<div class="massage">'+val+'</div>';
+            lastChatTpl += '<div class="time"></div>';
+            lastChatTpl += '<a href="/user-chat/'+val+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
+            obj.innerHTML = lastChatTpl;
     }
 
     $(window).on('hashchange', function () {
@@ -160,4 +170,33 @@ $(function(){
             switchTypeTab(val.toLowerCase())
         })
     })
+
+
+    function completeMsg(){
+        $('.chatListItmes .info').on('loadChatMsg',function(){
+            var $this = $(this),val = $this.data('id'),target_user_id = $this.data('user_id');
+            $.ajax({
+                url: '/api/1/rent_intention_ticket/'+val+'/chat/history',
+                type: 'post',
+                data:{target_user_id: target_user_id},
+                dataType: 'json',
+                timeout: 20000,
+                cache: false,
+                error: function(ret){
+                    window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                },
+                success: function(res){
+                    if (res && res.val.length>0) {
+                        var lastChatTpl  = '<div class="name">'+res.val[0].from_user.nickname.substring(1,-1)+'**</div>';
+                            lastChatTpl += '<div class="massage"><div class="text">'+res.val[0].message+'</div>';
+                            lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(res.val[0].time))+'</div></div>';
+                        $this.html(lastChatTpl);
+                    }else{
+                        $this.html('<div class="loading">'+i18n('没有最新留言')+'</div>');
+                    }
+                }
+            });
+        })
+    }
+
 })

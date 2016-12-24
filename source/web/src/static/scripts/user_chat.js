@@ -34,7 +34,7 @@ var chat = {
       return '<div class="message me"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'</div></div></div></div></div>'
   },
   noMessageTpl: function(){
-    return '<div class="noMessage">sorry,no message!</div>'
+    return '<div class="noMessage">'+window.i18n('没有最新留言')+'</div>'
   },
   historyTpl : function(data){
     if (data.length>0) {

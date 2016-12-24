@@ -32,6 +32,7 @@
         padding: 18px 0 24px 0;
         height: 106px;
         background: #fff;
+        position: relative;
         .title{
             float: left;
             width: 25%;
@@ -58,6 +59,15 @@
             padding-right: 16%;
             float: left;
             position: relative;
+            .loading{
+                height: 64px;
+                line-height: 64px;
+                color: #888;
+                img{
+                    vertical-align: middle;
+                    margin-right: 5px;
+                }
+            }
             .name{
                 font-weight: bold;
                 color: #666;
@@ -70,25 +80,25 @@
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     overflow: hidden;
-                }
-                .reply{
-                    position: absolute;
-                    top: 50%;
-                    right: 2%;
-                    margin-top: -15px;
-                    background: #e61919;
-                    border-radius: 3px;
-                    text-align: center;
-                    color: #fff;
-                    height: 30px;
-                    line-height: 30px;
-                    padding: 0 16px;
-                    display: inline-block;
-                    text-decoration: none;
+                    font-size: 16px;
                 }
             }
         }
-
+        .reply{
+            position: absolute;
+            top: 50%;
+            right: 2%;
+            margin-top: -15px;
+            background: #e61919;
+            border-radius: 3px;
+            text-align: center;
+            color: #fff;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 16px;
+            display: inline-block;
+            text-decoration: none;
+        }
     }
     .loadIndicator{
         display: block;
