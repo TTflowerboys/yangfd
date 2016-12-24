@@ -140,7 +140,7 @@
                         <div class="step1" data-bind="visible: step() === 1">
                             <div class="action">
                                 <a href="javascript:;" class="btn btn_book">Ask to book</a>
-                                <button class="btn btn_send ajaxButton" data-bind="click: !user() ? goNext : sendSubmit">send</button>
+                                <button class="btn btn_send ajaxButton" data-bind="click: !user() ? goNext : sendSubmit , text: !user() ? '{{_('下一步')}}': '{{_('发送')}}'"></button>
                             </div>
                         </div>
                         <div class="step2" data-bind="visible: step() === 2">

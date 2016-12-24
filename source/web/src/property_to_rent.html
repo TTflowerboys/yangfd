@@ -562,7 +562,7 @@
                 %end                
             </div>
             <div class="rentRequestFlow">
-                %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
+                %if (not (user and user.get('id') == rent.get('creator_user',{}).get('id',''))) and rent.get('user'):
                     <button class="button red hiddenOnMobile ajaxButton" data-bind="click: function() { openChatRequestForm('{{rent.get('id')}}', true)}">
                         %if is_student_house(rent):
                         {{_('我要预订')}}
