@@ -7,7 +7,6 @@
                 .done(function (data) {
                     var array = data
                     if (array && array.length > 0) {
-                        //window.dhtmlx.message({ type: 'error', text: window.i18n('您已经对此房源提交过咨询，如需继续咨询请您使用洋房东为您已匹配的邮件或短信系统沟通，谢谢。') })
                         location.href = '/user-chat/'+array[0].id+'/details'
                     } else {
                         $('body').trigger('openChatRequestForm', Array.prototype.slice.call(args))

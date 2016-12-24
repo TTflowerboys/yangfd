@@ -85,7 +85,7 @@
 	               		<dd>
 	            			<span>{{_('押金')}}</span>
 	            			<strong>
-                            	{{rent.get('deposit',{}).get('unit_symbol','')}}<b data-type="formatted_currency">{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}</b>
+                            	{{rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('unit_symbol','')}}<b data-type="formatted_currency">{{f_app.re.filter_zero(rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('value'))}}</b>
 		                        % if 'deposit' in rent_intention_ticket.get('interested_rent_tickets')[0] and rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('localized_value'):
 		                            <b>
 		                                {{_('约')}}{{rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('localized_unit_symbol')}}{{int(float(rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('localized_value', 0)))}}
@@ -111,7 +111,7 @@
 						<textarea id="edit_area" class="edit_area" placeholder="sent msg"></textarea>
 						<div class="toolbar"><a href="javascript:;"><i class="icon-art"></i></a></div>
 					</div>
-					<div class="action"><button class="btn btn_send ajaxButton">send</button></div>
+					<div class="action"><button id="btn_send" class="btn btn_send ajaxButton">send</button></div>
 				</div>
 				<div class="fr">
 					%if (user and user.get('id') == rent_intention_ticket.get('interested_rent_tickets')[0].get('creator_user').get('id')):						

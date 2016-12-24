@@ -836,18 +836,17 @@
     <!--出租申请单-->
     <!--@@include = static/templates/chat_request.tpl.html -->
     <chat-request params="price: {{json_dumps(rent.get('price'))}}, holdingDeposit: {{json_dumps(rent.get('holding_deposit'))}}"></chat-request>
-
+    
+    %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
     <ul class="floatBar_phone">
-        <li class="phone">
-            %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
-                <a data-id="{{rent.get('id')}}" id="chatPhone">
-                    %if is_student_house(rent):
-                    {{_('我要预订')}}
-                    %else:
-                    {{_('我要咨询')}}
-                    %end
-                </a>
-            %end
+        <li class="phone">            
+            <a data-id="{{rent.get('id')}}" id="chatPhone">
+                %if is_student_house(rent):
+                {{_('我要预订')}}
+                %else:
+                {{_('我要咨询')}}
+                %end
+            </a>            
         </li>
         <li class="favorite"
             data-fn="addFav"
@@ -865,6 +864,7 @@
             ><i class="icon-faveractive"></i></img>
         </li>
     </ul>
+    %end
 
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>

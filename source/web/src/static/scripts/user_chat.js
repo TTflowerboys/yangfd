@@ -1,6 +1,6 @@
 var chat = {
   init : function(){
-    $('#btn_send,#btn_send_phone').on('click',function(){
+    $('#btn_send').on('click',function(){
       if (chat.isSendMsg()) { chat.sendTextMessage() }
     })
     $('#btn_send_phone').on('click',function(){
@@ -67,8 +67,8 @@ var chat = {
       dataType: 'json',
       timeout: 20000,
       cache: false,
-      error: function(){
-          window.alert('服务端出错！');
+      error: function(ret){
+          window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
       },
       success: function(res){
         $('#loadIndicator').hide()
@@ -85,47 +85,37 @@ var chat = {
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
     var rentTicketData = JSON.parse($('#rentTicketData').text());
     var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
-    $.ajax({
-      url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send',
-      type: 'post',
-      data:{target_user_id: target_user_id, message: $('#edit_area').val()},
-      dataType: 'json',
-      timeout: 20000,
-      cache: false,
-      error: function(){
-          window.alert('服务端出错！');
-      },
-      success: function(res){
-        if ($('#chatContent .noMessage').length>0) {
-          $('#chatContent .noMessage').hide()
-        }
-        $('#chatContent').prepend(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val()));
-        chat.clearEditArea()
-      }
-    });
+    $.betterPost('/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send', {target_user_id: target_user_id, message: $('#edit_area').val()})
+        .done(function (data) {
+            if ($('#chatContent .noMessage').length>0) {
+              $('#chatContent .noMessage').hide()
+            }
+            $('#chatContent').prepend(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val()));
+            chat.clearEditArea()
+            $('.buttonLoading').trigger('end')
+        })
+        .fail(function (ret) {
+            window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+            $('.buttonLoading').trigger('end')
+        })
   },
   sendMobileTextMessage : function(){
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
     var rentTicketData = JSON.parse($('#rentTicketData').text());
     var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
-    $.ajax({
-      url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send',
-      type: 'post',
-      data:{target_user_id: target_user_id, message:$('#chat_edit_area').val()},
-      dataType: 'json',
-      timeout: 20000,
-      cache: false,
-      error: function(){
-          window.alert('服务端出错！');
-      },
-      success: function(res){
-        if ($('#chatContent .noMessage').length>0) {
-          $('#chatContent .noMessage').hide()
-        }
-        $('#chatContent').append(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val()));
-        chat.clearEditArea()
-      }
-    });
+    $.betterPost('/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send', {target_user_id: target_user_id, message:$('#chat_edit_area').val()})
+        .done(function (data) {
+            if ($('#chatContent .noMessage').length>0) {
+              $('#chatContent .noMessage').hide()
+            }
+            $('#chatContent').append(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val()));
+            chat.clearEditArea()
+            $('.buttonLoading').trigger('end')
+        })
+        .fail(function (ret) {
+            window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+            $('.buttonLoading').trigger('end')
+        })
   },
   clearEditArea : function(){
     $('#edit_area,#chat_edit_area').val('');
