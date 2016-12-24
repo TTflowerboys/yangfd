@@ -82,7 +82,7 @@
             }
 
             this.rentusertype = ko.observable(window.i18n('房东'))
-            this.rentnickname = ko.observable(rentTicket.user.nickname)
+            this.rentnickname = ko.observable(rentTicket.user? rentTicket.user.nickname: '')
             this.renttitle = ko.observable(rentTicket.title)
             this.rentmeta = ko.observable(rentTicket.property.street+' '+rentTicket.property.zipcode)
 
