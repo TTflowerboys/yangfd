@@ -112,10 +112,10 @@
 
             this.description = ko.observable()
 
-            this.visa = ko.observable()
+            /*this.visa = ko.observable()
             this.uploadProgressVisible = ko.observable(false)
             this.uploading = ko.observable()
-            /*this.initUpload = function() {
+            this.initUpload = function() {
                 var uploadFileConfig = {
                     url: '/api/1/upload_image',
                     fileName: 'data',
@@ -435,7 +435,7 @@
                     this.rentDeadlineTime(params.rent_deadline_time)
                 }
                 this.tenantCount(params.tenant_count.toString())
-                this.visa(params.visa)
+                /*this.visa(params.visa)*/
                 this.description(params.description)
                 this.birthTime(params.date_of_birth)
                 this.gender(params.gender)
@@ -486,7 +486,7 @@
                     gender: this.gender(),
                     date_of_birth: this.birthTime(),
                     occupation: this.occupation(),
-                    visa: this.visa(),
+                    /*visa: this.visa(),*/
                     disable_matching: true,
                     interested_rent_tickets: JSON.stringify([this.ticketId()]),
                     rent_available_time: this.rentAvailableTime(),
@@ -642,7 +642,7 @@
             }
             this.validateStep1 = function () {
                 if (this.rentTicket().no_handling_fee) {
-                    return this.validate('rentTime', 'description', 'visa')
+                    return this.validate('rentTime', 'description')
                 }
                 else {
                     return this.validate('rentTime', 'description')
@@ -787,6 +787,13 @@
                 else {
                     this.submitTicket()
                 }
+            }
+
+            this.sendSubmit = function () {
+                if(!this.validate('rentTime', 'description', 'nickname', 'birthday', 'phone', 'email', 'captchaCode')) {
+                    return
+                }
+                this.submitTicket()
             }
 
 

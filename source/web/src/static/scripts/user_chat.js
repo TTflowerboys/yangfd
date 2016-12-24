@@ -39,8 +39,10 @@ var chat = {
   historyTpl : function(data){
     if (data.length>0) {
       var Tpl = '';
-      var mePicUrl = '/static/images/chat/hostHeader.jpg'
+      var rentTicketData = JSON.parse($('#rentTicketData').text());
+      var mePicUrl = '';
       $(data).each(function (i, va){
+          mePicUrl = va.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
           if (va.from_user.id === window.user.id) {
             if (va.display === 'text') {
               Tpl += chat.meMsgTpl(mePicUrl,va.message,va.time)

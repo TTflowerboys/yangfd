@@ -33,7 +33,6 @@ $(function(){
         $('.loadIndicator').show()
 
         var params = {
-            'status': 'requested',
             'user_id': window.user.id,
             'per_page': -1
         }
@@ -119,7 +118,6 @@ $(function(){
         return defer.promise()
     }
 
-
     function switchTypeTab(state) {
         var originHash = location.hash.slice(1)
         var param = originHash.split('?')[1]
@@ -150,6 +148,7 @@ $(function(){
         }
 
     })
+
     $(window).trigger('hashchange')
 
     _.each(['Rent', 'Intention'], function (val) {

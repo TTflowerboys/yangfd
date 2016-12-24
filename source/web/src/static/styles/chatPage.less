@@ -20,6 +20,17 @@ body{
         background: #fff;
     }
 }
+.requirement_rent_form{
+    position: relative;
+    padding: 5px 0 30px;
+    color: #999;
+    .requirementRentFormError{
+        position: absolute;
+        bottom: 0px;
+        color: #e61919;
+    }
+}
+
 /* bubble style */
 .bubble {
     max-width: 500px;
@@ -454,10 +465,17 @@ body{
             margin-right: 20px;
         }
         .occupation{
-            width: 100px;
+            width: 120px;
         }
         featured-facility-search-box {
             margin-left: 20px;
+            .inputWrapper{
+                border: 0;
+                input{
+                    margin-left: 0;
+                    width: 100%;
+                }
+            }
             input {
                 border: 0px;
                 height: 38px;
@@ -629,8 +647,3 @@ body{
         }
     }
 }
-
-
-
-
-
