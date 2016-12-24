@@ -87,12 +87,13 @@ var chat = {
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
     var rentTicketData = JSON.parse($('#rentTicketData').text());
     var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
+    var PicUrl =  window.user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     $.betterPost('/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send', {target_user_id: target_user_id, message: $('#edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
             }
-            $('#chatContent').prepend(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#edit_area').val()));
+            $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,$('#edit_area').val()));
             chat.clearEditArea()
             $('.buttonLoading').trigger('end')
         })
@@ -105,12 +106,13 @@ var chat = {
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
     var rentTicketData = JSON.parse($('#rentTicketData').text());
     var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
+    var PicUrl =  window.user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     $.betterPost('/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send', {target_user_id: target_user_id, message:$('#chat_edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
             }
-            $('#chatContent').append(chat.sendMsgTpl('/static/images/chat/hostHeader.jpg',$('#chat_edit_area').val()));
+            $('#chatContent').append(chat.sendMsgTpl(PicUrl,$('#chat_edit_area').val()));
             chat.clearEditArea()
             $('.buttonLoading').trigger('end')
         })
