@@ -33,6 +33,7 @@ $(function(){
         $('.loadIndicator').show()
 
         var params = {
+            'status': 'requested',
             'user_id': window.user.id,
             'per_page': -1
         }
@@ -46,8 +47,8 @@ $(function(){
                     $(array).each(function (i, va){
                         Tpl += '<div class="chatListItmes"><div class="title">';
                         Tpl += '<a href="/property-to-rent/'+va.interested_rent_tickets[0].id+'" target="_blank">'+va.interested_rent_tickets[0].title+'</a></div>';
-                        Tpl += '<div class="info"><div class="name">'+va.interested_rent_tickets[0].user.nickname+'</div>';
-                        Tpl += '<div class="massage"><div class="text">'+(va.interested_rent_tickets[0].description === undefined? '': va.interested_rent_tickets[0].description)+'</div>';
+                        Tpl += '<div class="info"><div class="name">'+(va.interested_rent_tickets[0].user.nickname).substring(1,-1)+'***</div>';
+                        Tpl += '<div class="massage"><div class="text">'+(va.interested_rent_tickets[0].description === undefined? ''+i18n('没有最新留言')+'': va.interested_rent_tickets[0].description)+'</div>';
                         Tpl += '<div class="time"  data-utc-time="">'+team.parsePublishDate(parseInt(va.interested_rent_tickets[0].time))+'</div>';
                         Tpl += '<a href="/user-chat/'+va.id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
                         Tpl += '</div></div></div>';
