@@ -10337,7 +10337,7 @@ msgstr "Rent Enquiry No. "
 #: ../web/src/partials/i18n_scripts.html:595
 #, fuzzy
 msgid "房源"
-msgstr "Book"
+msgstr "Property"
 
 #: ../web/src/partials/i18n_scripts.html:597
 msgid "请输入编号..."
