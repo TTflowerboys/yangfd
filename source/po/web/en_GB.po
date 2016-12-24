@@ -4275,7 +4275,7 @@ msgstr "Invite a friend for cashback"
 #: ../server/user_setting_interface.py:172
 #, fuzzy
 msgid "聊天"
-msgstr " day(s)"
+msgstr "Chat"
 
 #: ../web/src/masters/wechat_poster_master.html:29
 msgid "正在加载资源"
