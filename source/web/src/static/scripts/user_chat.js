@@ -95,11 +95,9 @@ var chat = {
             }
             $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,$('#edit_area').val()));
             chat.clearEditArea()
-            $('.buttonLoading').trigger('end')
         })
         .fail(function (ret) {
             window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-            $('.buttonLoading').trigger('end')
         })
   },
   sendMobileTextMessage : function(){
@@ -114,15 +112,14 @@ var chat = {
             }
             $('#chatContent').append(chat.sendMsgTpl(PicUrl,$('#chat_edit_area').val()));
             chat.clearEditArea()
-            $('.buttonLoading').trigger('end')
         })
         .fail(function (ret) {
-            window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-            $('.buttonLoading').trigger('end')
+            //window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
         })
   },
   clearEditArea : function(){
     $('#edit_area,#chat_edit_area').val('');
+    $('.btn_send').attr('disabled',true)
   }
 }
 

@@ -35,7 +35,9 @@
     if (window.user) {
         setTimeout(function() {
             $.ajax({ 
-                url: '/polling', 
+                url: '/polling',
+                dataType: 'json',
+                cache: false,
                 success: function(data) {
                     if (data.type !== 'keep-alive') {
                         window.alert('ok! [From: polling.]')
@@ -43,7 +45,9 @@
                         window.console.log('waiting...')
                     }
                 },
-                dataType: 'json', 
+                error: function(ret){
+                    //window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                },                 
                 complete: poll
             });
         }, 3000);
