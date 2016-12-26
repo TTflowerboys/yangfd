@@ -33,7 +33,7 @@
 
 ;(function poll() {
     if (window.user) {
-        setTimeout(function() {
+        /*setTimeout(function() {*/
             $.ajax({ 
                 url: '/polling',
                 dataType: 'json',
@@ -50,6 +50,6 @@
                 },                 
                 complete: poll
             });
-        }, 3000);
+        /*}, 5000);*/
     }
 })()
