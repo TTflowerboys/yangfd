@@ -1,4 +1,4 @@
-(function () {
+/*(function () {
 
     if (window.user) {
         $.betterPost('/api/1/message', {'status': 'new'})
@@ -29,4 +29,23 @@
         });
     }
 
+})()*/
+
+;(function poll() {
+    if (window.user) {
+        setTimeout(function() {
+            $.ajax({ 
+                url: '/polling', 
+                success: function(data) {
+                    if (data.type !== 'keep-alive') {
+                        window.alert('ok! [From: polling.]')
+                    }else{
+                        window.console.log('waiting...')
+                    }
+                },
+                dataType: 'json', 
+                complete: poll
+            });
+        }, 3000);
+    }
 })()

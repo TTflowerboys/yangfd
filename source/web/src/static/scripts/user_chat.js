@@ -126,14 +126,6 @@ var chat = {
   }
 }
 
-/*;(function poll() {
-   setTimeout(function() {
-       $.ajax({ url: 'http://currant-test.bbtechgroup.com:8286/polling', success: function(data) {
-            window.console.log('data:'+data)
-       }, dataType: 'json', complete: poll });
-    }, 30000);
-})();*/
-
 $(function(){
   chat.init();
   $('#edit_area').on('keyup', function(e) {
