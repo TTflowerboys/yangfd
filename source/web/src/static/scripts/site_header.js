@@ -34,8 +34,9 @@
 ;(function poll() {
     if (window.user) {
         /*setTimeout(function() {*/
-            $.ajax({ 
+            $.ajax({
                 url: '/polling',
+                data: {type: 'chat'},
                 dataType: 'json',
                 cache: false,
                 success: function(data) {
