@@ -772,28 +772,11 @@
             }, this)
             this.submit = function () {
                 ga('send', 'event', 'rentRequestIntention', 'click', 'submit-button')
-                if(!this.validate('rentTime', 'description', 'nickname', 'gender', 'occupation', 'university', 'birthday', 'phone', 'email', 'captchaCode', 'smsCode',  'uploading')) {
+                if(!this.validate('rentTime', 'description')) {
                     return
                 }
 
-                if (!this.phoneVerified()) {
-                    if (this.needMannuallyVerify()) {
-                        this.smsVerifyPhone()
-                            .then(_.bind(function () {
-                                this.phoneVerified(true)
-                                this.submitTicket()
-                            }, this))
-                            .fail(_.bind(function (ret) {
-                                this.errorMsg(window.getErrorMessageFromErrorCode(ret))
-                            }, this))
-                    }
-                    else {
-                        this.errorMsg(window.i18n('请验证手机号码'))
-                    }
-                }
-                else {
-                    this.submitTicket()
-                }
+                this.submitTicket()
             }
 
 
@@ -821,7 +804,8 @@
                     .done(_.bind(function (val) {
                         this.getShortId(val)
                         this.requestTicketId(val)
-                        this.showSuccessWrap()
+                        //this.showSuccessWrap()
+                        
                         this.fetchCoupon()
                         this.submitChat(val)
                         window.team.setUserType('tenant')
@@ -840,10 +824,10 @@
                     message: this.params().description                    
                 })
                     .done(_.bind(function (val) {
-            
+                        location.href = '/user-chat/'+ticketId+'/details'
                     }, this))
                     .fail(_.bind(function (ret) {
-                        
+                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
                     }, this))
                     .always(_.bind(function () {
                         this.submitDisabled(false)
