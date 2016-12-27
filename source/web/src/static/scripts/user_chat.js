@@ -169,7 +169,7 @@ var chat = {
   }
   window.wsListeners.push(listener)
 
-dd
+
 
 
 $(function(){

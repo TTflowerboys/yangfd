@@ -70,8 +70,10 @@
 
 $(function () {
     window.wsListeners = []
-    
-    if (window.user) {    
+
+    if (window.user) {
+        window.WebSocket = window.WebSocket
+        
         var socketUrl = 'wss://' + location.host + '/websocket'
         // 创建websocket
         var socketWs = new WebSocket(socketUrl);
