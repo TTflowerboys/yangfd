@@ -68,10 +68,10 @@
 }*/
 
 
-;(function () {
+$(function () {
     window.wsListeners = []
-    //onreceivemessage
-    if (window.user) {
+    
+    if (window.user) {    
         var socketUrl = 'wss://' + location.host + '/websocket'
         // 创建websocket
         var socketWs = new WebSocket(socketUrl);
@@ -88,9 +88,8 @@
                 return;
             }
             if (json.type === 'chat') { // it's a single message
-                window.console.log('a:'+json.type+' , b '+json.message+' c, '+json.ticket_id);
                 for (var index in window.wsListeners) {
-                    window.wsListeners[index].onreceivemessage(message)
+                    window.wsListeners[index].onreceivemessage(json)
                 }
             }
         };
@@ -101,4 +100,4 @@
             window.console.log(e);
         };
     }
-})();
+})

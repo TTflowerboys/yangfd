@@ -124,6 +124,7 @@ var chat = {
             $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,$('#edit_area').val()));
             chat.clearEditArea()
             chat.chatFlashTitle()
+            socketWs.send($('#edit_area').val())
         })
         .fail(function (ret) {
             window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
@@ -143,6 +144,7 @@ var chat = {
             $('#chatContent').append(chat.sendMsgTpl(PicUrl,$('#chat_edit_area').val()));
             chat.clearEditArea()
             chat.chatFlashTitle()
+            socketWs.send($('#chat_edit_area').val())
         })
         .fail(function (ret) {
               window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
@@ -158,19 +160,16 @@ var chat = {
   var listener = {};
   listener.onreceivemessage = function(socketVal) {
       window.console.log('socketVal:'+socketVal)
-      var socketData = socketVal.data;
-      if (socketData.type === 'chat') {
-        var rentTicketData = JSON.parse($('#rentTicketData').text());
-        var PicUrl =  socketData.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-        $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,socketData.message));
-      }else{
-        window.alert(socketData.type)
-      }
+     
+      var rentTicketData = JSON.parse($('#rentTicketData').text());
+      var PicUrl =  socketVal.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+      $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,socketVal.message));
+    
       
   }
   window.wsListeners.push(listener)
 
-
+dd
 
 
 $(function(){
