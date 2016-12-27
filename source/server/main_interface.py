@@ -259,6 +259,18 @@ def reset_password_email_1():
     return currant_util.common_template("reset_password_email_1", title=title)
 
 
+# @f_get('/email-test')
+# @currant_util.check_ip_and_redirect_domain
+# def email_test():
+#     title = _('Email test')
+#     username = "Lily Liu"
+#     face = ""
+# role = "host"  # or tenant
+#     message = "Hi I want to talk with you about my houseroom"
+# reply_url = "https://currant-test.bbtechgroup.com/user-chat/5861dded571cd905dda88ee2/details"  # hash is ticket id
+#     return currant_util.common_template("static/emails/chat_reply", title=title, username=username, role=role, face=face, message=message, reply_url=reply_url)
+
+
 @f_get('/reset_password_email_2', '/reset-password-email-2', params=dict(
     user_id=str,
     code=str

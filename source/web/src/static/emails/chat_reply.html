@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>{{title}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style type="text/css">
+         img {
+             outline: none;
+             text-decoration: none;
+             -ms-interpolation-mode: bicubic;
+         }
+
+         a img {
+             border: none;
+         }
+
+         @media only screen and (max-width: 600px) {
+             img[class=logoEmailHeader] {
+                 width: 217px !important;
+             }
+             [class=noHorizolPaddingOnMobile] {
+                 padding-left: 0 !important;
+                 padding-right: 0 !important;
+             }
+             [class=extraSmallFontSize] {
+                 font-size: 14px !important;
+                 line-height: 1.6em;
+             }
+             [class=smallFontSize] {
+                 font-size: 16px !important;
+             }
+             [class=middleFontSize] {
+                 font-size: 18px !important;
+             }
+             [class=largeFontSize] {
+                 font-size: 21px !important;
+             }
+             table {
+                 max-width: 100%;
+                 width: 100% !important;
+             }
+             td[class=mailFooterWrap] {
+                 padding: 35px 20px !important;
+             }
+             [class=fullWidthOnMoible] {
+                 max-width: 100%;
+                 width: 100% !important;
+             }
+             .text {
+                 font-size:15px !important;
+             }
+
+             .centerText {
+                 font-size:15px !important;
+             }
+
+             .centerBanner {
+                 font-size:21px !important;
+             }
+
+             .link {
+                 font-size:20px !important;
+             }
+
+             .linkHint {
+                 font-size:13px !important;
+             }
+
+             .boxLink {
+                 font-size: 15px !important;
+             }
+
+             .box {
+                 padding: 15px 0 !important;
+             }
+
+             .shareIcon {
+                 width: 40px !important;
+                 height: auto !important;
+             }
+
+             .buttonBanner {
+                 height: 30px !important;
+                 font-size: 14px !important;
+                 padding-top: 13px !important;
+             }
+         }
+        </style>
+        <!-- start head -->
+
+
+        <!-- end head -->
+    </head>
+
+    <body bgcolor="#eee" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="height: auto; padding:0; margin:0; -webkit-text-size-adjust:none; -ms-text-size-adjust: 100%;background-color: #eee;">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" class="tableContent" style="max-width: 720px;background-color: #fff;margin: 0 auto; padding: 0;font-size: 16px; font-family: Helvetica, Arial, sans-serif; line-height: 1.5; color:#999; background:#fff;text-align: center;">
+            <tbody>
+                <tr class="mailHeader">
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                            <tr>
+                                <td >
+                                    <img src="/static/images/email/border.png" alt="" style="width: 100%;height: auto; border:0px; display:block;"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <p style="text-align: center;margin: 0px 0px">
+                            <img src="/static/images/email/yfd.png" style="margin:32px 0; width:66%; height:auto; border:0px;" alt="" />
+                        </p>
+                        <hr style="color:#95989a"/>
+                    </td>
+                </tr>
+                 <tr class="mailMain">
+                    <td class="contentWrap" style="color: #999999;">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="">
+                                        <div class="message" style="margin-top:30px; width:100%;">
+                                            <p class="text" style="line-height: 1.5em;font-size: 23px;; margin:0 32px; text-align: left;">
+                                                {{_('你从%s收到一条新消息') % (role + " " + username)}}
+                                             </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="margin: 50px 32px;">
+                                            <div class="img" style="diplay:inline-block; float:left; width: 12%; max-width:80px;">
+                                                
+                                                %if face is not None or len(face):
+                                                    %if role == 'host':
+                                                        %face = "/static/images/chat/placeholder_host.png"
+                                                    %end
+                                                    %if role == 'tenant':
+                                                        %face = "/static/images/chat/placeholder_tenant.png"
+                                                    %end
+                                                %end
+                                                <img style="border-radius: 50%; width:100%;" alt="" src="{{face}}"/>
+                                            </div>
+                                             <div class="arrow" style="diplay:inline-block; float:left; margin-left: 4%; margin-top: 30px;">
+                                                 <img alt="" style="width: 10px;" src="/static/images/email/chat_reply/arrow.png"/>
+                                            </div>
+                                            <div class="message" style="diplay:inline-block; float:left;width: 70%;  text-align: left; background: #2bbde5; color: white;">
+                                                <p class="content" style="margin: 16px;">
+                                                    <strong>{{username}}</strong><br/>
+                                                    <br/>
+                                                    {{message}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="margin: 32px; float: left; margin-left: 147px; margin-top: 50px;">
+                                            <a style="display:inline-block; border: 2px solid #2bbde5; width: 200px; height: 50px; text-align:center;text-decoration:none; color:#2bbde5; font-size: 1.5em; padding-top: 15px;" href="{{reply_url}}" target="_blank">{{_('点击回复')}}</a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr style="gmail-fix">
+                                    <td style="">
+                                        <div class="promotion" style="padding:56px 0px 0px; width:100%;">
+
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>
+                                                            <div class="box" style="margin-top: 0px; padding: 0px; width: 100%;">
+                                                                <a class="link boxLink" style="-webkit-touch-callout: none;-webkit-user-select: none; font-size:32px;color:white;text-decoration:none; margin:0px; line-height: 1em; width:100%;text-align:center;display:inline-block;" href="">~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td >
+                                        <img src="/static/images/email/border.png" alt="" style="width: 100%;height: auto; border:0px; display:block;"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailFooter">
+                    <td class="mailFooterWrap" style="padding: 40px 20px; margin: 0 20px; color: #cccccc;line-height: 1.8em;font-size: 16px; background: #666666">
+                        <table class="smallFontSize" width="100%" style="text-align:center;">
+                            <tr>
+                                <td>{{_('该邮件为自动发送，请勿直接回复。')}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{_('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')}}</td>
+                            </tr>
+                            %if 'unsubscribe_url' in vars() or 'unsubscribe_url' in globals():
+                                <tr>
+                                    <td>{{_('不想收到此类邮件？')}}<a href="{{unsubscribe_url}}" style="color: #cccccc; text-decoration: none;">{{_('点击退订')}}></a></td>
+                                </tr>
+                            %end
+                            <tr>
+                                <td>{{_('Email：')}}<a href="mailto:services@youngfunding.co.uk" style="color: #cccccc; text-decoration: none;word-break: break-all;">services@youngfunding.co.uk</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
