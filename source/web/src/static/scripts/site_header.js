@@ -77,16 +77,29 @@
         var socketWs = new WebSocket(socketUrl);
         // 当socket连接打开时，输入用户名
         socketWs.onopen = function() {
-            socketWs.send('');  // Sends a message.
+            socketWs.send('YFD');  // Sends a message.
         };
         // 当有消息时根据消息类型显示不同信息
-        socketWs.onmessage = function(e) {
+        socketWs.onmessage = function(message) {
+            var json;
+            try {
+                json = JSON.parse(message.data);
+            } catch (e) {
+                window.console.log('This doesn\'t look like a valid JSON: ', message.data);
+                return;
+            }
 
-            window.console.log('socketWs.data:\n'+e.data+'\n,  socketWs.type: '+ e.type)
-            //if (e.data.type !== undefined && e.data.type === 'chat') {
+            if (json.type === 'message') { // it's a single message
+                window.console.log('a:'+json.data.type+' , b '+json.data.message+' c, '+json.data.ticket_id);
                 for (var index in window.wsListeners) {
-                    window.wsListeners[index].onreceivemessage(e)
+                    window.wsListeners[index].onreceivemessage(message)
                 }
+            } else {
+                window.console.log('Hmm..., I\'ve never seen JSON like this: ', json);
+            }
+
+            //if (e.data.type !== undefined && e.data.type === 'chat') {
+                
             //}
         };
         socketWs.onclose = function() {
