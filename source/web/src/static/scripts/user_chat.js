@@ -159,9 +159,14 @@ var chat = {
   listener.onreceivemessage = function(socketVal) {
       window.console.log('socketVal:'+socketVal)
       var socketData = socketVal.data;
-      var rentTicketData = JSON.parse($('#rentTicketData').text());
-      var PicUrl =  socketData.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-      $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,socketData.message));
+      if (socketData.type === 'chat') {
+        var rentTicketData = JSON.parse($('#rentTicketData').text());
+        var PicUrl =  socketData.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+        $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,socketData.message));
+      }else{
+        window.alert(socketData.type)
+      }
+      
   }
   window.wsListeners.push(listener)
 
