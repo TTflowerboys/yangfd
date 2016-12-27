@@ -18,6 +18,13 @@ var chat = {
     'HOST' : '/static/images/chat/placeholder_host.png',
     'Tenant' : '/static/images/chat/placeholder_tenant.png'
   },
+  chatConfig : {
+    'rentTicketData' : JSON.parse($('#rentTicketData').text()),
+    'rent_intention_ticket_id' : (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
+  },
+  target_user_id : function(target_user_id){
+    return target_user_id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.chatConfig.rentTicketData.creator_user.id: chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id
+  },
   isSendMsg : function(){
     return $('#edit_area').val().trim().length ? true : false;
   },
@@ -30,7 +37,7 @@ var chat = {
   defMsgTpl : function(picUrl,plain,time){
     return '<div class="message"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
   },
-  sendMsgTpl : function(picUrl,plain){
+  sendMsgTpl : function(picUrl,plain,time){
       return '<div class="message me"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'</div></div></div></div></div>'
   },
   noMessageTpl: function(){
@@ -39,10 +46,9 @@ var chat = {
   historyTpl : function(data){
     if (data !== null && data.length>0) {
       var Tpl = '';
-      var rentTicketData = JSON.parse($('#rentTicketData').text());
       var mePicUrl = '';
       $(data).each(function (i, va){
-          mePicUrl = va.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+          mePicUrl = va.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
           if (va.from_user.id === window.user.id) {
             if (va.display === 'text') {
               Tpl += chat.meMsgTpl(mePicUrl,va.message,va.time)
@@ -85,38 +91,24 @@ var chat = {
           });
       }
   },
-  historyMessage: function(){
-    var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
-    var rentTicketData = JSON.parse($('#rentTicketData').text());
-    var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
-    $.ajax({
-      url: '/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/history',
-      type: 'post',
-      data:{target_user_id: target_user_id},
-      dataType: 'json',
-      timeout: 20000,
-      cache: false,
-      error: function(ret){
-          window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-      },
-      success: function(res){
-        $('#loadIndicator').hide()
-        var data = res.val
-        if (team.isPhone()) {
-          chat.historyTpl(team.jsonSort(data, 'time'))
-        }else{
-          chat.historyTpl(data, 'time')
-        }
-      }
-    });
+  historyMessage: function(){    
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history', {target_user_id: chat.target_user_id(window.user.id)})
+        .done(function (data) {
+            $('#loadIndicator').hide()
+            if (team.isPhone()) {
+              chat.historyTpl(team.jsonSort(data.val, 'time'))
+            }else{
+              chat.historyTpl(data.val, 'time')
+            }
+        })
+        .fail(function (ret) {
+            window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+        })
   },
   sendTextMessage : function(){
-    var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
-    var rentTicketData = JSON.parse($('#rentTicketData').text());
-    var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
-    var PicUrl =  window.user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+    var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     
-    $.betterPost('/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send', {target_user_id: target_user_id, message: $('#edit_area').val()})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(window.user.id), message: $('#edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
@@ -131,12 +123,9 @@ var chat = {
         })
   },
   sendMobileTextMessage : function(){
-    var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
-    var rentTicketData = JSON.parse($('#rentTicketData').text());
-    var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
-    var PicUrl =  window.user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+    var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     
-    $.betterPost('/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send', {target_user_id: target_user_id, message:$('#chat_edit_area').val()})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(window.user.id), message:$('#chat_edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
