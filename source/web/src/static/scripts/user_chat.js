@@ -37,7 +37,7 @@ var chat = {
     return '<div class="noMessage">'+window.i18n('没有最新留言')+'</div>'
   },
   historyTpl : function(data){
-    if (data !== undefined && data.length>0) {
+    if (data !== null && data.length>0) {
       var Tpl = '';
       var rentTicketData = JSON.parse($('#rentTicketData').text());
       var mePicUrl = '';

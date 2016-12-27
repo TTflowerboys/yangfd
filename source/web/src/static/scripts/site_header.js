@@ -80,7 +80,7 @@
         };
         // 当有消息时根据消息类型显示不同信息
         socketWs.onmessage = function(e) {
-            window.console.log('socketWs.data:'+e.data+',  socketWs.type: '+ e.data.type)
+            window.console.log('socketWs.data:'+e.data+',  socketWs.type: '+ e.data[0].type)
             if (e.data.type !== undefined && e.data.type === 'chat') {
                 for (var index in window.wsListeners) {
                     window.wsListeners[index].onreceivemessage(e)
