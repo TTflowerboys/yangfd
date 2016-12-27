@@ -177,28 +177,21 @@ $(function(){
     function completeMsg(){
         $('.chatListItmes .info').on('loadChatMsg',function(){
             var $this = $(this),val = $this.data('id'),target_user_id = $this.data('user_id');
-            $.ajax({
-                url: '/api/1/rent_intention_ticket/'+val+'/chat/history',
-                type: 'post',
-                data:{target_user_id: target_user_id},
-                dataType: 'json',
-                timeout: 20000,
-                cache: false,
-                error: function(ret){
-                    window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-                },
-                success: function(res){
-
-                    if (res && res.val !== null && res.val.length > 0) {
-                        var lastChatTpl  = '<div class="name">'+res.val[0].from_user.nickname.substring(1,-1)+'**</div>';
-                            lastChatTpl += '<div class="massage"><div class="text">'+res.val[0].message+'</div>';
-                            lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(res.val[0].time))+'</div></div>';
+            $.betterPost('/api/1/rent_intention_ticket/'+val+'/chat/history', {target_user_id: target_user_id})
+                .done(function (data) {
+                    if (data && data.val !== null && data.val.length > 0) {
+                        var lastChatTpl  = '<div class="name">'+data.val[0].from_user.nickname.substring(1,-1)+'**</div>';
+                            lastChatTpl += '<div class="massage"><div class="text">'+data.val[0].message+'</div>';
+                            lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(data.val[0].time))+'</div></div>';
                         $this.html(lastChatTpl);
                     }else{
                         $this.html('<div class="loading">'+i18n('没有最新留言')+'</div>');
                     }
-                }
-            });
+                })
+                .fail(function (ret) {
+                    $this.html('<div class="loading">'+window.getErrorMessageFromErrorCode(ret)+'</div>');
+                    //window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                })
         })
     }
 
