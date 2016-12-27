@@ -53,15 +53,42 @@
     }
 })()*/
 
+/*{
+    "message": "hi",
+    "status": "new",
+    "type": "chat",
+    "id": "5862082b571cd906eff24788",
+    "display": "text",
+    "ticket_id": "5860c700571cd900dc56d1b0",
+    "time": 1482819627.62,
+    "from_user": {
+        "nickname": "threetowns",
+        "id": "5860c19e571cd904a468563e"
+    }
+}*/
+
 ;(function () {
-     var ws = new WebSocket('wss://' + location.host + '/websocket');
-        ws.onopen = function() {
-            ws.send('hello');  // Sends a message.
+    if (window.user) {
+        var socketUrl = 'wss://' + location.host + '/websocket'
+        // 创建websocket
+        var SocketWs = new WebSocket(socketUrl);
+        // 当socket连接打开时，输入用户名
+        SocketWs.onopen = function() {
+            SocketWs.send('');  // Sends a message.
         };
-        ws.onmessage = function(e) {
-            window.console.log('e:'+e.data)
+        // 当有消息时根据消息类型显示不同信息
+        SocketWs.onmessage = function(e) {
+            var array = e.data;
+            if (array.type === 'chat') {
+                document.getElementById('icon-message').style.display = 'none'
+                document.getElementById('icon-message-notif').style.display = 'inline'
+            }
         };
-        ws.onclose = function() {
-            window.console.log('close')
+        SocketWs.onclose = function() {
+            window.console.log('连接关闭，定时重连');
         };
-})()
+        SocketWs.onerror = function(e) {
+            window.console.log(e);
+        };
+    }
+})();
