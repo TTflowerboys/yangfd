@@ -85,22 +85,14 @@
             try {
                 json = JSON.parse(message.data);
             } catch (e) {
-                window.console.log('This doesn\'t look like a valid JSON: ', message.data);
                 return;
             }
-
-            if (json.type === 'message') { // it's a single message
+            if (json.type === 'chat') { // it's a single message
                 window.console.log('a:'+json.data.type+' , b '+json.data.message+' c, '+json.data.ticket_id);
                 for (var index in window.wsListeners) {
                     window.wsListeners[index].onreceivemessage(message)
                 }
-            } else {
-                window.console.log('Hmm..., I\'ve never seen JSON like this: ', json);
             }
-
-            //if (e.data.type !== undefined && e.data.type === 'chat') {
-                
-            //}
         };
         socketWs.onclose = function() {
             window.console.log('连接关闭，定时重连');
