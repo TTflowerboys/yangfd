@@ -88,7 +88,7 @@
                 return;
             }
             if (json.type === 'chat') { // it's a single message
-                window.console.log('a:'+json.data.type+' , b '+json.data.message+' c, '+json.data.ticket_id);
+                window.console.log('a:'+json.type+' , b '+json.message+' c, '+json.ticket_id);
                 for (var index in window.wsListeners) {
                     window.wsListeners[index].onreceivemessage(message)
                 }
