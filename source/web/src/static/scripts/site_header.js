@@ -80,11 +80,8 @@
         };
         // 当有消息时根据消息类型显示不同信息
         socketWs.onmessage = function(e) {
-            var val = JSON.parse(e);
-            var data = val.data;
-            var type = data.type;
-            var type2 = JSON.parse(e.data).type;
-            window.console.log('socketWs.data:'+e.data+',  socketWs.type: '+ JSON.parse(e.data).type+'type:'+type+'type2:'+type2)
+            
+            window.console.log('socketWs.data:\n'+e.data+'\n,  socketWs.type: '+ e.data.type)
             //if (e.data.type !== undefined && e.data.type === 'chat') {
                 for (var index in window.wsListeners) {
                     window.wsListeners[index].onreceivemessage(e)
