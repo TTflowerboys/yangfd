@@ -73,21 +73,15 @@
     //onreceivemessage
     if (window.user) {
         var socketUrl = 'wss://' + location.host + '/websocket'
-        // 创建websocket
         var socketWs = new WebSocket(socketUrl);
-        // 当socket连接打开时，输入用户名
         socketWs.onopen = function() {
-            socketWs.send('YFD');  // Sends a message.
+            socketWs.send('YFD');
         };
         // 当有消息时根据消息类型显示不同信息
         socketWs.onmessage = function(message) {
             var json;
-            try {
-                json = JSON.parse(message.data);
-            } catch (e) {
-                return;
-            }
-            if (json.type === 'chat') { // it's a single message
+            try { json = JSON.parse(message.data); } catch (e) { return; }
+            if (json.type === 'chat') {
                 for (var index in window.wsListeners) {
                     window.wsListeners[index].onreceivemessage(json)
                 }

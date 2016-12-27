@@ -95,7 +95,7 @@ var chat = {
       }
   },
   historyMessage: function(){    
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history', {target_user_id: chat.target_user_id})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history', {target_user_id: chat.target_user_id()})
         .done(function (data) {
             $('#loadIndicator').hide()
             if (team.isPhone()) {
@@ -112,7 +112,7 @@ var chat = {
   sendTextMessage : function(){
     var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id, message: $('#edit_area').val()})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(), message: $('#edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
@@ -120,7 +120,7 @@ var chat = {
             $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,$('#edit_area').val()));
             chat.clearEditArea()
             chat.chatFlashTitle()
-            //socketWs.send($('#edit_area').val())
+            socketWs.send($('#edit_area').val())
         })
         .fail(function (ret) {
             window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
@@ -129,7 +129,7 @@ var chat = {
   sendMobileTextMessage : function(){
     var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id, message:$('#chat_edit_area').val()})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(), message:$('#chat_edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
@@ -154,7 +154,7 @@ var chat = {
   listener.onreceivemessage = function(socketVal) {
       var rentTicketData = JSON.parse($('#rentTicketData').text());
       var PicUrl =  socketVal.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-      if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id && socketVal.from_user.id === chat.target_user_id) {
+      if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id && socketVal.from_user.id === chat.target_user_id()) {
           $('#chatContent').prepend(chat.websocketTpl(PicUrl,socketVal.message,socketVal.time));
       }
   }
