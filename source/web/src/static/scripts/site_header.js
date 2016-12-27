@@ -68,12 +68,10 @@
 }*/
 
 
-$(function () {
+;(function () {
     window.wsListeners = []
-
+    //onreceivemessage
     if (window.user) {
-        window.WebSocket = window.WebSocket
-        
         var socketUrl = 'wss://' + location.host + '/websocket'
         // 创建websocket
         var socketWs = new WebSocket(socketUrl);
@@ -102,4 +100,4 @@ $(function () {
             window.console.log(e);
         };
     }
-})
+})();
