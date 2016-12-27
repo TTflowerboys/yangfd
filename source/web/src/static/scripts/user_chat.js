@@ -40,6 +40,9 @@ var chat = {
   sendMsgTpl : function(picUrl,plain,time){
       return '<div class="message me"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
   },
+  websocketTpl : function(picUrl,plain,time){
+    return '<div class="message"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
+  },
   noMessageTpl: function(){
     return '<div class="noMessage">'+window.i18n('没有最新留言')+'</div>'
   },
@@ -149,13 +152,11 @@ var chat = {
 
   var listener = {};
   listener.onreceivemessage = function(socketVal) {
-      window.console.log('socketVal:'+socketVal)
-     
       var rentTicketData = JSON.parse($('#rentTicketData').text());
       var PicUrl =  socketVal.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-      $('#chatContent').prepend(chat.defMsgTpl(PicUrl,socketVal.message,socketVal.time));
-    
-      
+      if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id) {
+          $('#chatContent').prepend(chat.websocketTpl(PicUrl,socketVal.message,socketVal.time));
+      }
   }
   window.wsListeners.push(listener)
 
