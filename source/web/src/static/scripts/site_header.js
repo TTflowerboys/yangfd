@@ -80,14 +80,12 @@
         };
         // 当有消息时根据消息类型显示不同信息
         socketWs.onmessage = function(e) {
-
-            window.console.log('data:'+e.data+'\n type:'+e.data.type)
-            //if (e.data.type === 'chat') {
-                //console.log('ok')
+            window.console.log('socketWs.data:'+e.data+',  socketWs.type: '+ e.data.type)
+            if (e.data.type !== undefined && e.data.type === 'chat') {
                 for (var index in window.wsListeners) {
                     window.wsListeners[index].onreceivemessage(e)
                 }
-            //}
+            }
         };
         socketWs.onclose = function() {
             window.console.log('连接关闭，定时重连');

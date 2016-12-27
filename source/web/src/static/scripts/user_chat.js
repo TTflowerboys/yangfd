@@ -37,7 +37,7 @@ var chat = {
     return '<div class="noMessage">'+window.i18n('没有最新留言')+'</div>'
   },
   historyTpl : function(data){
-    if (data.length>0) {
+    if (data !== undefined && data.length>0) {
       var Tpl = '';
       var rentTicketData = JSON.parse($('#rentTicketData').text());
       var mePicUrl = '';
@@ -153,6 +153,20 @@ var chat = {
     $('.btn_send').attr('disabled',true)
   }
 }
+
+
+  var listener = {};
+  listener.onreceivemessage = function(socketVal) {
+      window.console.log('socketVal:'+socketVal)
+      var socketData = socketVal.data;
+      var rentTicketData = JSON.parse($('#rentTicketData').text());
+      var PicUrl =  socketData.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+      $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,socketData.message));
+  }
+  window.wsListeners.push(listener)
+
+
+
 
 $(function(){
   chat.init();
