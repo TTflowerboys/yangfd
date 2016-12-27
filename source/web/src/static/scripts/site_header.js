@@ -84,8 +84,8 @@
             window.console.log('data:'+res+'\n type:'+res.type)
             //if (e.data.type === 'chat') {
                 //console.log('ok')
-                for (var lis in window.wsListeners) {
-                    lis.onreceivemessage(e)
+                for (index in window.wsListeners) {
+                    window.wsListeners[index].onreceivemessage(e)
                 }
             //}
         };
