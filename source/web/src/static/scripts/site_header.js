@@ -31,9 +31,8 @@
 
  })()*/
 
-;(function poll() {
+/*;(function poll() {
     if (window.user) {
-        /*setTimeout(function() {*/
         $.ajax({
             url: '/polling',
             data: {type: 'chat'},
@@ -41,7 +40,7 @@
             cache: false,
             success: function(data) {
                 if (data.type !== 'keep-alive') {
-                    window.alert('ok! [From: polling.]')
+                    window.console.log('ok! [From: polling.]')
                 }else{
                     window.console.log('waiting...')
                 }
@@ -51,9 +50,8 @@
             },                 
             complete: poll
         });
-        /*}, 5000);*/
     }
-})()
+})()*/
 
 ;(function () {
      var ws = new WebSocket('wss://' + location.host + '/websocket');
@@ -61,10 +59,9 @@
             ws.send('hello');  // Sends a message.
         };
         ws.onmessage = function(e) {
-            // Receives a message.
-            //window.alert(e.data)
+            window.console.log('e:'+e.data)
         };
         ws.onclose = function() {
-            window.alert('close')
+            window.console.log('close')
         };
 })()
