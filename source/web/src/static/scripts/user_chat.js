@@ -112,7 +112,7 @@ var chat = {
   sendTextMessage : function(){
     var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(), message: $('#edit_area').val()})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(), message: $('#edit_area').val(), time: new Date()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
