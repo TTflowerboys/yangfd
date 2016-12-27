@@ -996,6 +996,12 @@ class currant_plugin(f_app.plugin_base):
         message["status"] = message.pop("state", "deleted")
         return message
 
+    def http_streaming_message_params(self, message_params):
+        if "state" in message_params:
+            message_params["status"] = message_params.pop("state")
+
+        return message_params
+
     def task_on_ping_sitemap(self, task):
         f_app.request("http://www.google.com/webmasters/sitemaps/ping?sitemap=http://yangfd.com/sitemap_location.xml")
         f_app.request("http://www.bing.com/webmaster/ping.aspx?siteMap=http://yangfd.com/sitemap_location.xml")
