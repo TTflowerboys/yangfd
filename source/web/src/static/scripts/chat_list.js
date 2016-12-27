@@ -19,7 +19,19 @@ $(function(){
         }
     }
 
+    if (!window.wsListeners) {
+        window.wsListeners = []
+    }
+ 
+    var listener = new Object()
+    listener.onreceivemessage = function(data) {
+        console.log(data)
+    }
+    window.wsListeners.push(listener)
+
     loadChatCore()
+
+
 
     // 我的咨询
     function loadChatCore() {

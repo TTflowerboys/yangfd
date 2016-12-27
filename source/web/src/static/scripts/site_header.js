@@ -68,27 +68,30 @@
 }*/
 
 ;(function () {
+    window.wsListeners = []
+    //onreceivemessage
     if (window.user) {
         var socketUrl = 'wss://' + location.host + '/websocket'
         // 创建websocket
-        var SocketWs = new WebSocket(socketUrl);
+        var socketWs = new WebSocket(socketUrl);
         // 当socket连接打开时，输入用户名
-        SocketWs.onopen = function() {
-            SocketWs.send('');  // Sends a message.
+        socketWs.onopen = function() {
+            socketWs.send('');  // Sends a message.
         };
         // 当有消息时根据消息类型显示不同信息
-        SocketWs.onmessage = function(e) {
+        socketWs.onmessage = function(e) {
             consoel.log('e:'+e+'\n data:'+e.data+'\n type:'+e.data.type)
             if (e.data.type === 'chat') {
-                console.log('ok')
-                document.getElementById('icon-message').style.display = 'none'
-                document.getElementById('icon-message-notif').style.display = 'inline'
+                //console.log('ok')
+                for (var lis in window.wsListeners) {
+                    lis.onreceivemessage(data)
+                }
             }
         };
-        SocketWs.onclose = function() {
+        socketWs.onclose = function() {
             window.console.log('连接关闭，定时重连');
         };
-        SocketWs.onerror = function(e) {
+        socketWs.onerror = function(e) {
             window.console.log(e);
         };
     }

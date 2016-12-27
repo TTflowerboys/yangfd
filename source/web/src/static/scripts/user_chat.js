@@ -58,6 +58,33 @@ var chat = {
       $('#chatContent').prepend(chat.noMessageTpl);
     }
   },
+  chatFlashTitle: function(){
+      var documentfocusState=true; //是否为当前活动页面 通过改变它来判断是否为活动页面
+      var documentTit=document.title;
+      var flashTitleStep = 0;
+      var flashTitleTimer = null;
+      $(window,document,'body').on('focus',function(){
+          documentfocusState=true;
+      });
+      $(window).on('blur',function(){
+          documentfocusState=false;
+          $(document).one('click',function(){ documentfocusState=true; })
+      });
+
+     if(documentfocusState===false){
+          flashTitleTimer = window.setInterval(function(){
+             flashTitleStep++;
+             if(flashTitleStep>=3) { flashTitleStep=1}
+             if(flashTitleStep===1) {document.title='【您有新的聊天】'}
+             if(flashTitleStep===2) {document.title='【　　　　　　】'}
+          },400);
+            $(window,document,'body').on('focus',function(){
+               documentfocusState=true;
+               if(flashTitleTimer) { window.clearInterval(flashTitleTimer); }
+              document.title=documentTit;
+          });
+      }
+  },
   historyMessage: function(){
     var rent_intention_ticket_id = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
     var rentTicketData = JSON.parse($('#rentTicketData').text());
@@ -88,6 +115,7 @@ var chat = {
     var rentTicketData = JSON.parse($('#rentTicketData').text());
     var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
     var PicUrl =  window.user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+    
     $.betterPost('/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send', {target_user_id: target_user_id, message: $('#edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
@@ -95,6 +123,7 @@ var chat = {
             }
             $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,$('#edit_area').val()));
             chat.clearEditArea()
+            chat.chatFlashTitle()
         })
         .fail(function (ret) {
             window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
@@ -105,6 +134,7 @@ var chat = {
     var rentTicketData = JSON.parse($('#rentTicketData').text());
     var target_user_id = window.user.id === rentTicketData.interested_rent_tickets[0].user.id? rentTicketData.creator_user.id: rentTicketData.interested_rent_tickets[0].user.id
     var PicUrl =  window.user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+    
     $.betterPost('/api/1/rent_intention_ticket/'+rent_intention_ticket_id+'/chat/send', {target_user_id: target_user_id, message:$('#chat_edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
@@ -112,9 +142,10 @@ var chat = {
             }
             $('#chatContent').append(chat.sendMsgTpl(PicUrl,$('#chat_edit_area').val()));
             chat.clearEditArea()
+            chat.chatFlashTitle()
         })
         .fail(function (ret) {
-            //window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+              window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
         })
   },
   clearEditArea : function(){
@@ -133,6 +164,7 @@ $(function(){
     }
   });
 });
+
 ;(function(){
     if($('#edit_area').val().trim().length){
         $('.btn_send').attr('disabled',' ')
