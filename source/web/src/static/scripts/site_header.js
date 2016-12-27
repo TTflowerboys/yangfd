@@ -78,8 +78,7 @@
         };
         // 当有消息时根据消息类型显示不同信息
         SocketWs.onmessage = function(e) {
-            var array = e.data;
-            if (array.type === 'chat') {
+            if (e.data.type === 'chat') {
                 document.getElementById('icon-message').style.display = 'none'
                 document.getElementById('icon-message-notif').style.display = 'inline'
             }
