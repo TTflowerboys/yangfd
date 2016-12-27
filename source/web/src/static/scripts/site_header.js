@@ -52,17 +52,19 @@
             complete: poll
         });
         /*}, 5000);*/
+    }
+})()
 
-        var ws = new WebSocket('wss://' + location.host + '/websocket');
+;(function () {
+     var ws = new WebSocket('wss://' + location.host + '/websocket');
         ws.onopen = function() {
             ws.send('hello');  // Sends a message.
         };
         ws.onmessage = function(e) {
             // Receives a message.
-            window.alert(e.data)
+            //window.alert(e.data)
         };
         ws.onclose = function() {
             window.alert('close')
         };
-    }
 })()
