@@ -23,9 +23,9 @@ $(function(){
         window.wsListeners = []
     }
  
-    var listener = new Object()
+    var listener = {};
     listener.onreceivemessage = function(data) {
-        console.log(data)
+        window.console.log(data)
     }
     window.wsListeners.push(listener)
 
