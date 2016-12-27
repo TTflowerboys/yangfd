@@ -124,7 +124,7 @@ var chat = {
             $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,$('#edit_area').val()));
             chat.clearEditArea()
             chat.chatFlashTitle()
-            socketWs.send($('#edit_area').val())
+            //socketWs.send($('#edit_area').val())
         })
         .fail(function (ret) {
             window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
@@ -144,7 +144,7 @@ var chat = {
             $('#chatContent').append(chat.sendMsgTpl(PicUrl,$('#chat_edit_area').val()));
             chat.clearEditArea()
             chat.chatFlashTitle()
-            socketWs.send($('#chat_edit_area').val())
+            //socketWs.send($('#chat_edit_area').val())
         })
         .fail(function (ret) {
               window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
