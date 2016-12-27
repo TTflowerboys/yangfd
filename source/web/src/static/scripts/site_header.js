@@ -82,12 +82,12 @@
         socketWs.onmessage = function(e) {
             var res = e.data;
             window.console.log('data:'+res+'\n type:'+res.type)
-            if (e.data.type === 'chat') {
+            //if (e.data.type === 'chat') {
                 //console.log('ok')
                 for (var lis in window.wsListeners) {
                     lis.onreceivemessage(e)
                 }
-            }
+            //}
         };
         socketWs.onclose = function() {
             window.console.log('连接关闭，定时重连');
