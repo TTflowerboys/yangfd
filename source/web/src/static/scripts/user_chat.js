@@ -22,8 +22,8 @@ var chat = {
     'rentTicketData' : JSON.parse($('#rentTicketData').text()),
     'rent_intention_ticket_id' : (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
   },
-  target_user_id : function(target_user_id){
-    return target_user_id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.chatConfig.rentTicketData.creator_user.id: chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id
+  target_user_id : function(){
+    return window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.chatConfig.rentTicketData.creator_user.id: chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id
   },
   isSendMsg : function(){
     return $('#edit_area').val().trim().length ? true : false;
@@ -95,7 +95,7 @@ var chat = {
       }
   },
   historyMessage: function(){    
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history', {target_user_id: chat.target_user_id(window.user.id)})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history', {target_user_id: chat.target_user_id})
         .done(function (data) {
             $('#loadIndicator').hide()
             if (team.isPhone()) {
@@ -112,7 +112,7 @@ var chat = {
   sendTextMessage : function(){
     var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(window.user.id), message: $('#edit_area').val()})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id, message: $('#edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
@@ -129,7 +129,7 @@ var chat = {
   sendMobileTextMessage : function(){
     var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(window.user.id), message:$('#chat_edit_area').val()})
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id, message:$('#chat_edit_area').val()})
         .done(function (data) {
             if ($('#chatContent .noMessage').length>0) {
               $('#chatContent .noMessage').hide()
@@ -154,7 +154,7 @@ var chat = {
   listener.onreceivemessage = function(socketVal) {
       var rentTicketData = JSON.parse($('#rentTicketData').text());
       var PicUrl =  socketVal.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-      if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id) {
+      if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id && socketVal.from_user.id === chat.target_user_id) {
           $('#chatContent').prepend(chat.websocketTpl(PicUrl,socketVal.message,socketVal.time));
       }
   }
