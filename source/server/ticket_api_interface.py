@@ -1010,6 +1010,7 @@ def rent_intention_ticket_chat_send(rent_intention_ticket_id, user, params):
 
 @f_api('/rent_intention_ticket/<rent_intention_ticket_id>/chat/history', params=dict(
     time=datetime,
+    per_page=(int, 10),
     target_user_id=(ObjectId, True),
     user_id=ObjectId,
 ))
@@ -1021,7 +1022,11 @@ def rent_intention_ticket_chat_history(rent_intention_ticket_id, user, params):
         assert set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300)
     else:
         params["user_id"] = user["id"]
-    return f_app.message.chat.history(params["target_user_id"], dict(ticket_id=ObjectId(rent_intention_ticket_id)), params["user_id"])
+
+    search_params = dict(ticket_id=ObjectId(rent_intention_ticket_id))
+    if "time" in params:
+        search_params["time"] = params["time"]
+    return f_app.message.chat.history(params["target_user_id"], params["user_id"], params=search_params, per_page=params.get("per_page"))
 
 
 @f_api('/rent_request_ticket/search', params=dict(
