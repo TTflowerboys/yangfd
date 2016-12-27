@@ -677,7 +677,7 @@
         },
         getCurrentDate: function(){
             var currentdate = new Date();
-            return currentdate.getFullYear() + '/' + (currentdate.getMonth()+1) + '/' + currentdate.getDate() + ' ' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
+            return currentdate.getFullYear() + '/' + ((currentdate.getMonth()+1)>10? (currentdate.getMonth()+1): ('0'+(currentdate.getMonth()+1))) + '/' + (currentdate.getDate()>10? currentdate.getDate(): '0'+ currentdate.getDate()) + ' ' + (currentdate.getHours()>10? currentdate.getHours(): '0'+ currentdate.getHours()) + ':' + (currentdate.getMinutes()>10? currentdate.getMinutes(): '0'+currentdate.getMinutes()) + ':' + (currentdate.getSeconds()>10? currentdate.getSeconds(): '0'+currentdate.getSeconds());
         }
     }
 })
