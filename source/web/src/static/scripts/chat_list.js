@@ -25,7 +25,7 @@ $(function(){
  
     var listener = {};
     listener.onreceivemessage = function(data) {
-        window.console.log(data)
+        window.console.log('chat-list.js:'+data)
     }
     window.wsListeners.push(listener)
 
