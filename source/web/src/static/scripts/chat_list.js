@@ -188,7 +188,8 @@ $(function(){
                     window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
                 },
                 success: function(res){
-                    if (res && res.val.length>0) {
+
+                    if (res && res.val !== undefined && res.val.length > 0) {
                         var lastChatTpl  = '<div class="name">'+res.val[0].from_user.nickname.substring(1,-1)+'**</div>';
                             lastChatTpl += '<div class="massage"><div class="text">'+res.val[0].message+'</div>';
                             lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(res.val[0].time))+'</div></div>';
