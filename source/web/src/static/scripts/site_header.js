@@ -84,7 +84,7 @@
             var data = val.data;
             var type = data.type;
             var type2 = JSON.parse(e.data).type;
-            window.console.log('socketWs.data:'+e.data+',  socketWs.type: '+ JSON.parse(e.data).type)
+            window.console.log('socketWs.data:'+e.data+',  socketWs.type: '+ JSON.parse(e.data).type+'type:'+type+'type2:'+type2)
             //if (e.data.type !== undefined && e.data.type === 'chat') {
                 for (var index in window.wsListeners) {
                     window.wsListeners[index].onreceivemessage(e)
