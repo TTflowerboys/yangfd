@@ -12,6 +12,7 @@
             var json;
             try { json = JSON.parse(message.data); } catch (e) { return; }
             if (json.type === 'chat') {
+                json.status = 'sent'
                 $.betterPost('/api/1/message/'+json.id+'/mark/sent')
                 .done(function (data) {
                 })
