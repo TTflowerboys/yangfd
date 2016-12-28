@@ -19,19 +19,8 @@ $(function(){
         }
     }
 
-    if (!window.wsListeners) {
-        window.wsListeners = []
-    }
  
-    var listener = {};
-    listener.onreceivemessage = function(data) {
-        window.console.log('chat-list.js:'+data)
-    }
-    window.wsListeners.push(listener)
-
     loadChatCore()
-
-
 
     // 我的咨询
     function loadChatCore() {
@@ -194,5 +183,35 @@ $(function(){
                 })
         })
     }
+
+    if (!window.wsListeners) { window.wsListeners = [] }
+    var listener = {};
+    listener.onreceivemessage = function(socketVal) {
+
+            $('.chatListItmes .info').on('socketChatMsg',function(){
+                var $this = $(this),val = $this.data('id'),target_user_id = $this.data('user_id');
+                if (socketVal.target_id === val && socketVal.from_user.id === target_user_id) {
+                    $.betterPost('/api/1/rent_intention_ticket/'+val+'/chat/history', {target_user_id: target_user_id})
+                        .done(function (data) {
+                            if (data && data.val !== null && data.val.length > 0) {
+                                var lastChatTpl  = '<div class="name">'+data.val[0].from_user.nickname.substring(1,-1)+'**</div>';
+                                    lastChatTpl += '<div class="massage"><div class="text">'+data.val[0].message+'</div>';
+                                    lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(data.val[0].time))+'</div></div>';
+                                $this.html(lastChatTpl);
+                            }else{
+                                $this.html('<div class="loading">'+i18n('没有最新留言')+'</div>');
+                            }
+                        })
+                        .fail(function (ret) {
+                            $this.html('<div class="loading">'+window.getErrorMessageFromErrorCode(ret)+'</div>');
+                            //window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                        })
+                }else{
+                    window.console.log('no')
+                }
+            })
+            $('.chatListItmes .info').trigger('socketChatMsg')
+    }
+    window.wsListeners.push(listener)
 
 })

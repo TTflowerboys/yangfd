@@ -149,11 +149,10 @@ var chat = {
   }
 }
 
-
+  if (!window.wsListeners) { window.wsListeners = [] }
   var listener = {};
   listener.onreceivemessage = function(socketVal) {
-      var rentTicketData = JSON.parse($('#rentTicketData').text());
-      var PicUrl =  socketVal.from_user.id === rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+      var PicUrl =  socketVal.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
       if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id && socketVal.from_user.id === chat.target_user_id()) {
           $('#chatContent').prepend(chat.websocketTpl(PicUrl,socketVal.message,socketVal.time));
       }
