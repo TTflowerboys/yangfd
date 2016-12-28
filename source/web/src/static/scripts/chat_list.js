@@ -191,13 +191,34 @@ $(function(){
     listener.onreceivemessage = function(socketVal) {
 
         $('.chatListItmes .info').on('socketChatMsg',function(){
-            var $this = $(this),val = $this.data('id'),target_user_id = $this.data('user_id');
+            var $this = $(this)
+            var val = $this.data('id')
+            var target_user_id = $this.data('user_id')
+
             if (socketVal.ticket_id === val && socketVal.from_user.id === target_user_id) {
                 if (socketVal.status === 'sent') { $this.addClass('sent') }
                 var lastChatTpl  = '<div class="name">'+socketVal.from_user.nickname.substring(1,-1)+'**</div>';
                 lastChatTpl += '<div class="message"><div class="text">'+socketVal.message+'</div>';
                 lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(socketVal.time))+'</div></div>';
                 $this.html(lastChatTpl);
+            }else if(location.hash.slice(1).toLowerCase() === 'rent' && !val) {
+                 // add new ticket order
+                $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','interested_rent_ticket_user_id': window.user.id})
+                    .done(function (data) {
+                        $('#rentPlaceHolder').show()
+                        var Tpl = '<div class="chatListItmes">';
+                            Tpl += '<div class="title"><a href="/property-to-rent/'+data.interested_rent_tickets[0].id+'" target="_blank">'+data.interested_rent_tickets[0].title+'</a></div>';
+                            Tpl += '<div class="info sent" data-id="'+data.id+'" data-user_id="'+socketVal.from_user.id+'">';
+                            Tpl += '<div class="name">'+socketVal.from_user.nickname.substring(1,-1)+'**</div>';
+                            Tpl += '<div class="message"><div class="text">'+socketVal.message+'</div>';
+                            Tpl += '<div class="time">'+team.parsePublishDate(parseInt(socketVal.time))+'</div></div></div>';
+                            Tpl += '<a href="/user-chat/'+data.id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
+                            Tpl += '</div>';
+                            $('#chatListContent').prepend(Tpl)
+                    })
+                    .fail(function (ret) {
+                        window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                    })
             }
         })
         $('.chatListItmes .info').trigger('socketChatMsg')
