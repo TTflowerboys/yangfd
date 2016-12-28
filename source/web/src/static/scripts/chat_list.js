@@ -190,7 +190,7 @@ $(function(){
 
             $('.chatListItmes .info').on('socketChatMsg',function(){
                 var $this = $(this),val = $this.data('id'),target_user_id = $this.data('user_id');
-                if (socketVal.target_id === val && socketVal.from_user.id === target_user_id) {
+                if (socketVal.ticket_id === val && socketVal.from_user.id === target_user_id) {
                     $.betterPost('/api/1/rent_intention_ticket/'+val+'/chat/history', {target_user_id: target_user_id})
                         .done(function (data) {
                             if (data && data.val !== null && data.val.length > 0) {
