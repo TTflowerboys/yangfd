@@ -31,10 +31,9 @@
             <!-- @endif -->
             <li><a href="/user-intentions">{{_('意向单')}}</a></li>
             <li><a href="/user-properties">{{_('我的房产')}}</a></li>
-            <!-- <li><a href="/user-messages">{{_('消息')}}</a></li> -->
+            <li><a href="/user-chat">{{_('聊天')}}</a></li>
             <li><a href="/user-invite">{{_('邀请有奖')}}</a></li>
             <li><a href="/user-vouchers">{{_('优惠券')}}</a></li>
-            <li><a href="/user-chat">{{_('聊天')}}</a></li>
             %if _.lang == 'zh_Hans_CN':
             <li data-show-client="app,wechat"><a href="/user-coupons">{{_('会员专享')}}</a></li>
             %end
@@ -124,13 +123,12 @@
                     </a>
                     {{_('我的房产')}}
                 </li>
-                <!-- <li>
-                    <a href="/user-messages">
-                        <i id="icon-user-messages" class="icon-email"></i>
-                        <i id="icon-user-messages-active" class="icon-email active" style="display: none;"></i>
-                    </a>
-                    {{_('消息')}}
-                </li> -->
+                <li><a href="/user-chat">
+                    <i id="icon-user-chat" class="icon-bubbles"></i>
+                    <i id="icon-user-chat-active" class="icon-bubbles active" style="display: none;"></i>
+                </a>
+                {{_('聊天')}}
+                </li>
                 <li>
                     <a href="/user-invite">
                         <i id="icon-user-invite" class="icon-social"></i>
@@ -144,12 +142,6 @@
                         <i id="icon-user-vouchers-active" class="icon-coupon active" style="display: none;"></i>
                     </a>
                     {{_('优惠券')}}
-                </li>
-                <li><a href="/user-chat">
-                    <i id="icon-user-chat" class="icon-bubbles"></i>
-                    <i id="icon-user-chat-active" class="icon-bubbles active" style="display: none;"></i>
-                    </a>
-                    {{_('聊天')}}
                 </li>
             </ul>
         </div>
