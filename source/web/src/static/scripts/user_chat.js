@@ -47,7 +47,7 @@ var chat = {
     return '<div class="noMessage">'+window.i18n('没有最新留言')+'</div>'
   },
   historyTpl : function(data){
-    if (data !== null && data.length>0) {
+    if (data && data.length>0) {
       var Tpl = '';
       var mePicUrl = '';
       $(data).each(function (i, va){
