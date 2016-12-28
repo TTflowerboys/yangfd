@@ -834,7 +834,7 @@ def rent_intention_ticket_search(user, params):
         params["assignee"] = ObjectId(user["id"])
     elif set(user_roles) & set(f_app.common.special_roles):
         enable_custom_fields = False
-        if user['id'] != f_app.user.get(params['user_id']).get('referral'):
+        if "user_id" not in params or user['id'] != f_app.user.get(params['user_id']).get('referral'):
             params["user_id"] = ObjectId(user["id"])
     elif not set(user_roles) & set(f_app.common.admin_roles):
         # General users
