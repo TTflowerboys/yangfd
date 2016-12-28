@@ -130,6 +130,7 @@ $(function(){
         location.hash = state + (param ? '?' + param : '')
     }
 
+    //TODO tomlei please use the hash tag state really related with the chat logic
     $(window).on('hashchange', function () {
         var hash = location.hash.slice(1)
         var state = hash.split('?')[0]
@@ -204,7 +205,6 @@ $(function(){
                     })
                     .fail(function (ret) {
                         $this.html('<div class="loading">'+window.getErrorMessageFromErrorCode(ret)+'...</div>');
-                        //window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
                     })
             }else{
                 window.console.log('no')
