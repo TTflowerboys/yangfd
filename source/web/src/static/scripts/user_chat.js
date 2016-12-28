@@ -99,9 +99,9 @@ var chat = {
         .done(function (data) {
             $('#loadIndicator').hide()
             if (team.isPhone()) {
-              chat.historyTpl(team.jsonSort(data.val, 'time'))
+              chat.historyTpl(team.jsonSort(data, 'time'))
             }else{
-              chat.historyTpl(data.val, 'time')
+              chat.historyTpl(data, 'time')
             }
         })
         .fail(function (ret) {
