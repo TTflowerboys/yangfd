@@ -203,7 +203,7 @@ $(function(){
                             }
                         })
                         .fail(function (ret) {
-                            $this.html('<div class="loading">'+window.getErrorMessageFromErrorCode(ret)+'</div>');
+                            $this.html('<div class="loading">'+window.getErrorMessageFromErrorCode(ret)+'...</div>');
                             //window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
                         })
                 }else{
