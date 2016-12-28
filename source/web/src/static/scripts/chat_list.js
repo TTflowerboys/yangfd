@@ -19,7 +19,7 @@ $(function(){
         }
     }
 
- 
+    
     loadChatCore()
 
     // 我的咨询
@@ -140,14 +140,14 @@ $(function(){
             rentStatus = decodeURIComponent(extraParam.match(/status=(.+)/)[1]).split(',')
         }
         switch(state) {
-            case 'intention':
-                switchTypeTab(state)
-                loadChatCore(rentStatus)
-                break
-            case 'rent': //出租申请单
-                switchTypeTab(state)
-                loadChatFrom()
-                break
+        case 'intention':
+            switchTypeTab(state)
+            loadChatCore(rentStatus)
+            break
+        case 'rent': //出租申请单
+            switchTypeTab(state)
+            loadChatFrom()
+            break
         }
 
     })
@@ -172,8 +172,8 @@ $(function(){
                     if (data && data.length > 0) {
                         if (data[0].status === 'sent') { $this.addClass('sent') }
                         var lastChatTpl  = '<div class="name">'+data[0].from_user.nickname.substring(1,-1)+'**</div>';
-                            lastChatTpl += '<div class="message"><div class="text">'+data[0].message+'</div>';
-                            lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(data[0].time))+'</div></div>';
+                        lastChatTpl += '<div class="message"><div class="text">'+data[0].message+'</div>';
+                        lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(data[0].time))+'</div></div>';
                         $this.html(lastChatTpl);
                     }else{
                         $this.html('<div class="loading">'+i18n('没有最新留言')+'</div>');
@@ -195,8 +195,8 @@ $(function(){
             if (socketVal.ticket_id === val && socketVal.from_user.id === target_user_id) {
                 if (socketVal.status === 'sent') { $this.addClass('sent') }
                 var lastChatTpl  = '<div class="name">'+socketVal.from_user.nickname.substring(1,-1)+'**</div>';
-                    lastChatTpl += '<div class="message"><div class="text">'+socketVal.message+'</div>';
-                    lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(socketVal.time))+'</div></div>';
+                lastChatTpl += '<div class="message"><div class="text">'+socketVal.message+'</div>';
+                lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(socketVal.time))+'</div></div>';
                 $this.html(lastChatTpl);
             }
         })
