@@ -194,14 +194,16 @@
                         setTimeout('openAppDownload()', 300);
                     }
                 </script>
+                <!--
                 <div class="app-floatbar hiddenInClient">
-                    <img class="app-floatbar-icon" src="/static/images/icon/app_icon.png"></img>
-                    <div class="app-floatbar-content">
-                        <label>{{_('朋友圈里的极速出租发布APP')}}</label>
-                    </div>
-                    <a class='app-floatbar-download button red' onclick="javascript:tryToOpenAppDownload();" href="yangfd://">{{_('立即获取')}}</a>
-                    <img class="app-floatbar-close" src="/static/images/icon/close_circular.png"></img>
+                <img class="app-floatbar-icon" src="/static/images/icon/app_icon.png"></img>
+                <div class="app-floatbar-content">
+                <label>{{_('朋友圈里的极速出租发布APP')}}</label>
                 </div>
+                <a class='app-floatbar-download button red' onclick="javascript:tryToOpenAppDownload();" href="yangfd://">{{_('立即获取')}}</a>
+                <img class="app-floatbar-close" src="/static/images/icon/close_circular.png"></img>
+                </div>
+                -->
             % end
 
             % if not is_mobile_client():
