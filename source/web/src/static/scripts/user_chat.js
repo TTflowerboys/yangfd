@@ -154,12 +154,14 @@ var listener = {};
 listener.onreceivemessage = function(socketVal) {
     var PicUrl =  socketVal.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id && socketVal.from_user.id === chat.target_user_id()) {
-        $('#chatContent').prepend(chat.websocketTpl(PicUrl,socketVal.message,socketVal.time));
+        if (team.isPhone()) {
+            $('#chatContent').append(chat.sendMsgTpl(PicUrl,socketVal.message,socketVal.time));
+        }else{
+            $('#chatContent').prepend(chat.websocketTpl(PicUrl,socketVal.message,socketVal.time));
+        }
     }
 }
 window.wsListeners.push(listener)
-
-
 
 
 $(function(){
