@@ -172,7 +172,7 @@ $(function(){
                     if (data && data.length > 0) {
                         if (data[0].status === 'sent') { $this.addClass('sent') }
                         var lastChatTpl  = '<div class="name">'+data[0].from_user.nickname.substring(1,-1)+'**</div>';
-                            lastChatTpl += '<div class="massage"><div class="text">'+data[0].message+'</div>';
+                            lastChatTpl += '<div class="message"><div class="text">'+data[0].message+'</div>';
                             lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(data[0].time))+'</div></div>';
                         $this.html(lastChatTpl);
                     }else{
@@ -195,7 +195,7 @@ $(function(){
             if (socketVal.ticket_id === val && socketVal.from_user.id === target_user_id) {
                 if (socketVal.status === 'sent') { $this.addClass('sent') }
                 var lastChatTpl  = '<div class="name">'+socketVal.from_user.nickname.substring(1,-1)+'**</div>';
-                    lastChatTpl += '<div class="massage"><div class="text">'+socketVal.message+'</div>';
+                    lastChatTpl += '<div class="message"><div class="text">'+socketVal.message+'</div>';
                     lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(socketVal.time))+'</div></div>';
                 $this.html(lastChatTpl);
             }
