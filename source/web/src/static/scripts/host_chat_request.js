@@ -445,18 +445,7 @@
                     this.rentDeadlineTime(params.rent_deadline_time)
                 }
                 this.tenantCount(params.tenant_count.toString())
-                this.visa(params.visa)
                 this.description(params.description)
-                this.birthTime(params.date_of_birth)
-                this.gender(params.gender)
-                this.occupation(params.occupation.id)
-                if(params.referrer) {
-                    if(/[a-z0-9]{24}/.test(params.referrer)) {
-                        this.referrer(params.referrer)
-                    } else {
-                        this.referrerText(params.referrer)
-                    }
-                }
             }
             this.initParamsByLastSubmit = function () {
                 if(this.user()) {
@@ -493,26 +482,21 @@
                     phone: '+' + (this.country() ? this.country().countryCode : '') + this.phone(),
                     email: this.email(),
                     tenant_count: this.tenantCount(),
-                    gender: this.gender(),
-                    date_of_birth: this.birthTime(),
-                    occupation: this.occupation(),
-                    visa: this.visa(),
                     disable_matching: true,
                     interested_rent_tickets: JSON.stringify([this.ticketId()]),
                     rent_available_time: this.rentAvailableTime(),
                     rent_deadline_time: this.rentDeadlineTime(),
                     description: this.description(),
-                    referrer: this.referrerText() || this.referrer(),
                     status: 'requested',
                 }
 
                 if (this.hesaUniversity()) {
                     params.hesa_university = this.hesaUniversity().hesa_university
                 }
-                else {            
+                else {
                     params.other_university = this.otherUniversity()
                 }
-                return params 
+                return params
             }, this)
 
             this.registerParams = ko.computed(function () {
@@ -805,7 +789,6 @@
                         this.getShortId(val)
                         this.requestTicketId(val)
                         //this.showSuccessWrap()
-                        
                         this.fetchCoupon()
                         this.submitChat(val)
                         window.team.setUserType('tenant')
@@ -819,9 +802,9 @@
                     }, this))
             }
             this.submitChat = function (ticketId) {
-                $.betterPost('/api/1/rent_intention_ticket/'+ticketId+'/chat/send', { 
+                $.betterPost('/api/1/rent_intention_ticket/'+ticketId+'/chat/send', {
                     target_user_id: window.user.id,
-                    message: this.params().description                    
+                    message: this.params().description
                 })
                     .done(_.bind(function (val) {
                         location.href = '/user-chat/'+ticketId+'/details'
