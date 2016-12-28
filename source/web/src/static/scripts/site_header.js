@@ -12,6 +12,12 @@
             var json;
             try { json = JSON.parse(message.data); } catch (e) { return; }
             if (json.type === 'chat') {
+                $.betterPost('/api/1/message/'+json.id+'/mark/sent')
+                .done(function (data) {
+                })
+                .fail(function (ret) {
+                    window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                })
                 for (var index in window.wsListeners) {
                     window.wsListeners[index].onreceivemessage(json)
                 }
