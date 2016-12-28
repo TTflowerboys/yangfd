@@ -1061,13 +1061,19 @@ class currant_plugin(f_app.plugin_base):
             self.logger.debug("User don't have a phone field, not (re)sending SMS notification for", task["message_id"])
             return
 
+        if "ticket_id" not in task:
+            self.logger.warning("old task detected. check your code!", exc_info=False)
+            return
+
+        ticket = f_app.ticket.get(task["ticket_id"])
+
         locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
         request._requested_i18n_locales_list = [locale]
 
         username = user.get("nickname")
-        role = "host"  # TODO: or tenant
+        role = "tenant" if ticket["user_id"] == user["id"] else "host"
         message = message["message"] if len(message["message"]) < 20 else message["message"][:20] + "..."
-        reply_url = "https://yangfd.com/user-chat/%s/details" % task.get("ticket_id", "")
+        reply_url = "https://yangfd.com/user-chat/%s/details" % task["ticket_id"]
 
         f_app.sms.send(target=user["phone"], text=template(
             "static/sms/chat_reply",
@@ -1091,17 +1097,23 @@ class currant_plugin(f_app.plugin_base):
             self.logger.debug("User don't have a email field, not (re)sending Email notification for", task["message_id"])
             return
 
+        if "ticket_id" not in task:
+            self.logger.warning("old task detected. check your code!", exc_info=False)
+            return
+
+        ticket = f_app.ticket.get(task["ticket_id"])
+
         locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
         request._requested_i18n_locales_list = [locale]
 
         title = template("static/emails/chat_reply_title")
         username = user.get("nickname")
         face = user.get("face")
-        role = "host"  # TODO: or tenant
+        role = "tenant" if ticket["user_id"] == user["id"] else "host"
         message = message["message"]
-        reply_url = "https://yangfd.com/user-chat/%s/details" % task.get("ticket_id", "")
+        reply_url = "https://yangfd.com/user-chat/%s/details" % task["ticket_id"]
 
-        f_app.email.send(target=user["email"], subject=title, display="html", template(
+        f_app.email.send(target=user["email"], subject=f_app.util.get_format_email_subject(title), display="html", text=template(
             "static/emails/chat_reply",
             title=title,
             username=username,
@@ -1109,7 +1121,7 @@ class currant_plugin(f_app.plugin_base):
             face=face,
             message=message,
             reply_url=reply_url),
-        tag="chat_reply")
+            tag="chat_reply")
 
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):
