@@ -1113,7 +1113,7 @@ class currant_plugin(f_app.plugin_base):
         message = message["message"]
         reply_url = "https://yangfd.com/user-chat/%s/details" % task["ticket_id"]
 
-        f_app.email.send(target=user["email"], subject=f_app.util.get_format_email_subject(title), display="html", text=template(
+        f_app.email.send(target=user["email"], subject=title, display="html", text=template(
             "static/emails/chat_reply",
             title=title,
             username=username,
