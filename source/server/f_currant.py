@@ -522,6 +522,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "value": "其它"
         })
 
+
 currant_mongo_upgrade()
 
 
@@ -540,6 +541,7 @@ class f_currant_message(f_message):
         message_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
 
         return message_id_list
+
 
 f_currant_message()
 
@@ -617,6 +619,7 @@ class f_currant_log(f_log):
         log_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
 
         return log_id_list
+
 
 f_currant_log()
 
@@ -1058,7 +1061,20 @@ class currant_plugin(f_app.plugin_base):
             self.logger.debug("User don't have a phone field, not (re)sending SMS notification for", task["message_id"])
             return
 
-        f_app.sms.send(target=user["phone"], text="You have an unread message at Young Funding")
+        locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
+        request._requested_i18n_locales_list = [locale]
+
+        username = user.get("nickname")
+        role = "host"  # TODO: or tenant
+        message = message["message"] if len(message["message"]) < 20 else message["message"][:20] + "..."
+        reply_url = "https://yangfd.com/user-chat/%s/details" % task.get("ticket_id", "")
+
+        f_app.sms.send(target=user["phone"], text=template(
+            "static/sms/chat_reply",
+            username=username,
+            role=role,
+            message=message,
+            reply_url=reply_url))
 
     def task_on_chat_email_notification(self, task):
         try:
@@ -1075,7 +1091,25 @@ class currant_plugin(f_app.plugin_base):
             self.logger.debug("User don't have a email field, not (re)sending Email notification for", task["message_id"])
             return
 
-        f_app.email.send(target=user["email"], subject="You have an unread message at Young Funding", text="Click to reply: <URL>", tag="chat_notification")
+        locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
+        request._requested_i18n_locales_list = [locale]
+
+        title = template("static/emails/chat_reply_title")
+        username = user.get("nickname")
+        face = user.get("face")
+        role = "host"  # TODO: or tenant
+        message = message["message"]
+        reply_url = "https://yangfd.com/user-chat/%s/details" % task.get("ticket_id", "")
+
+        f_app.email.send(target=user["email"], subject=title, display="html", template(
+            "static/emails/chat_reply",
+            title=title,
+            username=username,
+            role=role,
+            face=face,
+            message=message,
+            reply_url=reply_url),
+        tag="chat_reply")
 
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):
@@ -1384,6 +1418,7 @@ class currant_util(f_util):
         assert f_app.util.parse_budget("budget:,200,CNY") == [None, 200, "CNY"]
         assert f_app.util.parse_budget("budget:200,,CNY") == [200, None, "CNY"]
 
+
 currant_util()
 
 
@@ -1430,6 +1465,7 @@ class currant_shop(f_shop):
             funding_available = item.get("funding_goal", 0) - order_amount
 
         f_app.shop.item_update_set(item.get('shop_id'), item_id, {"funding_available": funding_available})
+
 
 currant_shop()
 # Fix submodule
@@ -1566,5 +1602,6 @@ class currant_order(f_order):
         order_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)["content"]
 
         return order_id_list
+
 
 currant_order()
