@@ -790,7 +790,7 @@
             }
 
             this.sendSubmit = function () {
-                if(!this.validate('rentTime', 'description', 'nickname', 'birthday', 'phone', 'email', 'captchaCode')) {
+                if(!this.validate('rentTime', 'description', 'nickname', 'phone', 'email', 'captchaCode')) {
                     return
                 }
                 this.submitTicket()
@@ -838,9 +838,9 @@
                     target_user_id: rentTicket.user.id,
                     message: this.params().description                    
                 })
-                    .done(_.bind(function (val) {
+                    .done(function (val) {
                         location.href = '/user-chat/'+ticketId+'/details'
-                    }, this))
+                    })
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
                     }, this))
