@@ -1068,7 +1068,7 @@ class currant_plugin(f_app.plugin_base):
         ticket = f_app.ticket.get(task["ticket_id"])
 
         locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
-        f_app.data["thread_local"]._requested_i18n_currencies_list = [locale]
+        f_app.data["thread_local"]._requested_i18n_locales_list = [locale]
 
         username = user.get("nickname")
         role = "tenant" if ticket["user_id"] == user["id"] else "host"
@@ -1104,7 +1104,7 @@ class currant_plugin(f_app.plugin_base):
         ticket = f_app.ticket.get(task["ticket_id"])
 
         locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
-        f_app.data["thread_local"]._requested_i18n_currencies_list = [locale]
+        f_app.data["thread_local"]._requested_i18n_locales_list = [locale]
 
         title = template("static/emails/chat_reply_title")
         username = user.get("nickname")
