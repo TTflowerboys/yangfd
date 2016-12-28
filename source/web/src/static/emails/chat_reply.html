@@ -124,9 +124,9 @@
                                         <div class="message" style="margin-top:30px; width:100%;">
                                             <p class="text" style="line-height: 1.5em;font-size: 23px;; margin:0 32px; text-align: left; color: #333">
                                                 %if role == 'host':
-                                                    {{!_(u'你从房东<strong>%s</strong>收到一条新消息') % (username)}}
+                                                    {{!_(u'房东<strong>%s</strong>给你发送了一条新消息') % (username)}}
                                                 %elif role == 'tenant':
-                                                    {{!_(u'你从租客<strong>%s</strong>收到一条新消息') % (username)}}
+                                                    {{!_(u'租客<strong>%s</strong>给你发送了一条新消息') % (username)}}
                                                 %end
                                              </p>
                                         </div>
