@@ -12,7 +12,7 @@ var chat = {
                         e.preventDefault()
             }
         });
-        chat.historyMessage()
+        //chat.historyMessage()
     },
     placeholderPic : {
         'HOST' : '/static/images/chat/placeholder_host.png',
@@ -189,3 +189,139 @@ $(function(){
         $('.btn_send').attr('disabled','disabled')
     }    
 })();
+
+
+$(function(){
+    var itemsPerPage = 5
+    var lastItemTime
+    var isLoading = false
+    var isAllItemsLoaded = false
+
+    var params = {
+        'target_user_id': chat.target_user_id(),
+        'per_page' : itemsPerPage,
+        'time' : lastItemTime
+    }
+function loadRentList(reload) {
+
+    $('.isAllLoadedInfo').hide()
+    if (lastItemTime) {
+        params.time = lastItemTime
+
+    }
+
+    if(reload){
+        $('#result_list').empty()
+        lastItemTime = null
+        delete params.time
+    }
+
+    $('#result_list_container').show()
+    $('.emptyPlaceHolder').hide();
+
+    if(!team.isPhone()){
+        $('#number_container').text(window.i18n('加载中'))
+        $('#number_container').show()
+    }
+
+    isLoading = true
+    $('#loadIndicator').show()
+
+    var totalResultCount = getCurrentTotalCount()
+
+    if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
+        $('body,html').animate({scrollTop: $('body').height()}, 300)
+    }
+
+    
+
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history',params)
+        .done(function (val) {
+            var array = val
+            if (!_.isEmpty(array)) {
+                lastItemTime = _.last(array).time
+
+                if (!window.rentList) {
+                    window.rentList = []
+                }
+                window.rentList = window.rentList.concat(array)
+
+                
+                
+                _.each(array, function (history) {
+                    var mePicUrl = history.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+                    var historyResult = '';
+                    if (history.from_user.id === window.user.id) {
+                        historyResult += chat.meMsgTpl(mePicUrl,history.message,history.time)
+                    }else{
+                        historyResult += chat.defMsgTpl(mePicUrl,history.message,history.time)
+                    }
+                    if (team.isPhone()) {
+                        $('#chatContent').prepend(historyResult)
+                    }else{                        
+                        $('#chatContent').append(historyResult)
+                    }
+
+                    
+
+                    
+
+
+                    if (lastItemTime > history.time) {
+                        lastItemTime = history.time
+                    }
+                })
+                totalResultCount = getCurrentTotalCount()
+
+                isAllItemsLoaded = false
+            } else {
+                isAllItemsLoaded = true
+                //$('.isAllLoadedInfo').show()
+            }
+            updateResultCount(totalResultCount)
+
+        }).fail(function (ret) {
+            if(ret !== 0) {
+                updateResultCount(totalResultCount)
+            }
+    }).always(function () {
+            $('#loadIndicator').hide()
+            isLoading = false
+        })
+}
+loadRentList()
+
+    function getCurrentTotalCount() {
+        return $('#chatContent').children('.message').length
+    }
+    function updateResultCount(count) {
+        if (count) {
+            $('#chatContent').show()
+            $('.emptyPlaceHolder').hide();
+        } else {
+            $('#chatContent').hide()
+            $('.emptyPlaceHolder').show();
+        }
+    }
+
+    function needLoad() {
+        var scrollPos = $(window).scrollTop()
+        var windowHeight = $(window).height()
+
+        var listHeight = $('#chatContent').height()
+        var requireToScrollHeight = listHeight
+        return windowHeight + scrollPos > requireToScrollHeight && !isLoading && !isAllItemsLoaded
+    }
+    function autoLoad() {
+
+        if(needLoad()) {
+            $('.isAllLoadedInfo').hide()
+            loadRentList()
+        }
+    }
+    $(window).scroll(autoLoad)
+
+
+});
+
+
