@@ -84,15 +84,31 @@
                                     <li><a id="logout" class="logout" href="#" onclick="project.logout()" data-need-bridge>{{_('退出')}}</a></li>
                                 </ul>
                             </div>
-                            <a class="message" id="message" href="/user-chat">
-                                <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
-                                <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
-                                <span>{{_('消息')}}</span>
-                            </a>
-                            <!--<a id="logout" class="logout" href="/logout" data-need-bridge>
-                            <i class="icon-log_out"></i>
-                            <span>{{_('登出')}}</span>
-                            </a>-->
+                            <div class="message menuItem">
+                                <a class="" id="message" href="/user-chat">
+                                    <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
+                                    <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
+                                    <span>{{_('消息')}}</span>
+                                </a>
+                                <div class="messageList dropDownMenu">
+                                    <ul>
+                                    </ul>
+                                    <a class="more" href="/user-chat" target="_blank" >{{_('查看更多消息')}}</a>
+                                </div>
+                            </div>
+                            <script id="headerMessageList_template" type="text/template">
+                                <li data-id="{=message.id=}">
+                                    <img class="face" alt="" src="{=message.from_user.face? message.from_user.face: '/static/images/chat/placeholder_tenant.png'=}"/>
+                                    <div class="text">
+                                        <div class="top">
+                                            <label class="name" for="">{=message.from_user.nickname=}</label>
+                                            <label class="time" for="">{=project.formatTime(message.time, 'HH:mm MM-dd')=}</label>
+                                            <img style="display:none;" class="close" alt="" src="/static/images/property_details/close.png"/>
+                                        </div>
+                                        <a class="content" href="/user-chat/{=message.ticket_id=}/details" target="_blank">{=message.message=}</a>
+                                    </div>
+                                </li>
+                            </script>
                         %else:
                             <a id="login" class="login">{{_('登录')}}</a>
                             <a id="register" class="register" onclick="project.goToSignUp()">{{_('注册')}}</a>

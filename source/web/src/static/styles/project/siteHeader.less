@@ -8,7 +8,7 @@
         background: @sup-header-bg;
         position: relative;
         height: @sup-header-height;
-        //z-index: @header-z-index;
+        z-index: @supheader-z-index;
         width: 100%;
         min-width:@min-page-width;
 
@@ -74,7 +74,7 @@
         float: right;
         .menuItem {
             position: relative;
-            padding: 0 15px;
+            //padding: 0 15px;
             .dropDownMenu{
                 width: 140px;
                 padding: 6px 10px;
@@ -114,7 +114,7 @@
         .login{
             cursor: pointer;
             color: @mute-color;
-            .clipped(10em);
+            .clipped(140px);
             display:inline-block;
             overflow:hidden;
             text-decoration:none;
@@ -129,7 +129,7 @@
         .register{
             cursor: pointer;
             color: @mute-color;
-            .clipped(10em);
+            .clipped(140px);
             display:inline-block;
             overflow:hidden;
             text-decoration:none;
@@ -143,7 +143,8 @@
         .account  {
             height:@sup-header-height;
             line-height:@sup-header-height;
-            .clipped(10em);
+            .clipped(140px);
+            width: 140px;
             display:inline-block;
             overflow:visible;
             text-align:center;
@@ -170,18 +171,23 @@
         }
 
         .message {
-            height:@sup-header-height;
-            line-height:@sup-header-height;
-            color: @mute-color;
-            .clipped(10em);
             display:inline-block;
-            overflow:hidden;
-            text-align:center;
-            vertical-align:middle;
-            text-decoration:none;
-            margin: 0 0 0 11px;
-            &:hover {
-                color:@light-color;
+            a {
+                height:@sup-header-height;
+                line-height:@sup-header-height;
+                color: @mute-color;
+                .clipped(100px);
+                width: 100px;
+                display:inline-block;
+                overflow:hidden;
+                text-align:center;
+                vertical-align:middle;
+                text-decoration:none;
+                margin: 0;
+                &:hover {
+                    color:@light-color;
+                    background: #444444;
+                }
             }
 
             img {
@@ -196,7 +202,83 @@
             span{
                 vertical-align: middle;
             }
+        }
 
+        .messageList {
+
+            &.dropDownMenu {
+                width: 300px;
+                left: -200px;
+                padding: 0px;
+                ul {
+                    width: 100%;
+                    li {
+                        height: 60px;
+                        width: 290px;
+                        margin: 0 0 0 10px;
+                        border-bottom:  1px solid #666;
+                        overflow: hidden;
+                        padding: 10px 10px 10px 0;
+
+                        .face {
+                            display: inline-block;
+                            float:left;
+                            width: 40px;
+                            border-radius: 50%;
+                            margin: 0px;
+                        }
+
+                        .text {
+                            display:inline-block;
+                            float:left;
+                            margin-left: 10px;
+                            width: 230px;
+
+                            .top {
+                                overflow: hidden;
+                                .name {
+                                    float:left;
+                                    color: white;
+                                }
+
+                                .time {
+                                    float: right;
+                                    color: #b2b2b2;
+                                }
+                                .close {
+                                    float: right;
+                                    cursor: pointer;
+                                }
+                            }
+
+                            .content {
+                                display: inline-block;
+                                color: #dadada;
+                                width: 100%;
+                                max-width: 100%;
+                                line-height: 1;
+                                font-size: 15px;
+                                margin: 0px;
+                                text-decoration:none;
+                                text-align: left;
+                                .limitedLines(@lines:1; @line-height: 15px;@bg: #444);
+                            }
+                        }
+                    }
+                }
+                .more {
+                    display: block;
+                    color: @red;
+                    text-align: center;
+                    text-decoration: none;
+                    height: 30px;
+                    width: 100%;
+                    max-width: 100%;
+                    line-height: 100%;
+                    font-size: 15px;
+                    margin-top: 7px;
+                }
+            }
         }
 
         .logout {
@@ -226,6 +308,7 @@
             }
         }
     }
+
 }
 .siteHeader {
     margin: 0 auto; height: 100%; max-width: @max-width;
