@@ -6,6 +6,17 @@ $(function(){
     var xhr
     var placeholder = $('.emptyPlaceHolder')
     var chatListHeader = $('.chatListHeader')
+    var chatTpl = {
+        items : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id){
+            return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'"><div class="loading">'+i18n('用户消息加载中')+'...</div></div><a href="/user-chat/'+rent_ticket_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
+        },
+        message : function(user_nickname,message,time){
+            return '<div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message"><div class="text">'+message+'</div><div class="time">'+team.parsePublishDate(parseInt(time))+'</div></div>';
+        },
+        itemsNew : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname,message,time){
+            return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info sent" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'"><div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message"><div class="text">'+message+'</div><div class="time">'+team.parsePublishDate(parseInt(time))+'</div></div></div><a href="/user-chat/'+rent_ticket_user_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
+        }
+    }
 
 
     //Init page with rent
@@ -46,11 +57,7 @@ $(function(){
                     var Tpl = '';
                     chatListHeader.show()
                     $(array).each(function (i, va){
-                        Tpl += '<div class="chatListItmes">';
-                        Tpl += '<div class="title"><a href="/property-to-rent/'+va.interested_rent_tickets[0].id+'" target="_blank">'+va.interested_rent_tickets[0].title+'</a></div>';
-                        Tpl += '<div class="info" data-id="'+va.id+'" data-user_id="'+va.interested_rent_tickets[0].user.id+'"><div class="loading">'+i18n('用户消息加载中')+'...</div></div>';
-                        Tpl += '<a href="/user-chat/'+va.id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
-                        Tpl += '</div>';
+                        Tpl += chatTpl.items(va.interested_rent_tickets[0].id,va.interested_rent_tickets[0].title,va.id,va.interested_rent_tickets[0].user.id)
                     })
                     $('#chatListContent').html(Tpl);
                     completeMsg()
@@ -95,11 +102,7 @@ $(function(){
                     var Tpl = '';
                     chatListHeader.show()
                     $(array).each(function (i, va){
-                        Tpl += '<div class="chatListItmes">';
-                        Tpl += '<div class="title"><a href="/property-to-rent/'+va.interested_rent_tickets[0].id+'" target="_blank">'+va.interested_rent_tickets[0].title+'</a></div>';
-                        Tpl += '<div class="info" data-id="'+va.id+'" data-user_id="'+va.user.id+'"><div class="loading">'+i18n('用户消息加载中')+'...</div></div>';
-                        Tpl += '<a href="/user-chat/'+va.id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
-                        Tpl += '</div>';
+                        Tpl += chatTpl.items(va.interested_rent_tickets[0].id,va.interested_rent_tickets[0].title,va.id,va.user.id)
                     })
                     $('#chatListContent').html(Tpl);
                     completeMsg()
@@ -170,9 +173,7 @@ $(function(){
                 .done(function (data) {
                     if (data && data.length > 0) {
                         if (data[0].status === 'sent') { $this.addClass('sent') }
-                        var lastChatTpl  = '<div class="name">'+data[0].from_user.nickname.substring(1,-1)+'**</div>';
-                        lastChatTpl += '<div class="message"><div class="text">'+data[0].message+'</div>';
-                        lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(data[0].time))+'</div></div>';
+                        var lastChatTpl = chatTpl.message(data[0].from_user.nickname,data[0].message,data[0].time)
                         $this.html(lastChatTpl);
                     }else{
                         $this.html('<div class="loading">'+i18n('没有最新留言')+'</div>');
@@ -196,24 +197,15 @@ $(function(){
 
             if (socketVal.ticket_id === val && socketVal.from_user.id === target_user_id) {
                 if (socketVal.status === 'sent') { $this.addClass('sent') }
-                var lastChatTpl  = '<div class="name">'+socketVal.from_user.nickname.substring(1,-1)+'**</div>';
-                lastChatTpl += '<div class="message"><div class="text">'+socketVal.message+'</div>';
-                lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(socketVal.time))+'</div></div>';
-                $this.html(lastChatTpl);
+                    var lastChatTpl  = chatTpl.message(socketVal.from_user.nickname,socketVal.message,socketVal.time)
+                    $this.html(lastChatTpl);
             }else if(location.hash.slice(1).toLowerCase() === 'host' && !val) {
                  // add new ticket order
                 $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','interested_rent_ticket_user_id': window.user.id})
                     .done(function (data) {
                         $('#hostPlaceHolder').show()
-                        var Tpl = '<div class="chatListItmes">';
-                            Tpl += '<div class="title"><a href="/property-to-rent/'+data.interested_rent_tickets[0].id+'" target="_blank">'+data.interested_rent_tickets[0].title+'</a></div>';
-                            Tpl += '<div class="info sent" data-id="'+data.id+'" data-user_id="'+socketVal.from_user.id+'">';
-                            Tpl += '<div class="name">'+socketVal.from_user.nickname.substring(1,-1)+'**</div>';
-                            Tpl += '<div class="message"><div class="text">'+socketVal.message+'</div>';
-                            Tpl += '<div class="time">'+team.parsePublishDate(parseInt(socketVal.time))+'</div></div></div>';
-                            Tpl += '<a href="/user-chat/'+data.id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a>';
-                            Tpl += '</div>';
-                            $('#chatListContent').prepend(Tpl)
+                        var Tpl =chatTpl.itemsNew(data.interested_rent_tickets[0].id,data.interested_rent_tickets[0].title,data.id,socketVal.from_user.id,socketVal.from_user.nickname,socketVal.message,socketVal.time)
+                        $('#chatListContent').prepend(Tpl)
                     })
                     .fail(function (ret) {
                         window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
