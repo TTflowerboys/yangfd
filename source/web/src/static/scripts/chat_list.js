@@ -134,7 +134,7 @@ $(function(){
     }
 
     $(window).on('hashchange', function () {
-        var hash = location.hash.slice(1)
+        var hash = location.hash.slice(1).split('?')[0]
         var state = hash.split('?')[0]
         var extraParam = hash.split('?')[1]
         var rentStatus
@@ -204,6 +204,16 @@ $(function(){
                 $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','interested_rent_ticket_user_id': window.user.id})
                     .done(function (data) {
                         $('#hostPlaceHolder').show()
+                        var Tpl =chatTpl.itemsNew(data.interested_rent_tickets[0].id,data.interested_rent_tickets[0].title,data.id,socketVal.from_user.id,socketVal.from_user.nickname,socketVal.message,socketVal.time)
+                        $('#chatListContent').prepend(Tpl)
+                    })
+                    .fail(function (ret) {
+                        window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                    })
+            }else if((location.hash.slice(1).toLowerCase() === '' || location.hash.slice(1).toLowerCase() === 'renter') && !val){
+                $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','user_id': window.user.id})
+                    .done(function (data) {
+                        $('#renterPlaceHolder').show()
                         var Tpl =chatTpl.itemsNew(data.interested_rent_tickets[0].id,data.interested_rent_tickets[0].title,data.id,socketVal.from_user.id,socketVal.from_user.nickname,socketVal.message,socketVal.time)
                         $('#chatListContent').prepend(Tpl)
                     })
