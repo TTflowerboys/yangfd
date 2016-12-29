@@ -56,11 +56,11 @@ $(function(){
                     completeMsg()
                 } else {
                     chatListHeader.hide()
-                    $('#intentionPlaceHolder').show()
+                    $('#renterPlaceHolder').show()
                 }
                 defer.resolve()
             }).fail(function () {
-                $('#intentionPlaceHolder').show()
+                $('#renterPlaceHolder').show()
                 chatListHeader.hide()
                 defer.reject()
             }).complete(function () {
@@ -105,11 +105,11 @@ $(function(){
                     completeMsg()
                 } else {
                     chatListHeader.hide()
-                    $('#rentPlaceHolder').show()
+                    $('#hostPlaceHolder').show()
                 }
                 defer.resolve()
             }).fail(function () {
-                $('#rentPlaceHolder').show()
+                $('#hostPlaceHolder').show()
                 chatListHeader.hide()
                 defer.reject()
             }).complete(function () {
@@ -130,7 +130,6 @@ $(function(){
         location.hash = state + (param ? '?' + param : '')
     }
 
-    //TODO tomlei please use the hash tag state really related with the chat logic
     $(window).on('hashchange', function () {
         var hash = location.hash.slice(1)
         var state = hash.split('?')[0]
@@ -140,11 +139,11 @@ $(function(){
             rentStatus = decodeURIComponent(extraParam.match(/status=(.+)/)[1]).split(',')
         }
         switch(state) {
-        case 'intention':
+        case 'renter':
             switchTypeTab(state)
             loadChatCore(rentStatus)
             break
-        case 'rent': //出租申请单
+        case 'host':
             switchTypeTab(state)
             loadChatFrom()
             break
@@ -154,7 +153,7 @@ $(function(){
 
     $(window).trigger('hashchange')
 
-    _.each(['Rent', 'Intention'], function (val) {
+    _.each(['Host', 'Renter'], function (val) {
         $('button#show' + val + 'Btn').click(function () {
             switchTypeTab(val.toLowerCase())
         })
@@ -201,11 +200,11 @@ $(function(){
                 lastChatTpl += '<div class="message"><div class="text">'+socketVal.message+'</div>';
                 lastChatTpl += '<div class="time">'+team.parsePublishDate(parseInt(socketVal.time))+'</div></div>';
                 $this.html(lastChatTpl);
-            }else if(location.hash.slice(1).toLowerCase() === 'rent' && !val) {
+            }else if(location.hash.slice(1).toLowerCase() === 'host' && !val) {
                  // add new ticket order
                 $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','interested_rent_ticket_user_id': window.user.id})
                     .done(function (data) {
-                        $('#rentPlaceHolder').show()
+                        $('#hostPlaceHolder').show()
                         var Tpl = '<div class="chatListItmes">';
                             Tpl += '<div class="title"><a href="/property-to-rent/'+data.interested_rent_tickets[0].id+'" target="_blank">'+data.interested_rent_tickets[0].title+'</a></div>';
                             Tpl += '<div class="info sent" data-id="'+data.id+'" data-user_id="'+socketVal.from_user.id+'">';
