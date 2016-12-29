@@ -6,15 +6,16 @@ $(function(){
     var xhr
     var placeholder = $('.emptyPlaceHolder')
     var chatListHeader = $('.chatListHeader')
+    var chatCurrentTabHash = location.hash.slice(1).toLowerCase()
     var chatTpl = {
         items : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id){
             return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'"><div class="loading">'+i18n('用户消息加载中')+'...</div></div><a href="/user-chat/'+rent_ticket_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
         },
         message : function(user_nickname,message,time){
-            return '<div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message"><div class="text">'+message+'</div><div class="time">'+team.parsePublishDate(parseInt(time))+'</div></div>';
+            return '<div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message"><div class="text">'+message+'</div><div class="time">'+i18n('留言时间')+': '+team.parsePublishDate(parseInt(time))+'</div></div>';
         },
         itemsNew : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname,message,time){
-            return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info sent" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'"><div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message"><div class="text">'+message+'</div><div class="time">'+team.parsePublishDate(parseInt(time))+'</div></div></div><a href="/user-chat/'+rent_ticket_user_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
+            return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info sent" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'"><div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message"><div class="text">'+message+'</div><div class="time">'+i18n('留言时间')+': '+team.parsePublishDate(parseInt(time))+'</div></div></div><a href="/user-chat/'+rent_ticket_user_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
         }
     }
 
@@ -63,11 +64,11 @@ $(function(){
                     completeMsg()
                 } else {
                     chatListHeader.hide()
-                    $('#renterPlaceHolder').show()
+                    $('#tenantPlaceHolder').show()
                 }
                 defer.resolve()
             }).fail(function () {
-                $('#renterPlaceHolder').show()
+                $('#tenantPlaceHolder').show()
                 chatListHeader.hide()
                 defer.reject()
             }).complete(function () {
@@ -134,7 +135,7 @@ $(function(){
     }
 
     $(window).on('hashchange', function () {
-        var hash = location.hash.slice(1).split('?')[0]
+        var hash = location.hash.slice(1)
         var state = hash.split('?')[0]
         var extraParam = hash.split('?')[1]
         var rentStatus
@@ -142,7 +143,7 @@ $(function(){
             rentStatus = decodeURIComponent(extraParam.match(/status=(.+)/)[1]).split(',')
         }
         switch(state) {
-        case 'renter':
+        case 'tenant':
             switchTypeTab(state)
             loadChatCore(rentStatus)
             break
@@ -156,7 +157,7 @@ $(function(){
 
     $(window).trigger('hashchange')
 
-    _.each(['Host', 'Renter'], function (val) {
+    _.each(['Host', 'Tenant'], function (val) {
         $('button#show' + val + 'Btn').click(function () {
             switchTypeTab(val.toLowerCase())
         })
@@ -199,7 +200,7 @@ $(function(){
                 if (socketVal.status === 'sent') { $this.addClass('sent') }
                     var lastChatTpl  = chatTpl.message(socketVal.from_user.nickname,socketVal.message,socketVal.time)
                     $this.html(lastChatTpl);
-            }else if(location.hash.slice(1).toLowerCase() === 'host' && !val) {
+            }else if(chatCurrentTabHash === 'host' && !val) {
                  // add new ticket order
                 $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','interested_rent_ticket_user_id': window.user.id})
                     .done(function (data) {
@@ -210,10 +211,10 @@ $(function(){
                     .fail(function (ret) {
                         window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
                     })
-            }else if((location.hash.slice(1).toLowerCase() === '' || location.hash.slice(1).toLowerCase() === 'renter') && !val){
+            }else if((chatCurrentTabHash === '' || chatCurrentTabHash === 'tenant') && !val){
                 $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','user_id': window.user.id})
                     .done(function (data) {
-                        $('#renterPlaceHolder').show()
+                        $('#tenantPlaceHolder').show()
                         var Tpl =chatTpl.itemsNew(data.interested_rent_tickets[0].id,data.interested_rent_tickets[0].title,data.id,socketVal.from_user.id,socketVal.from_user.nickname,socketVal.message,socketVal.time)
                         $('#chatListContent').prepend(Tpl)
                     })
