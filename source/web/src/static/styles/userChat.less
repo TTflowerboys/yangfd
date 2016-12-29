@@ -72,16 +72,24 @@
             }
             .message{
                 color: #999;
-                line-height: 18px;
+                line-height: 20px;
+                height: 40px;
+                overflow: hidden;
                 .text{                
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     overflow: hidden;
                     font-size: 16px;
                 }
-            }
-            &.sent .message{
-                color: #333;
+                .msgtime{
+                    margin-right: 5px;
+                }
+                &.sent{
+                    color: #333;
+                    .msgtime{
+                        color: #f00
+                    }
+                }
             }
         }
         .reply{
