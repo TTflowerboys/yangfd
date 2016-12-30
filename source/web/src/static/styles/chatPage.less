@@ -584,6 +584,11 @@ body{
 .chatContent{
     border-top: 2px solid #dcdcdc;
     padding-top: 20px;
+    &:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
     @media @phone{
         border-top-width: 0;
     }

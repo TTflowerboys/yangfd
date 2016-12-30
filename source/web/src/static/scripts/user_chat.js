@@ -173,8 +173,8 @@ var chat = {
                     $('#chatContent .noMessage').hide()
                 }
                 $('#chatContent').append(chat.sendMsgTpl(PicUrl,$('#chat_edit_area').val()));
-                chat.clearEditArea()
-                //socketWs.send($('#chat_edit_area').val())
+                chat.clearEditArea()      
+                $('body').scrollTop(999999)
             })
             .fail(function (ret) {
                 window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
@@ -222,7 +222,10 @@ $(function(){
 
 
 $(function(){
-    var itemsPerPage = 5
+    var itemsPerPage = 10
+    if (team.isPhone()) {
+        itemsPerPage = 30
+    }    
     var lastItemTime
     var isLoading = false
     var isAllItemsLoaded = false
@@ -232,93 +235,92 @@ $(function(){
         'per_page' : itemsPerPage,
         'time' : lastItemTime
     }
-function loadChatHistoryList(reload) {
 
-    $('.isAllLoadedInfo').hide()
-    if (lastItemTime) {
-        params.time = lastItemTime
+    function loadChatHistoryList(reload) {
 
-    }
+        if (lastItemTime) {
+            params.time = lastItemTime
+        }
 
-    if(reload){
-        $('#result_list').empty()
-        lastItemTime = null
-        delete params.time
-    }
+        if(reload){
+            $('#result_list').empty()
+            lastItemTime = null
+            delete params.time
+        }
 
-    $('#result_list_container').show()
-    $('.emptyPlaceHolder').hide();
+        $('#result_list_container').show()
+        $('.emptyPlaceHolder').hide();
 
-    isLoading = true
-    $('#loadIndicator').show()
+        isLoading = true
+        $('#loadIndicator').show()
 
-    var totalResultCount = getCurrentTotalCount()
+        var totalResultCount = getCurrentTotalCount()
 
-    if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
-        $('body,html').animate({scrollTop: $('body').height()}, 300)
-    }
+        if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
+            $('body,html').animate({scrollTop: $('body').height()}, 300)
+        }        
 
-    
+        $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history',params)
+            .done(function (val) {
+                var array = val
+                if (!_.isEmpty(array)) {
+                    lastItemTime = _.last(array).time
 
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history',params)
-        .done(function (val) {
-            var array = val
-            if (!_.isEmpty(array)) {
-                lastItemTime = _.last(array).time
-
-                if (!window.ChatHistoryList) {
-                    window.ChatHistoryList = []
-                }
-                window.ChatHistoryList = window.ChatHistoryList.concat(array)
-
-                
-                
-                _.each(array, function (history) {
-                    var mePicUrl = history.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-                    if (history.user_id === window.user.id && history.status !== 'read') {
-                        $.betterPost('/api/1/message/'+history.id+'/mark/read')
-                            .done(function (res) {
-                            })
-                            .fail(function (ret) {
-                            })
+                    if (!window.ChatHistoryList) {
+                        window.ChatHistoryList = []
                     }
+                    window.ChatHistoryList = window.ChatHistoryList.concat(array)
+
                     
-                    var historyResult = '';
-                    if (history.from_user.id === window.user.id) {
-                        historyResult += chat.meMsgTpl(mePicUrl,history.message,history.time)
-                    }else{
-                        historyResult += chat.defMsgTpl(mePicUrl,history.message,history.time)
-                    }
-                    if (team.isPhone()) {
-                        $('#chatContent').prepend(historyResult)
-                    }else{                        
-                        $('#chatContent').append(historyResult)
-                    }                  
+                    
+                    _.each(array, function (history) {
+                        var mePicUrl = history.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+                        if (history.user_id === window.user.id && history.status !== 'read') {
+                            $.betterPost('/api/1/message/'+history.id+'/mark/read')
+                                .done(function (res) {
+                                })
+                                .fail(function (ret) {
+                                })
+                        }
+                        
+                        var historyResult = '';
+                        if (history.from_user.id === window.user.id) {
+                            historyResult += chat.meMsgTpl(mePicUrl,history.message,history.time)
+                        }else{
+                            historyResult += chat.defMsgTpl(mePicUrl,history.message,history.time)
+                        }
+                        if (team.isPhone()) {
+                            $('#chatContent').prepend(historyResult)
+                        }else{                        
+                            $('#chatContent').append(historyResult)
+                        }                  
 
 
-                    if (lastItemTime > history.time) {
-                        lastItemTime = history.time
-                    }
-                })
-                totalResultCount = getCurrentTotalCount()
+                        if (lastItemTime > history.time) {
+                            lastItemTime = history.time
+                        }
+                    })
+                    totalResultCount = getCurrentTotalCount()
 
-                isAllItemsLoaded = false
-            } else {
-                isAllItemsLoaded = true
-                //$('.isAllLoadedInfo').show()
-            }
-            updateResultCount(totalResultCount)
-
-        }).fail(function (ret) {
-            if(ret !== 0) {
+                    isAllItemsLoaded = false
+                } else {
+                    isAllItemsLoaded = true
+                }
                 updateResultCount(totalResultCount)
-            }
-    }).always(function () {
-            $('#loadIndicator').hide()
-            isLoading = false
-        })
-}
-loadChatHistoryList()
+                if (team.isPhone()) {        
+                    $('body').scrollTop(999999)
+                }
+
+            }).fail(function (ret) {
+                if(ret !== 0) {
+                    updateResultCount(totalResultCount)
+                }
+        }).always(function () {
+                $('#loadIndicator').hide()
+                isLoading = false
+            })
+    }
+
 
     function getCurrentTotalCount() {
         return $('#chatContent').children('.message').length
@@ -342,14 +344,15 @@ loadChatHistoryList()
         return windowHeight + scrollPos > requireToScrollHeight && !isLoading && !isAllItemsLoaded
     }
     function autoLoad() {
-
         if(needLoad()) {
-            $('.isAllLoadedInfo').hide()
             loadChatHistoryList()
         }
     }
-    $(window).scroll(autoLoad)
 
+    loadChatHistoryList()
+    if (!team.isPhone()) {
+        $(window).scroll(autoLoad)
+    }
 
 });
 
