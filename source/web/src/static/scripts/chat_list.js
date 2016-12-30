@@ -174,8 +174,10 @@ $(function(){
 
     function completeMsg(){
         $('.chatListItmes .message').on('loadChatMsg',function(){
-            var $this = $(this),val = $this.data('id'),target_user_id = $this.data('user_id');
-            $.betterPost('/api/1/rent_intention_ticket/'+val+'/chat/history', {target_user_id: target_user_id})
+            var $this = $(this)
+            var val = $this.data('id')
+            var target_user_id = $this.data('user_id')
+            $.betterPost('/api/1/rent_intention_ticket/'+val+'/chat/history', {target_user_id: target_user_id,per_page:1})
                 .done(function (data) {
                     if (data && data.length > 0) {
                         if (data[0].status === 'sent') { $this.addClass('sent') }
@@ -204,7 +206,7 @@ $(function(){
             if (socketVal.ticket_id === val && socketVal.from_user.id === target_user_id) {
                 if (socketVal.status === 'sent') { $this.addClass('sent') }
                     var lastChatTpl  = chatTpl.message(socketVal.message,socketVal.time)
-                    $this.html(lastChatTpl);
+                    $this.html(lastChatTpl);    
             }else if(chatCurrentTabHash === 'host' && !val) {
                  // add new ticket order
                 $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','interested_rent_ticket_user_id': window.user.id})
