@@ -166,10 +166,11 @@ def user_chat(user):
 
 @f_get('/user-chat/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>/details')
 @currant_util.check_ip_and_redirect_domain
-def user_chat_details(rent_intention_ticket_id):    
+@f_app.user.login.check(force=True)
+def user_chat_details(rent_intention_ticket_id):
     rent_intention_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id], fuzzy_user_info=True)[0])
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields())
-    if not user or (user.get('id') != rent_intention_ticket.get('creator_user',{}).get('id') and user.get('id') != rent_intention_ticket.get('interested_rent_tickets')[0].get('user',{}).get('id')):
+    if not user or (user.get('id') != rent_intention_ticket.get('creator_user', {}).get('id') and user.get('id') != rent_intention_ticket.get('interested_rent_tickets')[0].get('user', {}).get('id')):
         redirect('/')
     title = _('聊天')
     return currant_util.common_template("user_chat_details", title=title, rent_intention_ticket=rent_intention_ticket)
