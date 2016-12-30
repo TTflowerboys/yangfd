@@ -9,6 +9,7 @@ class common(f_common):
     name = "currant"
     debug = True
     # profiling = True
+    currant_env = "local"
 
     blog_name = "currant"
     blog_slug = "currant"

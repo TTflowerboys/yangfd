@@ -269,7 +269,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["operation", "jr_operation"]}}))
             for sales in sales_list:
                 if "email" in sales:
-                    admin_url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent_intention"
+                    admin_url = f_app.util.get_env_domain() + "/admin?_i18n=zh_Hans_CN#/dashboard/rent_intention"
                     f_app.email.schedule(
                         target=sales["email"],
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_intention_ticket_title")),
@@ -286,8 +286,8 @@ class currant_ticket_plugin(f_app.plugin_base):
                     locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
                     request._requested_i18n_locales_list = [locale]
                     title = f_app.util.get_format_email_subject(template("static/emails/new_rent_request_intention_ticket_title"))
-                    url = "http://yangfd.com/property-to-rent/" + this_ticket["interested_rent_tickets"][0]["id"]
-                    admin_url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent_request_intention"
+                    url = f_app.util.get_env_domain() + "/property-to-rent/" + this_ticket["interested_rent_tickets"][0]["id"]
+                    admin_url = f_app.util.get_env_domain() + "/admin?_i18n=zh_Hans_CN#/dashboard/rent_request_intention"
                     f_app.email.schedule(
                         target=sales["email"],
                         subject=title,
@@ -389,7 +389,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             F = ticket["rent_type"]["id"] == intention_ticket["rent_type"]["id"]
 
             score = A + B + C + D + E + F
-            unsubscribe_url = 'http://yangfd.com/email-unsubscribe?email_message_type=rent_intention_ticket_check_rent'
+            unsubscribe_url = f_app.util.get_env_domain() + '/email-unsubscribe?email_message_type=rent_intention_ticket_check_rent'
             import currant_util
 
             if score == 6:
@@ -521,7 +521,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 self.logger.warning("Bad ticket detected:", ticket["id"])
 
         import currant_util
-        unsubscribe_url = 'http://yangfd.com/email-unsubscribe?email_message_type=rent_intention_ticket_check_rent'
+        unsubscribe_url = f_app.util.get_env_domain() + '/email-unsubscribe?email_message_type=rent_intention_ticket_check_rent'
         if len(best_matches):
             title = "洋房东给您匹配到了合适的房源，快来看看吧！"
             f_app.email.schedule(
@@ -606,7 +606,7 @@ class currant_ticket_plugin(f_app.plugin_base):
 
             try:
                 title = "您的“%(title)s”是否已经出租成功了？" % rent_ticket
-                url = 'http://yangfd.com/property-to-rent/' + rent_ticket["id"]
+                url = f_app.util.get_env_domain() + '/property-to-rent/' + rent_ticket["id"]
                 body = template(
                     "views/static/emails/rent_notice.html",
                     title=title,
@@ -614,11 +614,11 @@ class currant_ticket_plugin(f_app.plugin_base):
                     formated_date='之前',  # TODO
                     rent_url=url,
                     rent_title=rent_ticket["title"],
-                    has_rented_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=confirm_rent" % (rent_ticket["id"],),
-                    refresh_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=refresh" % (rent_ticket["id"],),
+                    has_rented_url=f_app.util.get_env_domain() + "/user-properties?type=rent_ticket&id=%s&action=confirm_rent" % (rent_ticket["id"],),
+                    refresh_url=f_app.util.get_env_domain() + "/user-properties?type=rent_ticket&id=%s&action=refresh" % (rent_ticket["id"],),
                     edit_url=url + "/edit",
-                    qrcode_image="http://yangfd.com/qrcode/generate?content=" + urllib.parse.quote(url),
-                    unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
+                    qrcode_image=f_app.util.get_env_domain() + "/qrcode/generate?content=" + urllib.parse.quote(url),
+                    unsubscribe_url=f_app.util.get_env_domain() + '/email-unsubscribe?email_message_type=rent_ticket_reminder')
             except:
                 self.logger.warning("Invalid ticket", rent_ticket["id"], ", ignoring reminder...")
                 continue
@@ -668,8 +668,8 @@ class currant_ticket_plugin(f_app.plugin_base):
                     date="",
                     title=title,
                     rent_ticket_title=rent_ticket["title"],
-                    rent_ticket_edit_url="http://yangfd.com/property-to-rent/%s/edit" % rent_ticket["id"],
-                    unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
+                    rent_ticket_edit_url=f_app.util.get_env_domain() + "/property-to-rent/%s/edit" % rent_ticket["id"],
+                    unsubscribe_url=f_app.util.get_env_domain() + '/email-unsubscribe?email_message_type=rent_ticket_reminder')
             except:
                 self.logger.warning("Invalid ticket", rent_ticket["id"], ", ignoring reminder...")
                 continue
@@ -719,8 +719,8 @@ class currant_ticket_plugin(f_app.plugin_base):
                     date="",
                     title=title,
                     rent_ticket_title=rent_ticket["title"],
-                    rent_ticket_edit_url="http://yangfd.com/property-to-rent/%s/edit" % rent_ticket["id"],
-                    unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
+                    rent_ticket_edit_url=f_app.util.get_env_domain() + "/property-to-rent/%s/edit" % rent_ticket["id"],
+                    unsubscribe_url=f_app.util.get_env_domain() + '/email-unsubscribe?email_message_type=rent_ticket_reminder')
             except:
                 self.logger.warning("Invalid ticket", rent_ticket["id"], ", ignoring reminder...")
                 continue

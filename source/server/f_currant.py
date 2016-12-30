@@ -1073,7 +1073,7 @@ class currant_plugin(f_app.plugin_base):
         username = user.get("nickname")
         role = "tenant" if ticket["user_id"] == user["id"] else "host"
         message = message["message"] if len(message["message"]) < 20 else message["message"][:20] + "..."
-        reply_url = "https://yangfd.com/user-chat/%s/details" % task["ticket_id"]
+        reply_url = f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"]
 
         f_app.sms.send(target=user["phone"], text=template(
             "static/sms/chat_reply",
@@ -1111,7 +1111,7 @@ class currant_plugin(f_app.plugin_base):
         face = user.get("face")
         role = "tenant" if ticket["user_id"] == user["id"] else "host"
         message = message["message"]
-        reply_url = "https://yangfd.com/user-chat/%s/details" % task["ticket_id"]
+        reply_url = f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"]
 
         f_app.email.send(target=user["email"], subject=title, display="html", text=template(
             "static/emails/chat_reply",
@@ -1269,13 +1269,45 @@ class currant_util(f_util):
 
         return building_area_group
 
-    def get_format_email_subject(self, subject):
-        host = request.urlparts[1]
+    def get_env_name(self):
+        try:
+            host = request.urlparts[1]
+        except RuntimeError:
+            host = f_app.common.currant_env
+
         if "currant-dev" in host:
-            return "<currant-dev>" + subject
+            return "dev"
         elif "currant-test" in host:
-            return "<currant-test>" + subject
+            return "test"
         elif "127.0.0.1" in host:
+            return "local"
+        elif "youngfunding.co.uk" in host:
+            return "production-uk"
+        else:
+            return "production"
+
+    def get_env_domain(self):
+        env = f_app.util.get_env_name()
+        if env == "dev":
+            return "https://currant-dev.bbtechgroup.com"
+        elif env == "test":
+            return "https://currant-test.bbtechgroup.com"
+        elif env == "local":
+            return "http://127.0.0.1:8181"
+        elif env == "production-uk":
+            return "https://youngfunding.co.uk"
+        elif env == "production":
+            return "https://yangfd.com"
+        else:
+            raise NotImplementedError
+
+    def get_format_email_subject(self, subject):
+        env = f_app.util.get_env_name()
+        if env == "dev":
+            return "<currant-dev>" + subject
+        elif env == "test":
+            return "<currant-test>" + subject
+        elif env == "local":
             return "<currant-localhost>" + subject
         return subject
 
