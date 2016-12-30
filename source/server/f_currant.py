@@ -1057,6 +1057,7 @@ class currant_plugin(f_app.plugin_base):
             return
 
         user = f_app.user.get(message["user_id"])
+        from_user = f_app.user.get(message["from_user_id"])
         if "phone" not in user:
             self.logger.debug("User don't have a phone field, not (re)sending SMS notification for", task["message_id"])
             return
@@ -1070,8 +1071,8 @@ class currant_plugin(f_app.plugin_base):
         locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
         f_app.data["thread_local"]._requested_i18n_locales_list = [locale]
 
-        username = user.get("nickname")
-        role = "tenant" if ticket["user_id"] == user["id"] else "host"
+        username = from_user.get("nickname")
+        role = "tenant" if ticket["user_id"] == from_user["id"] else "host"
         message = message["message"] if len(message["message"]) < 20 else message["message"][:20] + "..."
         reply_url = f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"]
 
@@ -1093,6 +1094,7 @@ class currant_plugin(f_app.plugin_base):
             return
 
         user = f_app.user.get(message["user_id"])
+        from_user = f_app.user.get(message["from_user_id"])
         if "email" not in user:
             self.logger.debug("User don't have a email field, not (re)sending Email notification for", task["message_id"])
             return
@@ -1107,9 +1109,9 @@ class currant_plugin(f_app.plugin_base):
         f_app.data["thread_local"]._requested_i18n_locales_list = [locale]
 
         title = template("static/emails/chat_reply_title")
-        username = user.get("nickname")
-        face = user.get("face")
-        role = "tenant" if ticket["user_id"] == user["id"] else "host"
+        username = from_user.get("nickname")
+        face = from_user.get("face")
+        role = "tenant" if ticket["user_id"] == from_user["id"] else "host"
         message = message["message"]
         reply_url = f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"]
 
