@@ -790,6 +790,7 @@
             }
 
             this.sendSubmit = function () {
+                $('.btn_send').addClass('buttonLoading')
                 if(!this.validate('rentTime', 'description', 'nickname', 'phone', 'email', 'captchaCode')) {
                     return
                 }
