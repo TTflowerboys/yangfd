@@ -77,7 +77,7 @@ var chat = {
         });
         $(window).on('blur',function(){
             documentfocusState=false;
-            $(document).one('click',function(){ documentfocusState=true; })
+            //$(document).one('click',function(){ documentfocusState=true; })
         });
 
         if(documentfocusState===false){
