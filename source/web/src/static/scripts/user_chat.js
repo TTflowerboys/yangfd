@@ -54,8 +54,8 @@ var chat = {
             validateShow(errorConf.maxlength,errorType)
             sendBtn.attr('disabled','disabled')
         }else if(window.project.includePhoneOrEmail(valAreaValue) || _.some(wordBlacklist, function (v) {
-                return valAreaValue.toLowerCase().indexOf(v.toLowerCase()) !== -1
-            })) {
+            return valAreaValue.toLowerCase().indexOf(v.toLowerCase()) !== -1
+        })) {
             validateShow(errorConf.includePhoneOrEmail,errorType)
             sendBtn.attr('disabled','disabled')
         }else{
@@ -63,6 +63,7 @@ var chat = {
             sendBtn.removeAttr('disabled')
         }
     },
+    //TODO @tomlei the tpl for message can use one template ?
     target_user_id : function(){
         return window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.chatConfig.rentTicketData.creator_user.id: chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id
     },
@@ -72,17 +73,17 @@ var chat = {
     isMobileSendMsg : function(){
         return $('#chat_edit_area').val().trim().length ? true : false;
     },
-    meMsgTpl : function(picUrl,plain,time){
-        return '<div class="message me"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
+    meMsgTpl : function(messageId, picUrl,plain,time){
+        return '<div class="message me" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
     },
-    defMsgTpl : function(picUrl,plain,time){
-        return '<div class="message"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
+    defMsgTpl : function(messageId, picUrl,plain,time){
+        return '<div class="message me" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
     },
-    sendMsgTpl : function(picUrl,plain){
-        return '<div class="message me"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+team.getCurrentDate()+'</span></div></div></div></div></div>'
+    sendMsgTpl : function(messageId, picUrl,plain){
+        return '<div class="message me" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+team.getCurrentDate()+'</span></div></div></div></div></div>'
     },
-    websocketTpl : function(picUrl,plain,time){
-        return '<div class="message"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
+    websocketTpl : function(messageId, picUrl,plain,time){
+        return '<div class="message me" data-id="' + messageId + '"><img src="' +picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
     },
     noMessageTpl: function(){
         return '<div class="noMessage">'+window.i18n('没有最新留言')+'</div>'
@@ -95,11 +96,11 @@ var chat = {
                 mePicUrl = va.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
                 if (va.from_user.id === window.user.id) {
                     if (va.display === 'text') {
-                        Tpl += chat.meMsgTpl(mePicUrl,va.message,va.time)
+                        Tpl += chat.meMsgTpl(va.id, mePicUrl,va.message,va.time)
                     }
                 }else{
                     if (va.display === 'text') {
-                        Tpl += chat.defMsgTpl(mePicUrl,va.message,va.time)
+                        Tpl += chat.defMsgTpl(va.id, mePicUrl,va.message,va.time)
                     }
                 }
             })
@@ -158,7 +159,7 @@ var chat = {
                 if ($('#chatContent .noMessage').length>0) {
                     $('#chatContent .noMessage').hide()
                 }
-                $('#chatContent').prepend(chat.sendMsgTpl(PicUrl,$('#edit_area').val()));
+                $('#chatContent').prepend(chat.sendMsgTpl(_.uniqueId('local_'), PicUrl, $('#edit_area').val()));
                 chat.clearEditArea()
                 //socketWs.send($('#edit_area').val())
             })
@@ -174,7 +175,7 @@ var chat = {
                 if ($('#chatContent .noMessage').length>0) {
                     $('#chatContent .noMessage').hide()
                 }
-                $('#chatContent').append(chat.sendMsgTpl(PicUrl,$('#chat_edit_area').val()));
+                $('#chatContent').append(chat.sendMsgTpl(_.uniqueId('local_'), PicUrl, $('#chat_edit_area').val()));
                 chat.clearEditArea()
                 $('body').scrollTop(999999)
             })
@@ -199,9 +200,9 @@ listener.onreceivemessage = function(socketVal) {
             .done(function (data) {
                 chat.chatFlashTitle()
                 if (team.isPhone()) {
-                    $('#chatContent').append(chat.sendMsgTpl(PicUrl,socketVal.message,socketVal.time));
+                    $('#chatContent').append(chat.sendMsgTpl(socketVal.id, PicUrl,socketVal.message,socketVal.time));
                 }else{
-                    $('#chatContent').prepend(chat.websocketTpl(PicUrl,socketVal.message,socketVal.time));
+                    $('#chatContent').prepend(chat.websocketTpl(socketVal.id, PicUrl,socketVal.message,socketVal.time));
                 }
             })
             .fail(function (ret) {
@@ -236,7 +237,7 @@ $(function(){
         'time' : lastItemTime
     }
 
-    function loadChatHistoryList(reload) {
+    function loadChatHistoryList(reload , callback) {
 
         if (lastItemTime) {
             params.time = lastItemTime
@@ -255,9 +256,10 @@ $(function(){
 
     var totalResultCount = getCurrentTotalCount()
 
-    if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
-        $('body,html').animate({scrollTop: $('body').height()}, 300)
-    }
+        // if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
+        //     $('body,html').animate({scrollTop: $('body').height()}, 300)
+        // }   
+        
 
     $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history',params)
         .done(function (val) {
@@ -279,18 +281,18 @@ $(function(){
                                 .fail(function (ret) {
                                 })
                         }
+
                         var historyResult = '';
                         if (history.from_user.id === window.user.id) {
-                            historyResult += chat.meMsgTpl(mePicUrl,history.message,history.time)
+                            historyResult += chat.meMsgTpl(history.id, mePicUrl,history.message,history.time)
                         }else{
-                            historyResult += chat.defMsgTpl(mePicUrl,history.message,history.time)
+                            historyResult += chat.defMsgTpl(history.id, mePicUrl,history.message,history.time)
                         }
                         if (team.isPhone()) {
                             $('#chatContent').prepend(historyResult)
-                        }else{                        
+                        }else{
                             $('#chatContent').append(historyResult)
-                        }                  
-
+                        }
                         if (lastItemTime > history.time) {
                             lastItemTime = history.time
                         }
@@ -302,13 +304,10 @@ $(function(){
                     isAllItemsLoaded = true
                 }
                 updateResultCount(totalResultCount)
-                if (team.isPhone()) {
-                    if (mobileScroll) {
-                        $('body,html').animate({scrollTop: 999999}, 1000)
-                        mobileScroll = false
-                    }              
-                }
 
+                if (callback) {
+                    callback()
+                }
             }).fail(function (ret) {
                 if(ret !== 0) {
                     updateResultCount(totalResultCount)
@@ -333,7 +332,7 @@ $(function(){
         }
     }
 
-    function needLoad() {
+    function needLoadForNonPhone() {
         var scrollPos = $(window).scrollTop()
         var windowHeight = $(window).height()
 
@@ -342,14 +341,36 @@ $(function(){
         var needLoadSwitch = team.isPhone()? scrollPos<10 : windowHeight + scrollPos > requireToScrollHeight
         return needLoadSwitch && !isLoading && !isAllItemsLoaded
     }
-    function autoLoad() {
-        if(needLoad()) {
-            loadChatHistoryList()
-        }
-    }
 
     loadChatHistoryList()
-    $(window).scroll(autoLoad)
+
+    if (team.isPhone()) {
+        var $indicator = $('.loadIndicator')
+        var $list = $('#chatContent')
+        $indicator.insertBefore($list)
+        if ($list.height() < $(window).height()) {
+            $list.height($(window).height())
+        }
+
+        $(window).scroll(function (e) {
+            var scrollPos = $(window).scrollTop()
+            if (scrollPos === 0 && !isLoading && !isAllItemsLoaded) {
+                var oldFirstItem = $('#chatContent .message').first()
+                var oldTop = oldFirstItem.offset().top
+                loadChatHistoryList(false, function() {
+                    var newTop = oldFirstItem.offset().top
+                    $('body').scrollTop(50 + newTop - oldTop)
+                })
+            }
+        })
+    }
+    else {
+        $(window).scroll(function () {
+            if(needLoadForNonPhone()) {
+                loadChatHistoryList()
+            }
+        })
+    }
 
 });
 
