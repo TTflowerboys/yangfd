@@ -1131,7 +1131,7 @@ class currant_plugin(f_app.plugin_base):
                     if order["user"].get("email"):
                         f_app.email.schedule(
                             target=order["user"]["email"],
-                            subject=template("views/static/emails/crowdfunding_notification_title.html"),
+                            subject=f_app.util.get_format_email_subject(template("views/static/emails/crowdfunding_notification_title.html")),
                             text=template(
                                 "views/static/emails/crowdfunding_notification",
                                 nickname=order["user"]["nickname"],
@@ -1147,7 +1147,7 @@ class currant_plugin(f_app.plugin_base):
                     if order["user"].get("email"):
                         f_app.email.schedule(
                             target=order["user"]["email"],
-                            subject=template("views/static/emails/crowdfunding_notification_title_canceled"),
+                            subject=f_app.util.get_format_email_subject(template("views/static/emails/crowdfunding_notification_title_canceled")),
                             text=template(
                                 "views/static/emails/crowdfunding_notification_canceled",
                                 nickname=order["user"]["nickname"],

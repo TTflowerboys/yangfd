@@ -711,7 +711,7 @@ def user_assign_referral_code(user, params):
     if send_email:
         f_app.email.schedule(
             target=user["email"],
-            subject=template("views/static/emails/affiliate_register_success_title"),
+            subject=f_app.util.get_format_email_subject(template("views/static/emails/affiliate_register_success_title")),
             text=template(
                 "views/static/emails/affiliate_register_success",
                 nickname=user["nickname"],
@@ -779,7 +779,7 @@ def user_admin_invite(user, params):
     logger.debug("Generated invitation code:", code)
     f_app.email.schedule(
         target=params["email"],
-        subject="Invitation to YoungFunding",
+        subject=f_app.util.get_format_email_subject("Invitation to YoungFunding"),
         text=template(
             "views/static/emails/invitation.html",
             code=code
@@ -1013,7 +1013,7 @@ def user_email_recovery_send(params):
 
     f_app.email.schedule(
         target=params["email"],
-        subject=title,
+        subject=f_app.util.get_format_email_subject(title),
         text=template("static/emails/reset_password_by_email", reset_password_url=url, title=title),
         display="html",
         tag="reset_password_by_email",
@@ -1035,7 +1035,7 @@ def user_invite(user, params):
         discount = user["coupon"]["discount"]["unit_symbol"] + user["coupon"]["discount"]["value"]
     f_app.email.schedule(
         target=params["email"],
-        subject=template("views/static/emails/coupon_code_share_title", nickname=user["nickname"]),
+        subject=f_app.util.get_format_email_subject(template("views/static/emails/coupon_code_share_title", nickname=user["nickname"])),
         text=template(
             "views/static/emails/coupon_code_share",
             nickname=user["nickname"],

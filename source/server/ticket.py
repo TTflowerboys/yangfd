@@ -250,7 +250,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                     title = "恭喜，您的房源已经发布成功！"
                     f_app.email.schedule(
                         target=ticket_email_user["email"],
-                        subject=title,
+                        subject=f_app.util.get_format_email_subject(title),
                         # TODO
                         text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket_email_user["nickname"], rent=this_ticket, date="", get_country_name_by_code=currant_util.get_country_name_by_code),
                         display="html",
@@ -396,7 +396,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 title = "洋房东给您匹配到了合适的房源，快来看看吧！"
                 f_app.email.schedule(
                     target=ticket_email_user["email"],
-                    subject=title,
+                    subject=f_app.util.get_format_email_subject(title),
                     # TODO
                     text=template("static/emails/rent_intention_matched_1", title=title, nickname=ticket_email_user["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                     display="html",
@@ -412,7 +412,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 else:
                     f_app.email.schedule(
                         target=ticket_email_user["email"],
-                        subject=title,
+                        subject=f_app.util.get_format_email_subject(title),
                         # TODO
                         text=template("static/emails/rent_intention_matched_4", title=title, nickname=ticket_email_user["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                         display="html",
@@ -526,7 +526,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             title = "洋房东给您匹配到了合适的房源，快来看看吧！"
             f_app.email.schedule(
                 target=ticket_email_user["email"],
-                subject=title,
+                subject=f_app.util.get_format_email_subject(title),
                 # TODO
                 text=template("static/emails/rent_intention_digest", nickname=ticket_email_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                 display="html",
@@ -538,7 +538,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             title = "洋房东给您匹配到了一些房源，快来看看吧！"
             f_app.email.schedule(
                 target=ticket_email_user["email"],
-                subject=title,
+                subject=f_app.util.get_format_email_subject(title),
                 # TODO
                 text=template("static/emails/rent_intention_digest", nickname=ticket_email_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                 display="html",
@@ -550,7 +550,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             title = "恭喜，洋房东已经收到您的求租意向单！"
             f_app.email.schedule(
                 target=ticket_email_user["email"],
-                subject=title,
+                subject=f_app.util.get_format_email_subject(title),
                 # TODO
                 text=template("static/emails/receive_rent_intention", date="", nickname=ticket_email_user["nickname"], title=title, unsubscribe_url=unsubscribe_url),
                 display="html",
@@ -625,7 +625,7 @@ class currant_ticket_plugin(f_app.plugin_base):
 
             f_app.email.schedule(
                 target=ticket_email_user["email"],
-                subject=title,
+                subject=f_app.util.get_format_email_subject(title),
                 text=body,
                 display="html",
                 rent_ticket_reminder="is_rent_success",
@@ -676,7 +676,7 @@ class currant_ticket_plugin(f_app.plugin_base):
 
             f_app.email.schedule(
                 target=ticket_email_user["email"],
-                subject=title,
+                subject=f_app.util.get_format_email_subject(title),
                 text=body,
                 display="html",
                 rent_ticket_reminder="draft_7day",
@@ -727,7 +727,7 @@ class currant_ticket_plugin(f_app.plugin_base):
 
             f_app.email.schedule(
                 target=ticket_email_user["email"],
-                subject=title,
+                subject=f_app.util.get_format_email_subject(title),
                 text=body,
                 display="html",
                 rent_ticket_reminder="draft_3day",

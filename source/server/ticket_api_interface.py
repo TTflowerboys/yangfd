@@ -256,7 +256,7 @@ def intention_ticket_add(params):
     title = "恭喜，洋房东已经收到您的投资意向单！"
     f_app.email.schedule(
         target=params["email"],
-        subject=title,
+        subject=f_app.util.get_format_email_subject(title),
         # TODO
         text=template("static/emails/receive_intention", date="", nickname=params["nickname"], title=title),
         display="html",
@@ -1293,7 +1293,7 @@ def support_ticket_add(params):
         if "email" in support:
             f_app.email.schedule(
                 target=support["email"],
-                subject=template("static/emails/new_intention_ticket_title"),
+                subject=f_app.util.get_format_email_subject(template("static/emails/new_intention_ticket_title")),
                 text=template("static/emails/new_intention_ticket", params=params),
                 display="html",
                 tag="new_intention_ticket",
@@ -2009,7 +2009,7 @@ def rent_ticket_suspend(ticket_id, user):
         title = "您发布的房源已被认定为违规发布，请修改后重新发布"
         f_app.email.schedule(
             target=ticket_email_user["email"],
-            subject=title,
+            subject=f_app.util.get_format_email_subject(title),
             text=template(
                 "static/emails/rent_suspend_notice",
                 nickname=ticket_email_user.get("nickname"),
