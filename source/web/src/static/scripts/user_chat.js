@@ -45,7 +45,7 @@ var chat = {
                     }
                 }
             }
-        }        
+        }   
 
         if(!valAreaLength) {
             validateShow(errorConf.empty,errorType)
@@ -53,7 +53,9 @@ var chat = {
         }else if(valAreaLength > 200){
             validateShow(errorConf.maxlength,errorType)
             sendBtn.attr('disabled','disabled')
-        }else if(window.project.includePhoneOrEmail(valAreaValue) || _.some(wordBlacklist, function (v) {valAreaValue.toLowerCase().indexOf(v.toLowerCase()) !== -1 })) {
+        }else if(window.project.includePhoneOrEmail(valAreaValue) || _.some(wordBlacklist, function (v) {
+                return valAreaValue.toLowerCase().indexOf(v.toLowerCase()) !== -1
+            })) {
             validateShow(errorConf.includePhoneOrEmail,errorType)
             sendBtn.attr('disabled','disabled')
         }else{
@@ -173,7 +175,7 @@ var chat = {
                     $('#chatContent .noMessage').hide()
                 }
                 $('#chatContent').append(chat.sendMsgTpl(PicUrl,$('#chat_edit_area').val()));
-                chat.clearEditArea()      
+                chat.clearEditArea()
                 $('body').scrollTop(999999)
             })
             .fail(function (ret) {
@@ -223,12 +225,10 @@ $(function(){
 
 $(function(){
     var itemsPerPage = 10
-    if (team.isPhone()) {
-        itemsPerPage = 30
-    }    
     var lastItemTime
     var isLoading = false
     var isAllItemsLoaded = false
+    var mobileScroll=true
 
     var params = {
         'target_user_id': chat.target_user_id(),
@@ -242,37 +242,34 @@ $(function(){
             params.time = lastItemTime
         }
 
-        if(reload){
-            $('#result_list').empty()
-            lastItemTime = null
-            delete params.time
-        }
+    if(reload){
+        $('#chatContent').empty()
+        lastItemTime = null
+        delete params.time
+    }
 
-        $('#result_list_container').show()
-        $('.emptyPlaceHolder').hide();
+    $('.emptyPlaceHolder').hide();
 
-        isLoading = true
-        $('#loadIndicator').show()
+    isLoading = true
+    $('#loadIndicator').show()
 
-        var totalResultCount = getCurrentTotalCount()
+    var totalResultCount = getCurrentTotalCount()
 
-        if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
-            $('body,html').animate({scrollTop: $('body').height()}, 300)
-        }        
+    if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
+        $('body,html').animate({scrollTop: $('body').height()}, 300)
+    }
 
-        $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history',params)
-            .done(function (val) {
-                var array = val
-                if (!_.isEmpty(array)) {
-                    lastItemTime = _.last(array).time
+    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history',params)
+        .done(function (val) {
+            var array = val
+            if (!_.isEmpty(array)) {
+                lastItemTime = _.last(array).time
 
-                    if (!window.ChatHistoryList) {
-                        window.ChatHistoryList = []
-                    }
-                    window.ChatHistoryList = window.ChatHistoryList.concat(array)
+                if (!window.ChatHistoryList) {
+                    window.ChatHistoryList = []
+                }
+                window.ChatHistoryList = window.ChatHistoryList.concat(array)
 
-                    
-                    
                     _.each(array, function (history) {
                         var mePicUrl = history.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
                         if (history.user_id === window.user.id && history.status !== 'read') {
@@ -282,7 +279,6 @@ $(function(){
                                 .fail(function (ret) {
                                 })
                         }
-                        
                         var historyResult = '';
                         if (history.from_user.id === window.user.id) {
                             historyResult += chat.meMsgTpl(mePicUrl,history.message,history.time)
@@ -295,7 +291,6 @@ $(function(){
                             $('#chatContent').append(historyResult)
                         }                  
 
-
                         if (lastItemTime > history.time) {
                             lastItemTime = history.time
                         }
@@ -307,8 +302,11 @@ $(function(){
                     isAllItemsLoaded = true
                 }
                 updateResultCount(totalResultCount)
-                if (team.isPhone()) {        
-                    $('body').scrollTop(999999)
+                if (team.isPhone()) {
+                    if (mobileScroll) {
+                        $('body,html').animate({scrollTop: 999999}, 1000)
+                        mobileScroll = false
+                    }              
                 }
 
             }).fail(function (ret) {
@@ -341,7 +339,8 @@ $(function(){
 
         var listHeight = $('#chatContent').height()
         var requireToScrollHeight = listHeight
-        return windowHeight + scrollPos > requireToScrollHeight && !isLoading && !isAllItemsLoaded
+        var needLoadSwitch = team.isPhone()? scrollPos<10 : windowHeight + scrollPos > requireToScrollHeight
+        return needLoadSwitch && !isLoading && !isAllItemsLoaded
     }
     function autoLoad() {
         if(needLoad()) {
@@ -350,9 +349,7 @@ $(function(){
     }
 
     loadChatHistoryList()
-    if (!team.isPhone()) {
-        $(window).scroll(autoLoad)
-    }
+    $(window).scroll(autoLoad)
 
 });
 
