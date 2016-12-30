@@ -779,9 +779,9 @@ def user_admin_invite(user, params):
     logger.debug("Generated invitation code:", code)
     f_app.email.schedule(
         target=params["email"],
-        subject=f_app.util.get_format_email_subject("Invitation to YoungFunding"),
+        subject=f_app.util.get_format_email_subject(template("static/emails/invitation_title")),
         text=template(
-            "views/static/emails/invitation.html",
+            "views/static/emails/invitation",
             code=code
         ),
         display="html",
@@ -1009,7 +1009,7 @@ def user_email_recovery_send(params):
     user_id, code = f_app.user.email.recovery(params["email"])
 
     url = "http://yangfd.com/reset_password_email_2?user_id=" + user_id + "&code=" + code
-    title = "重设您的密码 - 洋房东"
+    title = template("static/emails/reset_password_by_email_title")
 
     f_app.email.schedule(
         target=params["email"],

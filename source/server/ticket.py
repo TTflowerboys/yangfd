@@ -247,7 +247,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 import currant_util
                 ticket_email_user = f_app.util.ticket_determine_email_user(this_ticket)
                 if 'property' in this_ticket and ticket_email_user:
-                    title = "恭喜，您的房源已经发布成功！"
+                    title = template("static/emails/rent_ticket_publish_success_title")
                     f_app.email.schedule(
                         target=ticket_email_user["email"],
                         subject=f_app.util.get_format_email_subject(title),
@@ -393,7 +393,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             import currant_util
 
             if score == 6:
-                title = "洋房东给您匹配到了合适的房源，快来看看吧！"
+                title = template("static/emails/rent_intention_matched_1_title")
                 f_app.email.schedule(
                     target=ticket_email_user["email"],
                     subject=f_app.util.get_format_email_subject(title),
@@ -405,7 +405,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 )
                 f_app.ticket.ensure_tag(intention_ticket["id"], "perfect_match")
             elif score >= 4:
-                title = "洋房东给您匹配到了一些房源，快来看看吧！"
+                title = template("static/emails/rent_intention_matched_4_title")
                 sent_in_a_day = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_match_user_id": ticket_email_user["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=1)}})
                 if len(sent_in_a_day):
                     pass
@@ -523,7 +523,7 @@ class currant_ticket_plugin(f_app.plugin_base):
         import currant_util
         unsubscribe_url = f_app.util.get_env_domain() + '/email-unsubscribe?email_message_type=rent_intention_ticket_check_rent'
         if len(best_matches):
-            title = "洋房东给您匹配到了合适的房源，快来看看吧！"
+            title = template("static/emails/rent_intention_digest_title_1")
             f_app.email.schedule(
                 target=ticket_email_user["email"],
                 subject=f_app.util.get_format_email_subject(title),
@@ -535,7 +535,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             )
             f_app.ticket.ensure_tag(intention_ticket["id"], "perfect_match")
         elif len(good_matches):
-            title = "洋房东给您匹配到了一些房源，快来看看吧！"
+            title = template("static/emails/rent_intention_digest_title_2")
             f_app.email.schedule(
                 target=ticket_email_user["email"],
                 subject=f_app.util.get_format_email_subject(title),
@@ -547,7 +547,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             )
             f_app.ticket.ensure_tag(intention_ticket["id"], "partial_match")
         else:
-            title = "恭喜，洋房东已经收到您的求租意向单！"
+            title = template("static/emails/receive_rent_intention_title")
             f_app.email.schedule(
                 target=ticket_email_user["email"],
                 subject=f_app.util.get_format_email_subject(title),
@@ -605,10 +605,10 @@ class currant_ticket_plugin(f_app.plugin_base):
                 continue
 
             try:
-                title = "您的“%(title)s”是否已经出租成功了？" % rent_ticket
+                title = template("static/emails/rent_notice_title") % rent_ticket
                 url = f_app.util.get_env_domain() + '/property-to-rent/' + rent_ticket["id"]
                 body = template(
-                    "views/static/emails/rent_notice.html",
+                    "views/static/emails/rent_notice",
                     title=title,
                     nickname=ticket_email_user["nickname"],
                     formated_date='之前',  # TODO
@@ -660,7 +660,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 # Sent, skipping
                 continue
 
-            title = "您的出租房产已经在草稿箱中躺了7天了！"
+            title = template("static/emails/draft_not_publish_day_7_title")
             try:
                 body = template(
                     "views/static/emails/draft_not_publish_day_7",
@@ -711,7 +711,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 # Sent, skipping
                 continue
 
-            title = "您的出租房产已经在草稿箱中躺了3天了！"
+            title = template("static/emails/draft_not_publish_day_3_title")
             try:
                 body = template(
                     "views/static/emails/draft_not_publish_day_3",
