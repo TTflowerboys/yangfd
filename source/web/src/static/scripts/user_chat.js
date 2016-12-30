@@ -156,6 +156,7 @@ listener.onreceivemessage = function(socketVal) {
     if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id && socketVal.from_user.id === chat.target_user_id()) {
         $.betterPost('/api/1/message/'+socketVal.id+'/mark/read')
             .done(function (data) {
+                chat.chatFlashTitle()
                 if (team.isPhone()) {
                     $('#chatContent').append(chat.sendMsgTpl(PicUrl,socketVal.message,socketVal.time));
                 }else{
