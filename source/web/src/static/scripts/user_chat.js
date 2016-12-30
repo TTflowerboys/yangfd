@@ -154,8 +154,7 @@ var listener = {};
 listener.onreceivemessage = function(socketVal) {
     var PicUrl =  socketVal.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
     if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id && socketVal.from_user.id === chat.target_user_id()) {
-        socketVal.status = 'sent'
-        $.betterPost('/api/1/message/'+socketVal.id+'/mark/rend')
+        $.betterPost('/api/1/message/'+socketVal.id+'/mark/read')
             .done(function (data) {
                 if (team.isPhone()) {
                     $('#chatContent').append(chat.sendMsgTpl(PicUrl,socketVal.message,socketVal.time));
