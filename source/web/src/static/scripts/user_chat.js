@@ -229,7 +229,6 @@ $(function(){
     var lastItemTime
     var isLoading = false
     var isAllItemsLoaded = false
-    var mobileScroll=true
 
     var params = {
         'target_user_id': chat.target_user_id(),
