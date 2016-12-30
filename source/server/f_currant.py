@@ -1074,7 +1074,7 @@ class currant_plugin(f_app.plugin_base):
         username = from_user.get("nickname")
         role = "tenant" if ticket["user_id"] == from_user["id"] else "host"
         message = message["message"] if len(message["message"]) < 20 else message["message"][:20] + "..."
-        reply_url = f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"]
+        reply_url = f_app.shorturl(f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"])
 
         f_app.sms.send(target=user["phone"], text=template(
             "static/sms/chat_reply",
