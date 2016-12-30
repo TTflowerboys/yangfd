@@ -22,43 +22,43 @@ var chat = {
         'rentTicketData' : JSON.parse($('#rentTicketData').text()),
         'rent_intention_ticket_id' : (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
     },
-    validate : function(){
+    validate : function(valArea,sendBtn,errorType){
         var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
-        var errorArea = $('.requirementRentFormError');
-        var edit_area_value = $('#edit_area').val().trim()
-        var edit_area_length = edit_area_value.length
-        var btn_send = $('.btn_send')
-        if(!edit_area_length) {
-            errorArea.text(window.i18n('请填写聊天信息'))
-            btn_send.attr('disabled','disabled')
-        }else if(edit_area_length > 200){
-            errorArea.text(window.i18n('聊天内容超出最大限制'))
-            btn_send.attr('disabled','disabled')
-        }else if(window.project.includePhoneOrEmail(edit_area_value) || _.some(wordBlacklist, function (v) {edit_area_value.toLowerCase().indexOf(v.toLowerCase()) !== -1 })) {
-            errorArea.text(window.i18n('请不要在聊天中填写任何形式的联系方式'))
-            btn_send.attr('disabled','disabled')
-        }else{
-            errorArea.text('')
-            btn_send.removeAttr('disabled')
+        var errorConf = {
+            'empty' : window.i18n('请填写聊天信息'),
+            'maxlength' : window.i18n('聊天内容超出最大限制'),
+            'includePhoneOrEmail' : window.i18n('请不要在聊天中填写任何形式的联系方式'),
+            'ok' : ''
         }
-    },
-    validate_mobile : function(){
-        var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
-        var chat_edit_area_value = $('#chat_edit_area').val().trim()
-        var chat_edit_area_length = chat_edit_area_value.length
-        var btn_send_phone = $('#btn_send_phone')
-        if (!chat_edit_area_length) {
-            window.dhtmlx.message({ type: 'error', text: window.i18n('请填写聊天信息') })
-            btn_send_phone.attr('disabled','disabled')
-        }else if(chat_edit_area_length > 200){
-            window.dhtmlx.message({ type: 'error', text: window.i18n('聊天内容超出最大限制') })
-            btn_send_phone.attr('disabled','disabled')
-        }else if(window.project.includePhoneOrEmail(chat_edit_area_value) || _.some(wordBlacklist, function (v) {chat_edit_area_value.toLowerCase().indexOf(v.toLowerCase()) !== -1 })) {
-            window.dhtmlx.message({ type: 'error', text: window.i18n('请不要在聊天中填写任何形式的联系方式') })
-            btn_send_phone.attr('disabled','disabled')
+        var valAreaValue = valArea.val().trim()
+        var valAreaLength = valAreaValue.length
+
+        function validateShow(errorText,errorType){
+            if (errorType === undefined || errorType === 'text') {
+                return $('.requirementRentFormError').text(errorText)
+            }else if(errorType === 'popup'){
+                if (errorText) {
+                    if ($('.dhtmlx_message_area').text()) {
+                        return
+                    }else{
+                        return window.dhtmlx.message({ type: 'error', text: errorText })
+                    }
+                }
+            }
+        }        
+
+        if(!valAreaLength) {
+            validateShow(errorConf.empty,errorType)
+            sendBtn.attr('disabled','disabled')
+        }else if(valAreaLength > 200){
+            validateShow(errorConf.maxlength,errorType)
+            sendBtn.attr('disabled','disabled')
+        }else if(window.project.includePhoneOrEmail(valAreaValue) || _.some(wordBlacklist, function (v) {valAreaValue.toLowerCase().indexOf(v.toLowerCase()) !== -1 })) {
+            validateShow(errorConf.includePhoneOrEmail,errorType)
+            sendBtn.attr('disabled','disabled')
         }else{
-            errorArea.text('')
-            btn_send_phone.removeAttr('disabled')
+            validateShow(errorConf.ok,errorType)
+            sendBtn.removeAttr('disabled')
         }
     },
     target_user_id : function(){
@@ -213,10 +213,10 @@ window.wsListeners.push(listener)
 $(function(){
     chat.init();
     $('#edit_area').on('keyup', function(e) {
-        chat.validate()
+        chat.validate($('#edit_area'),$('.btn_send'))
     });
     $('#chat_edit_area').on('keyup',function(e){
-        chat.validate_mobile()
+        chat.validate($('#chat_edit_area'),$('#btn_send_phone'),'popup')
     })
 });
 
