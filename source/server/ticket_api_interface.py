@@ -999,7 +999,7 @@ def rent_intention_ticket_chat_send(rent_intention_ticket_id, user, params):
         message_id=message_id,
         ticket_id=rent_intention_ticket_id,
         type="chat_sms_notification"
-    ), delay=timedelta(minutes=20))
+    ), delay=timedelta(minutes=2))
 
     f_app.task.put(dict(
         message_id=message_id,
