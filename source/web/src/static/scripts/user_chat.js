@@ -245,12 +245,11 @@ function loadChatHistoryList(reload) {
                 
                 _.each(array, function (history) {
                     var mePicUrl = history.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-                    if (history.user_id !== window.user.id && history.status !== 'read') {
+                    if (history.user_id === window.user.id && history.status !== 'read') {
                         $.betterPost('/api/1/message/'+history.id+'/mark/read')
                             .done(function (res) {
                             })
                             .fail(function (ret) {
-                                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
                             })
                     }
                     
