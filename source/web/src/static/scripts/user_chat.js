@@ -12,7 +12,7 @@ var chat = {
                 e.preventDefault()
             }
         });
-        //chat.historyMessage()
+        $('.btn_send').attr('disabled','disabled')
     },
     placeholderPic : {
         'HOST' : '/static/images/chat/placeholder_host.png',
@@ -21,6 +21,45 @@ var chat = {
     chatConfig : {
         'rentTicketData' : JSON.parse($('#rentTicketData').text()),
         'rent_intention_ticket_id' : (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
+    },
+    validate : function(){
+        var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
+        var errorArea = $('.requirementRentFormError');
+        var edit_area_value = $('#edit_area').val().trim()
+        var edit_area_length = edit_area_value.length
+        var btn_send = $('.btn_send')
+        if(!edit_area_length) {
+            errorArea.text(window.i18n('请填写聊天信息'))
+            btn_send.attr('disabled','disabled')
+        }else if(edit_area_length > 200){
+            errorArea.text(window.i18n('聊天内容超出最大限制'))
+            btn_send.attr('disabled','disabled')
+        }else if(window.project.includePhoneOrEmail(edit_area_value) || _.some(wordBlacklist, function (v) {edit_area_value.toLowerCase().indexOf(v.toLowerCase()) !== -1 })) {
+            errorArea.text(window.i18n('请不要在聊天中填写任何形式的联系方式'))
+            btn_send.attr('disabled','disabled')
+        }else{
+            errorArea.text('')
+            btn_send.removeAttr('disabled')
+        }
+    },
+    validate_mobile : function(){
+        var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
+        var chat_edit_area_value = $('#chat_edit_area').val().trim()
+        var chat_edit_area_length = chat_edit_area_value.length
+        var btn_send_phone = $('#btn_send_phone')
+        if (!chat_edit_area_length) {
+            window.dhtmlx.message({ type: 'error', text: window.i18n('请填写聊天信息') })
+            btn_send_phone.attr('disabled','disabled')
+        }else if(chat_edit_area_length > 200){
+            window.dhtmlx.message({ type: 'error', text: window.i18n('聊天内容超出最大限制') })
+            btn_send_phone.attr('disabled','disabled')
+        }else if(window.project.includePhoneOrEmail(chat_edit_area_value) || _.some(wordBlacklist, function (v) {chat_edit_area_value.toLowerCase().indexOf(v.toLowerCase()) !== -1 })) {
+            window.dhtmlx.message({ type: 'error', text: window.i18n('请不要在聊天中填写任何形式的联系方式') })
+            btn_send_phone.attr('disabled','disabled')
+        }else{
+            errorArea.text('')
+            btn_send_phone.removeAttr('disabled')
+        }
     },
     target_user_id : function(){
         return window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.chatConfig.rentTicketData.creator_user.id: chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id
@@ -68,7 +107,7 @@ var chat = {
         }
     },
     chatFlashTitle: function(){
-        var documentfocusState=true; //是否为当前活动页面 通过改变它来判断是否为活动页面
+        var documentfocusState=true;
         var documentTit=document.title;
         var flashTitleStep = 0;
         var flashTitleTimer = null;
@@ -140,10 +179,12 @@ var chat = {
             .fail(function (ret) {
                 window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
             })
+            .always(function(){
+                $('.btn_send').attr('disabled','disabled')
+            })
     },
     clearEditArea : function(){
         $('#edit_area,#chat_edit_area').val('');
-        $('.btn_send').attr('disabled',true)
     }
 }
 
@@ -172,21 +213,12 @@ window.wsListeners.push(listener)
 $(function(){
     chat.init();
     $('#edit_area').on('keyup', function(e) {
-        if($('#edit_area').val().trim().length>0){
-            $('.btn_send').removeAttr('disabled')
-        }else{
-            $('.btn_send').attr('disabled','disabled')
-        }
+        chat.validate()
     });
+    $('#chat_edit_area').on('keyup',function(e){
+        chat.validate_mobile()
+    })
 });
-
-;(function(){
-    if($('#edit_area').val().trim().length){
-        $('.btn_send').attr('disabled',' ')
-    }else{
-        $('.btn_send').attr('disabled','disabled')
-    }    
-})();
 
 
 $(function(){
