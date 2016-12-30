@@ -1275,7 +1275,7 @@ class currant_util(f_util):
         try:
             host = request.urlparts[1]
         except RuntimeError:
-            host = f_app.common.currant_env
+            return f_app.common.currant_env
 
         if "currant-dev" in host:
             return "dev"
