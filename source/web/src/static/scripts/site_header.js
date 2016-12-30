@@ -12,7 +12,7 @@
                 })
         }
 
-        $.betterPost('/api/1/message/search', {status: 'new', type: 'chat', per_page: 5})
+        $.betterPost('/api/1/message/search', {status: 'new, send', type: 'chat', per_page: 5})
             .done(function (data) {
                 if (data.length > 0) {
                     document.getElementById('icon-message').style.display = 'none'
