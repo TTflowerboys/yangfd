@@ -9,7 +9,7 @@ var chat = {
         $('#edit_area').on('keydown', function(e) {
             if(e.keyCode === team.keyCode.KEYCODE_ENTER){
                 if (chat.isSendMsg()) { chat.sendTextMessage() }
-                        e.preventDefault()
+                e.preventDefault()
             }
         });
         //chat.historyMessage()
@@ -202,7 +202,7 @@ $(function(){
         'per_page' : itemsPerPage,
         'time' : lastItemTime
     }
-function loadRentList(reload) {
+function loadChatHistoryList(reload) {
 
     $('.isAllLoadedInfo').hide()
     if (lastItemTime) {
@@ -218,11 +218,6 @@ function loadRentList(reload) {
 
     $('#result_list_container').show()
     $('.emptyPlaceHolder').hide();
-
-    if(!team.isPhone()){
-        $('#number_container').text(window.i18n('加载中'))
-        $('#number_container').show()
-    }
 
     isLoading = true
     $('#loadIndicator').show()
@@ -241,15 +236,24 @@ function loadRentList(reload) {
             if (!_.isEmpty(array)) {
                 lastItemTime = _.last(array).time
 
-                if (!window.rentList) {
-                    window.rentList = []
+                if (!window.ChatHistoryList) {
+                    window.ChatHistoryList = []
                 }
-                window.rentList = window.rentList.concat(array)
+                window.ChatHistoryList = window.ChatHistoryList.concat(array)
 
                 
                 
                 _.each(array, function (history) {
                     var mePicUrl = history.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+                    if (history.user_id !== window.user.id && history.status !== 'read') {
+                        $.betterPost('/api/1/message/'+history.id+'/mark/read')
+                            .done(function (res) {
+                            })
+                            .fail(function (ret) {
+                                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                            })
+                    }
+                    
                     var historyResult = '';
                     if (history.from_user.id === window.user.id) {
                         historyResult += chat.meMsgTpl(mePicUrl,history.message,history.time)
@@ -260,11 +264,7 @@ function loadRentList(reload) {
                         $('#chatContent').prepend(historyResult)
                     }else{                        
                         $('#chatContent').append(historyResult)
-                    }
-
-                    
-
-                    
+                    }                  
 
 
                     if (lastItemTime > history.time) {
@@ -289,7 +289,7 @@ function loadRentList(reload) {
             isLoading = false
         })
 }
-loadRentList()
+loadChatHistoryList()
 
     function getCurrentTotalCount() {
         return $('#chatContent').children('.message').length
@@ -316,7 +316,7 @@ loadRentList()
 
         if(needLoad()) {
             $('.isAllLoadedInfo').hide()
-            loadRentList()
+            loadChatHistoryList()
         }
     }
     $(window).scroll(autoLoad)
