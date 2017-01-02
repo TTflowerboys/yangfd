@@ -1,372 +1,240 @@
-var chat = {
-    init : function(){
-        $('#btn_send').on('click',function(){
-            if (chat.isSendMsg()) { chat.sendTextMessage() }
-        })
-        $('#btn_send_phone').on('click',function(){
-            if (chat.isMobileSendMsg()) { chat.sendMobileTextMessage() }
-        })
-        $('#edit_area').on('keydown', function(e) {
-            if(e.keyCode === team.keyCode.KEYCODE_ENTER){
-                if (chat.isSendMsg()) { chat.sendTextMessage() }
-                e.preventDefault()
-            }
-        });
-        $('.btn_send').attr('disabled','disabled')
-    },
-    placeholderPic : {
-        'HOST' : '/static/images/chat/placeholder_host.png',
-        'Tenant' : '/static/images/chat/placeholder_tenant.png'
-    },
-    chatConfig : {
-        'rentTicketData' : JSON.parse($('#rentTicketData').text()),
-        'rent_intention_ticket_id' : (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
-    },
-    validate : function(valArea,sendBtn,errorType){
-        var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
-        var errorConf = {
-            'empty' : window.i18n('请填写聊天信息'),
-            'maxlength' : window.i18n('聊天内容超出最大限制'),
-            'includePhoneOrEmail' : window.i18n('请不要在聊天中填写任何形式的联系方式'),
-            'ok' : ''
-        }
-        var valAreaValue = valArea.val().trim()
-        var valAreaLength = valAreaValue.length
-
-        function validateShow(errorText,errorType){
-            if (errorType === undefined || errorType === 'text') {
-                return $('.requirementRentFormError').text(errorText)
-            }else if(errorType === 'popup'){
-                if (errorText) {
-                    if ($('.dhtmlx_message_area').text()) {
-                        return
-                    }else{
-                        return window.dhtmlx.message({ type: 'error', text: errorText })
-                    }
-                }
-            }
-        }   
-
-        if(!valAreaLength) {
-            validateShow(errorConf.empty,errorType)
-            sendBtn.attr('disabled','disabled')
-        }else if(valAreaLength > 200){
-            validateShow(errorConf.maxlength,errorType)
-            sendBtn.attr('disabled','disabled')
-        }else if(window.project.includePhoneOrEmail(valAreaValue) || _.some(wordBlacklist, function (v) {
-            return valAreaValue.toLowerCase().indexOf(v.toLowerCase()) !== -1
-        })) {
-            validateShow(errorConf.includePhoneOrEmail,errorType)
-            sendBtn.attr('disabled','disabled')
-        }else{
-            validateShow(errorConf.ok,errorType)
-            sendBtn.removeAttr('disabled')
-        }
-    },
-    //TODO @tomlei the tpl for message can use one template ?
-    target_user_id : function(){
-        return window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.chatConfig.rentTicketData.creator_user.id: chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id
-    },
-    isSendMsg : function(){
-        return $('#edit_area').val().trim().length ? true : false;
-    },
-    isMobileSendMsg : function(){
-        return $('#chat_edit_area').val().trim().length ? true : false;
-    },
-    messageTpl : function(messageId, picUrl, plain, role, time){
-        time = time !== undefined? window.project.formatTime(time): team.getCurrentDate()
-        if (role === 'me') {
-            return '<div class="message me" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+ time +'</span></div></div></div></div></div>'
-        }else if(role === 'default'){
-            return '<div class="message" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+ time +'</span></div></div></div></div></div>'
-        }
-    },
-    noMessageTpl: function(){
-        return '<div class="noMessage">'+window.i18n('没有最新留言')+'</div>'
-    },
-    historyTpl : function(data){
-        if (data && data.length>0) {
-            var Tpl = '';
-            var mePicUrl = '';
-            $(data).each(function (i, va){
-                mePicUrl = va.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-                if (va.from_user.id === window.user.id) {
-                    if (va.display === 'text') {
-                        Tpl += chat.messageTpl(va.id, mePicUrl,va.message,'me',va.time)
-                    }
-                }else{
-                    if (va.display === 'text') {
-                        Tpl += chat.messageTpl(va.id, mePicUrl,va.message,'default',va.time)
-                    }
-                }
-            })
-            $('#chatContent').html(Tpl);
-        }else{
-            $('#chatContent').prepend(chat.noMessageTpl);
-        }
-    },
-    chatFlashTitle: function(){
-        var documentfocusState=true;
-        var documentTit=document.title;
-        var flashTitleStep = 0;
-        var flashTitleTimer = null;
-        $(window,document,'body').on('focus',function(){
-            documentfocusState=true;
-        });
-        $(window).on('blur',function(){
-            documentfocusState=false;
-            //$(document).one('click',function(){ documentfocusState=true; })
-        });
-
-        if(documentfocusState===false){
-            flashTitleTimer = window.setInterval(function(){
-                flashTitleStep++;
-                if(flashTitleStep>=3) { flashTitleStep=1}
-                if(flashTitleStep===1) {document.title='【您有新的聊天】'}
-                if(flashTitleStep===2) {document.title='【　　　　　　】'}
-            },400);
-            $(window,document,'body').on('focus',function(){
-                documentfocusState=true;
-                if(flashTitleTimer) { window.clearInterval(flashTitleTimer); }
-                document.title=documentTit;
-            });
-        }
-    },
-    historyMessage: function(){    
-        $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history', {target_user_id: chat.target_user_id()})
-            .done(function (data) {
-                $('#loadIndicator').hide()
-                if (team.isPhone()) {
-                    chat.historyTpl(team.jsonSort(data, 'time'))
-                }else{
-                    chat.historyTpl(data, 'time')
-                }
-            })
-            .fail(function (ret) {
-                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-                $('#loadIndicator').hide()
-            })
-    },
-    sendTextMessage : function(){
-        var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-        
-        $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(), message: $('#edit_area').val(), time: new Date()})
-            .done(function (data) {
-                if ($('#chatContent .noMessage').length>0) {
-                    $('#chatContent .noMessage').hide()
-                }
-                $('#chatContent').prepend(chat.messageTpl(_.uniqueId('local_'), PicUrl, $('#edit_area').val(),'me'));
-                chat.clearEditArea()
-                //socketWs.send($('#edit_area').val())
-            })
-            .fail(function (ret) {
-                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-            })
-    },
-    sendMobileTextMessage : function(){
-        var PicUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-        
-        $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/send', {target_user_id: chat.target_user_id(), message:$('#chat_edit_area').val()})
-            .done(function (data) {
-                if ($('#chatContent .noMessage').length>0) {
-                    $('#chatContent .noMessage').hide()
-                }
-                $('#chatContent').append(chat.messageTpl(_.uniqueId('local_'), PicUrl, $('#chat_edit_area').val(),'me'));
-                chat.clearEditArea()
-                $('body').scrollTop(999999)
-            })
-            .fail(function (ret) {
-                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-            })
-            .always(function(){
-                $('.btn_send').attr('disabled','disabled')
-            })
-    },
-    clearEditArea : function(){
-        $('#edit_area,#chat_edit_area').val('');
-    }
-}
-
-if (!window.wsListeners) { window.wsListeners = [] }
-var listener = {};
-listener.onreceivemessage = function(socketVal) {
-    var PicUrl =  socketVal.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-    if (socketVal.ticket_id === chat.chatConfig.rent_intention_ticket_id && socketVal.from_user.id === chat.target_user_id()) {
-        $.betterPost('/api/1/message/'+socketVal.id+'/mark/read')
-            .done(function (data) {
-                chat.chatFlashTitle()
-                if (team.isPhone()) {
-                    $('#chatContent').append(chat.messageTpl(socketVal.id, PicUrl,socketVal.message,'default',socketVal.time));
-                }else{
-                    $('#chatContent').prepend(chat.messageTpl(socketVal.id, PicUrl,socketVal.message,'default',socketVal.time));
-                }
-            })
-            .fail(function (ret) {
-                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-            })
-    }
-}
-window.wsListeners.push(listener)
-
-
 $(function(){
-    chat.init();
-    $('#edit_area').on('keyup', function(e) {
-        chat.validate($('#edit_area'),$('.btn_send'))
-    });
-    $('#chat_edit_area').on('keyup',function(e){
-        chat.validate($('#chat_edit_area'),$('#btn_send_phone'),'popup')
-    })
-});
-
-
-$(function(){
-    var itemsPerPage = 10
-    var lastItemTime
+    var $headerButtons = $('.contentHeader .buttons')
+    var $headerTabs = $('.tabs')
+    var $list = $('#chatListContent')
     var isLoading = false
-    var isAllItemsLoaded = false
-
-    var params = {
-        'target_user_id': chat.target_user_id(),
-        'per_page' : itemsPerPage,
-        'time' : lastItemTime
-    }
-
-    function loadChatHistoryList(reload , callback) {
-
-        if (lastItemTime) {
-            params.time = lastItemTime
+    var xhr
+    var placeholder = $('.emptyPlaceHolder')
+    var chatListHeader = $('.chatListHeader')
+    var chatCurrentTabHash = location.hash.slice(1).toLowerCase()
+    var chatTpl = {
+        items : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname){
+            return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info"><div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'">'+i18n('用户消息加载中')+'...</div></div><a href="/user-chat/'+rent_ticket_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
+        },
+        message : function(message,time){
+            return '<span class="msgtime">['+team.parsePublishDate(parseInt(time))+']</span>'+message
+        },
+        itemsNew : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname,message,time){
+            return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info sent"><div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'"><span class="msgtime">['+team.parsePublishDate(parseInt(time))+']</span>'+message+'</div></div><a href="/user-chat/'+rent_ticket_user_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
         }
-
-    if(reload){
-        $('#chatContent').empty()
-        lastItemTime = null
-        delete params.time
     }
 
-    $('.emptyPlaceHolder').hide();
 
-    isLoading = true
-    $('#loadIndicator').show()
+    //Init page with rent
+    if (team.isPhone()) {
+        if (window.lang === 'zh_Hans_CN') {
+            $headerTabs.show()
+        }        
+    } else {
+        if (window.lang === 'zh_Hans_CN') {
+            $headerButtons.show()
+        }
+    }
 
-    var totalResultCount = getCurrentTotalCount()
+    
+    loadChatTenant()
 
-        // if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
-        //     $('body,html').animate({scrollTop: $('body').height()}, 300)
-        // }   
+    // 我的咨询
+    function loadChatTenant() {
+        var defer = $.Deferred()
         
+        if (xhr && xhr.readyState !== 4) {
+            xhr.abort()
+        }
+        placeholder.hide()
+        $list.empty()
+        $('.loadIndicator').show()
 
-    $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.rent_intention_ticket_id+'/chat/history',params)
-        .done(function (val) {
-            var array = val
-            if (!_.isEmpty(array)) {
-                lastItemTime = _.last(array).time
-
-                if (!window.ChatHistoryList) {
-                    window.ChatHistoryList = []
-                }
-                window.ChatHistoryList = window.ChatHistoryList.concat(array)
-
-                    _.each(array, function (history) {
-                        var mePicUrl = history.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
-                        if (history.user_id === window.user.id && history.status !== 'read') {
-                            $.betterPost('/api/1/message/'+history.id+'/mark/read')
-                                .done(function (res) {
-                                })
-                                .fail(function (ret) {
-                                })
-                        }
-
-                        var historyResult = '';
-                        if (history.from_user.id === window.user.id) {
-                            historyResult += chat.messageTpl(history.id, mePicUrl,history.message,'me',history.time)
+        var params = {
+            'status': 'requested',
+            'user_id': window.user.id,
+            'per_page': -1
+        }
+        xhr = $.post('/api/1/rent_intention_ticket/search', params)
+            .success(function (data) {
+                var val = data.val
+                var array = val
+                if (array && array.length > 0) {
+                    var Tpl = '';
+                    chatListHeader.show()
+                    $(array).each(function (i, va){
+                        var ticketsData = va.interested_rent_tickets[0]
+                        if (ticketsData.user) {
+                            Tpl += chatTpl.items(ticketsData.id,ticketsData.title,va.id,ticketsData.user.id,ticketsData.user.nickname)
                         }else{
-                            historyResult += chat.messageTpl(history.id, mePicUrl,history.message,'default',history.time)
-                        }
-                        if (team.isPhone()) {
-                            $('#chatContent').prepend(historyResult)
-                        }else{
-                            $('#chatContent').append(historyResult)
-                        }
-                        if (lastItemTime > history.time) {
-                            lastItemTime = history.time
+                            return
                         }
                     })
-                    totalResultCount = getCurrentTotalCount()
-
-                    isAllItemsLoaded = false
+                    $('#chatListContent').html(Tpl);
+                    completeMsg()
                 } else {
-                    isAllItemsLoaded = true
+                    chatListHeader.hide()
+                    $('#tenantPlaceHolder').show()
                 }
-                updateResultCount(totalResultCount)
-
-                if (callback) {
-                    callback()
-                }
+                defer.resolve()
             }).fail(function (ret) {
-                if(ret !== 0) {
-                    updateResultCount(totalResultCount)
-                }
-        }).always(function () {
-                $('#loadIndicator').hide()
+                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                $('#tenantPlaceHolder').show()
+                chatListHeader.hide()
+                defer.reject()
+            }).complete(function () {
+                $('.loadIndicator').hide()
+                $('.chatListItmes .message').trigger('loadChatMsg')
                 isLoading = false
             })
+        return defer.promise()
     }
 
-
-    function getCurrentTotalCount() {
-        return $('#chatContent').children('.message').length
-    }
-    function updateResultCount(count) {
-        if (count) {
-            $('#chatContent').show()
-            $('.emptyPlaceHolder').hide();
-        } else {
-            $('#chatContent').hide()
-            $('.emptyPlaceHolder').show();
+    // 咨询我的
+    function loadChatHost(){
+        var defer = $.Deferred()
+        
+        if (xhr && xhr.readyState !== 4) {
+            xhr.abort()
         }
+        placeholder.hide()
+        $list.empty()
+        $('.loadIndicator').show()
+
+        var params = {
+            'status': 'requested',
+            'interested_rent_ticket_user_id': window.user.id,
+            'per_page': -1
+        }
+        xhr = $.post('/api/1/rent_intention_ticket/search', params)
+            .success(function (data) {
+                var val = data.val
+                var array = val
+                if (array && array.length > 0) {
+                    var Tpl = '';
+                    chatListHeader.show()
+                    $(array).each(function (i, va){
+                        Tpl += chatTpl.items(va.interested_rent_tickets[0].id,va.interested_rent_tickets[0].title,va.id,va.user.id,va.nickname)
+                    })
+                    $('#chatListContent').html(Tpl);
+                    completeMsg()
+                } else {
+                    chatListHeader.hide()
+                    $('#hostPlaceHolder').show()
+                }
+                defer.resolve()
+            }).fail(function (ret) {
+                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                $('#hostPlaceHolder').show()
+                chatListHeader.hide()
+                defer.reject()
+            }).complete(function () {
+                $('.loadIndicator').hide()
+                isLoading = false
+                $('.chatListItmes .message').trigger('loadChatMsg')
+            })
+        return defer.promise()
     }
 
-    function needLoadForNonPhone() {
-        var scrollPos = $(window).scrollTop()
-        var windowHeight = $(window).height()
-
-        var listHeight = $('#chatContent').height()
-        var requireToScrollHeight = listHeight
-        var needLoadSwitch = team.isPhone()? scrollPos<10 : windowHeight + scrollPos > requireToScrollHeight
-        return needLoadSwitch && !isLoading && !isAllItemsLoaded
+    function switchTypeTab(state) {
+        var originHash = location.hash.slice(1)
+        var param = originHash.split('?')[1]
+        $('.ui-tabs-nav li').removeClass('ui-tabs-selected')
+        $('.ui-tabs-nav .' + state.replace('Only', '')).addClass('ui-tabs-selected')
+        $('.buttons .button').removeClass('button').addClass('ghostButton')
+        $('.buttons .' + state.replace('Only', '')).removeClass('ghostButton').addClass('button')
+        location.hash = state + (param ? '?' + param : '')
     }
 
-    loadChatHistoryList()
-
-    if (team.isPhone()) {
-        var $indicator = $('.loadIndicator')
-        var $list = $('#chatContent')
-        $indicator.insertBefore($list)
-        if ($list.height() < $(window).height()) {
-            $list.height($(window).height())
+    $(window).on('hashchange', function () {
+        var hash = location.hash.slice(1)
+        var state = hash.split('?')[0]
+        var extraParam = hash.split('?')[1]
+        var rentStatus
+        if(extraParam) {
+            rentStatus = decodeURIComponent(extraParam.match(/status=(.+)/)[1]).split(',')
+        }
+        switch(state) {
+        case 'tenant':
+            switchTypeTab(state)
+            loadChatTenant(rentStatus)
+            break
+        case 'host':
+            switchTypeTab(state)
+            loadChatHost()
+            break
         }
 
-        $(window).scroll(function (e) {
-            var scrollPos = $(window).scrollTop()
-            if (scrollPos === 0 && !isLoading && !isAllItemsLoaded) {
-                var oldFirstItem = $('#chatContent .message').first()
-                var oldTop = oldFirstItem.offset().top
-                loadChatHistoryList(false, function() {
-                    var newTop = oldFirstItem.offset().top
-                    $('body').scrollTop(50 + newTop - oldTop)
+    })
+
+    $(window).trigger('hashchange')
+
+    _.each(['Host', 'Tenant'], function (val) {
+        $('button#show' + val + 'Btn').click(function () {
+            switchTypeTab(val.toLowerCase())
+        })
+        $('#show' + val + 'Tab').click(function () {
+            switchTypeTab(val.toLowerCase())
+        })
+    })
+
+
+    function completeMsg(){
+        $('.chatListItmes .message').on('loadChatMsg',function(){
+            var $this = $(this)
+            var val = $this.data('id')
+            var target_user_id = $this.data('user_id')
+            $.betterPost('/api/1/rent_intention_ticket/'+val+'/chat/history', {target_user_id: target_user_id,per_page:1})
+                .done(function (data) {
+                    if (data && data.length > 0) {
+                        if (data[0].status === 'sent') { $this.addClass('sent') }
+                        var lastChatTpl = chatTpl.message(data[0].message,data[0].time)
+                        $this.html(lastChatTpl);
+                    }else{
+                        $this.html(i18n('没有最新留言'));
+                    }
                 })
-            }
-        })
-    }
-    else {
-        $(window).scroll(function () {
-            if(needLoadForNonPhone()) {
-                loadChatHistoryList()
-            }
+                .fail(function (ret) {
+                    $this.html(window.getErrorMessageFromErrorCode(ret));
+                    //window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                })
         })
     }
 
-});
+    if (!window.wsListeners) { window.wsListeners = [] }
+    var listener = {};
+    listener.onreceivemessage = function(socketVal) {
 
+        $('.chatListItmes .message').on('socketChatMsg',function(){
+            var $this = $(this)
+            var val = $this.data('id')
+            var target_user_id = $this.data('user_id')
 
+            if (socketVal.ticket_id === val && socketVal.from_user.id === target_user_id) {
+                if (socketVal.status === 'sent') { $this.addClass('sent') }
+                    var lastChatTpl  = chatTpl.message(socketVal.message,socketVal.time)
+                    $this.html(lastChatTpl);    
+            }else if(chatCurrentTabHash === 'host' && !val) {
+                 // add new ticket order
+                $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','interested_rent_ticket_user_id': window.user.id})
+                    .done(function (data) {
+                        $('#hostPlaceHolder').show()
+                        var Tpl =chatTpl.itemsNew(data.interested_rent_tickets[0].id,data.interested_rent_tickets[0].title,data.id,socketVal.from_user.id,data.interested_rent_tickets[0].user.nickname,socketVal.message,socketVal.time)
+                        $('#chatListContent').prepend(Tpl)
+                    })
+                    .fail(function (ret) {
+                        window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                    })
+            }else if((chatCurrentTabHash === '' || chatCurrentTabHash === 'tenant') && !val){
+                $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','user_id': window.user.id})
+                    .done(function (data) {
+                        $('#tenantPlaceHolder').show()
+                        var Tpl =chatTpl.itemsNew(data.interested_rent_tickets[0].id,data.interested_rent_tickets[0].title,data.id,socketVal.from_user.id,data.interested_rent_tickets[0].user.nicename,socketVal.message,socketVal.time)
+                        $('#chatListContent').prepend(Tpl)
+                    })
+                    .fail(function (ret) {
+                        window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                    })
+            }
+        })
+        $('.chatListItmes .message').trigger('socketChatMsg')
+        
+    }
+    window.wsListeners.push(listener)
+
+})
