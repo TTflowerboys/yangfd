@@ -73,17 +73,13 @@ var chat = {
     isMobileSendMsg : function(){
         return $('#chat_edit_area').val().trim().length ? true : false;
     },
-    meMsgTpl : function(messageId, picUrl,plain,time){
-        return '<div class="message me" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
-    },
-    defMsgTpl : function(messageId, picUrl,plain,time){
-        return '<div class="message me" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
-    },
-    sendMsgTpl : function(messageId, picUrl,plain){
-        return '<div class="message me" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+team.getCurrentDate()+'</span></div></div></div></div></div>'
-    },
-    websocketTpl : function(messageId, picUrl,plain,time){
-        return '<div class="message me" data-id="' + messageId + '"><img src="' +picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+window.project.formatTime(time)+'</span></div></div></div></div></div>'
+    messageTpl : function(messageId, picUrl, plain, role, time){
+        time = time !== undefined? window.project.formatTime(time): team.getCurrentDate()
+        if (role === 'me') {
+            return '<div class="message me" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_primary right"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+ time +'</span></div></div></div></div></div>'
+        }else if(role === 'default'){
+            return '<div class="message" data-id="' + messageId + '"><img src="'+picUrl+'" alt="" class="avatar"><div class="content"><div class="bubble bubble_default left"><div class="bubble_cont"><div class="plain">'+plain+'<span class="date">'+ time +'</span></div></div></div></div></div>'
+        }
     },
     noMessageTpl: function(){
         return '<div class="noMessage">'+window.i18n('没有最新留言')+'</div>'
@@ -96,11 +92,11 @@ var chat = {
                 mePicUrl = va.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
                 if (va.from_user.id === window.user.id) {
                     if (va.display === 'text') {
-                        Tpl += chat.meMsgTpl(va.id, mePicUrl,va.message,va.time)
+                        Tpl += chat.messageTpl(va.id, mePicUrl,va.message,'me',va.time)
                     }
                 }else{
                     if (va.display === 'text') {
-                        Tpl += chat.defMsgTpl(va.id, mePicUrl,va.message,va.time)
+                        Tpl += chat.messageTpl(va.id, mePicUrl,va.message,'default',va.time)
                     }
                 }
             })
@@ -159,7 +155,7 @@ var chat = {
                 if ($('#chatContent .noMessage').length>0) {
                     $('#chatContent .noMessage').hide()
                 }
-                $('#chatContent').prepend(chat.sendMsgTpl(_.uniqueId('local_'), PicUrl, $('#edit_area').val()));
+                $('#chatContent').prepend(chat.messageTpl(_.uniqueId('local_'), PicUrl, $('#edit_area').val(),'me'));
                 chat.clearEditArea()
                 //socketWs.send($('#edit_area').val())
             })
@@ -175,7 +171,7 @@ var chat = {
                 if ($('#chatContent .noMessage').length>0) {
                     $('#chatContent .noMessage').hide()
                 }
-                $('#chatContent').append(chat.sendMsgTpl(_.uniqueId('local_'), PicUrl, $('#chat_edit_area').val()));
+                $('#chatContent').append(chat.messageTpl(_.uniqueId('local_'), PicUrl, $('#chat_edit_area').val(),'me'));
                 chat.clearEditArea()
                 $('body').scrollTop(999999)
             })
@@ -200,9 +196,9 @@ listener.onreceivemessage = function(socketVal) {
             .done(function (data) {
                 chat.chatFlashTitle()
                 if (team.isPhone()) {
-                    $('#chatContent').append(chat.sendMsgTpl(socketVal.id, PicUrl,socketVal.message,socketVal.time));
+                    $('#chatContent').append(chat.messageTpl(socketVal.id, PicUrl,socketVal.message,'default',socketVal.time));
                 }else{
-                    $('#chatContent').prepend(chat.websocketTpl(socketVal.id, PicUrl,socketVal.message,socketVal.time));
+                    $('#chatContent').prepend(chat.messageTpl(socketVal.id, PicUrl,socketVal.message,'default',socketVal.time));
                 }
             })
             .fail(function (ret) {
@@ -283,9 +279,9 @@ $(function(){
 
                         var historyResult = '';
                         if (history.from_user.id === window.user.id) {
-                            historyResult += chat.meMsgTpl(history.id, mePicUrl,history.message,history.time)
+                            historyResult += chat.messageTpl(history.id, mePicUrl,history.message,'me',history.time)
                         }else{
-                            historyResult += chat.defMsgTpl(history.id, mePicUrl,history.message,history.time)
+                            historyResult += chat.messageTpl(history.id, mePicUrl,history.message,'default',history.time)
                         }
                         if (team.isPhone()) {
                             $('#chatContent').prepend(historyResult)
