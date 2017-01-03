@@ -294,7 +294,7 @@ $(function(){
 
         $(window).scroll(function (e) {
             var scrollPos = $(window).scrollTop()
-            if (scrollPos === 0 && !isLoading && !isAllItemsLoaded) {
+            if (scrollPos === 0 && !isLoading) {
                 var oldFirstItem = $('#chatContent .message').first()
                 var oldTop = oldFirstItem.offset().top
                 loadChatHistoryList(false, function() {
