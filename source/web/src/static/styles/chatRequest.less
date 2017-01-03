@@ -1,0 +1,210 @@
+@import "/project/chatOrder";
+
+.requirement_rent_form{
+    position: relative;
+    padding: 5px 0 30px;
+    color: #999;
+    .requirementRentFormError{
+        position: absolute;
+        bottom: 0px;
+        color: #e61919;
+    }
+}
+.chatCenter{
+    .chatMeta{
+        margin-bottom: 16px;
+        height: 40px;
+        width: 580px;
+        .chatTimer{
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 0 10px;
+            height: 40px;
+            width: 336px;
+            float: left;
+            background: #fff;
+            .date{
+                width: 142px;
+                display: inline-block;
+                float:left;
+                vertical-align: middle;
+                input[type=text]{
+                    border: 0 none;
+                    outline: 0 none;
+                    height: 38px;
+                    width: 100%;
+                    font-size: 14px;
+                    vertical-align: middle;
+                    color: #999;
+                    text-align: center;
+                }
+            }
+            i{
+                float: left;
+                width: 30px;
+                text-align: center;
+                display: inline-block;
+                vertical-align: middle;
+                height: 38px;
+                line-height: 38px;
+                color: #ccc;
+            }  
+        }
+        .chatUserType{
+            border-radius: 4px;
+            height: 40px;
+            width: 226px;
+            float: right;
+            background: #fff;
+            select{
+                width: 100%;
+            }
+            .chosen-container{
+                .chosen-single{
+                    box-shadow: none;
+                    border: 1px solid #ccc;
+                    &.chosen-with-drop{
+                        border-width: 1px;
+                    }
+                }
+                .chosen-drop{
+                    border-width: 1px;
+                }
+
+            }
+            
+        }
+    }
+
+    .step1{
+        &:after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+    }
+
+    .step2{
+        & textarea,& select,& input[type=text] {
+            height: 40px;
+            font-size: 14px;
+            vertical-align: middle;
+            padding-left: 12px;
+            background: #fff;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+        & .chosen-single{
+            background: #fff;
+        }
+        .title{
+            color: #666;
+        }
+        .name{
+            width: 189px;
+            margin-right: 20px;
+        }
+        .gender{
+            width: 80px;
+            margin-right: 20px;
+        }
+        .occupation{
+            width: 120px;
+        }
+        featured-facility-search-box {
+            margin-left: 20px;
+            .inputWrapper{
+                border: 0;
+                input{
+                    margin-left: 0;
+                    width: 100%;
+                }
+            }
+            input {
+                border: 0px;
+                height: 38px;
+            }
+        }                                                            
+        .birthYear{
+            width: 100px;
+            margin-right: 20px;
+        }
+        .birthMonth{
+            width: 75px;
+            margin-right: 20px;
+        }
+        .birthDate{
+            width: 75px;
+        }
+        .countryCode{
+            width: 112px;
+            body[lang=en_GB] & {
+                width: 162px;
+            }
+            margin-right: 20px;
+        }
+        .phone{
+            width: 170px;
+            margin-right: 20px;
+        }
+        .email{
+            width: 260px;
+        }
+        .referral {
+            width: 260px;
+        }
+        .captchaCode {
+            display: inline-block;
+            margin-right: 20px;
+            @media @phone {
+                max-width:100%;
+                min-height:64px;//left space for captcha, no need dyanmic update height of container, may trigger iphone overlay bug
+                //修复使用g-recaptcha后在手机最下面部分被裁掉的问题
+            }
+            > a{
+                width: 100px;
+                height: 40px;
+                display: inline-block;
+                margin-right: 20px;
+                overflow: hidden;
+                vertical-align: middle;
+                position: relative;
+                cursor: pointer;
+                background: url('/static/images/common/ajax-loader.gif') no-repeat 50% 50%;
+            }
+            > a  > img {
+                display: inline-block;
+                vertical-align: middle;
+                width: 100px;
+                position: absolute;
+                top: -30px;
+            }
+
+            > input[name=solution] {
+                width: 110px;
+            }
+        }
+        .registerUser, .getSmsCode{
+            display: inline-block;
+            height: 40px;
+            padding: 0 12px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .smsCode{
+            width: 100px;
+            margin-right: 20px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .referrer{
+            width: 190px;
+            margin-right: 20px;
+        }
+        .referrerText{
+            width: 300px;
+        }
+    }
+}
+

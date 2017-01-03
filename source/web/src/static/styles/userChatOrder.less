@@ -1,0 +1,64 @@
+@import "project/chatOrder";
+
+.rmm.graphite{
+    .rmm-toggled-title{
+        & i:first-child{
+            display:none;
+        }
+        & i:last-child{
+            display:none!important;
+            font-size: 20px;
+            margin-top: -3px;
+        }
+    }
+    .rmm-button{
+        i{
+            display:none;
+        }
+        img{
+            display:block!important;
+        }
+    }
+}
+.chatOrderMain{
+    display: none;    
+    @media @phone{
+        display: block;
+    }
+    .chatOrderMeta{
+        position: relative;
+        width: 100%;
+        padding: 12px;
+        color: #fff;        
+        background-size: cover;
+        background: #686868 url('/static/images/placeholder/img_list_rent_image_holder.png') center no-repeat;
+        &:after{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: '';
+            display: block;
+            background: #2fbee5;
+            opacity: .6;
+            -webkit-filter: blur(1px);
+        }
+        .title{
+            position: relative;
+            z-index: 2;
+            line-height: 26px;
+            font-size: 20px;
+            margin-bottom: 5px;
+            a{
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+        .meta{
+            position: relative;
+            z-index: 2;
+        }
+        
+    }
+}
