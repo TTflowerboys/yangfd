@@ -6,12 +6,12 @@ var chat = {
         $('#btn_send_phone').on('click',function(){
             if (chat.isMobileSendMsg()) { chat.sendTextMessage($('#chat_edit_area').val(),'mobile') }
         })
-        $('#edit_area').on('keydown', function(e) {
-            if(e.keyCode === team.keyCode.KEYCODE_ENTER){
-                if (chat.isSendMsg()) { chat.sendTextMessage($('#edit_area').val()) }
-                e.preventDefault()
-            }
-        });
+        // $('#edit_area').on('keydown', function(e) {
+        //     if(e.keyCode === team.keyCode.KEYCODE_ENTER){
+        //         if (chat.isSendMsg()) { chat.sendTextMessage($('#edit_area').val()) }
+        //         e.preventDefault()
+        //     }
+        // });
         $('.btn_send').attr('disabled','disabled')
     },
     placeholderPic : {
@@ -22,21 +22,21 @@ var chat = {
         'rentTicketData' : JSON.parse($('#rentTicketData').text()),
         'getRentIntentionTicketId' : (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
     },
-    validate : function(valArea,sendBtn,errorType){
+    validate : function(valArea, sendBtn, uiType){
         var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
         var errorConf = {
             'empty' : window.i18n('请填写聊天信息'),
-            'maxlength' : window.i18n('聊天内容超出最大限制'),
-            'includePhoneOrEmail' : window.i18n('请不要在聊天中填写任何形式的联系方式'),
+            'maxLength' : window.i18n('聊天内容超出最大限制'),
+            'blackList' : window.i18n('请不要在聊天中填写任何形式的联系方式'),
             'ok' : ''
         }
         var valAreaValue = valArea.val().trim()
         var valAreaLength = valAreaValue.length
 
-        function validateShow(errorText,errorType){
-            if (errorType === undefined || errorType === 'text') {
+        function displayErrorMessage(errorText){
+            if (uiType === undefined || uiType === 'text') {
                 return $('.requirementRentFormError').text(errorText)
-            }else if(errorType === 'popup'){
+            }else if(uiType === 'popup'){
                 if (errorText) {
                     if ($('.dhtmlx_message_area').text()) {
                         return
@@ -45,21 +45,18 @@ var chat = {
                     }
                 }
             }
-        }   
+        }
 
-        if(!valAreaLength) {
-            validateShow(errorConf.empty,errorType)
-            sendBtn.attr('disabled','disabled')
-        }else if(valAreaLength > 200){
-            validateShow(errorConf.maxlength,errorType)
-            sendBtn.attr('disabled','disabled')
+        if(valAreaLength > 200){
+            displayErrorMessage(errorConf.maxLength)
+            sendBtn.attr('disabled', 'disabled')
         }else if(window.project.includePhoneOrEmail(valAreaValue) || _.some(wordBlacklist, function (v) {
             return valAreaValue.toLowerCase().indexOf(v.toLowerCase()) !== -1
         })) {
-            validateShow(errorConf.includePhoneOrEmail,errorType)
-            sendBtn.attr('disabled','disabled')
+            displayErrorMessage(errorConf.blackList)
+            sendBtn.attr('disabled', 'disabled')
         }else{
-            validateShow(errorConf.ok,errorType)
+            displayErrorMessage(errorConf.ok)
             sendBtn.removeAttr('disabled')
         }
     },
@@ -160,11 +157,13 @@ window.wsListeners.push(listener)
 
 $(function(){
     chat.init();
+    // pc
     $('#edit_area').on('keyup', function(e) {
         chat.validate($('#edit_area'),$('.btn_send'))
     });
+    // phone
     $('#chat_edit_area').on('keyup',function(e){
-        chat.validate($('#chat_edit_area'),$('#btn_send_phone'),'popup')
+        chat.validate($('#chat_edit_area'),$('#btn_send_phone'), 'popup')
     })
 });
 
