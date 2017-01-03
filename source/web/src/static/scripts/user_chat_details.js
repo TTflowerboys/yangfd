@@ -47,7 +47,7 @@ var chat = {
             }
         }
 
-        if(valAreaLength > 200){
+        if(valAreaLength > 1000){
             displayErrorMessage(errorConf.maxLength)
             sendBtn.attr('disabled', 'disabled')
         }else if(window.project.includePhoneOrEmail(valAreaValue) || _.some(wordBlacklist, function (v) {
