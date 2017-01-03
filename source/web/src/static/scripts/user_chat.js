@@ -73,7 +73,6 @@ $(function(){
                 }
                 defer.resolve()
             }).fail(function (ret) {
-                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
                 $('#tenantPlaceHolder').show()
                 chatListHeader.hide()
                 defer.reject()
@@ -119,7 +118,6 @@ $(function(){
                 }
                 defer.resolve()
             }).fail(function (ret) {
-                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
                 $('#hostPlaceHolder').show()
                 chatListHeader.hide()
                 defer.reject()

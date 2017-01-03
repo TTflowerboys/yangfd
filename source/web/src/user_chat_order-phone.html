@@ -1,0 +1,103 @@
+<!--@@master = ./masters/master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/requirement-rent-phone.html.css-->
+<link rel="stylesheet" href="/static/styles/chatPage.css"/>
+<!--endbuild-->
+<style>
+	.rmm.graphite .rmm-toggled-title i:last-child{display: none!important;}
+</style>
+<!--@@close-->
+
+<!--@@block = main-->
+
+<div class="chatWrap">
+	<textarea id="rentTicketData" style="display: none">
+    	{{json_dumps(rent_intention_ticket)}}
+	</textarea>
+
+<div class="chatOrderMain">
+	% if rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('reality_images'):
+		<div class="chatOrderMeta" style="background-image: url('{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('reality_images')[0]}}');">
+	% else :
+		<div class="chatOrderMeta">
+	% end					
+		<h1 class="title">
+			<a href="/property-to-rent/{{rent_intention_ticket.get('interested_rent_tickets')[0].get('id')}}" target="_blank">{{rent_intention_ticket.get('interested_rent_tickets')[0].get('title')}}</a>
+		</h1>
+		<div class="meta">
+			<i class="icon-location_fill"></i>
+			{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('street')}}
+			{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('city',{}).get('name')}}
+			{{rent_intention_ticket.get('interested_rent_tickets')[0].get('property').get('zipcode')}}
+		</div>
+	</div>
+	<div class="chatDetails">
+	<dl class="userDetailsList">
+        <dt>{{_('租期')}}</dt>
+    	% if 'rent_available_time' in rent_intention_ticket and rent_intention_ticket.get('rent_available_time',''):
+    		<dd>
+    		<span>{{_('租期开始日期')}}</span>
+    		<strong data-utc-time="{{rent_intention_ticket.get('rent_available_time','')}}"></strong>
+            </dd>
+        % end
+        % if 'rent_deadline_time' in rent_intention_ticket and rent_intention_ticket.get('rent_deadline_time',''):
+        	<dd><span>{{_('租期结束日期')}}</span>
+            <strong data-utc-time="{{rent_intention_ticket.get('rent_deadline_time')}}"> </strong>
+            </dd>
+        % end
+        <dd><span>{{_('租期')}}</span>
+        % if 'minimum_rent_period' in rent_intention_ticket:
+            <strong>
+                {{_('最短租期')}}
+            </strong>
+        % else :
+            <strong>
+                {{_('租期不限')}}
+            </strong>
+        % end
+        </dd>
+    </dl>
+    <dl class="userDetailsList">
+        <dt>{{_('订单')}}</dt>
+        % if 'price' in rent_intention_ticket.get('interested_rent_tickets')[0] and rent_intention_ticket.get('interested_rent_tickets')[0].get('price'):
+    		<dd>
+    			<span>{{_('租金')}}</span>
+    			<strong>{{rent_intention_ticket.get('interested_rent_tickets')[0].get('price',{}).get('unit_symbol','')}} <b data-type="formatted_currency">
+                    {{rent_intention_ticket.get('interested_rent_tickets')[0].get('price',{}).get('value','')}}
+                </b> {{_('/周')}}</strong>
+            </dd>
+        % end
+
+	        % if 'deposit' in rent_intention_ticket.get('interested_rent_tickets')[0] and rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('value'):
+	       		<dd>
+	    			<span>{{_('押金')}}</span>
+	    			<strong>
+	                	{{rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('unit_symbol','')}}<b data-type="formatted_currency">{{f_app.re.filter_zero(rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('value'))}}</b>
+	                    % if 'deposit' in rent_intention_ticket.get('interested_rent_tickets')[0] and rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('localized_value'):
+	                        <b>
+	                            {{_('约')}}{{rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('localized_unit_symbol')}}{{int(float(rent_intention_ticket.get('interested_rent_tickets')[0].get('deposit',{}).get('localized_value', 0)))}}
+	                        </b>
+	                    % end
+	                </strong>
+	            </dd>
+	        % else :
+	        	<dd>
+	    			<span>{{_('押金')}}</span>
+	                <strong>
+	                    {{_('面议')}}
+	                </strong>
+	            </dd>
+	        % end
+	    </dl>
+	</div>
+</div>
+
+
+</div>
+<!--@@close-->
+
+<!--@@block = scripts -->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<!--@@close -->
+

@@ -57,23 +57,33 @@ $(function () {
 
     /* slide down mobile menu on click */
     $('.rmm-toggled .rmm-toggled-controls .rmm-button').on('click', function () {
+        var urlPath = location.pathname.split('/')
         var $allRmm = $('.rmm-toggled')
-
-        _.each($allRmm, function (item) {
-            var $rmm = $(item)
-
-            $rmm.find('.rmm-center-menu').stop().hide();
-            $rmm.addClass('rmm-center-closed');
-
-            if ($rmm.is('.rmm-closed')) {
-                $rmm.find('.rmm-menu').stop().show(200);
-                $rmm.removeClass('rmm-closed');
+        
+        if (urlPath[1] === 'user-chat' || urlPath[1] === 'user_chat') {
+            if(urlPath.slice(-1)[0] === 'order'){
+                location.href = '/user-chat/'+(location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/order/) || [])[1]+'/details'
+            }else{
+                location.href = '/user-chat'
             }
-            else {
-                $rmm.find('.rmm-menu').stop().hide(200);
-                $rmm.addClass('rmm-closed');
-            }
-        })
+        }else{
+            _.each($allRmm, function (item) {
+                var $rmm = $(item)
+
+                $rmm.find('.rmm-center-menu').stop().hide();
+                $rmm.addClass('rmm-center-closed');
+
+                if ($rmm.is('.rmm-closed')) {
+                    $rmm.find('.rmm-menu').stop().show(200);
+                    $rmm.removeClass('rmm-closed');
+                }
+                else {
+                    $rmm.find('.rmm-menu').stop().hide(200);
+                    $rmm.addClass('rmm-closed');
+                }
+            })
+        }
+        
     });
 
     /* slide down mobile center menu on click */
@@ -103,7 +113,14 @@ $(function () {
 
     $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-title').on('click', function () {
         if (window.user) {
-            window.project.goToUserSettings()
+            var urlPath = location.pathname.split('/')[1]
+            var getRentIntentionTicketId = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
+            if (urlPath === 'user-chat' || urlPath === 'user_chat') {
+                window.location.href = '/user-chat/'+getRentIntentionTicketId+'/order';
+            }else{
+                window.project.goToUserSettings()
+            }
+            
         }
         else {
             window.project.goToSignUp()

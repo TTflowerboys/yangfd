@@ -21,6 +21,27 @@ body{
     }
 }
 
+.rmm.graphite{
+    .rmm-toggled-title{
+        & i:first-child{
+            display:none;
+        }
+        & i:last-child{
+            display:block!important;
+            font-size: 20px;
+            margin-top: -3px;
+        }
+    }
+    .rmm-button{
+        i{
+            display:none;
+        }
+        img{
+            display:block!important;
+        }
+    }
+}
+
 .siteHeader_phone {
     &.rmm {
         position: fixed;
@@ -256,6 +277,9 @@ body{
     border-top-color: #fff;
     background: #fff;
     padding: 12px 20px 1px;
+    @media @phone{
+        padding: 12px 12px 0;
+    }
 }
 .chatRentMeta{
     color: #999;
@@ -676,6 +700,50 @@ body{
         }
     }
 }
+
+.chatOrderMain{
+    display: none;    
+    @media @phone{
+        display: block;
+    }
+    .chatOrderMeta{
+        position: relative;
+        width: 100%;
+        padding: 12px;
+        color: #fff;        
+        background-size: cover;
+        background: #686868 url('/static/images/placeholder/img_list_rent_image_holder.png') center no-repeat;
+        &:after{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: '';
+            display: block;
+            background: #2fbee5;
+            opacity: .6;
+            -webkit-filter: blur(1px);
+        }
+        .title{
+            position: relative;
+            z-index: 2;
+            line-height: 26px;
+            font-size: 20px;
+            margin-bottom: 5px;
+            a{
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+        .meta{
+            position: relative;
+            z-index: 2;
+        }
+        
+    }
+}
+
 
 .dhtmlx_message_area{
     bottom: auto!important;
