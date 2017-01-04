@@ -124,7 +124,8 @@
                 $errorMsg.text(window.i18n('验证成功'))
                 $errorMsg.show()
                 $('.verifyBtn.sms').hide()
-                $('.goToNextBtn.sms').show()
+                //$('.goToNextBtn.sms').show()
+                goToNext();
             })
             .fail(function (ret) {
                 window.dhtmlx.message({type:'error', text: window.i18n('验证失败')})
