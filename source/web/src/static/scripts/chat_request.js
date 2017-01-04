@@ -523,6 +523,38 @@
                     window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(msg)})
                 }
             })
+
+            function validateMinimumRentPeroid(hostRentTicket, ticketRentAvailableTime, ticketRentDeadlineTime) {
+                var tenantRequest = null
+                var hostRequirement = null
+                var hostRentAvailableTime = hostRentTicket.rent_available_time
+                var hostRentDeadlineTime = hostRentTicket.rent_deadline_time
+                var hostMinimumRentPeriod = hostRentTicket.minimum_rent_period
+
+                //考虑到时差问题，检查时对rent_available_time和rent_deadline_time宽限一天时间（即86400s）
+                if(hostRentAvailableTime && (hostRentAvailableTime - 86400) > ticketRentAvailableTime) {
+                    tenantRequest = i18n('入住日期：') + $.format.date(new Date(ticketRentAvailableTime * 1000), formatter)
+                    hostRequirement = i18n('租期开始日期：') + $.format.date(new Date(hostRentAvailableTime * 1000), formatter)
+                }
+                if(hostRentDeadlineTime && (hostRentDeadlineTime + 86400) < ticketRentDeadlineTime) {
+                    tenantRequest = i18n('搬出日期：') + $.format.date(new Date(ticketRentDeadlineTime * 1000), formatter)
+                    hostRequirement = i18n('租期结束日期：') + $.format.date(new Date(hostRentDeadlineTime * 1000), formatter)
+                }
+
+                if(hostMinimumRentPeriod && ticketRentAvailableTime && ticketRentDeadlineTime  && window.project.transferTime(hostMinimumRentPeriod, 'second').value_float > ticketRentDeadlineTime - ticketRentAvailableTime) {
+
+                    tenantRequest = i18n('您的租住天数：') + (ticketRentDeadlineTime - ticketRentAvailableTime) / 86400 + i18n('天')
+                    hostRequirement = i18n('最短租期：') + hostMinimumRentPeriod.value + window.team.parsePeriodUnit(hostMinimumRentPeriod.unit)
+                }
+
+                if (tenantRequest && hostRequirement) {
+                    return tenantRequest + ' ' + hostRequirement
+                }
+                else {
+                    return null
+                }
+            }
+
             this.validate = function () {
                 var errorList = []
                 var config = {
@@ -534,7 +566,7 @@
                             return errorList.push(window.i18n('请选择租期结束日期'))
                         }
                         // Because selected date start from 0am, so current date should use yesterday
-                        if(this.params().rent_available_time < (Date.now()/1000 - 24*60*60) ) {
+                        if(this.params().rent_available_time < (Date.now() / 1000 - 24 * 60 * 60) ) {
                             return errorList.push(window.i18n('起租日期不能早于今天'))
                         }
                         if(this.params().rent_available_time > this.params().rent_deadline_time) {
@@ -542,6 +574,11 @@
                         }
                         if(this.params().rent_available_time > this.params().rent_deadline_time - 24 * 60 * 60) {
                             return errorList.push(window.i18n('租期至少一天'))
+                        }
+
+                        var validateResult = validateMinimumRentPeroid(rentTicket, this.params().rent_available_time, this.params().rent_deadline_time)
+                        if (validateResult) {
+                            return  errorList.push(validateResult)
                         }
                     },
                     description: function () {
@@ -558,7 +595,7 @@
                     },
                     visa: function () {
                         if (!this.params().visa) {
-                            return errorList.push(window.i18n('申请此房源需上传护照或身份信息'))    
+                            return errorList.push(window.i18n('申请此房源需上传护照或身份信息'))
                         }
                     },
                     nickname: function () {
