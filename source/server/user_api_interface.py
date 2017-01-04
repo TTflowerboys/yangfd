@@ -1008,7 +1008,7 @@ def email_verify(user_id, params):
 def user_email_recovery_send(params):
     user_id, code = f_app.user.email.recovery(params["email"])
 
-    url = "http://yangfd.com/reset_password_email_2?user_id=" + user_id + "&code=" + code
+    url = f_app.util.get_env_domain() + "/reset_password_email_2?user_id=" + user_id + "&code=" + code
     title = template("static/emails/reset_password_by_email_title")
 
     f_app.email.schedule(
