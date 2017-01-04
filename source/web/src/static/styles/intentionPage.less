@@ -16,6 +16,11 @@
 }
 
 .intentionPage {
+
+    @media @phone {
+        min-height: 700px;
+    }
+
     hr { color: #ccc;
          @media @phone {
              display:none;
@@ -97,6 +102,10 @@
                 padding-top: 40px;
                 height: 220px;
                 display:block;
+
+                body[lang=en_GB] & {
+                    width: 100%;
+                }
             }
             p{
                 text-align: center;
