@@ -673,7 +673,20 @@ body {
 
             }
             .withPlaceholderTxt{
-                position: absolute;top: 313px;left: 0;color: #b6b6b6;font-size: 32px;text-align: center;left: 50%;width: 520px;margin-left: -260px;
+                position: absolute;
+                top: 313px;
+                left: 0;
+                color: #b6b6b6;
+                font-size: 32px;
+                text-align: center;
+                left: 50%;
+                width: 520px;
+                margin-left: -260px;
+
+                body[lang=en_GB] & {
+	            font-size: 28px;
+                }
+
                 @media @phone{
                     display: none;
                 }
