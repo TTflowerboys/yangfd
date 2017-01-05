@@ -1,17 +1,30 @@
 var chat = {
     init : function(){
         $('#btn_send').on('click',function(){
-            if (chat.isSendMsg()) { chat.sendTextMessage($('#edit_area').val()) }
+            if (chat.isSendMsg()) {
+                chat.sendTextMessage($('#edit_area').val())
+            }
         })
-        $('#btn_send_phone').on('click',function(){
-            if (chat.isMobileSendMsg()) { chat.sendTextMessage($('#chat_edit_area').val(),'mobile') }
-        })
-        // $('#edit_area').on('keydown', function(e) {
-        //     if(e.keyCode === team.keyCode.KEYCODE_ENTER){
-        //         if (chat.isSendMsg()) { chat.sendTextMessage($('#edit_area').val()) }
-        //         e.preventDefault()
+        // $('#btn_send_phone').on('click',function(){
+        //     if (chat.isMobileSendMsg()) {
+        //         chat.sendTextMessage($('#chat_edit_area').val(),'mobile')
         //     }
-        // });
+        // })
+
+        //mobile click
+        $('#btn_send_phone').on('touchstart click',function(){
+            if (chat.isMobileSendMsg()) {
+                chat.sendTextMessage($('#chat_edit_area').val(),'mobile')
+            }
+        })
+
+        // only for phone
+        $('#chat_edit_area').on('keydown', function(e) {
+            if(e.keyCode === team.keyCode.KEYCODE_ENTER){
+                $('#btn_send_phone').click()
+                e.preventDefault()
+            }
+        });
         $('.btn_send').attr('disabled','disabled')
     },
     placeholderPic : {
