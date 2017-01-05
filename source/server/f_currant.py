@@ -1313,6 +1313,8 @@ class currant_util(f_util):
             return "<currant-dev>" + subject
         elif env == "test":
             return "<currant-test>" + subject
+        elif env == "test-1":
+            return "<currant-test-1>" + subject
         elif env == "local":
             return "<currant-localhost>" + subject
         return subject
