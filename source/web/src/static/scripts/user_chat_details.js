@@ -165,15 +165,6 @@ $(function(){
     $('#chat_edit_area').on('keyup',function(e){
         chat.validate($('#chat_edit_area'),$('#btn_send_phone'), 'popup')
     })
-
-
-    var $floatChatPhone = $('.floatChat_phone')
-    $floatChatPhone.on('focus', 'input', function() {
-        $floatChatPhone.addClass('fixfixed');
-    })
-    .on('blur', 'input', function() {
-        $floatChatPhone.removeClass('fixfixed');
-    });
 });
 
 
