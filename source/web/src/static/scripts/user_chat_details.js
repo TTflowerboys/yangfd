@@ -174,10 +174,6 @@ $(function(){
     .on('blur', 'input', function() {
         $floatChatPhone.removeClass('fixfixed');
     });
-
-    if (team.isPhone()) {
-        team.disablePullToRefresh()
-    }
 });
 
 
