@@ -1279,8 +1279,10 @@ class currant_util(f_util):
 
         if "currant-dev" in host:
             return "dev"
-        elif "currant-test" in host:
+        elif "currant-test." in host:
             return "test"
+        elif "currant-test-1." in host:
+            return "test-1"
         elif "127.0.0.1" in host:
             return "local"
         elif "youngfunding.co.uk" in host:
@@ -1294,6 +1296,8 @@ class currant_util(f_util):
             return "https://currant-dev.bbtechgroup.com"
         elif env == "test":
             return "https://currant-test.bbtechgroup.com"
+        elif env == "test-1":
+            return "https://currant-test-1.bbtechgroup.com"
         elif env == "local":
             return "http://127.0.0.1:8181"
         elif env == "production-uk":
