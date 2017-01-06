@@ -120,7 +120,7 @@
                 });
 
                 notification.onclick = function () {
-                    window.open('/user-chat/' + message.ticket_id +'/detail')
+                    window.open('/user-chat/' + message.ticket_id +'/details')
                 }
                 notification.onclose = function () {
                     markMessageAsRead(message.id)
