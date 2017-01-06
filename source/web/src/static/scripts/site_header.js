@@ -93,7 +93,9 @@
 
             if (window.Notification && window.Notification.permission !== 'denied') {
                 window.Notification.requestPermission(function (status) {
-
+                    return new window.Notification(i18n('洋房东：收到新消息'), {
+                        body: socketVal.message
+                    });
                 })
             }
         }
