@@ -12,7 +12,7 @@
                 })
         }
 
-        $.betterPost('/api/1/message/search', {status: 'new, send', type: 'chat', per_page: 5})
+        $.betterPost('/api/1/message/search', {status: 'new, send', type: 'chat', per_page: 5, user_id: window.user.id})
             .done(function (data) {
                 if (data.length > 0) {
                     document.getElementById('icon-message').style.display = 'none'
@@ -85,11 +85,20 @@
         socketWs.onerror = function(e) {
             window.console.log(e);
         };
-        var listener = {};
-        listener.onreceivemessage = function(socketVal) {
+
+        var headerListener = {};
+        headerListener.onreceivemessage = function(socketVal) {
             document.getElementById('icon-message').style.display = 'none'
             document.getElementById('icon-message-notif').style.display = 'inline'
+
+            if (window.Notification && window.Notification.permission !== 'denied') {
+                window.Notification.requestPermission(function (status) {
+
+                })
+            }
         }
-        window.wsListeners.push(listener)
+        window.wsListeners.push(headerListener)
+
+
     }
 })();
