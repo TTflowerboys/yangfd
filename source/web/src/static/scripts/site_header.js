@@ -1,6 +1,8 @@
 ;(function () {
-    if (window.user) {
 
+    window.wsListeners = []
+    //onreceivemessage
+    if (window.user) {
         var markMessageAsRead =  function(messageId) {
             $.betterPost('/api/1/message/' + messageId + '/mark/' + 'read')
                 .done(function (data) {
@@ -12,51 +14,52 @@
                 })
         }
 
-        $.betterPost('/api/1/message/search', {status: 'new, send', type: 'chat', per_page: 5, user_id: window.user.id})
-            .done(function (data) {
-                if (data.length > 0) {
-                    document.getElementById('icon-message').style.display = 'none'
-                    document.getElementById('icon-message-notif').style.display = 'inline'
-                    _.each(data, function(message) {
-                        var result = _.template($('#headerMessageList_template').html())({message: message})
-                        $('.supHeader .messageList ul').append(result)
-                    })
+        var updateHeaderMessage = function () {
+
+            $.betterPost('/api/1/message/search', {status: 'new, send', type: 'chat', per_page: 5, user_id: window.user.id})
+                .done(function (data) {
+                    if (data.length > 0) {
+                        document.getElementById('icon-message').style.display = 'none'
+                        document.getElementById('icon-message-notif').style.display = 'inline'
+                        _.each(data, function(message) {
+                            var result = _.template($('#headerMessageList_template').html())({message: message})
+                            $('.supHeader .messageList ul').append(result)
+                        })
 
 
-                    $('.supHeader .messageList ul li').mouseover(function() {
-                         $(this).find('.time').hide();
-                         $(this).find('.close').show();
+                        $('.supHeader .messageList ul li').mouseover(function() {
+                            $(this).find('.time').hide();
+                            $(this).find('.close').show();
 
-                    }).mouseout(function() {
-                        $(this).find('.close').hide();
-                        $(this).find('.time').show();
-                    })
+                        }).mouseout(function() {
+                            $(this).find('.close').hide();
+                            $(this).find('.time').show();
+                        })
 
-                    $('.supHeader .messageList ul li .close').click(function() {
-                        var $item = $(this).parents('li')
-                        var messageId = $item.attr('data-id')
-                        $item.find('img').hide()
-                        $item.animate({
-                            opacity: 0.25,
-                            height: 0
-                        }, 200, function() {
-                            $item.remove()
-                        });
+                        $('.supHeader .messageList ul li .close').click(function() {
+                            var $item = $(this).parents('li')
+                            var messageId = $item.attr('data-id')
+                            $item.find('img').hide()
+                            $item.animate({
+                                opacity: 0.25,
+                                height: 0
+                            }, 200, function() {
+                                $item.remove()
+                            });
 
-                        markMessageAsRead(messageId);
-                    })
-                }
-            })
-            .fail(function (ret) {
-            })
-            .always(function () {
+                            markMessageAsRead(messageId);
+                        })
+                    }
+                })
+                .fail(function (ret) {
+                })
+                .always(function () {
 
-            })
-    }
+                })
+        }
 
-    window.wsListeners = []
-    //onreceivemessage
-    if (window.user) {
+        updateHeaderMessage()
+
         var socketUrl = 'wss://' + location.host + '/websocket'
         var socketWs = new WebSocket(socketUrl);
         socketWs.onopen = function() {
@@ -90,6 +93,7 @@
         headerListener.onreceivemessage = function(message) {
             document.getElementById('icon-message').style.display = 'none'
             document.getElementById('icon-message-notif').style.display = 'inline'
+            updateHeaderMessage()
 
             if (window.Notification && window.Notification.permission !== 'denied') {
                 window.Notification.requestPermission(function (status) {
@@ -103,11 +107,12 @@
                     notification.onclick(function () {
                         window.open('/user-chat/' + message.ticket_id +'/detail')
                     })
+                    notification.onclose(function () {
+                        markMessageAsRead(message.id)
+                    })
                 })
             }
         }
         window.wsListeners.push(headerListener)
-
-
     }
 })();
