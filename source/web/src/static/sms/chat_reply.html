@@ -1,1 +1,2 @@
-{{_('洋房东：来自')}} {{role}} {{username}} {{_('的')}} “{{message}}”. {{_('回复请点击')}} {{reply_url}}
+% params =  {"role": role, "username": username, "message": message, "reply_url": reply_url}
+{{_(u'洋房东：来自 {role} {username} 的 “{message}”。回复请点击 {reply_url}').format(**params)}}

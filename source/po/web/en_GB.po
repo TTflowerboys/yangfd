@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-01-05 15:39+0800\n"
-"PO-Revision-Date: 2017-01-05 15:39+0800\n"
+"POT-Creation-Date: 2017-01-06 17:43+0800\n"
+"PO-Revision-Date: 2017-01-06 17:43+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_GB\n"
 "Language-Team: en_GB <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgid "密码"
 msgstr "Password"
 
 #: ../web/src/affiliate_signup.html:32 ../web/src/user_change_email.html:18
-#: ../web/src/user_verify_email.html:18 ../web/src/partials/i18n.html:555
+#: ../web/src/user_verify_email.html:18 ../web/src/partials/i18n.html:557
 #: ../web/src/partials/i18n_scripts.html:103
 #: ../web/src/partials/property_to_rent_publish.html:40
 #: ../web/src/partials/property_to_rent_publish.html:97
@@ -488,7 +488,7 @@ msgid "周期"
 msgstr "cycle"
 
 #: ../web/src/crowdfunding.html:386 ../web/src/user_finish_investment.html:150
-#: ../web/src/partials/i18n.html:500 ../web/src/partials/i18n_scripts.html:370
+#: ../web/src/partials/i18n.html:502 ../web/src/partials/i18n_scripts.html:370
 #: ../web/src/partials/i18n_templates.html:5
 msgid "年"
 msgstr "year"
@@ -1860,7 +1860,6 @@ msgstr "Any Country/Region"
 #: ../web/src/partials/property_to_rent_selectors.html:15
 #: ../web/src/partials/property_to_rent_selectors.html:26
 #: ../web/src/partials/property_to_rent_selectors.html:54
-#: ../web/src/static/sms/chat_reply.html:1
 msgid "的"
 msgstr "‘s"
 
@@ -1979,7 +1978,7 @@ msgid "拨打 <strong>400-8299-318</strong>"
 msgstr "Call <strong>400-0926-433</strong>"
 
 #: ../web/src/property_to_rent.html:118 ../web/src/property_to_rent.html:513
-#: ../web/src/partials/i18n.html:546 ../web/src/partials/i18n_admin.html:345
+#: ../web/src/partials/i18n.html:548 ../web/src/partials/i18n_admin.html:345
 #: ../web/src/partials/i18n_scripts.html:458
 #: ../web/src/partials/i18n_templates.html:55
 msgid "已租出"
@@ -3450,7 +3449,7 @@ msgstr "Verify New Phone Number（2/2）"
 #: ../web/src/partials/delegate_sale_phone.html:42
 #: ../web/src/partials/delegate_sale_popup.html:66
 #: ../web/src/partials/delegate_sale_popup.html:68
-#: ../web/src/partials/i18n.html:556 ../web/src/partials/i18n_scripts.html:841
+#: ../web/src/partials/i18n.html:558 ../web/src/partials/i18n_scripts.html:841
 #: ../web/src/partials/property_to_rent_publish.html:47
 #: ../web/src/partials/property_to_rent_publish.html:104
 #: ../web/src/partials/property_to_rent_publish.html:200
@@ -3550,7 +3549,7 @@ msgstr "End date"
 msgid "账单"
 msgstr "Bill"
 
-#: ../web/src/user_chat_details.html:126 ../web/src/partials/i18n.html:506
+#: ../web/src/user_chat_details.html:126 ../web/src/partials/i18n.html:508
 msgid "没有最新留言"
 msgstr "No new message"
 
@@ -3890,7 +3889,7 @@ msgstr "Investment Amount"
 msgid "您的账户当余额仅剩"
 msgstr "Remaining Balance"
 
-#: ../web/src/user_finish_investment.html:89 ../web/src/partials/i18n.html:507
+#: ../web/src/user_finish_investment.html:89 ../web/src/partials/i18n.html:509
 msgid "充值"
 msgstr "Deposit"
 
@@ -4327,7 +4326,7 @@ msgstr "More Messages"
 msgid "下载应用"
 msgstr "App Download"
 
-#: ../web/src/masters/master.html:125 ../web/src/partials/i18n.html:483
+#: ../web/src/masters/master.html:125 ../web/src/partials/i18n.html:485
 #: ../web/src/partials/i18n_admin.html:350
 #: ../web/src/static/emails/national_day.html:15
 #: ../web/src/static/emails/receive_intention.html:23
@@ -4872,7 +4871,7 @@ msgid "约%s起"
 msgstr "From %s"
 
 #: ../web/src/partials/get_rent_min_period.html:6
-#: ../web/src/partials/i18n.html:498 ../web/src/partials/i18n_scripts.html:28
+#: ../web/src/partials/i18n.html:500 ../web/src/partials/i18n_scripts.html:28
 #: ../web/src/partials/i18n_templates.html:67
 #: ../web/src/partials/property_to_rent_edit.html:358
 #: ../web/src/static/emails/rent_intention_digest.html:120
@@ -4883,7 +4882,7 @@ msgid "周"
 msgstr " week(s)"
 
 #: ../web/src/partials/get_rent_min_period.html:8
-#: ../web/src/partials/i18n.html:499
+#: ../web/src/partials/i18n.html:501
 #: ../web/src/static/emails/rent_intention_digest.html:122
 #: ../web/src/static/emails/rent_intention_matched_1.html:123
 #: ../web/src/static/emails/rent_intention_matched_4.html:129
@@ -6851,315 +6850,323 @@ msgid "用户名不得包含电话号码或邮箱"
 msgstr "Username mustn't contain phone number or email"
 
 #: ../web/src/partials/i18n.html:478
+msgid "洋房东：收到{nickname}新消息"
+msgstr "YFD Rental: New message from {nickname}"
+
+#: ../web/src/partials/i18n.html:479
+msgid "洋房东：收到新消息"
+msgstr "YFD Rental: New message"
+
+#: ../web/src/partials/i18n.html:480
 #, fuzzy
 msgid "今天"
 msgstr " today"
 
-#: ../web/src/partials/i18n.html:479
+#: ../web/src/partials/i18n.html:481
 #, fuzzy
 msgid "昨天"
 msgstr " yestoday"
 
-#: ../web/src/partials/i18n.html:480
+#: ../web/src/partials/i18n.html:482
 #, fuzzy
 msgid "天前"
 msgstr " days ago"
 
-#: ../web/src/partials/i18n.html:481
+#: ../web/src/partials/i18n.html:483
 #, fuzzy
 msgid "上周"
 msgstr " last week"
 
-#: ../web/src/partials/i18n.html:482 ../web/src/partials/i18n_admin.html:351
+#: ../web/src/partials/i18n.html:484 ../web/src/partials/i18n_admin.html:351
 #: ../web/src/static/emails/national_day.html:18
 #: ../web/src/static/emails/receive_intention.html:25
 #: ../server/currant_util.py:163
 msgid "中国"
 msgstr "China"
 
-#: ../web/src/partials/i18n.html:484 ../web/src/partials/i18n_admin.html:353
+#: ../web/src/partials/i18n.html:486 ../web/src/partials/i18n_admin.html:353
 #: ../server/currant_util.py:165
 msgid "美国"
 msgstr "United States"
 
-#: ../web/src/partials/i18n.html:485 ../web/src/partials/i18n_admin.html:354
+#: ../web/src/partials/i18n.html:487 ../web/src/partials/i18n_admin.html:354
 #: ../server/currant_util.py:166
 msgid "印度"
 msgstr "india"
 
-#: ../web/src/partials/i18n.html:486 ../web/src/partials/i18n_admin.html:355
+#: ../web/src/partials/i18n.html:488 ../web/src/partials/i18n_admin.html:355
 #: ../server/currant_util.py:167
 msgid "俄罗斯"
 msgstr "Russia"
 
-#: ../web/src/partials/i18n.html:487 ../web/src/partials/i18n_admin.html:356
+#: ../web/src/partials/i18n.html:489 ../web/src/partials/i18n_admin.html:356
 #: ../server/currant_util.py:168
 msgid "日本"
 msgstr "Japan"
 
-#: ../web/src/partials/i18n.html:488 ../web/src/partials/i18n_admin.html:357
+#: ../web/src/partials/i18n.html:490 ../web/src/partials/i18n_admin.html:357
 #: ../server/currant_util.py:169
 msgid "德国"
 msgstr "Germany"
 
-#: ../web/src/partials/i18n.html:489 ../web/src/partials/i18n_admin.html:358
+#: ../web/src/partials/i18n.html:491 ../web/src/partials/i18n_admin.html:358
 #: ../server/currant_util.py:170
 msgid "法国"
 msgstr "France"
 
-#: ../web/src/partials/i18n.html:490 ../web/src/partials/i18n_admin.html:359
+#: ../web/src/partials/i18n.html:492 ../web/src/partials/i18n_admin.html:359
 #: ../server/currant_util.py:171
 msgid "意大利"
 msgstr "Italy"
 
-#: ../web/src/partials/i18n.html:491 ../web/src/partials/i18n_admin.html:360
+#: ../web/src/partials/i18n.html:493 ../web/src/partials/i18n_admin.html:360
 #: ../server/currant_util.py:172
 msgid "西班牙"
 msgstr "Spain"
 
-#: ../web/src/partials/i18n.html:492 ../server/currant_util.py:173
+#: ../web/src/partials/i18n.html:494 ../server/currant_util.py:173
 msgid "荷兰"
 msgstr "Netherlands"
 
-#: ../web/src/partials/i18n.html:493 ../web/src/partials/i18n_admin.html:352
+#: ../web/src/partials/i18n.html:495 ../web/src/partials/i18n_admin.html:352
 #: ../server/currant_util.py:174
 msgid "香港"
 msgstr "Hong Kong"
 
-#: ../web/src/partials/i18n.html:494 ../server/currant_util.py:175
+#: ../web/src/partials/i18n.html:496 ../server/currant_util.py:175
 msgid "台湾"
 msgstr "Taiwan"
 
-#: ../web/src/partials/i18n.html:495 ../server/currant_util.py:176
+#: ../web/src/partials/i18n.html:497 ../server/currant_util.py:176
 msgid "新加坡"
 msgstr "Singapore"
 
-#: ../web/src/partials/i18n.html:496 ../server/currant_util.py:177
+#: ../web/src/partials/i18n.html:498 ../server/currant_util.py:177
 msgid "马来西亚"
 msgstr "Malaysia"
 
-#: ../web/src/partials/i18n.html:497 ../server/currant_util.py:178
+#: ../web/src/partials/i18n.html:499 ../server/currant_util.py:178
 msgid "爱尔兰"
 msgstr "Ireland"
 
-#: ../web/src/partials/i18n.html:501
+#: ../web/src/partials/i18n.html:503
 #, fuzzy
 msgid "请填写聊天信息"
 msgstr "Please enter your Budget"
 
-#: ../web/src/partials/i18n.html:502
+#: ../web/src/partials/i18n.html:504
 msgid "聊天内容超出最大限制"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:503
+#: ../web/src/partials/i18n.html:505
 msgid "请不要在聊天中填写任何形式的联系方式"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:504
+#: ../web/src/partials/i18n.html:506
 #, fuzzy
 msgid "用户消息加载中"
 msgstr "Loading"
 
-#: ../web/src/partials/i18n.html:505
+#: ../web/src/partials/i18n.html:507
 msgid "回复"
 msgstr "Reply"
 
-#: ../web/src/partials/i18n.html:508
+#: ../web/src/partials/i18n.html:510
 #, fuzzy
 msgid "收益"
 msgstr "Profit record"
 
-#: ../web/src/partials/i18n.html:509
+#: ../web/src/partials/i18n.html:511
 #, fuzzy
 msgid "提现"
 msgstr "Deposit & Withdrawal"
 
-#: ../web/src/partials/i18n.html:510
+#: ../web/src/partials/i18n.html:512
 #, fuzzy
 msgid "回收本金"
 msgstr "The principal"
 
-#: ../web/src/partials/i18n.html:511
+#: ../web/src/partials/i18n.html:513
 msgid "性别不能为空"
 msgstr "Gender should not be empty"
 
-#: ../web/src/partials/i18n.html:512
+#: ../web/src/partials/i18n.html:514
 msgid "国家不能为空"
 msgstr "Country should not be empty"
 
-#: ../web/src/partials/i18n.html:513
+#: ../web/src/partials/i18n.html:515
 msgid "更新成功, 正在刷新页面..."
 msgstr "Refresh successful, currently loading new page"
 
-#: ../web/src/partials/i18n.html:514
+#: ../web/src/partials/i18n.html:516
 msgid "更新失败"
 msgstr "Update failed"
 
-#: ../web/src/partials/i18n.html:515
+#: ../web/src/partials/i18n.html:517
 #, fuzzy
 msgid "取消收藏失败"
 msgstr "Un-favourite"
 
-#: ../web/src/partials/i18n.html:516
+#: ../web/src/partials/i18n.html:518
 msgid "撤销失败"
 msgstr "Revert failed"
 
-#: ../web/src/partials/i18n.html:517
+#: ../web/src/partials/i18n.html:519
 #, fuzzy
 msgid "电话区号不能为空"
 msgstr "Phone Number"
 
-#: ../web/src/partials/i18n.html:518
+#: ../web/src/partials/i18n.html:520
 msgid "发送失败，请重试"
 msgstr "Sending failed, please try again"
 
-#: ../web/src/partials/i18n.html:519
+#: ../web/src/partials/i18n.html:521
 msgid "生日不能为空"
 msgstr "Birthday should not be empty"
 
-#: ../web/src/partials/i18n.html:520
+#: ../web/src/partials/i18n.html:522
 msgid "省份不能为空"
 msgstr "Provience should not be empty"
 
-#: ../web/src/partials/i18n.html:521
+#: ../web/src/partials/i18n.html:523
 msgid "城市不能为空"
 msgstr "City should not be empty"
 
-#: ../web/src/partials/i18n.html:522
+#: ../web/src/partials/i18n.html:524
 msgid "地址不能为空"
 msgstr "Address should not be empty"
 
-#: ../web/src/partials/i18n.html:523
+#: ../web/src/partials/i18n.html:525
 msgid "邮政编码不能为空"
 msgstr "Postcode should not be empty"
 
-#: ../web/src/partials/i18n.html:524
+#: ../web/src/partials/i18n.html:526
 msgid "更新成功"
 msgstr "Update success"
 
-#: ../web/src/partials/i18n.html:525
+#: ../web/src/partials/i18n.html:527
 #, fuzzy
 msgid "已提交"
 msgstr "Submit"
 
-#: ../web/src/partials/i18n.html:526
+#: ../web/src/partials/i18n.html:528
 #, fuzzy
 msgid "已指派销售人员"
 msgstr "Senior Salesman"
 
-#: ../web/src/partials/i18n.html:527 ../web/src/partials/i18n_admin.html:272
+#: ../web/src/partials/i18n.html:529 ../web/src/partials/i18n_admin.html:272
 msgid "受理中"
 msgstr "Ongoing"
 
-#: ../web/src/partials/i18n.html:528 ../web/src/partials/i18n_admin.html:273
+#: ../web/src/partials/i18n.html:530 ../web/src/partials/i18n_admin.html:273
 msgid "定金已支付"
 msgstr "Deposit Paid"
 
-#: ../web/src/partials/i18n.html:529 ../web/src/partials/i18n_admin.html:274
+#: ../web/src/partials/i18n.html:531 ../web/src/partials/i18n_admin.html:274
 msgid "未达成定金"
 msgstr "Lose Interest"
 
-#: ../web/src/partials/i18n.html:530 ../web/src/partials/i18n_admin.html:275
+#: ../web/src/partials/i18n.html:532 ../web/src/partials/i18n_admin.html:275
 msgid "购房已成功"
 msgstr "Already Purchased"
 
-#: ../web/src/partials/i18n.html:531 ../web/src/partials/i18n_admin.html:276
+#: ../web/src/partials/i18n.html:533 ../web/src/partials/i18n_admin.html:276
 msgid "未达成购房"
 msgstr "Deal Canceled"
 
-#: ../web/src/partials/i18n.html:532
+#: ../web/src/partials/i18n.html:534
 msgid "求租中"
 msgstr "Active"
 
-#: ../web/src/partials/i18n.html:533
+#: ../web/src/partials/i18n.html:535
 #, fuzzy
 msgid "已租到"
 msgstr "Rented"
 
-#: ../web/src/partials/i18n.html:534 ../web/src/partials/i18n_admin.html:282
+#: ../web/src/partials/i18n.html:536 ../web/src/partials/i18n_admin.html:282
 #, fuzzy
 msgid "已取消"
 msgstr "Cancel"
 
-#: ../web/src/partials/i18n.html:535
+#: ../web/src/partials/i18n.html:537
 msgid "邀请码生成错误请刷新页面后重试"
 msgstr "The was an error producing the invitation code. Please reload the page and try again"
 
-#: ../web/src/partials/i18n.html:536
+#: ../web/src/partials/i18n.html:538
 msgid "洋房东 ' + discountDisplayValue + '租房优惠"
 msgstr "Young Funding + discountdisplayvalue + Rental Discount"
 
-#: ../web/src/partials/i18n.html:537
+#: ../web/src/partials/i18n.html:539
 msgid "发福利啦，需要租房的小伙伴们看过来，点击以下链接注册洋房东在线查看出租房源，租房成功者即可得到' + discountDisplayValue + '的租房优惠哦。不要太感谢我，请叫我雷锋，造福大家是我的使命"
 msgstr "Special offer! If you are looking to rent a new place then don't miss out! Click on the registration link and view properties. When you rent a property you will enjoy a [discount display value] discount. "
 
-#: ../web/src/partials/i18n.html:538
+#: ../web/src/partials/i18n.html:540
 msgid "该邮箱已经注册"
 msgstr "The email address has already been registered."
 
-#: ../web/src/partials/i18n.html:539
+#: ../web/src/partials/i18n.html:541
 msgid "无法执行该操作，请检查您的房产状态后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:540
+#: ../web/src/partials/i18n.html:542
 msgid "您要找的房产不存在或者已被删除"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:541
+#: ../web/src/partials/i18n.html:543
 msgid "刚刚刷新过"
 msgstr "Just refreshed"
 
-#: ../web/src/partials/i18n.html:542
+#: ../web/src/partials/i18n.html:544
 msgid "不好意思，每天只能刷新一个房源"
 msgstr "Sorry, only one property per day can be refreshed"
 
-#: ../web/src/partials/i18n.html:543
+#: ../web/src/partials/i18n.html:545
 msgid "刷新失败，请检查后重试"
 msgstr "Cannot refresh, please check and try again"
 
-#: ../web/src/partials/i18n.html:544
+#: ../web/src/partials/i18n.html:546
 msgid "已经成功出租了吗？确定将不再接收系统刷新提醒"
 msgstr "property already rented out? To stop receiving system refresh reminders"
 
-#: ../web/src/partials/i18n.html:545
+#: ../web/src/partials/i18n.html:547
 #, fuzzy
 msgid "今天更新过"
 msgstr "Today updated"
 
-#: ../web/src/partials/i18n.html:547
+#: ../web/src/partials/i18n.html:549
 msgid "无法更新，请检查后重试"
 msgstr "Cannot refresh, please check and try again"
 
-#: ../web/src/partials/i18n.html:548
+#: ../web/src/partials/i18n.html:550
 msgid "确定删除该出租房吗？注意：此操作不可逆"
 msgstr "Are you sure to delete this property? This cannot be reversed."
 
-#: ../web/src/partials/i18n.html:549
+#: ../web/src/partials/i18n.html:551
 msgid "无法删除，请检查后重试"
 msgstr "Unable to remove it, please check and try again"
 
-#: ../web/src/partials/i18n.html:550
+#: ../web/src/partials/i18n.html:552
 msgid "确定删除该房产吗？"
 msgstr "Are you sure to delete this property?"
 
-#: ../web/src/partials/i18n.html:551
+#: ../web/src/partials/i18n.html:553
 msgid "移除失败，请检查后重试"
 msgstr "Unable to remove it, please check and try again"
 
-#: ../web/src/partials/i18n.html:552
+#: ../web/src/partials/i18n.html:554
 msgid "邮件已发送，如果没有收到，请在60秒后重试"
 msgstr "The email has been sent, if you don't receive, please try again after 60s"
 
-#: ../web/src/partials/i18n.html:553
+#: ../web/src/partials/i18n.html:555
 msgid "发送验证邮件失败"
 msgstr "Failed to send verification email"
 
-#: ../web/src/partials/i18n.html:554
+#: ../web/src/partials/i18n.html:556
 #, fuzzy
 msgid "修改邮箱失败"
 msgstr "Update Email failed"
 
-#: ../web/src/partials/i18n.html:557
+#: ../web/src/partials/i18n.html:559
 msgid "验证码已成功发送到您填写的手机号"
 msgstr "Verfication code already sent to your phone"
 
@@ -12974,20 +12981,20 @@ msgstr "From Month 4"
 #: ../web/src/static/emails/chat_reply.html:127
 #, python-format
 msgid "房东<strong>%s</strong>给你发送了一条新消息"
-msgstr ""
+msgstr "Host <strong>%s</strong> sent you new message"
 
 #: ../web/src/static/emails/chat_reply.html:129
 #, python-format
 msgid "租客<strong>%s</strong>给你发送了一条新消息"
-msgstr ""
+msgstr "Tenant <strong>%s</strong> sent you new messag"
 
 #: ../web/src/static/emails/chat_reply.html:166
 msgid "点击回复"
-msgstr ""
+msgstr "Click to reply"
 
-#: ../web/src/static/emails/chat_reply_title.html:1
-msgid "洋房东：收到新消息"
-msgstr ""
+#: ../web/src/static/emails/chat_reply_title.html:2
+msgid "洋房东：来自 {username} 的新信息"
+msgstr "YFD Rental: {username} new message"
 
 #: ../web/src/static/emails/coupon_code_share.html:3
 #: ../web/src/static/emails/coupon_code_share_title.html:1
@@ -13886,14 +13893,14 @@ msgstr "N/A If you didn't subscribe launch notification, please ignore this. If 
 msgid "洋房东开放注册了!"
 msgstr "Young Funding is open for registrations now!"
 
-#: ../web/src/static/sms/chat_reply.html:1
+#: ../web/src/static/sms/chat_reminder.html:2
 #, fuzzy
-msgid "洋房东：来自"
-msgstr "YFD Rental "
+msgid "洋房东：[提醒] 来自 {role} {username} 的 “{message}”。回复请点击 {reply_url}"
+msgstr "YFD Rental: [Reminder] {role} {username} \"{message}\". Reply via platform {reply_url}"
 
-#: ../web/src/static/sms/chat_reply.html:1
-msgid "回复请点击"
-msgstr ""
+#: ../web/src/static/sms/chat_reply.html:2
+msgid "洋房东：来自 {role} {username} 的 “{message}”。回复请点击 {reply_url}"
+msgstr "YFD Rental: {role} {username} \"{message}\". Reply via platform {reply_url}"
 
 #: ../web/src/static/templates/chat_request.tpl.html:32
 #: ../web/src/static/templates/chat_request_phone.tpl.html:28
