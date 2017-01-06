@@ -60,6 +60,21 @@
 
         updateHeaderMessage()
 
+        // https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
+        var checkNotificationGranted = function(callback) {
+            if (window.Notification && Notification.permission === 'granted') {
+                callback(Notification.permission)
+            }
+            else if (window.Notification && Notification.permission !== 'denied') {
+                Notification.requestPermission(function (status) {
+                    // If the user said okay
+                    if (status === 'granted') {
+                        callback(Notification.permission)
+                    }
+                })
+            }
+        }
+
         var socketUrl = 'wss://' + location.host + '/websocket'
         var socketWs = new WebSocket(socketUrl);
         socketWs.onopen = function() {
@@ -95,23 +110,22 @@
             document.getElementById('icon-message-notif').style.display = 'inline'
             updateHeaderMessage()
 
-            if (window.Notification && window.Notification.permission !== 'denied') {
-                window.Notification.requestPermission(function (status) {
-                    var messageIcon = message.from_user && message.from_user.face? message.from_user.face: '/static/images/chat/placeholder_tenant.png'
-                    var messageBody = message.from_user && message.from_user.nickname?  '[' + message.from_user.nickname + '] ' + message.message: message.message
-                    var notification = new window.Notification(i18n('洋房东：收到新消息'), {
-                        body: messageBody,
-                        icon: messageIcon
-                    });
+            checkNotificationGranted(function (status) {
+                var messageTitle = message.from_user && message.from_user.nickname?  i18n('洋房东：收到{nickname}新消息').replace('{nickname}', message.from_user.nickname): i18n('洋房东：收到新消息')
+                var messageIcon = message.from_user && message.from_user.face? message.from_user.face: '/static/images/chat/placeholder_tenant.png'
+                var messageBody = message.message
+                var notification = new window.Notification(messageTitle, {
+                    body: messageBody,
+                    icon: messageIcon
+                });
 
-                    notification.onclick(function () {
-                        window.open('/user-chat/' + message.ticket_id +'/detail')
-                    })
-                    notification.onclose(function () {
-                        markMessageAsRead(message.id)
-                    })
-                })
-            }
+                notification.onclick = function () {
+                    window.open('/user-chat/' + message.ticket_id +'/detail')
+                }
+                notification.onclose = function () {
+                    markMessageAsRead(message.id)
+                }
+            })
         }
         window.wsListeners.push(headerListener)
     }

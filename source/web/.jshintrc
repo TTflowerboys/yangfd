@@ -22,6 +22,7 @@
       "$":         true,
       "jQuery":    true,
       "_":         true,
+      "Notification": true,
       "team":      true,
       "Chart":     true,
       "currency":  true,
