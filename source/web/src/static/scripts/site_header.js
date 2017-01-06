@@ -87,15 +87,22 @@
         };
 
         var headerListener = {};
-        headerListener.onreceivemessage = function(socketVal) {
+        headerListener.onreceivemessage = function(message) {
             document.getElementById('icon-message').style.display = 'none'
             document.getElementById('icon-message-notif').style.display = 'inline'
 
             if (window.Notification && window.Notification.permission !== 'denied') {
                 window.Notification.requestPermission(function (status) {
-                    return new window.Notification(i18n('洋房东：收到新消息'), {
-                        body: socketVal.message
+                    var messageIcon = message.from_user && message.from_user.face? message.from_user.face: '/static/images/chat/placeholder_tenant.png'
+                    var messageBody = message.from_user && message.from_user.nickname?  '[' + message.from_user.nickname + '] ' + message.message: message.message
+                    var notification = new window.Notification(i18n('洋房东：收到新消息'), {
+                        body: messageBody,
+                        icon: messageIcon
                     });
+
+                    notification.onclick(function () {
+                        window.open('/user-chat/' + message.ticket_id +'/detail')
+                    })
                 })
             }
         }
