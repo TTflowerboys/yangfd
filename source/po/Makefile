@@ -14,11 +14,7 @@ PYBABEL = ./pybabel
 GREP = /usr/bin/env grep
 DESTDIR = generated
 
-all: generate extract update install
-
-# generate js i18n keys to a html style like "{{_('xxx')}}", so the js key can be extracted
-generate:
-	cd ../web; npm run generate_i18n_js; cd ../po
+all: extract update install
 
 extract:
 	$(PYBABEL) extract --no-wrap -F web/.pybabel.cfg --copyright-holder=$(ORGANIZATION) --msgid-bugs-address=$(BUGSADDR) --project=$(PROJECT_NAME) --version=$(VERSION) -o web/web.pot ../web/src ../server
