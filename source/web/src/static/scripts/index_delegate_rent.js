@@ -321,13 +321,13 @@
 
                             //倒计时60s后再将获取验证码按钮变为可用状态
                             function countDown () {
-                                var text = i18n('{time}s后可用')
                                 var time = 60
                                 function update() {
                                     if(time === 0) {
                                         $btn.prop('disabled', false).text(i18n('重新获取验证码'))
                                     } else{
-                                        $btn.prop('disabled', true).text(text.replace('{time}', time--))
+                                        var text = i18n('{time}s后可用', {time: time--})
+                                        $btn.prop('disabled', true).text(text)
                                         setTimeout(update, 1000)
                                     }
                                 }
@@ -455,13 +455,13 @@
 
                     //倒计时60s后再将获取验证码按钮变为可用状态
                     function countDown () {
-                        var text = i18n('{time}s后可用')
                         var time = 60
                         function update() {
                             if(time === 0) {
                                 $btn.prop('disabled', false).text(i18n('重新获取验证码'))
                             } else{
-                                $btn.prop('disabled', true).text(text.replace('{time}', time--))
+                                var text = i18n('{time}s后可用', {time: time--})
+                                $btn.prop('disabled', true).text(text)
                                 setTimeout(update, 1000)
                             }
                         }

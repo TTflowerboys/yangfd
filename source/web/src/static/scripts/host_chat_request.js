@@ -320,7 +320,6 @@
                     }, this))
             }
             this.countdown = function () {
-                var text = i18n('{time}s后可再次获取')
                 var time = 60
                 function update() {
                     if(time === 0) {
@@ -328,7 +327,8 @@
                         this.getSmsCodeText(window.i18n('重新获取验证码'))
                         this.verificationCount(this.verificationCount() + 1)
                     } else {
-                        this.getSmsCodeText(text.replace('{time}', time--))
+                        var text = i18n('{time}s后可再次获取', {time: time--})
+                        this.getSmsCodeText(text)
                         setTimeout(_.bind(update, this), 1000)
                     }
                 }
@@ -407,8 +407,8 @@
                         voiceVerifyButtonText(window.i18n('语音验证手机号'))
                     }
                     else {
-                        var stringTemplate = window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请{sec}s后重试')
-                        voiceHint(stringTemplate.replace('{sec}', sec))
+                        var stringTemplate = window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请{sec}s后重试', {sec: sec})
+                        voiceHint(stringTemplate)
                         sec--
                     }
                 },1000)

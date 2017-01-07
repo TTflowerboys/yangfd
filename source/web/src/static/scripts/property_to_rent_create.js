@@ -1045,8 +1045,8 @@
         smsCount++
     }, function (sec) {
         var messageArea = $('.errorMsgOfGetCode.sms')
-        var tpl = window.i18n('如果没有收到验证码请{sec}后重试') 
-        messageArea.text(tpl.replace('{sec}', sec + 's')).show()
+        var tpl = window.i18n('如果没有收到验证码请{sec}s后重试', {sec: sec}) 
+        messageArea.text(tpl).show()
     }, function () {
         var messageArea = $('.errorMsgOfGetCode.sms')
         messageArea.html(window.i18n('如果没有收到验证码请，请重试')).show()
@@ -1134,8 +1134,8 @@
             $requestVoiceBtn.prop('disabled', false).text(i18n('语音验证'))
         }
         else {
-            var stringTemplate = window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请{sec}s后重试')
-            $('.errorMsgOfGetCode.voice').text(stringTemplate.replace('{sec}', sec)).show()
+            var stringTemplate = window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请{sec}s后重试', {sec: sec})
+            $('.errorMsgOfGetCode.voice').text(stringTemplate).show()
         }
     }, function () {
         if (phoneVerified)  {
