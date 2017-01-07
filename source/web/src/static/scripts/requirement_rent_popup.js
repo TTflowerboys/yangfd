@@ -296,7 +296,7 @@
         function getRequirementRentTitle(container) {
             var budgetString
             if (container.find('[name=rentBudgetMin]').val() && container.find('[name=rentBudgetMax]').val()) {
-                budgetString = i18n('%s至%s/周的', getText(container.find('[name=rentBudgetMin]')), getText(container.find('[name=rentBudgetMax]')) + window.getCurrencyPresentation(window.currency))
+                budgetString = i18n('%s至%s/周的', [getText(container.find('[name=rentBudgetMin]')), getText(container.find('[name=rentBudgetMax]')) + window.getCurrencyPresentation(window.currency)])
             } else if (container.find('[name=rentBudgetMin]').val()) {
                 budgetString = i18n('%s/周以上的', getText(container.find('[name=rentBudgetMin]')) + window.getCurrencyPresentation(window.currency))
             } else if (container.find('[name=rentBudgetMax]').val()) {
@@ -304,10 +304,9 @@
             } else {
                 budgetString = ''
             }
-            return i18n('我想找%s附近的%s出租房',
-                getText(container.find('.city-select')) + (container.find('.neighborhood-select').val() ? (i18n('的%s', getText(container.find('.neighborhood-select')))) : ''),
-                budgetString + getText(container.find('.rentType'))
-            )
+            var addressPart = getText(container.find('.city-select')) + (container.find('.neighborhood-select').val() ? (i18n('的%s', getText(container.find('.neighborhood-select')))) : '')
+            var typePart = budgetString + getText(container.find('.rentType'))
+            return i18n('我想找%s附近的%s出租房', [addressPart,typePart])
         }
         if (!container.data('initRequirementRentTitle')) {
             container.data('initRequirementRentTitle', true)

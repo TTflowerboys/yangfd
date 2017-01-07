@@ -28,16 +28,21 @@ Note
 
 ### Simple use
 
-	window.i18n('合适') 	
+    window.i18n('合适') 	
 	
-### String with one var single or multiple vars(Not work when var order changed)
+### String with one var
 
-	window.i18n('%s至%s', ticket.rent_budget_min.value, ticket.rent_budget_max.value)
+    window.i18n('%s开始', ticket.rent_budget_min.value)
 
+	
+### String with multiple vars(Not work when var order changed)
+
+    window.i18n('%s至%s', [ticket.rent_budget_min.value, ticket.rent_budget_max.value])
+	
 
 ### String with multiple vars(Work well when var order changed)
 
-    i18n('{time}s后可再次获取{content}').replace('{time}', sec).replace('{content}', content)
+    window.i18n('{time}s后可再次获取{content}', {time: 3, content: "test"})
 
 	
 ### String with html tags

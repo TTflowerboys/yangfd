@@ -12,7 +12,7 @@
             <label class="status" data-status={=ticket.status=}>{=ticket.status_presentation=}</label>
              <label class="price_phone" for="">
                  {_if (ticket.rent_budget_min && ticket.rent_budget_max) { _}
-                 {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} <strong> {!window.i18n('%s至%s', ticket.rent_budget_min.value, ticket.rent_budget_max.value)!}</strong> /{=window.i18n('周')=}
+                 {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} <strong> {!window.i18n('%s至%s', [ticket.rent_budget_min.value, ticket.rent_budget_max.value])!}</strong> /{=window.i18n('周')=}
                  {_ } else if (ticket.rent_budget_min) { _}
                  {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} <strong> {!window.i18n('%s以上', ticket.rent_budget_min.value)!}</strong> /{=window.i18n('周')=}
                  {_ } else if (ticket.rent_budget_max) { _}
@@ -48,7 +48,7 @@
                         <i class="icon-time"></i>
                         {_ var string1 = project.formatDate(ticket.rent_available_time) _}
                         {_ var string2 = project.formatDate(ticket.rent_deadline_time) _}
-                        {!window.i18n('%s到%s',string1,string2)!}
+                        {!window.i18n('%s到%s', [string1,string2])!}
                         {_ } else if (ticket.rent_available_time && !ticket.rent_deadline_time) {_}
                         <i class="icon-time"></i>
                         {_ var string = project.formatDate(ticket.rent_available_time)_}
@@ -63,7 +63,7 @@
             </ul>
             <label class="price" for="">
                 {_if (ticket.rent_budget_min && ticket.rent_budget_max) { _}
-                {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} {!window.i18n('%s至%s', ticket.rent_budget_min.value, ticket.rent_budget_max.value)!} /{=window.i18n('周')=}
+                {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} {!window.i18n('%s至%s', [ticket.rent_budget_min.value, ticket.rent_budget_max.value])!} /{=window.i18n('周')=}
                 {_ } else if (ticket.rent_budget_min) { _}
                 {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} {!window.i18n('%s以上', ticket.rent_budget_min.value)!} /{=window.i18n('周')=}
                 {_ } else if (ticket.rent_budget_max) { _}

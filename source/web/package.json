@@ -49,7 +49,7 @@
     "gulp-file-include": "~0.4.0",
     "gulp-footer": "~1.0.5",
     "gulp-html-extend": "https://github.com/Fykec/gulp-html-extend/archive/0.5.1.tar.gz",
-    "gulp-i18n": "https://github.com/Fykec/gulp-i18n/archive/v0.0.1.tar.gz",
+    "gulp-i18n": "https://github.com/Fykec/gulp-i18n/archive/v0.0.2.tar.gz",
     "gulp-ignore": "~1.2.0",
     "gulp-imagemin": "^2.4.0",
     "gulp-img64": "0.0.6",
