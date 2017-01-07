@@ -9,13 +9,13 @@ $(function(){
     var chatCurrentTabHash = location.hash.slice(1).toLowerCase()
     var chatTpl = {
         items : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname){
-            return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info"><div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'">'+i18n('用户消息加载中')+'...</div></div><a href="/user-chat/'+rent_ticket_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
+            return '<div class="chatListItmes"><div class="title"><span class="name">'+user_nickname.substring(1,-1)+'**</span><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info"><div class="message" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'">'+i18n('用户消息加载中')+'...</div></div><a href="/user-chat/'+rent_ticket_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
         },
         message : function(message,time){
-            return '<span class="msgtime">['+team.parsePublishDate(parseInt(time))+']</span>'+message
+            return '<span class="text">'+message+'</span><span class="msgtime">'+team.parsePublishDate(parseInt(time))+'</span>'
         },
         itemsNew : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname,message,time){
-            return '<div class="chatListItmes"><div class="title"><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info sent"><div class="name">'+user_nickname.substring(1,-1)+'**</div><div class="message" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'"><span class="msgtime">['+team.parsePublishDate(parseInt(time))+']</span>'+message+'</div></div><a href="/user-chat/'+rent_ticket_user_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
+            return '<div class="chatListItmes"><div class="title"><span class="name">'+user_nickname.substring(1,-1)+'**</span><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info sent"><div class="message" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'"><span class="text">'+message+'</span><span class="msgtime">'+team.parsePublishDate(parseInt(time))+'</span></div></div><a href="/user-chat/'+rent_ticket_user_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
         }
     }
 
