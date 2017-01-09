@@ -137,7 +137,10 @@ class common(f_common):
     clickatell_password = "EaSeURGSXGXNbM"
     nexmo_api_key = "069872f2"
     nexmo_api_secret = "9c4d83a4"
-    nexmo_default_sender = "13605895103"
+    nexmo_sender_smart = {
+        1: "13605895103",
+        "default": "YFDRental",
+    }
     nexmo_number_mapping_dimensions = ["ticket_id"]
     sinch_api_key = "6608a0fb-719c-4167-8e5e-2bfe44c88346"
     sinch_api_secret = "NWobeaXMlESbOtEVlS3tBA=="
