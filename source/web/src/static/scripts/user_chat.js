@@ -6,6 +6,7 @@ $(function(){
     var xhr
     var placeholder = $('.emptyPlaceHolder')
     var chatListHeader = $('.chatListHeader')
+    var itemsPerPage = -1
     var chatCurrentTabHash = location.hash.slice(1).toLowerCase()
     var chatTpl = {
         items : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname){
@@ -48,7 +49,7 @@ $(function(){
         var params = {
             'status': 'requested',
             'user_id': window.user.id,
-            'per_page': -1
+            'per_page': itemsPerPage
         }
         xhr = $.post('/api/1/rent_intention_ticket/search', params)
             .success(function (data) {
@@ -98,7 +99,7 @@ $(function(){
         var params = {
             'status': 'requested',
             'interested_rent_ticket_user_id': window.user.id,
-            'per_page': -1
+            'per_page': itemsPerPage
         }
         xhr = $.post('/api/1/rent_intention_ticket/search', params)
             .success(function (data) {
