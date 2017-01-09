@@ -681,7 +681,7 @@
         },
         getUserName: function(string){
             if (string.length) {
-                var newArray = string.split('')
+                var newArray = string.split(' ')
                 if (newArray.length>1) {
                     return newArray[0]
                 }else{

@@ -144,7 +144,8 @@
         $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
     }, function (sec) {
         var $form = $('.formWrap')
-        var stringTemplate = window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请{sec}s后重试', {sec: sec})        $form.find('#voiceHint').text(stringTemplate).show()
+        var stringTemplate = window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请{sec}s后重试', {sec: sec})
+        $form.find('#voiceHint').text(stringTemplate).show()
     }, function () {
         var $form = $('.formWrap')
         $form.find('#voiceHint').html(window.i18n('请按照语音提示操作（默认按手机键盘上数字1即可验证成功），如果没有接到联系电话，请重试')).show()
