@@ -139,7 +139,7 @@ class common(f_common):
     nexmo_api_secret = "9c4d83a4"
     nexmo_sender_smart = {
         1: "13605895103",
-        "default": "YFDRental",
+        "default": "447520618868",
     }
     nexmo_number_mapping_dimensions = ["ticket_id"]
     sinch_api_key = "6608a0fb-719c-4167-8e5e-2bfe44c88346"
