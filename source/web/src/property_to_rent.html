@@ -40,8 +40,8 @@
                         %end
                     </label>
                 </div>
-                <div class="rmm-toggled-share">
-                    <i class="icon-wechat"></i>
+                <div class="rmm-toggled-share" id="sharePopupBtn">
+                    <i class="icon-social"></i>
                 </div>
             </div>
             <!-- @@include = partials/menu_items_mobile.html -->
@@ -609,7 +609,6 @@
                                 }) ">
                                 <i class="icon-twitter"></i>
                         </button>
-                        % title = rent.get('title',u'').replace("\'", "\\\'")
                         <button class="flatButton linkedin" onclick="team.shareToLinkedin({
                                 url: location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}',
                                 title:'{{_(u'房东急租，快来围观')+' '+ title}}'
@@ -620,7 +619,6 @@
                                 <i class="icon-linkedin2"></i>
                         </button>
                     % if _.lang != "en_GB":
-                        % title = rent.get('title',u'').replace("\'", "\\\'")
                         <button class="flatButton orange" onclick="team.shareToWeibo({
                                 title:'{{_(u'房东急租，快来围观')+' '+ title}}',
                                 url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
@@ -865,6 +863,34 @@
     </ul>
     %end
 
+    <div id="popupShare">
+        <div class="sharePopupShadow"></div>
+        <div class="shareItems">
+            <span>Weibo Share</span>
+            <button class="button facebook" data-fn="shareToFacebook" data-url="/property-to-rent/{{rent.get('id','')}}"><i class="icon-facebook"></i></button>
+            <button class="button twitter" onclick="team.shareToTwitter({
+                url: location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}',
+                text:'{{_(u'房东急租，快来围观')+' '+ title}}'
+                }) "><i class="icon-twitter"></i></button>
+            <button class="button linkedin" onclick="team.shareToLinkedin({
+                url: location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}',
+                title:'{{_(u'房东急租，快来围观')+' '+ title}}'
+                % if rent['property'].get('reality_images'):
+                ,pic:'{{rent['property'].get('reality_images')[0]}}'
+                % end
+                }) "><i class="icon-linkedin2"></i></button>
+            <button class="button wechat"><i class="icon-wechat"></i></button>
+            <button class="button weibo" onclick="team.shareToWeibo({
+                title:'{{_(u'房东急租，快来围观')+' '+ title}}',
+                url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
+                % if rent['property'].get('reality_images'):
+                ,pic:'{{rent['property'].get('reality_images')[0]}}'
+                % end
+                }) "><i class="icon-weibo"></i></button>
+            <button class="close">{{_('取消')}}</button>
+        </div>
+    </div>
+
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>
         <p>{{_('打开微信，使用 “扫一扫” 即可将出租房生成移动端主页分享到朋友圈')}}</p>
@@ -1037,10 +1063,17 @@
              }
          }
 
-         $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
-             window.openWeChatShare('{{rent.get('id','')}}')
-             ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
-         });
+        $('#popupShare').on('click', '.wechat', function () {
+            window.openWeChatShare('{{rent.get('id','')}}')
+            ga('click', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
+        });
+
+        $('#sharePopupBtn').on('click',function(){
+            $('#popupShare').show()
+        })
+        $('#popupShare').on('click','.close,.sharePopupShadow',function(){
+            $('#popupShare').hide()
+        })
      });
 
 
