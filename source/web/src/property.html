@@ -44,8 +44,8 @@
                     %end
                 </label>
             </div>
-            <div class="rmm-toggled-share">
-                <i class="icon-wechat"></i>
+            <div class="rmm-toggled-share" id="sharePopupBtn">
+                <i class="icon-social"></i>
             </div>
         </div>
         <!-- @@include = partials/menu_items_mobile.html -->
@@ -1160,7 +1160,24 @@
 
     </div>
 
-
+    <div id="popupShare">
+        <div class="sharePopupShadow"></div>
+        <div class="shareItems">
+            <span>Weibo Share</span>
+            <button class="button facebook" data-fn="shareToFacebook" data-url="/property/{{property.get('id','')}}"><i class="icon-facebook"></i></button>
+            <button class="button twitter" onclick="team.shareToTwitter({
+                url: location.protocol + '//' + location.host + '/property/{{property.get(\'id\')}}',
+                text:'{{name}}'                            
+                }) "><i class="icon-twitter"></i></button>
+            <button class="button linkedin" onclick="team.shareToLinkedin({
+                url: location.protocol + '//' + location.host + '/property/{{property.get(\'id\')}}',
+                title:'{{name}}'
+                }) "><i class="icon-linkedin2"></i></button>
+            <button class="button wechat"><i class="icon-wechat"></i></button>
+            <button class="button weibo"  onclick="team.shareToWeibo({title:'{{name}}'}) "><i class="icon-weibo"></i></button>
+            <button class="close">{{_('取消')}}</button>
+        </div>
+    </div>
 
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>
@@ -1362,10 +1379,17 @@
                 }
             }
 
-            $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
+            $('#popupShare').on('click', '.wechat', function () {
                 window.openWeChatShare(property.id)
-                ga('send', 'event', 'property_detail', 'share', 'open-wechat-mobile')
+                ga('click', 'event', 'property_detail', 'share', 'open-wechat-mobile')
             });
+
+            $('#sharePopupBtn').on('click',function(){
+                $('#popupShare').show()
+            })
+            $('#popupShare').on('click','.close,.sharePopupShadow',function(){
+                $('#popupShare').hide()
+            })
         });
 
         (function () {
