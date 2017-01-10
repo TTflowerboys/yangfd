@@ -5,6 +5,8 @@ $(function(){
     var $loadIndicator = $('.loadIndicator')
     var $placeholder = $('.emptyPlaceHolder')
     var $chatListHeader = $('.chatListHeader')
+    var lastTenantItemTime
+    var lastHostItemTime
     var chatCurrentTabHash = location.hash.slice(1).toLowerCase()
     var chatTpl = {
         items : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname){
@@ -31,50 +33,85 @@ $(function(){
     }
 
     // 
-    function loadChat(content,placehoder,options){
+    var lastItemTime
+    if (location.hash.slice(1) === '' || location.hash.slice(1) === 'tenant') {
+        lastItemTime = lastTenantItemTime
+    }else if(location.hash.slice(1) === 'host'){
+        lastItemTime = lastHostItemTime
+    }
+    function loadChat(content, placeholder, options, callback){
         // This is the easiest way to have default options.
-        var params = $.extend({ status: 'requested', per_page: 10 }, options );
+        lastItemTime = options.time
+        var params = $.extend({ status: 'requested', per_page: 10}, options );
 
-        $placeholder.hide()
-        $chatListHeader.hide()
-        $chatListContent.hide()
         $loadIndicator.show()
 
-        if (content.html() === '') {
-            $.betterPost('/api/1/rent_intention_ticket/search',params)
-                .done(function (val) {
-                    var array = val
-                    if (array && array.length > 0) {
-                        var Tpl = '';
-                        $chatListHeader.show()
-                        $(array).each(function (i, va){
-                            Tpl += chatTpl.items(va.interested_rent_tickets[0].id,va.interested_rent_tickets[0].title,va.id,va.user.id,va.nickname)
-                        })
-                        content.show().html(Tpl);
-                        completeMsg()
-                    } else {
-                        $chatListHeader.hide()
-                        placehoder.show()
-                    }
-                }).fail(function (ret) {
-                    placehoder.show()
-                    $chatListHeader.hide()
-                }).always(function () {
-                    $loadIndicator.hide()
-                    content.find('.chatListItmes').find('.message').trigger('loadChatMsg')
-                })
-        }else{
-            $chatListContent.hide()
-            $loadIndicator.hide()
-            $chatListHeader.show()
-            content.show()            
+        if (lastItemTime) {
+            params.time = lastItemTime
         }
+
+        content.attr('data-isloading',true)
+
+        $.betterPost('/api/1/rent_intention_ticket/search',params)
+            .done(function (val) {
+                var array = val
+                if (array && array.length > 0) {
+                    lastItemTime = _.last(array).time
+                    $(array).each(function (i, va){
+                        var Tpl = '';
+                        Tpl += chatTpl.items(va.interested_rent_tickets[0].id,va.interested_rent_tickets[0].title,va.id,va.user.id,va.nickname)
+                        if (lastItemTime > va.time) {
+                            lastItemTime = va.time
+                        }
+                        content.show().append(Tpl);
+                    })
+                    completeMsg()
+                    content.attr('data-allloaded',false)
+                    placeholder.hide()
+                    $chatListHeader.show()
+                } else {
+                    content.attr('data-allloaded',true)
+                    if (content.html() === '') {
+                        $chatListHeader.hide()
+                        placeholder.show()
+                    }
+                }
+                if (callback) { callback() }
+            }).fail(function (ret) {
+            }).always(function () {
+                $loadIndicator.hide()
+                content.find('.chatListItmes').find('.message').trigger('loadChatMsg')
+                content.attr('data-lasttime',lastItemTime)
+                content.attr('data-isloading',false)
+            })
+    }
+
+    function needLoad(obj) {
+        var scrollPos = $(window).scrollTop()
+        var windowHeight = $(window).height()
+        var listHeight = obj.height()
+        var needLoadSwitch = windowHeight + scrollPos > listHeight
+        var all = obj.attr('data-allloaded') === 'false'? false: true
+        var loading = obj.attr('data-isloading') === 'false'? false: true
+        return needLoadSwitch && !all && !loading
     }
 
     // default load tenantChatList
     if (location.hash.slice(1) === '') {
         loadChat($('#tenantChatListContent'),$('#tenantPlaceHolder'),{'user_id': window.user.id})
     }
+    // window scroll trigger loadChatList
+    $(window).scroll(function(){
+        if (location.hash.slice(1) === '' || location.hash.slice(1) === 'tenant') {
+            if (needLoad($('#tenantChatListContent'))) {
+                loadChat($('#tenantChatListContent'), $('#tenantPlaceHolder'), {'user_id': window.user.id, 'time': $('#tenantChatListContent').attr('data-lasttime')})
+            }
+        }else if(location.hash.slice(1) === 'host'){
+            if(needLoad($('#hostChatListContent'))){
+                loadChat($('#hostChatListContent'), $('#hostPlaceHolder'), {'interested_rent_ticket_user_id': window.user.id,'time': $('#hostChatListContent').attr('data-lasttime')})
+            }
+        }
+    })
 
     function switchTypeTab(state) {
         $('.ui-tabs-nav li').removeClass('ui-tabs-selected')
@@ -85,14 +122,29 @@ $(function(){
     }
     $(window).on('hashchange', function () {
         var hash = location.hash.slice(1)
+        $placeholder.hide()
+        $chatListHeader.hide()
+        $chatListContent.hide()
         switch(hash) {
         case 'tenant':
             switchTypeTab(hash)
-            loadChat($('#tenantChatListContent'),$('#tenantPlaceHolder'),{'user_id': window.user.id})
+            if ($('#tenantChatListContent').html()) {
+                $('#tenantChatListContent').show()
+                $chatListHeader.show()
+            }else{
+                lastItemTime = lastTenantItemTime
+                loadChat($('#tenantChatListContent'), $('#tenantPlaceHolder'), {'user_id': window.user.id})
+            }
             break
         case 'host':
             switchTypeTab(hash)
-            loadChat($('#hostChatListContent'),$('#hostPlaceHolder'),{'interested_rent_ticket_user_id': window.user.id})
+            if ($('#hostChatListContent').html()) {
+                $('#hostChatListContent').show()
+                $chatListHeader.show()
+            }else{
+                lastItemTime = lastHostItemTime
+                loadChat($('#hostChatListContent'), $('#hostPlaceHolder'), {'interested_rent_ticket_user_id': window.user.id})
+            }            
             break
         }
     })
