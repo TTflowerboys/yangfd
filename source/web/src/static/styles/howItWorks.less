@@ -10,9 +10,6 @@
     margin-bottom: 48px;
     height: 440px;
     background-image: url("/static/images/background/how_it_works_banner.jpg");
-    body[lang=en_GB] & {
-        background-image: url("/static/images/background/how_it_works_banner_en.jpg");
-    }
     background-size: cover;
     background-position: 50% 50%;
     color: #fff;
@@ -22,8 +19,8 @@
         height: 56.25vw;
         background-image: url("/static/images/background/how_it_works_banner_mobile.jpg");
         body[lang=en_GB] & {
+            height: auto;
             margin-bottom: 0;
-            background-image: url("/static/images/background/how_it_works_banner_mobile_en.jpg");
         }
     }
     .content{
@@ -34,17 +31,19 @@
             font-size: 44px;
             .lighter;
             body[lang=en_GB] & {
-                margin: 180px 0 0;
+                margin: 160px 0 20px 0;
                 font-size: 52px;
-                color: #333;
+                color: #fff;
                 white-space: nowrap;
             }
             @media @phone{
                 margin: 11vw 0 0;
                 font-size: 5.625vw;
+                white-space: normal;
                 body[lang=en_GB] & {
                     margin: 20vw 0 0;
                     font-size: 38px;
+                    white-space: normal;
                 }
             }
             >storng{
