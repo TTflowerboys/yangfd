@@ -25,6 +25,9 @@
             editHistory: function (ticketId, ticketHistoryId, data, config) {
                 return $http.post('/api/1/rent_intention_ticket/' + ticketId + '/history/' + ticketHistoryId + '/edit', data, config)
             },
+            getChatHistory: function (ticketId, params, config) {
+                return $http.post('/api/1/rent_intention_ticket/' + ticketId + '/chat/history', params, config)
+            },
             getLog: function (id, config) {
                 return $http.post('/api/1/log/search', {ticket_id: id, type: 'ticket_add'}, config)
             },

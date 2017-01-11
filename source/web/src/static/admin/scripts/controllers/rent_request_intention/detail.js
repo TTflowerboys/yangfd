@@ -224,6 +224,9 @@
                                 item.offer = data[1].data.val[0]
                             }
                             $scope.item  = item
+                            $scope.getChatHistory($scope.chatCurrentPageLastItemTime, 0, function (items) {
+                                $scope.updateChatPageButton(0)
+                            });
                             $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
                                 $scope.item.dynamics = dynamics
                                 $timeout(function () {
@@ -234,6 +237,89 @@
                         })
                 })
         }
+
+        $scope.chatHistoryCache = []
+        $scope.chatPerPage = 10
+        $scope.chatCurrentPageIndex = 0
+        $scope.chatCurrentPageLastItemTime = new Date().getTime()
+        $scope.chatTotalPageCount = -1
+
+        $scope.getChatHistory = function (time, pageIndex, callback) {
+            api.getChatHistory($scope.item.id,
+                               {user_id: $scope.item.user.id,
+                                target_user_id: $scope.item.interested_rent_tickets[0].user.id,
+                                time: time,
+                                per_page: $scope.chatPerPage},
+                               {errorMessage: true})
+                .success(function (data) {
+                    if (data.val.length > 0) {
+                        $scope.item.chatHistory  = data.val
+                        $scope.chatHistoryCache[pageIndex] = data.val
+                        $scope.chatCurrentPageIndex = pageIndex
+                        $scope.chatCurrentPageLastItemTime = _.last(data.val).time
+                    }
+
+                    if (callback) {
+                        callback(data.val)
+                    }
+                })
+        }
+
+        $scope.noChatNext = true
+        $scope.noChatPrev = true
+
+        $scope.updateChatPageButton = function(pageIndex) {
+            if ($scope.chatTotalPageCount === -1) {
+                $scope.noChatNext = false
+            }
+            else {
+                $scope.noChatNext = (pageIndex >= $scope.chatTotalPageCount - 1)
+            }
+            
+            $scope.noChatPrev = (pageIndex === 0)
+        }
+
+        $scope.nextChatPage = function () {
+            if ($scope.chatHistoryCache[$scope.chatCurrentPageIndex + 1]) {
+                $scope.item.chatHistory = $scope.chatHistoryCache[$scope.chatCurrentPageIndex + 1]
+                $scope.chatCurrentPageIndex += 1
+                $scope.chatCurrentPageLastItemTime = _.last($scope.item.chatHistory).time
+                $scope.updateChatPageButton($scope.item.chatHistory.length, $scope.chatCurrentPageIndex)
+            }
+            else {
+                $scope.getChatHistory($scope.chatCurrentPageLastItemTime, $scope.chatCurrentPageIndex + 1, function (items) {
+                    if (items.length === 0) {
+                        $scope.chatTotalPageCount = $scope.chatCurrentPageIndex + 1
+                        growl.addSuccessMessage(window.i18n('没有下一页'), {enableHtml: true})
+                    }
+                    $scope.updateChatPageButton($scope.chatCurrentPageIndex)
+                })
+            }
+        }
+
+        $scope.prevChatPage = function () {
+            if ($scope.chatCurrentPageIndex >= 1) {
+                $scope.item.chatHistory = $scope.chatHistoryCache[$scope.chatCurrentPageIndex - 1]
+                $scope.chatCurrentPageIndex -= 1
+                $scope.chatCurrentPageLastItemTime = _.last($scope.item.chatHistory).time
+                $scope.updateChatPageButton($scope.chatCurrentPageIndex)
+            }
+        }
+
+        $scope.getChatRole = function (userId) {
+            if ($scope.item) {
+                if ($scope.item.user.id === userId) {
+                    return window.i18n('租客')
+                }
+                else {
+                    return window.i18n('房东')
+                }
+            }
+            else {
+                return ''
+            }
+        }
+
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
         $scope.$on('refreshRentRequestIntentionDetail', function () {
             $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
@@ -246,6 +332,10 @@
 
         if (itemFromParent) {
             $scope.item = itemFromParent
+            $scope.getChatHistory($scope.chatCurrentPageLastItemTime, 0, function (items) {
+                $scope.updateChatPageButton(items.length, 0)
+            });
+
             $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
                 $scope.item.dynamics = dynamics
                 $timeout(function () {
@@ -261,6 +351,7 @@
             $scope.item = {}
             $scope.getItem()
         }
+        
 
         $scope.isStudentHouse = function (rentTicket) {
             return rentTicket && rentTicket.property && rentTicket.property.property_type && rentTicket.property.property_type.slug === 'student_housing' && rentTicket.property.partner === true
