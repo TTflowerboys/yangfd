@@ -78,25 +78,25 @@
             })
             var unmatchRequirements = []
             var age = Math.ceil(item.age)
-            if(requirements.no_smoking && item.smoke === true) {
+            if(requirements.no_smoking && item.smoke && item.smoke === true) {
                 unmatchRequirements.push({
                     request: i18n('入住者吸烟'),
                     requirement: i18n('禁止吸烟'),
                 })
             }
-            if(requirements.no_pet && item.pet === true) {
+            if(requirements.no_pet && item.pet && item.pet === true) {
                 unmatchRequirements.push({
                     request: i18n('入住者携带宠物'),
                     requirement: i18n('禁止携带宠物'),
                 })
             }
-            if(requirements.no_baby && item.baby === true) {
+            if(requirements.no_baby && item.baby && item.baby === true) {
                 unmatchRequirements.push({
                     request: i18n('入住者携带小孩'),
                     requirement: i18n('禁止携带小孩'),
                 })
             }
-            if(requirements.occupation && item.occupation.id !== requirements.occupation.id) {
+            if(requirements.occupation && item.occupation &&  item.occupation.id !== requirements.occupation.id) {
                 unmatchRequirements.push({
                     request: i18n('入住者职业：') + item.occupation.value[$rootScope.userLanguage.value],
                     requirement: requirements.occupation.value[$rootScope.userLanguage.value],
@@ -120,7 +120,7 @@
                     requirement: i18n('可入住') + requirements.accommodates + i18n('人'),
                 })
             }
-            if(requirements.gender_requirement && item.gender !== requirements.gender_requirement) {
+            if(requirements.gender_requirement && item.gender && item.gender !== requirements.gender_requirement) {
                 unmatchRequirements.push({
                     request: i18n('入住者性别：') + getGenderName(item.gender),
                     requirement: getGenderName(requirements.gender_requirement),
@@ -300,8 +300,15 @@
                 item.disableSmsReason = i18n('取消状态和已租出状态的咨询单不可发送短信')
             } else {
 	        if($scope.hasNonBritainNumber(item)) {
+                    var host = item.interested_rent_tickets[0].user
+                    var tenant = item.user
     	            item.disableSms = true
-        	    item.disableSmsReason = i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：') + '+' + item.interested_rent_tickets[0].user.country_code + item.interested_rent_tickets[0].user.phone + '，' + i18n('租客号码：') + '+' + item.creator_user.country_code + item.creator_user.phone + ')'
+                    if (host && tenant) {
+        	        item.disableSmsReason = i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：') + '+' +
+                            host && host.country_code? host.country_code: '' + host && host.phone? host.phone: '' + '，' +
+                            i18n('租客号码：') + '+' + tenant && tenant.country_code? tenant.country_code: '' +
+                            tenant && tenant.phone? tenant.phone: '' + ')'
+                    }
             	} else {
                     item.disableSms = false
 	        }
@@ -343,7 +350,15 @@
                     user_id: item.user.id
                 }), $scope.getLastDynamicOfItem(item)])
                     .then(function (data) {
-                        if(data[0].data.val && data[0].data.val.length && data[0].data.val[0].ip && data[0].data.val[0].ip.length && $scope.list[index]) {
+                        if(data &&
+                           data[0] &&
+                           data[0].data.val &&
+                           data[0].data.val.length &&
+                           data[0].data.val[0].ip &&
+                           data[0].data.val[0].ip.length &&
+                           $scope.list &&
+                           $scope.list.length > index &&
+                           $scope.list[index]) {
 
                             $scope.list[index].log = {
                                 ip: data[0].data.val[0].ip[0],
@@ -354,10 +369,11 @@
                                 ip: window.i18n('无结果')
                             }
                         }
-                        if(data[1].data.val && data[1].data.val.length) {
+
+                        if(data && data.length > 1 && data[1].data.val && data[1].data.val.length) {
                             $scope.list[index].offer = data[1].data.val[0]
                         }
-                        if(data[2].length) {
+                        if(data && data.length > 2 && data[2].length) {
                             angular.extend($scope.list[index], {
                                 'dynamics': _.clone(data[2])
                             })
@@ -367,19 +383,33 @@
                 // Generate output text for rent request intention ticket
                 item.output = ''
                 angular.forEach(item.interested_rent_tickets,function(interested_rent_ticket){
-                    if(!_.isEmpty(interested_rent_ticket)) {
+                    if(!_.isEmpty(interested_rent_ticket) && interested_rent_ticket.user) {
                         item.output += '尊敬的' + interested_rent_ticket.user.nickname + '您好，这里是洋房东，请问您发布的' + interested_rent_ticket.title + '还在出租吗？现在有位租客很感兴趣，下面是租客信息：' + '\n\n'
                         item.output += window.i18n('咨询单编号: ') + item.short_id + '\n'
                         item.output += window.i18n('入住日期: ') + $filter('date')(item.rent_available_time * 1000, 'yyyy年MM月d日') + '\n'
                         item.output += window.i18n('搬出日期: ') + $filter('date')(item.rent_deadline_time * 1000, 'yyyy年MM月d日') + '\n'
                         item.output += window.i18n('入住人数: ') + item.tenant_count + '\n'
-                        item.output += window.i18n('性别: ') + (item.gender === 'male'? window.i18n('男') : window.i18n('女')) + '\n'
-                        item.output += window.i18n('职业: ') + item.occupation.value[$rootScope.userLanguage.value] + '\n'
-                        item.output += window.i18n('年龄: ') + $filter('number')(item.age, '0') + '\n'
-                        item.output += window.i18n('是否带宠物入住: ') + (item.pet ? window.i18n('是') : window.i18n('否')) + '\n'
-                        item.output += window.i18n('是否有小孩入住: ') + (item.baby ? window.i18n('是') : window.i18n('否')) + '\n'
-                        item.output += window.i18n('是否吸烟: ') + (item.smoke ? window.i18n('是') : window.i18n('否')) + '\n'
-                        item.output += window.i18n('入住原因: ') + item.description + '\n\n'
+                        if (item.gender) {
+                            item.output += window.i18n('性别: ') + (item.gender === 'male'? window.i18n('男') : window.i18n('女')) + '\n'
+                        }
+                        if (item.occupation) {
+                            item.output += window.i18n('职业: ') + item.occupation.value[$rootScope.userLanguage.value] + '\n'
+                        }
+                        if (item.age) {
+                            item.output += window.i18n('年龄: ') + $filter('number')(item.age, '0') + '\n'
+                        }
+                        if (item.pet) {
+                            item.output += window.i18n('是否带宠物入住: ') + (item.pet ? window.i18n('是') : window.i18n('否')) + '\n'
+                        }
+                        if (item.baby) {
+                            item.output += window.i18n('是否有小孩入住: ') + (item.baby ? window.i18n('是') : window.i18n('否')) + '\n'
+                        }
+                        if (item.smoke) {
+                            item.output += window.i18n('是否吸烟: ') + (item.smoke ? window.i18n('是') : window.i18n('否')) + '\n'
+                        }
+                        if (item.description) {
+                            item.output += window.i18n('入住原因: ') + item.description + '\n\n'
+                        }
                         item.output += '请您尽快以短信或电话的方式回复我们：' + '\n'
                         item.output += '电话：020-3040-2258' + '\n'
                         item.output += '短信：直接回复本信息即可' + '\n'
