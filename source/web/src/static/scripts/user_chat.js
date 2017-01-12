@@ -7,7 +7,6 @@ $(function(){
     var $chatListHeader = $('.chatListHeader')
     var lastTenantItemTime
     var lastHostItemTime
-    var chatCurrentTabHash = location.hash.slice(1).toLowerCase()
     var chatTpl = {
         items : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname){
             return '<div class="chatListItmes"><div class="title"><span class="name">'+team.getUserName(user_nickname)+'</span><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info"><div class="message" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'">'+i18n('用户消息加载中')+'...</div></div><a href="/user-chat/'+rent_ticket_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
@@ -193,27 +192,6 @@ $(function(){
                 if (socketVal.status === 'sent') { $this.addClass('sent') }
                     var lastChatTpl  = chatTpl.message(socketVal.message,socketVal.time)
                     $this.html(lastChatTpl);    
-            }else if(chatCurrentTabHash === 'host' && !val) {
-                 // add new ticket order
-                $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','interested_rent_ticket_user_id': window.user.id})
-                    .done(function (data) {
-                        $('#hostPlaceHolder').show()
-                        var Tpl =chatTpl.itemsNew(data.interested_rent_tickets[0].id,data.interested_rent_tickets[0].title,data.id,socketVal.from_user.id,data.interested_rent_tickets[0].user.nickname,socketVal.message,socketVal.time)
-                        $('#hostChatListContent').prepend(Tpl)
-                    })
-                    .fail(function (ret) {
-                        window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-                    })
-            }else if((chatCurrentTabHash === '' || chatCurrentTabHash === 'tenant') && !val){
-                $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested','user_id': window.user.id})
-                    .done(function (data) {
-                        $('#tenantPlaceHolder').show()
-                        var Tpl =chatTpl.itemsNew(data.interested_rent_tickets[0].id,data.interested_rent_tickets[0].title,data.id,socketVal.from_user.id,data.interested_rent_tickets[0].user.nicename,socketVal.message,socketVal.time)
-                        $('#tenantChatListContent').prepend(Tpl)
-                    })
-                    .fail(function (ret) {
-                        window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-                    })
             }
         })
         $('.chatListItmes .message').trigger('socketChatMsg')
