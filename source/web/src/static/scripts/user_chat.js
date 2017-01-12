@@ -7,6 +7,7 @@ $(function(){
     var $chatListHeader = $('.chatListHeader')
     var lastTenantItemTime
     var lastHostItemTime
+    var $getChatType = $chatListContent.attr('data-type')
     var chatTpl = {
         items : function(rent_id,rent_title,rent_ticket_id,rent_ticket_user_id,user_nickname){
             return '<div class="chatListItmes"><div class="title"><span class="name">'+team.getUserName(user_nickname)+'</span><a href="/property-to-rent/'+rent_id+'" target="_blank">'+rent_title+'</a></div><div class="info"><div class="message" data-id="'+rent_ticket_id+'" data-user_id="'+rent_ticket_user_id+'">'+i18n('用户消息加载中')+'...</div></div><a href="/user-chat/'+rent_ticket_id+'/details" class="reply" target="_blank">'+i18n('回复')+'</a></div>';
@@ -42,7 +43,7 @@ $(function(){
         // This is the easiest way to have default options.
         lastItemTime = options.time
         var params = $.extend({ status: 'requested', per_page: 10}, options );
-        var type = content.attr('data-type')
+        $getChatType = content.attr('data-type')
 
         $loadIndicator.show()
 
@@ -61,7 +62,7 @@ $(function(){
                         var ticketsData = va.interested_rent_tickets[0]
                         var Tpl = ''
                         if (ticketsData.user) {
-                            switch(type){
+                            switch($getChatType){
                                 case 'tenant':
                                 Tpl += chatTpl.items(ticketsData.id,ticketsData.title,va.id,ticketsData.user.id,ticketsData.user.nickname)
                                 break
@@ -90,6 +91,7 @@ $(function(){
                 }
                 if (callback) { callback() }
             }).fail(function (ret) {
+                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
             }).always(function () {
                 $loadIndicator.hide()
                 content.find('.chatListItmes').find('.message').trigger('loadChatMsg')
@@ -205,6 +207,21 @@ $(function(){
                 if (socketVal.status === 'sent') { $this.addClass('sent') }
                     var lastChatTpl  = chatTpl.message(socketVal.message,socketVal.time)
                     $this.html(lastChatTpl);    
+            }else{
+                var chatIdArr = [];
+                for(var i=0;i<$('.chatListItmes').length;i++){    
+                    chatIdArr.push($('.chatListItmes .message').data('id'));
+                }
+                if (chatIdArr.indexOf(socketVal.ticket_id) === -1) {
+                    switch($getChatType){
+                        case 'tenant':
+                            addNewItems($('#tenantChatListContent'), $('#tenantPlaceHolder'),socketVal, {'user_id': window.user.id})
+                        break
+                        case 'host':
+                            addNewItems($('#hostChatListContent'), $('#hostPlaceHolder'),socketVal, {'interested_rent_ticket_user_id': window.user.id})
+                        break
+                    }
+                }
             }
 
         })
@@ -212,5 +229,18 @@ $(function(){
         
     }
     window.wsListeners.push(listener)
+
+
+    function addNewItems(obj, placeholder,socketVal, options){
+        $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested',per_page: 1})
+            .done(function (data) {
+                var rentData = data.interested_rent_tickets[0]
+                placeholder.hide()
+                var Tpl =chatTpl.itemsNew(rentData.id,rentData.title,data.id,socketVal.from_user.id,rentData.user.nickname,socketVal.message,socketVal.time)
+                obj.prepend(Tpl)
+            }).fail(function (ret) {
+                window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+            })
+    }
 
 })
