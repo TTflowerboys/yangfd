@@ -203,10 +203,12 @@ $(function(){
             var val = $this.data('id')
             var target_user_id = $this.data('user_id')
 
-            if (socketVal.ticket_id === val && socketVal.from_user.id === target_user_id) {
-                if (socketVal.status === 'sent') { $this.addClass('sent') }
+            if (socketVal.ticket_id === val) {
+                if (socketVal.from_user.id === target_user_id) {
+                    if (socketVal.status === 'sent') { $this.addClass('sent') }
                     var lastChatTpl  = chatTpl.message(socketVal.message,socketVal.time)
                     $this.html(lastChatTpl);    
+                }                
             }else{
                 var chatIdArr = [];
                 for(var i=0;i<$('.chatListItmes').length;i++){    
