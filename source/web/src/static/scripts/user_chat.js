@@ -42,6 +42,7 @@ $(function(){
         // This is the easiest way to have default options.
         lastItemTime = options.time
         var params = $.extend({ status: 'requested', per_page: 10}, options );
+        var type = content.attr('data-type')
 
         $loadIndicator.show()
 
@@ -57,8 +58,20 @@ $(function(){
                 if (array && array.length > 0) {
                     lastItemTime = _.last(array).time
                     $(array).each(function (i, va){
-                        var Tpl = '';
-                        Tpl += chatTpl.items(va.interested_rent_tickets[0].id,va.interested_rent_tickets[0].title,va.id,va.user.id,va.nickname)
+                        var ticketsData = va.interested_rent_tickets[0]
+                        var Tpl = ''
+                        if (ticketsData.user) {
+                            switch(type){
+                                case 'tenant':
+                                Tpl += chatTpl.items(ticketsData.id,ticketsData.title,va.id,ticketsData.user.id,ticketsData.user.nickname)
+                                break
+                                case 'host':
+                                Tpl += chatTpl.items(ticketsData.id,ticketsData.title,va.id,va.user.id,va.nickname)
+                                break
+                            }                            
+                        }else{
+                            return
+                        }
                         if (lastItemTime > va.time) {
                             lastItemTime = va.time
                         }
@@ -193,6 +206,7 @@ $(function(){
                     var lastChatTpl  = chatTpl.message(socketVal.message,socketVal.time)
                     $this.html(lastChatTpl);    
             }
+
         })
         $('.chatListItmes .message').trigger('socketChatMsg')
         
