@@ -47,6 +47,15 @@
 <div class="userPage fullHeightInClient">
     <div class="aside userProfile">
         <div class="account">
+            <div class="avator-mode">
+                %if user.get('face'):
+                    <img id="avator-img" class="avator-img" src="{{user.get('face')}}" width="120" height="120">
+                %else:
+                    <img id="avator-img" class="avator-img" src="/static/images/chat/placeholder_tenant_small.png" width="120" height="120">
+                %end
+                <div id="fileuploader"><i class="icon-camera"></i></div>
+                <div id="uploadProgress"></div>
+            </div>
             <h1>{{user.get('nickname')}}</h1>
             <p>
                 %if user.get('is_vip'):
@@ -202,7 +211,9 @@
 <!--build:js /static/scripts/user_master.html.js-->
 <script src="/static/vendors/jquery.modal/jquery.modal.js"></script>
 <script src="/static/scripts/resize_main.js"></script>
+<script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
 <script src="/static/scripts/user_edit.js"></script>
+<script src="/static/scripts/project/uploadFace.js"></script>
 <!--endbuild-->
 <script>
     window.team.initDisplayOfElement()
