@@ -7,7 +7,6 @@ from libfelix.f_interface import f_api, abort, rate_limit, template, request
 from copy import copy
 import random
 import logging
-import six
 logger = logging.getLogger(__name__)
 
 
@@ -337,6 +336,7 @@ def user_activate(user_id, user):
     nickname=str,
     first_name=str,
     last_name=str,
+    face=str,
     phone=str,
     city="geonames_gazetteer:city",
     state=("enum:state", None),
