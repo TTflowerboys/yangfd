@@ -69,6 +69,9 @@ var uploadFace = function() {
                 obj.createProgress(face)
                 var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(0)
                 previewElem.attr('data-url', face).find('.ajax-file-upload-progress').hide()
+            }else{
+                uploadProgress.hide()
+                image_panel.show()
             }
         },
         onSubmit:function () {
