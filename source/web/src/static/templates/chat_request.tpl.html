@@ -56,7 +56,13 @@
                                     </div>
                                 </div>
                                 <div class="fr">
-                                    <img src="/static/images/chat/placeholder_tenant_small.png" alt="{{_('租客')}}" class="avatar">
+                                    <div class="avatar">
+                                        <img src="/static/images/chat/placeholder_tenant_small.png" alt="{{_('租客')}}" width="80" height="80">
+                                        <div id="fileuploader" class="upload_image" data-bind="visible: !uploadProgressVisible()">
+                                            <i class="icon-camera"></i>
+                                        </div>
+                                        <div id="uploadProgress" class="clearfix" data-bind="visible: uploadProgressVisible"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="step2" data-bind="visible: step() === 2">

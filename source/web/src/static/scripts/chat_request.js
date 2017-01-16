@@ -111,8 +111,8 @@
             this.tenantCount = ko.observable(1)
 
             this.description = ko.observable()
-
-            /*this.visa = ko.observable()
+            
+            this.face = ko.observable()
             this.uploadProgressVisible = ko.observable(false)
             this.uploading = ko.observable()
             this.initUpload = function() {
@@ -120,6 +120,7 @@
                     url: '/api/1/upload_image',
                     fileName: 'data',
                     formData: {watermark: true},
+                    //showProgress: true,
                     showPreview: true,
                     showDelete: true,
                     showDone: false,
@@ -148,7 +149,7 @@
                         this.uploadProgressVisible(false)
                     }, this),
                     deleteCallback: _.bind(function(data, pd){
-                        this.visa('')
+                        this.face('')
                         this.uploading(false)
                         this.uploadProgressVisible(false)
                     }, this),
@@ -166,15 +167,15 @@
                         }
                         pd.progressDiv.hide()
                         this.uploading(false)
-                        this.visa(data.val.url)
+                        this.face(data.val.url)
                     }, this),
                     onLoad: _.bind(function(obj) {
-                        var visa = this.visa()
-                        if(visa) {
+                        var face = this.face()
+                        if(face) {
                             this.uploadProgressVisible(true)
-                            obj.createProgress(visa)
+                            obj.createProgress(face)
                             var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(0)
-                            previewElem.attr('data-url', visa).find('.ajax-file-upload-progress').hide()
+                            previewElem.attr('data-url', face).find('.ajax-file-upload-progress').hide()
                         }
                     }, this),
                     onSubmit: _.bind(function () {
@@ -195,7 +196,7 @@
                 }
                 $('#fileuploader').uploadFile(uploadFileConfig)
 
-            }*/
+            }
 
             this.user = ko.observable(window.user) //当前登录用户
 
@@ -435,7 +436,7 @@
                     this.rentDeadlineTime(params.rent_deadline_time)
                 }
                 this.tenantCount(params.tenant_count.toString())
-                /*this.visa(params.visa)*/
+                this.face(params.face)
                 this.description(params.description)
                 this.birthTime(params.date_of_birth)
                 this.gender(params.gender)
@@ -466,15 +467,15 @@
                                 }
                                 this.setParams(lastParams)
                             }
-                            //this.initUpload()
+                            this.initUpload()
                         }, this))
                         .fail(_.bind(function (ret) {
                             window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
-                            //this.initUpload()
+                            this.initUpload()
                         }, this))
-                }/* else {
+                } else {
                     this.initUpload()
-                }*/
+                }
             }
 
             this.params = ko.computed(function () {
@@ -486,7 +487,7 @@
                     gender: this.gender(),
                     date_of_birth: this.birthTime(),
                     occupation: this.occupation(),
-                    /*visa: this.visa(),*/
+                    face: this.face(),
                     disable_matching: true,
                     interested_rent_tickets: JSON.stringify([this.ticketId()]),
                     rent_available_time: this.rentAvailableTime(),
@@ -593,9 +594,9 @@
                             return errorList.push(window.i18n('请不要在描述中填写任何形式的联系方式'))
                         }
                     },
-                    visa: function () {
-                        if (!this.params().visa) {
-                            return errorList.push(window.i18n('申请此房源需上传护照或身份信息'))
+                    face: function () {
+                        if (!this.params().face) {
+                            return errorList.push(window.i18n('上传头像'))
                         }
                     },
                     nickname: function () {
