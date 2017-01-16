@@ -1,5 +1,6 @@
 var uploadFace = function() {
     var uploadProgress = $('#uploadProgress')
+    var image_panel = $('.image_panel')
     var uploadFileConfig = {
         url: '/api/1/upload_image',
         fileName: 'data',
@@ -28,6 +29,14 @@ var uploadFace = function() {
         abortStr: window.i18n('停止'),
         cancelStr: window.i18n('取消'),
         deletelStr: window.i18n('删除'),
+        abortCallback: function () {
+            uploadProgress.hide()
+            image_panel.show()
+        },
+        deleteCallback: function(data, pd){
+            uploadProgress.hide()
+            image_panel.show()
+        },
         onSuccess: function(files, data, xhr, pd){
             if(typeof data === 'string') { //This will happen in IE
                 try {
@@ -38,23 +47,37 @@ var uploadFace = function() {
             }
             if(data.ret) {
                 uploadProgress.hide()
+                image_panel.show()
                 window.dhtmlx.message({ type:'error', text: window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg})
             }else{
                 $.betterPost('/api/1/user/edit', {'face': data.val.url})
                 .done(function (data) {
                     pd.progressDiv.hide()
-                    $('#avator-img').attr('src',data.val.thumbnail)
+                    $('#avator-img').attr('src',data.face)
                 })
                 .fail(function (ret) {
                     uploadProgress.hide()
                     window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
                 })
-            }            
+            }
+        },
+        onLoad: function(obj) {
+            var face = JSON.parse($('#pythonUserData').text()).face
+            if(face) {
+                uploadProgress.show()
+                image_panel.hide()
+                obj.createProgress(face)
+                var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(0)
+                previewElem.attr('data-url', face).find('.ajax-file-upload-progress').hide()
+            }
         },
         onSubmit:function () {
             uploadProgress.show()
+            image_panel.hide()
         },
         onError: function (files,status,errMsg,pd) {
+            uploadProgress.hide()
+            image_panel.show()
             return window.dhtmlx.message({ type:'error', text: window.i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传')})
         }
     }
@@ -65,5 +88,9 @@ var uploadFace = function() {
 }
 $(function(){
     uploadFace()
+    $('[data-fn=showUploadFace]').on('click', function () {
+        $('#popupUploadFace').modal()
+    })
+    
 })
     
