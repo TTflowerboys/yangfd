@@ -31,14 +31,6 @@
             <i class="icon-log_out"></i>
         </a>
         <div class="account">
-            <div class="avator-mode">
-                %if user.get('face'):
-                    <img id="avator-img" class="avator-img" src="{{user.get('face')}}" width="120" height="120">
-                %else:
-                    <img id="avator-img" class="avator-img" src="/static/images/chat/placeholder_tenant.png" width="120" height="120">
-                %end
-                <div class="showUploadFace" data-fn="showUploadFace"><i class="icon-camera"></i></div>
-            </div>
             %if user.get('nickname'):
                 <h1>{{user.get('nickname')}}</h1>
             %end
@@ -150,23 +142,11 @@
         </div>
     </div>
 </div>
-<div id="popupUploadFace" style="display:none;">
-    <div class="title">{{_('上传头像')}}</div>
-    <div id="uploadProgress"></div>
-    <div class="image_panel" style="display: none;">
-        <div id="fileuploader">
-            <p>{{_('直接将照片文件拖拽至框中')}}</p>
-            <p>{{_('或者直接')}}<a>{{_('查找文件')}}</a></p>
-        </div>
-    </div>
-</div>
 <!--@@close-->
 <!--@@block = scripts-->
 
 <!--build:js /static/scripts/user.html.js-->
 <script src="/static/scripts/resize_main.js"></script>
-<script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
-<script src="/static/scripts/project/uploadFace.js"></script>
 <!--endbuild-->
 <script>
     window.team.initDisplayOfElement()
