@@ -68,7 +68,7 @@ import venue_api_interface         # noqa: E402, F401
 import deal_api_interface          # noqa: E402, F401
 import index_rule_api_interface    # noqa: E402, F401
 import coupon_api_interface        # noqa: E402, F401
-imimport nexmo_number_api_interface  # noqa: E402, F401
+import nexmo_number_api_interface  # noqa: E402, F401
 
 
 application = f_app(__name__)
