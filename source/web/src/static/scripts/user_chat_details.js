@@ -31,6 +31,10 @@ var chat = {
         'HOST' : '/static/images/chat/placeholder_host.png',
         'Tenant' : '/static/images/chat/placeholder_tenant.png'
     },
+    userFace : function(userId, userFace){
+        var defaultFace = userId === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+        return userFace? userFace: defaultFace    
+    },
     chatConfig : {
         'rentTicketData' : JSON.parse($('#rentTicketData').text()),
         'getRentIntentionTicketId' : (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
@@ -118,7 +122,7 @@ var chat = {
         }
     },
     sendTextMessage : function(message,deviceType){
-        var picUrl =  window.user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+        var picUrl =  chat.userFace(window.user.id,window.user.face)
         
         $.betterPost('/api/1/rent_intention_ticket/'+chat.chatConfig.getRentIntentionTicketId+'/chat/send', {target_user_id: chat.getTargetUserId(), message: message})
             .done(function (data) {
@@ -149,7 +153,7 @@ var chat = {
 if (!window.wsListeners) { window.wsListeners = [] }
 var listener = {};
 listener.onreceivemessage = function(socketVal) {
-    var picUrl =  socketVal.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+    var picUrl =  chat.userFace(socketVal.from_user.id,socketVal.from_user.face)
     if (socketVal.ticket_id === chat.chatConfig.getRentIntentionTicketId && socketVal.from_user.id === chat.getTargetUserId()) {
         $.betterPost('/api/1/message/'+socketVal.id+'/mark/read')
             .done(function (data) {
@@ -233,7 +237,7 @@ $(function(){
 
                 window.ChatHistoryList = window.ChatHistoryList.concat(array)
                 _.each(array, function (history) {
-                    var mePicUrl = history.from_user.id === chat.chatConfig.rentTicketData.interested_rent_tickets[0].user.id? chat.placeholderPic.HOST: chat.placeholderPic.Tenant
+                    var mePicUrl = chat.userFace(history.from_user.id,history.from_user.face)
                     if (history.user_id === window.user.id && history.status !== 'read') {
                         $.betterPost('/api/1/message/'+history.id+'/mark/read')
                             .done(function (res) {
