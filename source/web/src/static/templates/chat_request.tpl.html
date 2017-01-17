@@ -56,7 +56,9 @@
                                     </div>
                                 </div>
                                 <div class="fr">
-                                    <img src="/static/images/chat/placeholder_tenant_small.png" alt="{{_('租客')}}" class="avatar">
+                                    <a data-bind="attr:{href: !user() ? 'javascript:;' : '/user-settings'}">
+                                        <img data-bind="attr:{ src:face}" alt="{{_('租客')}}" class="avatar">
+                                    </a>
                                 </div>
                             </div>
                             <div class="step2" data-bind="visible: step() === 2">

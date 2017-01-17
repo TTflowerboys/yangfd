@@ -198,6 +198,7 @@
             }*/
 
             this.user = ko.observable(window.user) //当前登录用户
+            this.face = ko.observable(this.user() ? (this.user().face ? this.user().face : '/static/images/chat/placeholder_tenant_small.png') : '/static/images/chat/placeholder_tenant_small.png')
 
             this.nickname = ko.observable(this.user() ? this.user().nickname : '')
 
@@ -409,6 +410,9 @@
             this.user.subscribe(function (user) {
                 if(user) {
                     this.nickname(user.nickname)
+                    if (user.face) {
+                        this.face(user.face)
+                    }
                     this.country(_.find(this.countryCodeList(), {countryCode: user.country_code.toString()}))
                     this.phone(user.phone)
                     this.email(user.email)
@@ -439,6 +443,9 @@
                 this.description(params.description)
                 this.birthTime(params.date_of_birth)
                 this.gender(params.gender)
+                if (params.face) {
+                    this.face(params.face)
+                }
                 this.occupation(params.occupation.id)
                 if(params.referrer) {
                     if(/[a-z0-9]{24}/.test(params.referrer)) {
@@ -487,6 +494,7 @@
                     date_of_birth: this.birthTime(),
                     occupation: this.occupation(),
                     /*visa: this.visa(),*/
+                    face: this.face(),
                     disable_matching: true,
                     interested_rent_tickets: JSON.stringify([this.ticketId()]),
                     rent_available_time: this.rentAvailableTime(),
