@@ -1164,7 +1164,7 @@ class currant_plugin(f_app.plugin_base):
 
         if "six_hour_sent" not in task:
             task["six_hour_sent"] = True
-            f_app.task.repeat(task, timedelta(hours=12))
+            f_app.task.repeat(task, timedelta(minutes=12))
 
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):

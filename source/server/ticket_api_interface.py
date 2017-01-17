@@ -1011,7 +1011,7 @@ def rent_intention_ticket_chat_send(rent_intention_ticket_id, user, params):
         message_id=message_id,
         ticket_id=rent_intention_ticket_id,
         type="chat_sms_reminder"
-    ), delay=timedelta(hours=6))
+    ), delay=timedelta(minutes=6))
 
     return message_id
 
