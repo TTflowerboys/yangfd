@@ -53,7 +53,7 @@ var uploadFace = function() {
                 $.betterPost('/api/1/user/edit', {'face': data.val.url})
                 .done(function (data) {
                     pd.progressDiv.hide()
-                    $('#avator-img').attr('src',data.face)
+                    window.location.reload()
                 })
                 .fail(function (ret) {
                     uploadProgress.hide()
