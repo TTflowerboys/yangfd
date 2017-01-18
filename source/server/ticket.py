@@ -210,12 +210,14 @@ class currant_ticket(f_ticket):
         for ticket_id in f_app.ticket.search({"status": {"$ne": "deleted"}}, per_page=-1):
             f_app.mongo_index.update(f_app.ticket.get_database, ticket_id, f_app.ticket.get_index_fields(ticket_id))
 
+
 currant_ticket()
 
 
 class currant_ticket_plugin(f_app.plugin_base):
     task = ["rent_ticket_reminder", "rent_ticket_generate_digest_image", "rent_ticket_check_intention",
-            "rent_intention_ticket_check_rent", "fill_featured_facilities", "assign_ticket_short_id"]
+            "rent_intention_ticket_check_rent", "fill_featured_facilities", "assign_ticket_short_id",
+            "chat_sms_notification", "chat_email_notification", "chat_sms_reminder"]
 
     def ticket_update_after(self, ticket_id, params, ticket, ignore_error=True):
         if "$set" in params:
@@ -773,5 +775,126 @@ class currant_ticket_plugin(f_app.plugin_base):
 
         self.logger.debug("Setting short id", new_short_id, "for ticket", task["ticket_id"])
         f_app.ticket.update_set(task["ticket_id"], {"short_id": new_short_id})
+
+    def task_on_chat_sms_notification(self, task):
+        try:
+            message = f_app.message.get(task["message_id"])
+            if message["state"] != "new":
+                self.logger.info("User aknowledged message, ignoring (re)sending SMS notification for", task["message_id"])
+                return
+        except:
+            self.logger.debug("Failed to load message, not (re)sending SMS notification for", task["message_id"])
+            return
+
+        user = f_app.user.get(message["user_id"])
+        from_user = f_app.user.get(message["from_user_id"])
+        if "phone" not in user:
+            self.logger.debug("User don't have a phone field, not (re)sending SMS notification for", task["message_id"])
+            return
+
+        ticket = f_app.ticket.get(task["ticket_id"])
+
+        locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
+        f_app.data["thread_local"]._requested_i18n_locales_list = [locale]
+
+        username = from_user.get("nickname")
+        role = "tenant" if ticket["user_id"] == from_user["id"] else "host"
+        message = message["message"] if len(message["message"]) < 40 else message["message"][:37] + "..."
+        reply_url = f_app.shorturl(f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"])
+
+        f_app.sms.send(target=user["phone"], text=template(
+            "static/sms/chat_reply",
+            username=username,
+            role=role,
+            message=message,
+            reply_url=reply_url))
+
+    def task_on_chat_email_notification(self, task):
+        try:
+            message = f_app.message.get(task["message_id"])
+            if message["state"] != "new":
+                self.logger.info("User aknowledged message, ignoring (re)sending Email notification for", task["message_id"])
+                return
+        except:
+            self.logger.debug("Failed to load message, not (re)sending Email notification for", task["message_id"])
+            return
+
+        user = f_app.user.get(message["user_id"])
+        from_user = f_app.user.get(message["from_user_id"])
+        if "email" not in user:
+            self.logger.debug("User don't have a email field, not (re)sending Email notification for", task["message_id"])
+            return
+
+        ticket = f_app.ticket.get(task["ticket_id"])
+
+        locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
+        f_app.data["thread_local"]._requested_i18n_locales_list = [locale]
+
+        username = from_user.get("nickname")
+        face = from_user.get("face")
+        role = "tenant" if ticket["user_id"] == from_user["id"] else "host"
+        message = message["message"]
+        reply_url = f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"]
+        title = template("static/emails/chat_reply_title", username=username)
+
+        f_app.email.send(target=user["email"], subject=f_app.util.get_format_email_subject(title), display="html", text=template(
+            "static/emails/chat_reply",
+            title=title,
+            username=username,
+            role=role,
+            face=face,
+            message=message,
+            reply_url=reply_url),
+            tag="chat_reply")
+
+    def task_on_chat_sms_reminder(self, task):
+        try:
+            message = f_app.message.get(task["message_id"])
+            if message["state"] != "new":
+                self.logger.info("User aknowledged message, ignoring (re)sending SMS notification for", task["message_id"])
+                return
+        except:
+            self.logger.debug("Failed to load message, not (re)sending SMS notification for", task["message_id"])
+            return
+
+        user = f_app.user.get(message["user_id"])
+        from_user = f_app.user.get(message["from_user_id"])
+        if "phone" not in user:
+            self.logger.debug("User don't have a phone field, not (re)sending SMS notification for", task["message_id"])
+            return
+
+        reply_message = f_app.mongo_index.search(f_app.message.get_database, {
+            "type": "chat",
+            "from_user_id": ObjectId(message["user_id"]),
+            "user_id": ObjectId(message["from_user_id"]),
+            "ticket_id": ObjectId(message["ticket_id"]),
+            "time": {"$gt": message["time"]},
+        }, per_page=1, notime=True)["content"]
+
+        if reply_message:
+            self.logger.debug("Ignoring reminder since message was already replied:", task["message_id"])
+            return
+
+        ticket = f_app.ticket.get(task["ticket_id"])
+
+        locale = user["locales"][0] if user.get("locales") else f_app.common.i18n_default_locale
+        f_app.data["thread_local"]._requested_i18n_locales_list = [locale]
+
+        username = from_user.get("nickname")
+        role = "tenant" if ticket["user_id"] == from_user["id"] else "host"
+        message = message["message"] if len(message["message"]) < 40 else message["message"][:37] + "..."
+        reply_url = f_app.shorturl(f_app.util.get_env_domain() + "/user-chat/%s/details" % task["ticket_id"])
+
+        f_app.sms.send(target=user["phone"], text=template(
+            "static/sms/chat_reminder",
+            username=username,
+            role=role,
+            message=message,
+            reply_url=reply_url))
+
+        if "six_hour_sent" not in task:
+            task["six_hour_sent"] = True
+            f_app.task.repeat(task, timedelta(minutes=12))
+
 
 currant_ticket_plugin()
