@@ -161,7 +161,7 @@ def user_messages(user):
 def user_chat(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('聊天')
-    return currant_util.common_template("user_chat", user=user,  title=title)
+    return currant_util.common_template("user_chat", user=user, title=title)
 
 
 @f_get('/user-chat/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>/details')

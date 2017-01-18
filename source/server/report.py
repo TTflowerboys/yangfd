@@ -19,9 +19,9 @@ from libfelix.f_interface import abort
 # Fix crash in environments that have no display.
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.font_manager as fm
-import matplotlib.pyplot as plt
-from matplotlib.dates import DateFormatter
+import matplotlib.font_manager as fm        # noqa: E402
+import matplotlib.pyplot as plt             # noqa: E402
+from matplotlib.dates import DateFormatter  # noqa: E402
 
 fontprop = fm.FontProperties(fname="data/wqy-microhei.ttc")
 
@@ -113,6 +113,7 @@ class currant_report(f_app.module_base):
 
     def update_set(self, report_id, params):
         return self.update(report_id, {"$set": params})
+
 
 currant_report()
 
@@ -212,6 +213,7 @@ class currant_zipcode(f_app.module_base):
     def update_set(self, zipcode_id, params):
         return self.update(zipcode_id, {"$set": params})
 
+
 currant_zipcode()
 
 
@@ -257,6 +259,7 @@ class currant_policeuk(f_app.module_base):
             return crime_info
         else:
             return None
+
 
 currant_policeuk()
 
@@ -725,6 +728,7 @@ class currant_landregistry(f_app.module_base):
         merged_result = lmap(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
         return merged_result
 
+
 currant_landregistry()
 
 
@@ -744,5 +748,6 @@ class currant_landregistry_plugin(f_app.plugin_base):
             type="mapreduce_landregistry",
             start=datetime.utcnow() + timedelta(days=30),
         ))
+
 
 currant_landregistry_plugin()
