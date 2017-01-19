@@ -41,14 +41,14 @@ $(function(){
     }
     function loadChat(content, placeholder, options, callback){
         // This is the easiest way to have default options.
-        lastItemTime = options.time
-        var params = $.extend({ status: 'requested', per_page: 10}, options );
+        lastItemTime = options.chat_time
+        var params = $.extend({ status: 'requested', per_page: 10, sort: 'chat_time, desc'}, options );
         $getChatType = content.attr('data-type')
 
         $loadIndicator.show()
 
         if (lastItemTime) {
-            params.time = lastItemTime
+            params.chat_time = lastItemTime
         }
 
         content.attr('data-isloading',true)
@@ -57,7 +57,7 @@ $(function(){
             .done(function (val) {
                 var array = val
                 if (array && array.length > 0) {
-                    lastItemTime = _.last(array).time
+                    lastItemTime = _.last(array).chat_time
                     $(array).each(function (i, va){
                         var ticketsData = va.interested_rent_tickets[0]
                         var Tpl = ''
@@ -73,8 +73,8 @@ $(function(){
                         }else{
                             return
                         }
-                        if (lastItemTime > va.time) {
-                            lastItemTime = va.time
+                        if (lastItemTime > va.chat_time) {
+                            lastItemTime = va.chat_time
                         }
                         content.show().append(Tpl);
                     })
@@ -118,11 +118,11 @@ $(function(){
     $(window).scroll(function(){
         if (location.hash.slice(1) === '' || location.hash.slice(1) === 'tenant') {
             if (needLoad($('#tenantChatListContent'))) {
-                loadChat($('#tenantChatListContent'), $('#tenantPlaceHolder'), {'user_id': window.user.id, 'time': $('#tenantChatListContent').attr('data-lasttime')})
+                loadChat($('#tenantChatListContent'), $('#tenantPlaceHolder'), {'user_id': window.user.id, 'chat_time': $('#tenantChatListContent').attr('data-lasttime')})
             }
         }else if(location.hash.slice(1) === 'host'){
             if(needLoad($('#hostChatListContent'))){
-                loadChat($('#hostChatListContent'), $('#hostPlaceHolder'), {'interested_rent_ticket_user_id': window.user.id,'time': $('#hostChatListContent').attr('data-lasttime')})
+                loadChat($('#hostChatListContent'), $('#hostPlaceHolder'), {'interested_rent_ticket_user_id': window.user.id,'chat_time': $('#hostChatListContent').attr('data-lasttime')})
             }
         }
     })
@@ -207,7 +207,7 @@ $(function(){
                 if (socketVal.from_user.id === target_user_id) {
                     if (socketVal.status === 'sent') { $this.addClass('sent') }
                     var lastChatTpl  = chatTpl.message(socketVal.message,socketVal.time)
-                    $this.html(lastChatTpl);    
+                    $this.html(lastChatTpl);
                 }                
             }else{
                 var chatIdArr = [];
