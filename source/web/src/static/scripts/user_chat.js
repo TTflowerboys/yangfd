@@ -247,7 +247,7 @@ $(function(){
 
 
     function addNewItems(obj, placeholder,socketVal, options){
-        $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested',per_page: 1})
+        $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested',per_page: 1,chat_time: socketVal.time})
             .done(function (data) {
                 var rentData = data.interested_rent_tickets[0]
                 placeholder.hide()
