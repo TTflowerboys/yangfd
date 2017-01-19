@@ -213,8 +213,10 @@ $(function(){
                     $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested',per_page: 1,chat_time: socketVal.time})
                         .done(function(data){
                             if (currentItem !== currentListContent.children('.chatListItmes').eq(0)) {
-                                currentItem.fadeOut()
-                                currentListContent.append(currentItem).fadeIn()
+                                currentItem.fadeOut(400,function(){
+                                    currentListContent.prepend(currentItem)
+                                    currentItem.fadeIn()
+                                })                                
                             }
                         }).fail(function(ret){
                             window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
