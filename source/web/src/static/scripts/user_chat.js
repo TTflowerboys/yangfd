@@ -202,12 +202,23 @@ $(function(){
             var $this = $(this)
             var val = $this.data('id')
             var target_user_id = $this.data('user_id')
+            var currentListContent = $this.closest('.chatListContent')
+            var currentItem = $this.closest('.chatListItmes')
 
             if (socketVal.ticket_id === val) {
                 if (socketVal.from_user.id === target_user_id) {
                     if (socketVal.status === 'sent') { $this.addClass('sent') }
                     var lastChatTpl  = chatTpl.message(socketVal.message,socketVal.time)
                     $this.html(lastChatTpl);
+                    $.betterPost('/api/1/rent_intention_ticket/search', {'status': 'requested',per_page: 1,chat_time: socketVal.time})
+                        .done(function(data){
+                            if (currentItem !== currentListContent.children('.chatListItmes').eq(0)) {
+                                currentItem.fadeOut()
+                                currentListContent.append(currentItem).fadeIn()
+                            }
+                        }).fail(function(ret){
+                            window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                        })
                 }                
             }else{
                 var chatIdArr = [];
