@@ -1,6 +1,7 @@
 <!--@@master = ./masters/master.html-->
 <!--@@block = head-->
 <!--build:css(dist) /static/styles/user.html.css-->
+<link rel="stylesheet" href="/static/bower_components/cropper/dist/cropper.min.css">
 <link rel="stylesheet" href="/static/styles/project/userProfile.css"/>
 <!--endbuild-->
 <!--@@placeholder=head -->
@@ -37,7 +38,10 @@
                 %else:
                     <img id="avator-img" class="avator-img" src="/static/images/chat/placeholder_tenant.png" width="120" height="120">
                 %end
-                <div class="showUploadFace" data-fn="showUploadFace"><i class="icon-camera"></i></div>
+                <label class="showUploadFace" for="inputImage">
+                    <input type="file" class="hide" id="inputImage" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+                    <i class="icon-camera"></i>
+                </label>
             </div>
             %if user.get('nickname'):
                 <h1>{{user.get('nickname')}}</h1>
@@ -150,13 +154,28 @@
         </div>
     </div>
 </div>
-<div id="popupUploadFace" style="display:none;">
-    <div class="title">{{_('上传头像')}}</div>
-    <div id="uploadProgress"></div>
-    <div class="image_panel" style="display: none;">
-        <div id="fileuploader">
-            <p>{{_('直接将照片文件拖拽至框中')}}</p>
-            <p>{{_('或者直接')}}<a>{{_('查找文件')}}</a></p>
+<div class="modal modal-profile-crop" id="popupUploadFace">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="modal-title">{{_('上传头像')}}</h4>
+            <div class="modal-body">
+                <div class="profile-crop-image-container">
+                    <img class="modal-profile-crop-image">
+                </div>
+                <div class="crop-controls" id="faceActions">
+                    <div class="btn-group">
+                        <button class="btn btn-primary" data-method="zoom" data-option="0.1">
+                            <span class="fa fa-search-plus"></span>
+                        </button>
+                        <button class="btn btn-primary" data-method="zoom" data-option="-0.1">
+                            <span class="fa fa-search-minus"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="download">{{_('上传头像')}}</button>
+            </div>
         </div>
     </div>
 </div>
@@ -166,6 +185,7 @@
 <!--build:js /static/scripts/user.html.js-->
 <script src="/static/scripts/resize_main.js"></script>
 <script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
+<script src="/static/bower_components/cropper/dist/cropper.js"></script>
 <script src="/static/scripts/project/uploadFace.js"></script>
 <!--endbuild-->
 <script>

@@ -1,99 +1,156 @@
-var uploadFace = function() {
-    var uploadProgress = $('#uploadProgress')
-    var image_panel = $('.image_panel')
-    var uploadFileConfig = {
-        url: '/api/1/upload_image',
-        fileName: 'data',
-        formData: {watermark: false},
-        //showProgress: true,
-        showPreview: true,
-        showDelete: true,
-        showDone: false,
-        previewWidth: '100%',
-        previewHeight: '100%',
-        showQueueDiv: 'uploadProgress',
-        maxFileCount: 1, //最多上传12张图片
-        maxFileSize: 2 * 1024 * 1024, //允许单张图片文件的最大占用空间为2M
-        uploadFolder: '',
-        allowedTypes: 'jpg,jpeg,png,gif',
-        acceptFiles: 'image/',
-        allowDuplicates: false,
-        statusBarWidth: '100%',
-        dragdropWidth: '100%',
-        multiDragErrorStr: window.i18n('不允许同时拖拽多个文件上传.'),
-        extErrorStr: window.i18n('不允许上传. 允许的文件扩展名: '),
-        duplicateErrorStr: window.i18n('不允许上传. 文件已存在.'),
-        sizeErrorStr: window.i18n('不允许上传. 允许的最大尺寸为: '),
-        uploadErrorStr: window.i18n('不允许上传'),
-        maxFileCountErrorStr: window.i18n(' 不允许上传. 上传最大文件数为:'),
-        abortStr: window.i18n('停止'),
-        cancelStr: window.i18n('取消'),
-        deletelStr: window.i18n('删除'),
-        abortCallback: function () {
-            uploadProgress.hide()
-            image_panel.show()
-        },
-        deleteCallback: function(data, pd){
-            uploadProgress.hide()
-            image_panel.show()
-        },
-        onSuccess: function(files, data, xhr, pd){
-            if(typeof data === 'string') { //This will happen in IE
-                try {
-                    data = JSON.parse(data.match(/<pre>((.|\n)+)<\/pre>/m)[1])
-                } catch(e){
-                    throw('Unexpected response data of uploading file!')
-                }
-            }
-            if(data.ret) {
-                uploadProgress.hide()
-                image_panel.show()
-                window.dhtmlx.message({ type:'error', text: window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg})
-            }else{
-                $.betterPost('/api/1/user/edit', {'face': data.val.url})
-                .done(function (data) {
-                    pd.progressDiv.hide()
-                    window.location.reload()
-                })
-                .fail(function (ret) {
-                    uploadProgress.hide()
-                    window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
-                })
-            }
-        },
-        onLoad: function(obj) {
-            var face = JSON.parse($('#pythonUserData').text()).face
-            if(face) {
-                uploadProgress.show()
-                image_panel.hide()
-                obj.createProgress(face)
-                var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(0)
-                previewElem.attr('data-url', face).find('.ajax-file-upload-progress').hide()
-            }else{
-                uploadProgress.hide()
-                image_panel.show()
-            }
-        },
-        onSubmit:function () {
-            uploadProgress.show()
-            image_panel.hide()
-        },
-        onError: function (files,status,errMsg,pd) {
-            uploadProgress.hide()
-            image_panel.show()
-            return window.dhtmlx.message({ type:'error', text: window.i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传')})
+window.onload = function () {
+
+  'use strict';
+
+    var Cropper = window.Cropper;
+    var URL = window.URL || window.webkitURL;
+    var container = document.querySelector('.profile-crop-image-container');
+    var image = container.getElementsByTagName('img').item(0);
+    var download = document.getElementById('download');
+    var actions = document.getElementById('faceActions');
+    var inputImage = document.getElementById('inputImage');
+    var options = {
+        aspectRatio: true,
+        viewMode: true,
+        center: false,
+        modal: true,
+        scalable: false,
+        rotatable: false,
+        zoomable: true,
+        dragMode: 'move',
+        guides: false,
+        zoomOnTouch: false,
+        zoomOnWheel: false,
+        cropBoxMovable: false,
+        cropBoxResizable: false,
+        toggleDragModeOnDblclick: false,
+        minCropBoxWidth: 200
+    };
+    var uploadedImageURL;
+    var cropper = new Cropper(image, options);
+    var result
+
+  // Methods
+  actions.querySelector('.btn-group').onclick = function (event) {
+    var e = event || window.event;
+    var target = e.target || e.srcElement;
+    
+    var input;
+    var data;
+
+    if (!cropper) { return; }
+
+    while (target !== this) {
+        if (target.getAttribute('data-method')) { break; }
+        target = target.parentNode;
+    }
+
+    if (target === this || target.disabled || target.className.indexOf('disabled') > -1) {
+        return;
+    }
+
+    data = {
+        method: target.getAttribute('data-method'),
+        target: target.getAttribute('data-target'),
+        option: target.getAttribute('data-option')
+    };
+
+    if (data.method) {
+        if (typeof data.target !== 'undefined') {
+           input = document.querySelector(data.target);
         }
+
+        result = cropper[data.method](data.option);
+
     }
-    if(window.team.getClients().indexOf('ipad') >= 0) {
-        uploadFileConfig.allowDuplicates = true
+  };
+
+
+download.onclick = function(){
+    result = cropper.getCroppedCanvas({width:200,height:200});
+    if (result) {
+        result.toBlob(function (blob) {
+            var formData = new FormData();
+
+            formData.append('data', blob);
+            formData.append('watermark', false);
+
+            $.ajax('/api/1/upload_image', {
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    download.className = 'btn btn-primary buttonLoading'
+                },
+                complete: function(){
+                    download.className = 'btn btn-primary'
+                },
+                success: function (res) {
+                    var ret = res.ret;
+                    if (ret === 0) {
+                        if (res.val && res.val.url) {
+                            updateUserFace(res.val.url)
+                        }
+                        else{
+                            window.dhtmlx.message({ type: 'error', text: 'error' })
+                        }
+                    }
+                    else{
+                        window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+                    }
+                },
+                error: function () {
+                    download.className = 'btn btn-primary'
+                    window.dhtmlx.message({ type: 'error', text: 'error' })
+                }
+            });               
+        })
     }
-    $('#fileuploader').uploadFile(uploadFileConfig)
 }
-$(function(){
-    uploadFace()
-    $('[data-fn=showUploadFace]').on('click', function () {
-        $('#popupUploadFace').modal()
-    })
-    
-})
-    
+
+
+
+
+function updateUserFace(url) {
+    $('#avator-img').attr('src','')
+    $.betterPost('/api/1/user/edit', {'face': url})
+        .done(function (data) {            
+            $('#avator-img').attr('src',url)
+            $('.close-modal').trigger('click')
+        })
+        .fail(function (ret) {
+            $('.avator-mode').removeClass('loading')
+            window.dhtmlx.message({ type: 'error', text: window.getErrorMessageFromErrorCode(ret) })
+        })
+
+}
+  
+
+
+    // Import image
+    inputImage.onchange = function () {
+        var files = this.files;
+        var file;
+        if (files && files.length) {
+            file = files[0];
+            if (/^image\/\w+/.test(file.type)) {
+                if (uploadedImageURL) {
+                    URL.revokeObjectURL(uploadedImageURL);
+                }  
+                image.src = uploadedImageURL = URL.createObjectURL(file);
+                $('#popupUploadFace').modal()
+                cropper.destroy();
+                cropper = new Cropper(image, options);
+                inputImage.value = null;
+            }
+            else {
+                window.alert('Please choose an image file.');
+            }
+        }
+    };
+
+};
+
+
+
