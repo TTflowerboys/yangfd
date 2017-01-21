@@ -55,6 +55,7 @@
     "ui-bootstrap-tpls": "angular-bootstrap#0.11.2",
     "underscore": "1.8.3",
     "fancyBox": "fancyapps/fancyBox#2.1.5",
+    "cropperjs": "https://github.com/fengyuanchen/cropperjs.git#v1.0.0-beta",
     "photoswipe": "4.0.7",
     "q": "q#1.4.1",
     "dropload": "0.3.0",
