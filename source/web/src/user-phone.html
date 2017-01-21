@@ -154,31 +154,9 @@
         </div>
     </div>
 </div>
-<div class="modal modal-profile-crop" id="popupUploadFace">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <h4 class="modal-title">{{_('上传头像')}}</h4>
-            <div class="modal-body">
-                <div class="profile-crop-image-container">
-                    <img class="modal-profile-crop-image">
-                </div>
-                <div class="crop-controls" id="faceActions">
-                    <div class="btn-group">
-                        <button class="btn btn-primary" data-method="zoom" data-option="0.1">
-                            <span class="fa fa-search-plus"></span>
-                        </button>
-                        <button class="btn btn-primary" data-method="zoom" data-option="-0.1">
-                            <span class="fa fa-search-minus"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" id="download">{{_('上传头像')}}</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+<!-- @@include =./partials/upload_face_popup.html -->
+
 <!--@@close-->
 <!--@@block = scripts-->
 
