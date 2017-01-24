@@ -10,7 +10,7 @@
                     return nowYear + index
                 })
             }
-
+            this.user = ko.observable(window.user)
             this.cardName = ko.observable()
             this.cardNumber = ko.observable()
             this.cardCVC = ko.observable()

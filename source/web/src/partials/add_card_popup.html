@@ -10,19 +10,22 @@
                     </div>
                     <div class="row">
                         <span class="text">Expiration Date</span>
-                        <select class="expiryYear" data-bind="chosen: expiryYearList,
+                        <select class="ghostSelect" data-bind="chosen: expiryYearList,
                         optionsText: function(item){return item},
-                        value: expiryYear"></select><!--
-                    --><select class="expiryMonth" data-bind="chosen: expiryMonthList,
+                        value: expiryYear"></select>
+                        <select class="ghostSelect" data-bind="chosen: expiryMonthList,
                         optionsText: function(item){return item},
                         value: expiryMonth"></select>
                         <input class="inputWrapper" type="text" placeholder="Code (CVV)" data-bind="value: cardCVC" required>
                     </div>
                     <div class="row">
+                        <textarea id="countryData" style="display: none;">
+                            {{json_dumps(country_list)}}
+                        </textarea>
                         <span class="text">Country</span>
-                        <select name="countrySelect" class="countrySelect ghostSelect" style="color:#4d4d4d;" required>
-                            
-                        </select>
+                        <select name="countrySelect" class="countrySelect ghostSelect"  data-bind="chosen: countryCodeList,
+                        optionsText: function(item){return item.name},
+                        value: country"></select>
                         <input class="inputWrapper" type="text" placeholder="Postal Code" data-bind="value: cardPostalCode" required>
                     </div>
                 </div>
@@ -33,5 +36,3 @@
         </div>
     </div>
 </script>
-
-
