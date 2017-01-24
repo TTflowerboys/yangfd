@@ -120,6 +120,8 @@
                     % end
 		        </dl>
 		    </div>
+		    <a href="#addCardPopup" rel="modal:open" class="btn btn-primary">{{_('绑定银行卡')}}</a>
+		    <a href="#showCardPopup" rel="modal:open" class="btn btn-primary">{{_('确认支付')}}</a>
 		</div>
 		<div class="chatCenter">
             % if rent_intention_ticket.get('interested_rent_tickets')[0] and rent_intention_ticket.get('interested_rent_tickets')[0].get('status') == 'to rent':
@@ -162,6 +164,8 @@
 	</div>
     % end
 
+	<!-- @@include =./partials/add_card_popup.html -->
+	<!-- @@include =./partials/show_card_popup.html -->
 </div>
 <!--@@close-->
 
@@ -169,5 +173,6 @@
 <script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
 <script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/user_chat_details.js"></script>
+<script src="/static/scripts/project/pay_card.js"></script>
 <!--@@close -->
 

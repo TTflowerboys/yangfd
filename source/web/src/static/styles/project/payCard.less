@@ -1,0 +1,114 @@
+@import "_imports";
+
+.btn{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid #e5e5e5;
+    white-space: nowrap;
+    padding: 6px 16px;
+    font-size: 15px;
+    line-height: 1.42857143;
+    border-radius: 3px;
+    user-select: none;
+    position: relative;
+    color: #5c5c5c;
+    text-decoration: none;
+    cursor: pointer;
+    
+    &.btn-primary{
+        background-color: #2d9fd8;
+        border-color: #2d9fd8;
+        color: #fff;
+    }
+    &:hover{
+        background-color: #3498cb;
+    }
+}
+
+.btn-group{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    .btn{
+        &:not(:first-child):not(:last-child){
+            border-radius: 0;
+        }
+        &:last-child:not(:first-child){
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+        &:first-child:not(:last-child):not(.dropdown-toggle){
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+        }
+    }
+}
+
+.row{
+    &:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .inputWrapper{
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 0 10px;
+        height: 40px;
+        width: 236px;
+        margin-right: 16px;
+        float: left;
+        background: #fff;
+        &:last-child{
+            margin-right: 0;
+        }
+        &:focus{
+            outline: none;
+        }
+    }
+}
+
+
+.modal-pay-card{
+    width: 654px;
+    .modal-title{
+        color: #575a5b;
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+    .modal-footer{
+        text-align: center;
+        padding-top: 12px;
+    }
+    .row{
+        .text{
+            float: left;
+            width: 72px;
+            height: 40px;
+            line-height: 40px;
+            text-align: right;
+            margin-right: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        margin-bottom: 16px;
+        .cardNO{
+            width: 306px;
+        }
+        .ghostSelect{
+            float: left;
+            background: #fff;
+            margin-right: 16px;
+            width: 101px;
+            &.countrySelect{
+                width: 218px;
+            }
+        }
+    }    
+}
