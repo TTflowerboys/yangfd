@@ -36,6 +36,7 @@ var bower = require('gulp-bower')
 var i18n = require('gulp-i18n')
 var debug = require('gulp-debug')
 var pump = require('pump')
+var mjml = require('gulp-mjml')
 var argv = require('yargs').argv
 
 // setup maxListener count
@@ -62,7 +63,6 @@ gulp.task('bower', function () {
 gulp.task('debug', ['bower', 'lint', 'symlink', 'less2css', 'css-auto-prefix', 'html-extend', 'i18n', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
-
 
 gulp.task('lint', function () {
     return gulp.src(myPaths.js)
@@ -148,7 +148,7 @@ gulp.task('watch', ['symlink', 'less2css', 'css-auto-prefix', 'html-extend', 'i1
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['bower', 'build:lint', 'clean', 'build:copy', 'build:imagemin', 'build:sprite', 'build:less2css', 'build:css-auto-prefix', 'build:html-extend', 'build:js-delimiter', 'build:concat','build:uglify', 'build:i18n', 'build:rev', 'build:fingerprint', 'build:rev-admin-page-resource', 'build:fingerprint-admin-page-resource', 'build:CDN'],
+gulp.task('build', ['bower', 'build:lint', 'clean', 'build:copy', 'build:mjml', 'build:imagemin', 'build:sprite', 'build:less2css', 'build:css-auto-prefix', 'build:html-extend', 'build:js-delimiter', 'build:concat','build:uglify', 'build:i18n', 'build:rev', 'build:fingerprint', 'build:rev-admin-page-resource', 'build:fingerprint-admin-page-resource', 'build:CDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -164,6 +164,12 @@ gulp.task('build:lint', function () {
 gulp.task('build:copy', ['clean', 'bower'], function () {
     return gulp.src(myPaths.src + '**/*.*')
         .pipe(gulp.dest('./dist/'))
+})
+
+gulp.task('build:mjml', ['build:copy'], function () {
+    return gulp.src(myPaths.src + 'static/mjmls/*.*')
+        .pipe(mjml())
+        .pipe(gulp.dest('./dist/static/emails/'))
 })
 
 gulp.task('build:imagemin', ['build:copy'], function () {
@@ -317,3 +323,23 @@ gulp.task('build:CDN', ['build:fingerprint-admin-page-resource'], function () {
 
     }
 })
+
+
+// MJML
+
+gulp.task('mjml', function () {
+    return gulp.src(myPaths.src + 'static/mjmls/*.*')
+        .pipe(mjml())
+        .pipe(gulp.dest('./dist/static/emails/'))
+})
+
+gulp.task('watch:mjml', ['mjml'], function () {
+    gulp.watch(myPaths.src + 'static/mjmls/*.*', ['mjml']).on('change', changeHanddler)
+    function changeHanddler(event) {
+        console.log(event.type)
+        console.log(event.path)
+        livereload.changed(event.path)
+    }
+})
+
+gulp.task('mjml_debug', ['clean', 'bower', 'lint', 'symlink','mjml', 'watch:mjml'])

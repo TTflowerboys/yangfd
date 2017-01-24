@@ -1,0 +1,106 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-text padding="0" />
+      <mj-all font-family="Helvetica, Arial, sans-serif" />
+    </mj-attributes>
+    <mj-style>
+      .blue {
+        color:#2BBDE5;
+      }
+      .big {
+        font-size: 20px;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-container>
+      <!-- Company Header -->
+      <mj-section class="border">
+        <mj-image width="600" padding="0" src="/static/images/email/border.png"/>
+      </mj-section>
+      <mj-section class="logo">
+        <mj-image width="300" src="/static/images/email/yfd.png"/>
+      </mj-section>
+      <!-- Email Message -->
+      <mj-section class="message" width="500">
+        <mj-divider border-width="2px" border-color="#cccccc"/>
+        <mj-text align="left">
+          <h2>{{_('Hi XXXX')}}</h2>
+          <p>
+            {{_('这里注意关于提醒如果在下个session的两周前要发邮件提醒他交下一个period的房租不然我们会发邮件给房东执行eviction process在one week before session时 此提醒可以考虑每天一封直到交付完成')}}
+          </p>
+        </mj-text>
+      </mj-section>
+
+      <mj-section width="500" border="1px solid #ccc" padding="0">
+        <!-- Property Info -->
+        <mj-group width="100%" padding="0 0 0 0">
+          <mj-column padding="0 0 0 0">
+            <mj-image padding="0 0 0 0" src="/static/images/email/spring_festival_email.png"/>
+            <mj-location padding="0 0 0 0" address="37 bis, rue du Sentier 75002 Paris"/>
+          </mj-column>
+        </mj-group>
+        <mj-group width="100%" align="center">
+          <mj-column width="100%" align="center">
+            <mj-text align="center">
+              <h2>{{_('Ticket Detail')}}</h2>
+            </mj-text>
+            <mj-divider border-width="1px" border-color="#cccccc"/>
+            <!-- Rent Intention Ticket Info -->
+            <mj-table>
+              <tr>
+                <td align="left">{{_('Rental(Per week)')}}</td>
+                <td align="right" class="blue">$400</td>
+              </tr>
+              <tr>
+                <td align="left">{{_('Roomtype')}}</td>
+                <td align="right" class="blue">Single room</td>
+              </tr>
+            </mj-table>
+            <mj-divider border-width="1px" border-color="#cccccc"/>
+            <mj-table>
+              <tr>
+                <td align="left">{{_('Move in date')}}</td>
+                <td align="right" class="blue">Dec.12, 2016</td>
+              </tr>
+              <tr>
+                <td align="left">{{_('Move out date')}}</td>
+                <td align="right" class="blue">Dec.12, 2017</td>
+              </tr>
+              <tr>
+                <td align="left">{{_('Rental term')}}</td>
+                <td align="right" class="blue">52 week</td>
+              </tr>
+            </mj-table>
+            <mj-divider border-width="1px" border-color="#cccccc"/>
+            <!-- Order Info -->
+            <mj-text align="center">
+              <h2>{{_('Order')}}</h2>
+            </mj-text>
+            <mj-divider border-width="1px" border-color="#cccccc"/>
+            <mj-table>
+              <tr>
+                <td align="left">{{_('Deposit')}}</td>
+                <td align="right" class="blue">$400</td>
+              </tr>
+              <tr>
+                <td align="left">{{_('Rent')}}</td>
+                <td align="right" class="blue">$40000</td>
+              </tr>
+              <tr>
+                <td align="left" class="big">{{_('Total')}}</td>
+                <td align="right" class="big blue">$40400</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-group>
+
+      </mj-section>
+
+      <mj-section class="border">
+        <mj-image width="600" padding="0" src="/static/images/email/border.png"/>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
