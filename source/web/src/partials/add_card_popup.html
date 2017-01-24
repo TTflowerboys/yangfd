@@ -1,59 +1,37 @@
-<div class="modal modal-pay-card" id="addCardPopup" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <h4 class="modal-title">Credit Card Information</h4>
-            <div class="modal-body">
-                <div class="row">
-                    <input class="inputWrapper cardNO" type="text" placeholder="Card number" required>
-                    <input class="inputWrapper" type="text" placeholder="Name on card" required>
+<script type="text/template" id='add-card-tpl'>
+    <div class="modal modal-pay-card" id="addCardPopup" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <h4 class="modal-title">Credit Card Information</h4>
+                <div class="modal-body">
+                    <div class="row">
+                        <input class="inputWrapper cardNO" type="text" placeholder="Card number" data-bind="value: cardNumber" required>
+                        <input class="inputWrapper" type="text" placeholder="Name on card" data-bind="value: cardName" required>
+                    </div>
+                    <div class="row">
+                        <span class="text">Expiration Date</span>
+                        <select class="expiryYear" data-bind="chosen: expiryYearList,
+                        optionsText: function(item){return item},
+                        value: expiryYear"></select><!--
+                    --><select class="expiryMonth" data-bind="chosen: expiryMonthList,
+                        optionsText: function(item){return item},
+                        value: expiryMonth"></select>
+                        <input class="inputWrapper" type="text" placeholder="Code (CVV)" data-bind="value: cardCVC" required>
+                    </div>
+                    <div class="row">
+                        <span class="text">Country</span>
+                        <select name="countrySelect" class="countrySelect ghostSelect" style="color:#4d4d4d;" required>
+                            
+                        </select>
+                        <input class="inputWrapper" type="text" placeholder="Postal Code" data-bind="value: cardPostalCode" required>
+                    </div>
                 </div>
-                <div class="row">
-                    <span class="text">Expiration Date</span>
-                    <select name="countrySelect" class="ghostSelect" style="color:#4d4d4d;" required>
-                    %for index, country  in enumerate(country_list_for_intention):
-                    <option value="{{country.get('code')}}"
-                        %if country.get('code') == 'GB' :
-                    selected
-                    %end
-                    >
-                    {{country.get('name')}}
-                    </option>
-                    %end
-                    </select>
-
-                    <select name="countrySelect" class="ghostSelect" style="color:#4d4d4d;" required>
-                    %for index, country  in enumerate(country_list_for_intention):
-                    <option value="{{country.get('code')}}"
-                        %if country.get('code') == 'GB' :
-                    selected
-                    %end
-                    >
-                    {{country.get('name')}}
-                    </option>
-                    %end
-                    </select>
-
-                    <input class="inputWrapper" type="text" placeholder="Code (CVV)" required>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">{{_('提交')}}</button>
                 </div>
-                <div class="row">
-                    <span class="text">Country</span>
-                    <select name="countrySelect" class="countrySelect ghostSelect" style="color:#4d4d4d;" required>
-                        %for index, country  in enumerate(country_list_for_intention):
-                        <option value="{{country.get('code')}}"
-                            %if country.get('code') == 'GB' :
-                        selected
-                        %end
-                        >
-                        {{country.get('name')}}
-                        </option>
-                        %end
-                    </select>
-                    <input class="inputWrapper" type="text" placeholder="Postal Code" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">{{_('提交')}}</button>
             </div>
         </div>
     </div>
-</div>
+</script>
+
+
