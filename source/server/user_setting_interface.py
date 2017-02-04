@@ -197,6 +197,15 @@ def user_chat_order(rent_intention_ticket_id):
     return currant_util.common_template("user_chat_order-phone", title=title, rent_intention_ticket=rent_intention_ticket)
 
 
+@f_get('/user_payment', '/user-payment')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def user_payment(user):
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
+    title = _('支付')
+    return currant_util.common_template("user_payment", user=user, title=title)
+
+
 @f_get('/user_invite', '/user-invite')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)

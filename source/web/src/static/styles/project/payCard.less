@@ -60,10 +60,11 @@
         border-radius: 3px;
         padding: 0 10px;
         height: 40px;
-        width: 236px;
+        width: 246px;
         margin-right: 16px;
         float: left;
         background: #fff;
+        font-size: 14px;
         &:last-child{
             margin-right: 0;
         }
@@ -75,15 +76,51 @@
 
 
 .modal-pay-card{
-    width: 654px;
+    width: 664px;
+    color: #575a5b;
+    a{
+        color: #2d9fd8;
+        text-decoration: none;
+    }
     .modal-title{
-        color: #575a5b;
         font-size: 16px;
         margin-bottom: 12px;
     }
     .modal-footer{
         text-align: center;
         padding-top: 12px;
+        input[type=submit]{
+            background: #00bee1;
+            border-color: #00bee1;
+        }
+        input[type=checkbox]{
+            float: none;
+            visibility: hidden;
+            visibility: visible\0;
+            border: none;
+            margin-right: 10px;
+            line-height: 50px;
+            vert-align: middle;
+            &+label{
+                position: relative;
+            }
+            &+label:after{
+                position: absolute;
+                visibility: visible;
+                visibility: hidden\0;
+                content:'';
+                z-index: 0;
+                width: 16px;
+                height: 16px;
+                top: 50%;
+                margin-top: -8px;
+                left: -27px;
+                background: url('/static/images/common/checkbox_background.png') 0 0 no-repeat;
+            }
+            &:checked+label:after,&.checked+label:after{
+                background-position: 0 -16px;
+            }
+        }
     }
     .row{
         .text{
@@ -111,4 +148,53 @@
             }
         }
     }    
+}
+
+.cardListItems{
+    position: relative;
+    width: 238px;
+    height: 154px;
+    padding: 10px;
+    margin: 0 14px 14px 0;
+    /*background: #f6f6f6;*/
+    background: #f00;
+    border: 1px solid #cbcbcb;
+    border-radius: 3px;
+    color: #fff;
+    width: 238px;
+    float: left;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 22px;
+    .setting-default{
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        font-size: 12px;
+        text-shadow: 1px 1px 1px #000;
+        text-transform: uppercase;
+    }
+    .remove{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        display: none;
+    }
+    &:hover .setting-default,&:hover .remove{
+        display: block!important;
+    }
+    .cardNumber{
+        margin-top: 80px;       
+    }
+    .addCardBtn{
+        cursor: pointer;
+        color: #00bee1;
+        display: block;
+        line-height: 134px;
+        text-align: center;
+        i{
+            margin-right: 5px;
+        }       
+    }
 }

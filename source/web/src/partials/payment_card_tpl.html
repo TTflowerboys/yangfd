@@ -1,8 +1,41 @@
-<script type="text/template" id='add-card-tpl'>
-    <div class="modal modal-pay-card" id="addCardPopup" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <h4 class="modal-title">Credit Card Information</h4>
+<script type="text/template" id='kot-payment-card-tpl'>
+    <div class="contentHeader">
+        <h1>{{_('支付')}}</h1>
+    </div>
+    <span id="cardData" style="display: none">
+        [
+            {
+                "type": "visa", 
+                "isdefault": false, 
+                "time": 1413677620.08, 
+                "cardNumber": "6666 7777 8888 9999", 
+                "id": "54430234915da40566a3ab9d"
+            }, {
+                "type": "read", 
+                "isdefault": true, 
+                "text": "321", 
+                "time": 1412160623.186, 
+                "cardNumber": "0000 2222 3333 8888", 
+                "id": "542bdc70c6e47b193ebebc1d"
+            }]
+    </span>
+    <div class="list_wrapper">
+        <div class="clearfix">
+            <div class="list" data-bind="foreach: cardList">
+                <div class="cardListItems">
+                    <i class="icon-round_delete remove" data-bind="click: $parent.removeCard"></i>
+                    <div class="setting-default" data-bind="visible: isdefault, click: $parent.settingDefault">default payment</div>
+                    <div class="cardNumber" data-bind="text: cardNumber"></div>
+                </div>
+            </div>
+            <div class="cardListItems" style="margin-right: 0">
+                <span class="addCardBtn" data-bind="click: togglePaymentForm"><i class="icon-add"></i>ADD PAYMENT</span>
+            </div>
+        </div>
+        
+
+        <div class="modal-pay-card" data-bind="visible: paymentForm">
+            <form action="">
                 <div class="modal-body">
                     <div class="row">
                         <input class="inputWrapper cardNO" type="text" placeholder="Card number" data-bind="value: cardNumber" required>
@@ -30,12 +63,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">{{_('提交')}}</button>
                     <p class="addContactWrap">
                         <input type="checkbox" id="agree" checked="checked"><label class="addContactLabel" for="agree">I agree with <a href="">terms of payment</a></label>
                     </p>
-                    <button type="submit" class="btn btn-primary">{{_('提交')}}</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </script>

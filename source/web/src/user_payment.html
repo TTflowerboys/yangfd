@@ -1,0 +1,25 @@
+<!--@@master = masters/user_master.html-->
+<!--@@block =head -->
+<!--build:css(dist) /static/styles/project/user_payment.html.css-->
+<link rel="stylesheet" href="/static/styles/userPayment.css"/>
+<!--endbuild-->
+<link rel="stylesheet" href="/static/vendors/jquery/jquery-ui-1.10.3.custom.min.css"/>
+
+<!--@@close-->
+<!--@@block = main -->
+
+<div class="content">
+    <!-- @@include =./partials/payment_card_tpl.html -->
+    <kot-payment-card></kot-payment-card>
+</div>
+
+
+<!--@@close-->
+
+<!--@@block=scripts-->
+<!--build:js /static/scripts/user_payment.html.js-->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/scripts/common_ko.js"></script> 
+<script src="/static/scripts/user_payment.js"></script>
+<!--endbuild-->
+<!--@@close-->
