@@ -11,7 +11,7 @@
                 "cardNumber": "6666 7777 8888 9999", 
                 "id": "54430234915da40566a3ab9d"
             }, {
-                "type": "read", 
+                "type": "AE", 
                 "isdefault": true, 
                 "text": "321", 
                 "time": 1412160623.186, 
@@ -22,7 +22,7 @@
     <div class="list_wrapper">
         <div class="clearfix">
             <div class="list" data-bind="foreach: cardList">
-                <div class="cardListItems">
+                <div class="cardListItems" data-bind="style: {backgroundImage: 'url(/static/images/card/payment_' + type + '.png)'}">
                     <i class="icon-round_delete remove" data-bind="click: $parent.removeCard"></i>
                     <div class="setting-default" data-bind="visible: isdefault, click: $parent.settingDefault">default payment</div>
                     <div class="cardNumber" data-bind="text: cardNumber"></div>

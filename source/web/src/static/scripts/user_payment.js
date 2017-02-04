@@ -37,6 +37,7 @@
             }
 
             self.removeCard = function(){
+                self.cardList.remove(this)
                 /*$.betterPost('/api/1/card/' + this.id + '/remove')
                     .done(function (data) {
                         self.cardList.remove(this)
