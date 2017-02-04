@@ -23,7 +23,7 @@
         <div class="clearfix">
             <div class="list" data-bind="foreach: cardList">
                 <div class="cardListItems" data-bind="style: {backgroundImage: 'url(/static/images/card/payment_' + type + '.png)'}">
-                    <i class="icon-round_delete remove" data-bind="click: $parent.removeCard"></i>
+                    <i class="icon-trash remove" data-bind="click: $parent.removeCard"></i>
                     <div class="setting-default" data-bind="visible: isdefault, click: $parent.settingDefault">default payment</div>
                     <div class="cardNumber" data-bind="text: cardNumber"></div>
                 </div>

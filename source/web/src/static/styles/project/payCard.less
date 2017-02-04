@@ -167,22 +167,25 @@
     font-weight: bold;
     font-size: 14px;
     line-height: 22px;
+    text-shadow: 1px 1px 1px #000;
     .setting-default{
         position: absolute;
         top: 8px;
         left: 8px;
         font-size: 12px;
-        text-shadow: 1px 1px 1px #000;
         text-transform: uppercase;
     }
     .remove{
         position: absolute;
-        right: 10px;
-        top: 10px;
+        right: 8px;
+        top: 8px;
         display: none;
         color: #000;
+        font-size: 16px;
+        text-shadow: 1px 1px 1px #fff;
     }
     &:hover .setting-default,&:hover .remove{
+        cursor: pointer;
         display: block!important;
     }
     .cardNumber{
@@ -195,6 +198,7 @@
         display: block;
         line-height: 134px;
         text-align: center;
+        text-shadow: 1px 1px 1px #fff;
         i{
             margin-right: 5px;
         }       
