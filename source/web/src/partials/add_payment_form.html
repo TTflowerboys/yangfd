@@ -1,0 +1,40 @@
+<script id="add-payment-form-tpl" type="text/template">
+    <div class="modal-pay-card">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <input class="inputWrapper cardNO" type="text" placeholder="Card number" data-bind="value: cardNumber" required>
+                    <input class="inputWrapper" type="text" placeholder="Name on card" data-bind="value: cardName" required>
+                </div>
+                <div class="row">
+                    <span class="text">Expiry Date</span>
+                    <select class="ghostSelect" data-bind="chosen: expiryYearList,
+                    optionsText: function(item){return item},
+                    value: expiryYear"></select>
+                    <select class="ghostSelect" data-bind="chosen: expiryMonthList,
+                    optionsText: function(item){return item},
+                    value: expiryMonth"></select>
+                    <input class="inputWrapper cardCVC" type="text" placeholder="Code (CVV)" data-bind="value: cardCVC" required>
+                </div>
+                <div class="row">
+                    <textarea id="countryData" style="display: none;">
+                        {{json_dumps(country_list)}}
+                    </textarea>
+                    <span class="text">Country</span>
+                    <select name="countrySelect" class="countrySelect ghostSelect"  data-bind="chosen: countryCodeList,
+                    optionsText: function(item){return item.name},
+                    value: country"></select>
+                    <input class="inputWrapper" type="text" placeholder="Postal Code" data-bind="value: cardPostalCode" required>
+                </div>
+                <div class="addPaymentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
+            </div>
+            <div class="modal-footer">
+                <p class="addContactWrap">
+                    发布则表示您已经阅读并同意 <a href="" target="_blank">洋房东服务须知</a>
+                </p>
+                <button type="submit" class="btn btn-primary" data-bind="click: submit">{{_('提交')}}</button>
+            </div>
+        </div>
+    </div>
+</script>
+<add-payment-form></add-payment-form>

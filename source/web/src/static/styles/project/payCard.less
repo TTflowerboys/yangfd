@@ -28,6 +28,10 @@
     &:hover{
         background-color: #3498cb;
     }
+    &[disabled] {
+        background-color: #bbb;
+        border-color: #bbb;
+    }
 }
 
 .btn-group{
@@ -76,15 +80,11 @@
 
 
 .modal-pay-card{
-    width: 664px;
+    width: 568px;
     color: #575a5b;
     a{
         color: #2d9fd8;
         text-decoration: none;
-    }
-    .modal-title{
-        font-size: 16px;
-        margin-bottom: 12px;
     }
     .modal-footer{
         text-align: center;
@@ -150,6 +150,7 @@
         .chosen-container{
             .chosen-single,.chosen-drop{
                 border-width: 1px;
+                line-height: 38px;
             }
         }
     }    
@@ -207,5 +208,66 @@
         i{
             margin-right: 5px;
         }       
+    }
+}
+
+.payment_popup{
+    &_shadow {
+        z-index: 101;
+        background: #000000;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 48px;
+        width: 100%;
+        height: 100%;
+    }
+    .payment_wrapper {
+        z-index: 102;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-top: 100px;
+        padding-bottom: 100px;
+        width: 100%;
+        min-width: 1280px;
+        background: #eeeeee;
+        border-top: 125px solid #626262;
+        .info {
+            max-width: 1240px;
+            margin: 0 auto;
+            .title{
+                font-size: 22px;
+                margin-bottom: 52px;
+                color: #00bee1;
+                text-transform: uppercase;
+                text-align: center;
+            }
+            .modal-pay-card{
+                margin: 0 auto;
+            }
+        }
+        .cancel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #999;
+            &:hover {
+              color: #666;
+            }
+        }
+        .addPaymentFormError{
+            color: #e61919;
+        }
     }
 }

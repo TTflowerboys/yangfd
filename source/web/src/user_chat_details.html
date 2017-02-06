@@ -120,7 +120,7 @@
                     % end
 		        </dl>
 		    </div>
-		    <a href="#addCardPopup" rel="modal:open" class="btn btn-primary">{{_('绑定银行卡')}}</a>
+		    
 		    <a href="#showCardPopup" rel="modal:open" class="btn btn-primary">{{_('确认支付')}}</a>
 		</div>
 		<div class="chatCenter">
@@ -164,16 +164,24 @@
 	</div>
     % end
 
-	<!-- @@include =./partials/add_card_popup.html -->
-	<add-card></add-card>
-	<!-- @@include =./partials/show_card_popup.html -->
 </div>
+	<!-- @@include =./partials/add_payment_popup.html -->
+
 <!--@@close-->
 
 <!--@@block = scripts -->
 <script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
 <script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/user_chat_details.js"></script>
-<script src="/static/scripts/project/pay_card.js"></script>
+<script src="/static/scripts/project/add_payment_form.js"></script>
+<script>
+$(function(){
+    if (window.location.href.match('addPaymentPopup=true')) {
+        $('#add_payment_popup').show()
+    }
+    $('#add_payment_popup').on('click','.cancel',function(){
+        $('#add_payment_popup').hide()
+    })
+})
+</script>
 <!--@@close -->
-
