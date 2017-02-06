@@ -1,0 +1,24 @@
+<script id="show-payment-form-tpl" type="text/template">
+    <div id="payment-info">
+        <div class="payment-details">
+            <div class="payment-details-main">
+                <span class="time">2017-01-01 ~ 2017-05-01</span>
+                <span class="money">$ <strong>1000</strong></span>
+            </div>
+            <div class="payment-details-meta">
+                <dl>
+                    <dt>租金</dt><dd>666</dd>
+                </dl>
+                <dl>
+                    <dt>押金</dt><dd>344</dd>
+                </dl>
+                <dl>
+                    <dt>租期</dt><dd>888</dd>
+                </dl>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" data-bind="click: submit" style="text-align: center;">提交</button>
+    </div>
+</script>
+<show-payment-form></show-payment-form>

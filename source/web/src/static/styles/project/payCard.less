@@ -268,6 +268,61 @@
         }
     }
 }
+#payment-info{
+    width: 568px;
+    margin: 0 auto;
+    .payment-details{
+        padding: 22px 38px;
+        border: 1px solid #ccc;
+        background: #fff;
+        &-main{
+            width: 272px;
+            float: left;
+            .time{
+                font-weight: bold;
+                color: #939798;
+                line-height: 18px;
+                display: block;
+                margin-bottom: 8px;
+            }
+            .money{
+                color: #00bee1;
+                display: block;
+                font-size: 14px;
+                line-height: 36px;
+                strong{
+                    font-weight: bold;
+                    font-size: 32px;
+                }
+            }
+        }
+        &-meta{
+            width: 172px;
+            float: right;
+            font-size: 12px;
+            dl{
+                height: 22px;
+                line-height: 22px;
+                dt{
+                    color: #666;
+                    float: left;
+                    width: 76px;
+                }
+                dd{
+                    color: #00bee1;
+                    float: right;
+                    font-weight: bold;
+                }
+            }
+        }
+        &:after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+    }
+}
+
 .addPaymentFormError{
     color: #e61919;
     font-size: 14px;
