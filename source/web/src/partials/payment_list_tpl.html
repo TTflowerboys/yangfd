@@ -1,0 +1,10 @@
+<script type="text/template" id="kot-payment-list-tpl">
+	<div class="list" data-bind="foreach: cardList">
+	    <div class="cardListItems" data-bind="style: {backgroundImage: 'url(/static/images/card/payment_' + type + '.png)'}">
+	        <i class="icon-trash remove" data-bind="click: $parent.removeCard"></i>
+	        <div class="setting-default" data-bind="visible: isdefault, click: $parent.settingDefault">default payment</div>
+	        <div class="cardNumber" data-bind="text: cardNumber"></div>
+	    </div>
+	</div>
+</script>
+<kot-payment-list></kot-payment-list>
