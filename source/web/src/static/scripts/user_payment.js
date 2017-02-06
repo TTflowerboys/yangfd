@@ -33,7 +33,7 @@
             self.cardList = ko.observableArray(cardData)
             this.paymentForm = ko.observable(false)
             this.togglePaymentForm = function(){
-                this.paymentForm(this.paymentForm() ? false : true)
+                this.paymentForm(true)
             }
 
             self.removeCard = function(){

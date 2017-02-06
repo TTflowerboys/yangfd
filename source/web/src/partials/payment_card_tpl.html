@@ -28,8 +28,8 @@
                     <div class="cardNumber" data-bind="text: cardNumber"></div>
                 </div>
             </div>
-            <div class="cardListItems" style="margin-right: 0">
-                <span class="addCardBtn" data-bind="click: togglePaymentForm"><i class="icon-add"></i>ADD PAYMENT</span>
+            <div class="cardListItems" style="margin-right: 0" data-bind="visible: !paymentForm(),click: togglePaymentForm">
+                <span class="addCardBtn"><i class="icon-add"></i>ADD PAYMENT</span>
             </div>
         </div>
         
