@@ -1,5 +1,5 @@
 <script id="show-payment-form-tpl" type="text/template">
-    <div id="payment-info">
+    <div id="payment-info" style="display: none;">
         <div class="payment-details">
             <div class="payment-details-main">
                 <span class="time">2017-01-01 ~ 2017-05-01</span>
@@ -17,8 +17,19 @@
                 </dl>
             </div>
         </div>
-
-        <button type="submit" class="btn btn-primary" data-bind="click: submit" style="text-align: center;">提交</button>
+        <div class="payment-card">
+            <div class="payment-card-items">
+                <div class="cc-card"><img src="https://www.braintreepayments.com/images/visa-logo-8ea8a4fc.svg" alt=""></div>
+                <div class="cc-cardno">6666 xxxx xxxx 9999</div>
+                <div class="default-card">default payment</div>
+                <span class="btn"><i class="icon-down_arrow"></i></span>
+            </div>
+            <div class="payment-card-items">
+                <div class="cc-card"><i class="icon-add"></i></div>
+                <div class="add-btn">add payment</div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
     </div>
 </script>
 <show-payment-form></show-payment-form>

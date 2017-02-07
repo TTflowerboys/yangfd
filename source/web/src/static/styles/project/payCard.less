@@ -272,9 +272,10 @@
     width: 568px;
     margin: 0 auto;
     .payment-details{
-        padding: 22px 38px;
+        padding: 22px 38px 16px;
         border: 1px solid #ccc;
         background: #fff;
+        margin-bottom: 12px;
         &-main{
             width: 272px;
             float: left;
@@ -297,12 +298,12 @@
             }
         }
         &-meta{
-            width: 172px;
+            width: 156px;
             float: right;
             font-size: 12px;
             dl{
-                height: 22px;
-                line-height: 22px;
+                height: 20px;
+                line-height: 20px;
                 dt{
                     color: #666;
                     float: left;
@@ -312,6 +313,7 @@
                     color: #00bee1;
                     float: right;
                     font-weight: bold;
+                    font-size: 14px;
                 }
             }
         }
@@ -321,7 +323,57 @@
             clear: both;
         }
     }
+    .payment-card-items{
+        height: 40px;
+        line-height: 40px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        .cc-card{
+            width: 72px;
+            height: 40px;
+            padding: 5px;
+            background: #fff;
+            border-radius: 2px;
+            box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+            margin-right: 20px;
+            text-align: center;
+            line-height: 30px;
+            color: #00bee1;
+            float: left;
+            img{
+                vertical-align: top;
+            }
+        }
+        .cc-cardno{
+            color: #363636;
+            font-weight: bold;
+            font-size: 20px;
+            width: 220px;
+            float: left; 
+        }
+        .default-card{
+            color: #00bee1;
+            display: inline-block;
+            text-transform: capitalize;
+        }
+        .btn{
+            color: #00bee1;
+            border-color: transparent;
+            float: right;
+            &:hover{
+                background: #e5e5e5;
+            }
+        }
+        .add-btn{
+            color: #00c4ed;
+            font-size: 16px;
+            text-shadow: 1px 1px 1px #ccc;
+            text-transform: uppercase;
+        }
+    }
 }
+
+
 
 .addPaymentFormError{
     color: #e61919;
