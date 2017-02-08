@@ -1,10 +1,12 @@
+<!--@@include=add_payment_form.html -->
+<!--@@include=show_payment_form.html -->
 <div id="add_payment_popup" class="payment_popup" style="display:none">
     <div class="payment_popup_shadow"></div>
     <div class="payment_wrapper">
         <div class="info">
-            <h2 class="title">Credit Card Information</h2>
-            <!--@@include=add_payment_form.html -->
-            <!--@@include=show_payment_form.html -->
+            <h2 class="title">Credit Card Information</h2>            
+            <add-payment-form></add-payment-form>
+            <show-payment-form></show-payment-form>
         </div>
         <button class="cancel"><i class="icon-delete"></i></button>
     </div>

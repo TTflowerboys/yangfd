@@ -1,4 +1,6 @@
-
+<!--@@include=payment_list_tpl.html -->
+<!--@@include=add_payment_form.html -->
+<script type="text/template" id='kot-user-payment-tpl'>
     <div class="contentHeader">
         <h1>{{_('支付')}}</h1>
     </div>
@@ -21,11 +23,11 @@
     </span>
     <div class="list_wrapper">
         <div class="clearfix">
-            <!--@@include=payment_list_tpl.html -->
-            <div class="cardListItems" style="margin-right: 0">
+            <kot-payment-list></kot-payment-list>
+            <div class="cardListItems" style="margin-right: 0" data-bind="visible: !paymentForm(),click: togglePaymentForm">
                 <span class="addCardBtn"><i class="icon-add"></i>ADD PAYMENT</span>
             </div>
         </div>
-        
-        <!--@@include=add_payment_form.html -->
+        <add-payment-form data-bind="visible: paymentForm"></add-payment-form>
     </div>
+</script>

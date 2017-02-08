@@ -10,6 +10,7 @@
 
 <div class="content">
     <!-- @@include =./partials/user_payment_tpl.html -->
+    <kot-user-payment></kot-user-payment>
 </div>
 
 
@@ -18,18 +19,7 @@
 <!--@@block=scripts-->
 <!--build:js /static/scripts/user_payment.html.js-->
 <script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
-<script src="/static/scripts/common_ko.js"></script> 
-<script src="/static/scripts/project/payment_list.js"></script>
-<script src="/static/scripts/project/add_payment_form.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script src="/static/scripts/user_payment.js"></script>
 <!--endbuild-->
-<script>
-	;(function(){
-		$('add-payment-form').hide()
-		
-		$('.addCardBtn').on('click',function(){
-			$(this).closest('.cardListItems').hide()
-			$('add-payment-form').css('display','block')
-		})
-	})()
-</script>
 <!--@@close-->
