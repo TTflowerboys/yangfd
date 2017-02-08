@@ -2,9 +2,9 @@
 
     ko.components.register('kot-user-payment', {
         viewModel: function(params) {
-            this.paymentForm = ko.observable(false)
+            this.visible = ko.observable()
             this.togglePaymentForm = function(){
-                this.paymentForm(true)
+                this.visible(true)
             }
         },
         template: { element: 'kot-user-payment-tpl' }
@@ -132,13 +132,10 @@
             this.submitTicket = function () {
                 /*$.betterPost('', this.params())
                     .done(_.bind(function (val) {
-                        $('#add_payment_popup').hide()
+                        this.visible(false)
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
-                    }, this))
-                    .always(_.bind(function () {
-                        this.submitDisabled(false)
                     }, this))*/
             }
 

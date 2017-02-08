@@ -24,10 +24,10 @@
     <div class="list_wrapper">
         <div class="clearfix">
             <kot-payment-list></kot-payment-list>
-            <div class="cardListItems" style="margin-right: 0" data-bind="visible: !paymentForm(),click: togglePaymentForm">
+            <div class="cardListItems" style="margin-right: 0" data-bind="visible: !visible(),click: togglePaymentForm">
                 <span class="addCardBtn"><i class="icon-add"></i>ADD PAYMENT</span>
             </div>
         </div>
-        <add-payment-form data-bind="visible: paymentForm"></add-payment-form>
+        <add-payment-form data-bind="visible: visible"></add-payment-form>
     </div>
 </script>
