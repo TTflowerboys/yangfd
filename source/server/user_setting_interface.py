@@ -206,6 +206,15 @@ def user_payment(user):
     return currant_util.common_template("user_payment", user=user, title=title)
 
 
+@f_get('/user_payment_add', '/user-payment-add')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def user_payment_add(user):
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
+    title = _('支付')
+    return currant_util.common_template("user_payment_phone", user=user, title=title)
+
+
 @f_get('/user_invite', '/user-invite')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)

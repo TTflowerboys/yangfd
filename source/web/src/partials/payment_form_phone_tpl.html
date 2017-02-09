@@ -1,0 +1,58 @@
+<script id="kot-payment-form-phone-tpl" type="text/template">
+<div class="rentRequestContainer">
+    <form class="payment_form_phone">
+
+        <div class="row">
+            <div class="col">
+                <input type="text" data-bind="value: cardNumber" class="cardNO" placeholder="{{_('Card number')}}" required autocomplete="off"/>
+            </div>
+            <div class="col">
+                <input type="text" data-bind="value: cardName" class="cardName" placeholder="{{_('Name on card')}}" required autocomplete="off"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="title">{{_('Expiry Date')}}</div>
+            <div class="col">
+                <p class="inputPlaceholder">{{_('expiryYear')}}</p>
+                <select class="expiryYear" data-bind="chosen: expiryYearList,
+                    optionsText: function(item){return item},
+                    value: expiryYear"></select>
+            </div>
+            <div class="col">
+                <p class="inputPlaceholder">{{_('expiryMonth')}}</p>
+                <select class="expiryMonth" data-bind="chosen: expiryMonthList,
+                    optionsText: function(item){return item},
+                    value: expiryMonth"></select>
+            </div>
+        </div>
+
+        <div class="row">
+            <input class="cardCVC" type="text" data-bind="value: cardCVC" placeholder="{{_('Code (CVV)')}}">
+        </div>
+
+        <div class="row">
+            <textarea id="countryData" style="display: none;">
+                {{json_dumps(country_list)}}
+            </textarea>
+            <div class="col">
+                <p class="inputPlaceholder">{{_('Country')}}</p>
+                <select data-bind="chosen: countryCodeList,
+                    optionsText: function(item){return item.name},
+                    value: country"></select>
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="text" placeholder="Postal Code" data-bind="value: cardPostalCode" required>
+        </div>
+
+        <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
+        <button class="confirmButton button" data-bind="click: submit">{{_('提交')}}</button>
+        <p class="hint">发布则表示您已经阅读并同意 <a href="" target="_blank">洋房东服务须知</a></p>
+
+
+    </form>
+</div>
+
+</script>

@@ -1,0 +1,211 @@
+@import "project/_imports";
+@import "project/tips";
+.page{
+    background-color: #eee;
+}
+
+
+.rentRequestContainer {
+    max-width: 1000px;
+    margin: 40px auto;
+    @media @phone{
+        width: 100%;
+        margin: 0;
+        padding: 24px 16px;
+    }
+    .date-picker-wrapper{
+        margin-left: 88px;
+        z-index: 103;
+        .month-wrapper table {
+            background-color: #FAFAFA;
+        }
+    }
+
+
+    .payment_form_phone{
+        position: relative;
+        padding: 20px;
+        color: #999;
+        @media @phone{
+            padding: 0px;
+        }
+        select,input[type=text],input[type=date], textarea{
+            width: 100%;
+            padding-left: 20px;
+            background: #fff;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+
+        }
+        select,input[type=text]{
+            height: 40px;
+            @media @phone{
+                padding: 18px 20px 18px;
+                height: 54px;
+                vertical-align: middle;
+                box-shadow: 0 0 8px -5px #000;
+            }
+            &.cardName,&.expiryMonth{
+                border-radius: 0 0 5px 5px;
+            }
+            &.cardNO,&.expiryYear{
+                border-radius: 5px 5px 0 0;
+            }
+        }
+        textarea{
+            padding-top: 6px;
+        }
+        .row{
+            margin-bottom: 20px;
+            .clearfix;
+            .inputPlaceholder{
+                display: none;
+                @media @phone{
+                    display: block;
+                    position: absolute;
+                    left: 15px;
+                    top: 13px;
+                    margin: 0;
+                    font-size: 16px;
+                    color: #999;
+                    z-index: 10;
+                }
+            }
+            @media @phone{
+                position: relative;
+                width: 100%;
+                float: none;
+                margin: 0 0 24px;
+                select,input[type=date]{
+                    color: #333;
+                }
+            }
+
+            .col{
+                display: block;
+                position: relative;
+                width: 100%;
+                float: none;
+                margin-top: -1px;
+                &:nth-child(1) {
+                    margin-top: 0;
+                }
+            }
+            
+            span.title{
+                font-size: 16px;
+                display: inline-block;
+                max-width: 160px;
+                margin: 0 0 0 0;
+                min-height: 40px;
+                line-height: 40px;
+            }
+            p.title{
+                font-size: 16px;
+                line-height: 40px;
+            }
+
+        }
+        .hint{
+            margin: 8px 0 0;
+            color: #aaa;
+            text-align: center;
+            a{
+                color: #00bee1;
+            }
+        }
+        .confirmButton{
+            width: 100%;
+            padding: 18px;
+            background: #00bee1;
+            font-size: 16px;
+        }
+        .requirementRentFormError{
+            color: #e61919;
+            margin-bottom: 10px;
+        }
+
+
+        .chosen-container{
+            font-size: 16px;
+            /*&.countryCode .chosen-single span{
+                text-align: left;
+            }*/
+            .chosen-single{
+                padding: 0 12px;
+                height: 50px;
+                line-height: 50px;
+                color: #999;
+                border-radius: 5px;
+                background: #fff;
+                border: 1px solid #cccccc;
+                span{
+                    float: right;
+                    margin-right: 10px;
+                    padding-left: 2px;
+                    text-align: right;
+                    color: #333;
+                    max-width: 200px;
+                    max-width: calc(~'100% - 60px');
+                    background: #fff;
+                    position: relative;
+                    z-index: 11;
+                }
+                .hint{
+                    margin: 0;
+                    color: #999;
+                    position: absolute;
+                    text-align: left;
+                    left: 20px;
+                    top: 0;
+                }
+                abbr{
+                    background-image: url('/static/images/common/chosen-sprite.png');
+                }
+                div{
+                    width: 20px;
+                    b{
+                        background-image: url('/static/images/common/chosen-sprite.png');
+                        width: 12px;
+                        background-position: 0 16px;
+                    }
+                }
+            }
+            &.chosen-with-drop .chosen-single{
+                border: 1px solid #cccccc;
+                border-radius: 5px 5px 0 0;
+                border-bottom: none;
+                div b{
+                    background-position: -17px 12px;
+                }
+            }
+
+            .chosen-drop{
+                font-size: 14px;
+                border: 1px solid #cccccc;
+                input{
+                    &[type=text]{
+                        background-image: url('/static/images/common/chosen-sprite.png');
+                        background-repeat: no-repeat;
+                        background-position: 100% -20px;
+                        box-sizing: border-box;
+                        width: 100%;
+                    }
+                }
+                .chosen-results{
+                    color: #999;
+                }
+            }
+            &.chosen-with-drop .chosen-drop{
+                border-top: none;
+            }
+
+        }
+
+    }
+
+
+}
+
+
