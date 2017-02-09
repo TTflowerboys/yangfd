@@ -1,5 +1,51 @@
 (function (ko) {
+    window.openPaymentPopup = function (ticketId, isPopup) {
+        var args = arguments
+        $('body').trigger('openPaymentPopup', Array.prototype.slice.call(args))
+    }
+    ko.components.register('kot-payment-popup',{
+        viewModel: function(){
+            this.cardData = JSON.parse($('#cardData').text())
 
+            this.openPaymentPopup = function (ticketId, isPopup) {
+                return function () {
+                    window.openPaymentPopup(ticketId, isPopup)
+                }
+            }
+            this.visible = ko.observable()
+            this.step = ko.observable(this.cardData? 2: 1)
+
+            this.open = function(isPopup){
+                this.visible(true)
+                if(isPopup) {
+                    var popup = $('#payment_popup')
+                    var wrapper = popup.find('.payment_wrapper')
+                    var headerHeight = wrapper.outerHeight() - wrapper.innerHeight()
+
+                    if (wrapper.outerHeight() - headerHeight > $(window).height()) {
+                        wrapper.css('top', $(window).scrollTop() - headerHeight)
+                    }
+                    else {
+                        wrapper.css('top',
+                            $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
+                    }
+                }
+            }
+            this.close = function(){
+                this.visible(false)
+            }
+            this.ticketId = ko.observable()
+
+            var ticketId = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
+            var isShowPaymentPopup = window.location.href.match('showPaymentPopup=true')
+            if (isShowPaymentPopup) {
+                window.openPaymentPopup(ticketId, true)
+                this.open(true)
+            }
+
+        },
+        template: { element: 'kot-payment-popup-tpl'}
+    })
 
 	ko.components.register('add-payment-form', {
         viewModel: function(params) {
@@ -139,8 +185,13 @@
 
     ko.components.register('show-payment-form', {
         viewModel: function(params) {
-            
-
+            this.isShow = ko.observable(false)
+            this.showPaymentDrop = function(){
+                this.isShow(this.isShow() ? false : true)
+            }
+            this.showForm = function(){
+                this.step = ko.observable(1)
+            }
         },
         template: { element: 'show-payment-form-tpl' }
     })

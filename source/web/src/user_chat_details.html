@@ -121,7 +121,6 @@
 		        </dl>
 		    </div>
 		    
-		    <a href="#showCardPopup" rel="modal:open" class="btn btn-primary">{{_('确认支付')}}</a>
 		</div>
 		<div class="chatCenter">
             % if rent_intention_ticket.get('interested_rent_tickets')[0] and rent_intention_ticket.get('interested_rent_tickets')[0].get('status') == 'to rent':
@@ -165,7 +164,8 @@
     % end
 
 </div>
-	<!-- @@include =./partials/add_payment_popup.html -->
+	<!-- @@include =./partials/payment_popup_tpl.html -->
+	<kot-payment-popup></kot-payment-popup>
 
 <!--@@close-->
 
@@ -174,14 +174,4 @@
 <script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/user_chat_details.js"></script>
 <script src="/static/scripts/payment_popup.js"></script>
-<script>
-$(function(){
-    if (window.location.href.match('addPaymentPopup=true')) {
-        $('#add_payment_popup').show()
-    }
-    $('#add_payment_popup').on('click','.cancel',function(){
-        $('#add_payment_popup').hide()
-    })
-})
-</script>
 <!--@@close -->

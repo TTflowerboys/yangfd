@@ -1,0 +1,34 @@
+<!--@@include=add_payment_form.html -->
+<!--@@include=show_payment_form.html -->
+<script type="text/template" id="kot-payment-popup-tpl">
+	<span id="cardData" style="display: none">
+        [{
+            "type": "visa",
+            "isdefault": false,
+            "time": 1413677620.08,
+            "cardNumber": "6666 7777 8888 9999",
+            "id": "54430234915da40566a3ab9d"
+        }, {
+            "type": "AE",
+            "isdefault": true,
+            "text": "321",
+            "time": 1412160623.186,
+            "cardNumber": "0000 2222 3333 8888",
+            "id": "542bdc70c6e47b193ebebc1d"
+        }]
+    </span>
+    <div id="payment_popup" class="payment_popup" data-bind="visible: visible">
+        <div class="payment_popup_shadow"></div>
+        <div class="payment_wrapper">
+            <div class="info">
+                <h2 class="title" data-bind="visible: step() === 1">Credit Card Information</h2>
+                <add-payment-form data-bind="visible: step() === 1"></add-payment-form>
+
+	            <h2 class="title" data-bind="visible: step() === 2">Payment Information</h2>
+                <show-payment-form data-bind="visible: step() === 2"></show-payment-form>
+            </div>
+            <button class="cancel" data-bind="click: close"><i class="icon-delete"></i></button>
+        </div>
+    </div>
+
+</script>
