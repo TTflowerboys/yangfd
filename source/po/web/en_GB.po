@@ -2683,7 +2683,7 @@ msgstr "Neighbourhood report : "
 #: ../web/src/property_to_rent_digest.html:191
 #: ../web/src/property_wechat_poster.html:527 ../web/src/wechat_poster.html:530
 msgid "该房产暂无定位信息"
-msgstr ""
+msgstr "No Location Info"
 
 #: ../web/src/property_to_rent_list.html:32
 #: ../web/src/property_to_rent_list.html:50
@@ -2826,15 +2826,15 @@ msgstr "To view"
 
 #: ../web/src/property_to_rent_publish_success.html:19
 msgid "分享到Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: ../web/src/property_to_rent_publish_success.html:31
 msgid "分享到Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: ../web/src/property_to_rent_publish_success.html:49
 msgid "分享到Linkedin"
-msgstr ""
+msgstr "LinkedIn"
 
 #: ../web/src/property_to_rent_publish_success.html:53
 msgid "复制链接"
@@ -6320,7 +6320,7 @@ msgstr "Please select neighbourhood"
 
 #: ../web/src/partials/property_to_rent_edit.html:182
 msgid "街道（选填）"
-msgstr ""
+msgstr "Street( optional )"
 
 #: ../web/src/partials/property_to_rent_edit.html:183
 msgid "小区（选填）"
@@ -6902,7 +6902,7 @@ msgstr "Check in"
 #: ../web/src/partials/requirement_rent_phone.html:121
 #: ../web/src/partials/requirement_rent_popup.html:137
 msgid "男生人数"
-msgstr ""
+msgstr "Male"
 
 #: ../web/src/partials/requirement_rent_phone.html:131
 #: ../web/src/partials/requirement_rent_phone.html:132
@@ -6913,7 +6913,7 @@ msgstr "Check in"
 #: ../web/src/partials/requirement_rent_phone.html:132
 #: ../web/src/partials/requirement_rent_popup.html:145
 msgid "女生人数"
-msgstr ""
+msgstr "Female"
 
 #: ../web/src/partials/requirement_rent_phone.html:145
 #: ../web/src/partials/requirement_rent_popup.html:130
@@ -7731,7 +7731,7 @@ msgstr ""
 
 #: ../web/src/static/admin/emails/in_progress_tenant.html:8
 msgid "您好，您所咨询的"
-msgstr ""
+msgstr "Hi, Your request"
 
 #: ../web/src/static/admin/emails/in_progress_tenant.html:10
 #, fuzzy
@@ -14019,7 +14019,7 @@ msgstr "View rental properties"
 
 #: ../web/src/static/emails/receive_rent_intention_title.html:1
 msgid "恭喜，洋房东已经收到您的求租意向单！"
-msgstr ""
+msgstr "Congratulations! Your rental requirement request has been received!"
 
 #: ../web/src/static/emails/register_notice.html:8
 #: ../web/src/static/emails/register_notice_with_default_password.html:8
@@ -14111,12 +14111,12 @@ msgstr "View existing rental properties"
 #: ../web/src/static/emails/rent_intention_digest_title_1.html:1
 #: ../web/src/static/emails/rent_intention_matched_1_title.html:1
 msgid "洋房东给您匹配到了合适的房源，快来看看吧！"
-msgstr ""
+msgstr "We've managed to match suitable property based on your rent requirement, Come and see!"
 
 #: ../web/src/static/emails/rent_intention_digest_title_2.html:1
 #: ../web/src/static/emails/rent_intention_matched_4_title.html:1
 msgid "洋房东给您匹配到了一些房源，快来看看吧！"
-msgstr ""
+msgstr "We've managed to match property based on your rent requirement, Come and see!"
 
 #: ../web/src/static/emails/rent_intention_matched_1.html:9
 msgid "基于您在我们平台上填写的求租申请单，我们已经成功为您匹配到了合适的房源！"
