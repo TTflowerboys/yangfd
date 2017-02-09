@@ -13,7 +13,7 @@
             }
             this.togglePaymentForm = function(){
                 if (window.team.isPhone()) {
-                    location.href='/user-payment/add'
+                    location.href='/user-payment-add'
                 }else{
                     this.visible(true)
                 }
