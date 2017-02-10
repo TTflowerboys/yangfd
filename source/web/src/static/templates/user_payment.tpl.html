@@ -1,5 +1,6 @@
 <!--@@include=payment_list.tpl.html -->
 <!--@@include=add_payment_form.tpl.html -->
+<!-- @@include =payment_list_phone.tpl.html -->
 <script type="text/template" id='kot-user-payment-tpl'>
     <div class="contentHeader">
         <h1>{{_('支付')}}</h1>
@@ -46,4 +47,6 @@
 
         <add-payment-form data-bind="visible: visible"></add-payment-form>
     </div>
+
+    <kot-payment-list-phone></kot-payment-list-phone>
 </script>

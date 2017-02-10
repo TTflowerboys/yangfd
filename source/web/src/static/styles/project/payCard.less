@@ -225,6 +225,80 @@
     }
 }
 
+.listPhone{
+    padding: 12px;
+    .cardListPhoneItems{
+        position: relative;
+        border: 1px solid #cbcbcb;
+        background-color: #f6f6f6;
+        border-radius: 3px;
+        min-width: 280px;
+        width: 100%;
+        margin: 0 auto 12px;
+        display: none;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+        color: #fff;
+        text-shadow: 1px 1px 1px #000;
+        @media @phone{
+            display: block;
+        }
+        img{
+            width: 100%;
+            vertical-align: top;
+        }
+        .cardNumber{
+            position: absolute;
+            left: 12px;
+            top: 42px;
+            font-size: 18px;
+        }
+        .setting-default{
+            position: absolute;
+            left: 12px;
+            top: 16px;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.addCardPhoneBtn {
+    display: none;
+    width: 100%;
+    height: 42px;
+    border-radius: 3px;
+    font-size: 16px;
+    line-height: 42px;
+    cursor: pointer;
+    color: #00bee1;
+    margin: 10px auto;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: #f6f6f6;
+    border: 1px solid #cbcbcb;
+    text-shadow: 1px 1px 1px #fff;
+    &.blue{
+        color: #fff;
+        background-color: #00bee1;
+        text-shadow: 1px 1px 1px #00bee1;        
+    }
+    &.red{
+        color: #fff;
+        background-color: #ff5c67;
+        text-shadow: 1px 1px 1px #ff5c67;        
+    }
+    i{
+        margin-right: 5px;
+    }
+    @media @phone{
+        display: block;
+    }
+}
+
+
+
 .payment_popup{
     &_shadow {
         z-index: 101;

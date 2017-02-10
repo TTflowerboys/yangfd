@@ -172,4 +172,14 @@
         },
         template: { element: 'add-payment-form-tpl' }
     })
+
+    
+    ko.components.register('kot-payment-list-phone', {
+        viewModel: function(params) {
+            var self = this
+            var cardData = JSON.parse($('#cardData').text())
+            self.cardList = ko.observableArray(cardData)
+        },
+        template: { element: 'kot-payment-list-phone-tpl' }
+    })
 })(window.ko);

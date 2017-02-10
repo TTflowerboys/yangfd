@@ -1,0 +1,14 @@
+<script type="text/template" id='kot-payment-list-phone-tpl'>
+    <div class="listPhone" data-bind="foreach: cardList">
+        <a class="cardListPhoneItems" data-bind="attr: {href: '/user-payment/'+ cardNumber +'/details'}">
+            <img data-bind="attr: {src: '/static/images/card/payment_' + type + '.png'}">
+            <div class="setting-default" data-bind="visible: isdefault, click: $parent.settingDefault">{{_('default payment')}}</div>
+            <div class="cardNumber" data-bind="text: cardNumber"></div>
+        </a>
+    </div>
+    <div class="listPhone">
+        <a href="/user-payment-add" class="addCardPhoneBtn"><i class="icon-add"></i>ADD PAYMENT</a>
+        <button class="addCardPhoneBtn blue">{{_('default payment')}}</button>
+        <button class="addCardPhoneBtn red">{{_('remove')}}</button>
+    </div>    
+</script>
