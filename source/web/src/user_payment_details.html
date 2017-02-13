@@ -1,0 +1,27 @@
+<!--@@master = masters/user_master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/project/user_payment_details.html.css-->
+<link rel="stylesheet" href="/static/styles/userPayment.css"/>
+<!--endbuild-->
+<link rel="stylesheet" href="/static/vendors/jquery/jquery-ui-1.10.3.custom.min.css"/>
+
+<!--@@close-->
+<!--@@block = main -->
+
+<div class="content">
+	<textarea id="curCardData" style="display: none;">
+		
+	</textarea>
+    <!-- @@include =./static/templates/payment_details_phone.tpl.html -->
+    <kot-payment-details-phone params="data: {'type': 'visa', 'isdefault': false, 'time': '1413677620.08', 'cardNumber': '6666 7777 8888 9999', 'id': '54430234915da40566a3ab9d'}"></kot-payment-details-phone>
+</div>
+
+<!--@@close-->
+
+<!--@@block=scripts-->
+<!--build:js /static/scripts/user_payment_details.html.js-->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script src="/static/scripts/project/payment_details_phone.js"></script>
+<!--endbuild-->
+<!--@@close-->
