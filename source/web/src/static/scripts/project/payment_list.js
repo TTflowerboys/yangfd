@@ -20,6 +20,7 @@
             }
             self.settingDefault = function(){
                 this.isdefault = true
+                //self.cardList.update(this)
             }
             
 
