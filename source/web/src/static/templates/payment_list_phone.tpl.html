@@ -1,6 +1,6 @@
 <script type="text/template" id='kot-payment-list-phone-tpl'>
     <div class="listPhone" data-bind="foreach: cardList">
-        <a class="cardListPhoneItems" data-bind="style: {backgroundImage: 'url(/static/images/card/card_' + type + '_logo.svg)'} , attr: {href: '/user-payment/'+ cardNumber +'/details'}">
+        <a class="cardListPhoneItems" data-bind="attr: {'class':'cardListPhoneItems ' + type,href: '/user-payment/'+ cardNumber +'/details'}">
             <div class="setting-default" data-bind="visible: isdefault, click: $parent.settingDefault">{{_('default payment')}}</div>
             <div class="cardNumber" data-bind="text: cardNumber"></div>
         </a>
