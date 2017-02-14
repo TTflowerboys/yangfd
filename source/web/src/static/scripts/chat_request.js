@@ -550,8 +550,8 @@
                     hostRequirement = i18n('租期开始日期：') + $.format.date(new Date(hostRentAvailableTime * 1000), formatter)
                 }
                 if(hostRentDeadlineTime && (hostRentDeadlineTime + 86400) < ticketRentDeadlineTime) {
-                    tenantRequest = i18n('搬出日期：') + $.format.date(new Date(ticketRentDeadlineTime * 1000), formatter)
-                    hostRequirement = i18n('租期结束日期：') + $.format.date(new Date(hostRentDeadlineTime * 1000), formatter)
+                    tenantRequest = i18n('搬出日期：') + window.moment.utc(new Date(window.team.normalizeDateString(ticketRentDeadlineTime * 1000))).format(formatter)
+                    hostRequirement = i18n('租期结束日期：') + window.moment.utc(new Date(window.team.normalizeDateString(hostRentDeadlineTime * 1000))).format(formatter)
                 }
 
                 if(hostMinimumRentPeriod && ticketRentAvailableTime && ticketRentDeadlineTime  && window.project.transferTime(hostMinimumRentPeriod, 'second').value_float > ticketRentDeadlineTime - ticketRentAvailableTime) {
