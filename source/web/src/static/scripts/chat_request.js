@@ -53,6 +53,11 @@
                 this.scrollTopOnMobile()
             }
 
+            this.askToBook = function(){
+                this.errorMsg('please login...')
+                location.href = '/signin?from='+location.href
+            }
+
             this.visible = ko.observable()
             this.open = function (isPopup) {
                 this.visible(true)
@@ -842,6 +847,14 @@
                 this.submitTicket()
             }
 
+            this.askToBookSubmit = function () {
+                $('.btn_book').addClass('buttonLoading')
+                if(!this.validate('rentTime', 'description', 'nickname', 'phone', 'email', 'captchaCode')) {
+                    return
+                }
+                this.submitTicket(true)
+            }
+
 
             this.submitDisabled = ko.observable()
             this.requestTicketId = ko.observable()
@@ -861,7 +874,7 @@
                         this.shortIdStatus('fail')
                     }, this))
             }
-            this.submitTicket = function () {
+            this.submitTicket = function (isPopup) {
                 this.submitDisabled(true)
                 $.betterPost('/api/1/rent_intention_ticket/add', this.params())
                     .done(_.bind(function (val) {
@@ -870,7 +883,7 @@
                         this.showSuccessWrap()
                         this.fetchCoupon()
                         window.team.setUserType('tenant')
-                        this.submitChat(val)
+                        this.submitChat(val,isPopup)
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
@@ -879,13 +892,13 @@
                         this.submitDisabled(false)
                     }, this))
             }
-            this.submitChat = function (ticketId) {
+            this.submitChat = function (ticketId,isPopup) {
                 $.betterPost('/api/1/rent_intention_ticket/'+ticketId+'/chat/send', { 
                     target_user_id: rentTicket.user.id,
                     message: this.params().description                    
                 })
                     .done(function (val) {
-                        location.href = '/user-chat/'+ticketId+'/details'
+                        location.href = isPopup ? '/user-chat/'+ticketId+'/details?showPaymentPopup=true' : '/user-chat/'+ticketId+'/details'                    
                     })
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
