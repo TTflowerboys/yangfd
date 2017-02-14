@@ -839,19 +839,19 @@
                 }
             }
 
-            this.sendSubmit = function () {
-                $('.btn_send').addClass('buttonLoading')
+            this.sendSubmit = function () {                
                 if(!this.validate('rentTime', 'description', 'nickname', 'phone', 'email', 'captchaCode')) {
                     return
                 }
+                $('.btn_send').addClass('buttonLoading')
                 this.submitTicket()
             }
 
-            this.askToBookSubmit = function () {
-                $('.btn_book').addClass('buttonLoading')
+            this.askToBookSubmit = function () {                
                 if(!this.validate('rentTime', 'description', 'nickname', 'phone', 'email', 'captchaCode')) {
                     return
                 }
+                $('.btn_book').addClass('buttonLoading')
                 this.submitTicket(true)
             }
 
