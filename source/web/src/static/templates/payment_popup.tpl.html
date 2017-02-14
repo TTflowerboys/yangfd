@@ -25,7 +25,15 @@
                 <add-payment-form data-bind="visible: step() === 1"></add-payment-form>
 
 	            <h2 class="title" data-bind="visible: step() === 2">Payment Information</h2>
-                <show-payment-form data-bind="visible: step() === 2"></show-payment-form>
+
+                <div id="payment-info">
+                    <show-payment-form data-bind="visible: step() === 2"></show-payment-form>
+                    <div class="payment-card-items" data-bind="click: showForm, visible: step() === 2">
+                        <div class="cc-card"><i class="icon-add"></i></div>
+                        <div class="add-btn">add payment</div>
+                    </div>
+                    <div style="text-align: center"><button type="submit" class="btn btn-primary" data-bind="visible: step() === 2">提交</button></div>
+                </div>
             </div>
             <button class="cancel" data-bind="click: close"><i class="icon-delete"></i></button>
         </div>

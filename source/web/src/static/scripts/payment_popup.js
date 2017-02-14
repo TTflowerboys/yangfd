@@ -15,6 +15,10 @@
             this.visible = ko.observable()
             this.step = ko.observable(this.cardData? 2: 1)
 
+            this.showForm = function(){
+                this.step(1)
+            }
+
             this.open = function(isPopup){
                 this.visible(true)
                 if(isPopup) {
@@ -188,9 +192,6 @@
             this.isShow = ko.observable(false)
             this.showPaymentDrop = function(){
                 this.isShow(this.isShow() ? false : true)
-            }
-            this.showForm = function(){
-                this.step = ko.observable(1)
             }
         },
         template: { element: 'show-payment-form-tpl' }
