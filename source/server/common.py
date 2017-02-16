@@ -130,6 +130,10 @@ class common(f_common):
     wechat_appid = "wx123992a4d173037b"
     wechat_appsecret = "ddee09f4132e2d04c7cbdd6b3d684ae8"
 
+    adyen_merchant_account = "BrothersBridgeTechnologyLtdCOM"
+    adyen_username = "ws@Company.BrothersBridgeTechnologyLtd"
+    adyen_password = r"\<!{[ZL}-^hm2K9Pf1G#XNX/a"
+
     # sms_default_method = "clickatell"
     sms_default_method = "nexmo"
     clickatell_api_id = 3425954
