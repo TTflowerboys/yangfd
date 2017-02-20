@@ -16,6 +16,7 @@ def adyen_list(user):
 ))
 @f_app.user.login.check(force=True)
 def adyen_add(user, params):
+    params["additionalData"] = {"card.encrypted.json": params.pop("card")}
     return f_app.payment.adyen.card.add(user["id"], params)
 
 
