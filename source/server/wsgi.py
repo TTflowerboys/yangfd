@@ -69,6 +69,7 @@ import deal_api_interface          # noqa: E402, F401
 import index_rule_api_interface    # noqa: E402, F401
 import coupon_api_interface        # noqa: E402, F401
 import nexmo_number_api_interface  # noqa: E402, F401
+import payment_api_interface       # noqa: E402, F401
 
 
 application = f_app(__name__)
