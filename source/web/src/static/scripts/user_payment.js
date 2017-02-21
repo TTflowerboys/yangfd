@@ -2,15 +2,28 @@
 
     ko.components.register('kot-user-payment', {
         viewModel: function(params) {
-            var cardData = JSON.parse($('#cardData').text())
+            var cardList = []
             var self = this
-            this.visible = ko.observable()
+            this.addCardFormVisible = ko.observable()
             this.empty = ko.observable(true)
-            if (cardData.length) {
-                this.empty(false)
-            }else{
-                this.empty(true)
-            }
+            $.betterPost('/api/1/adyen/list')
+                .done(_.bind(function (val) {
+                    cardList = val
+
+                    if (cardList.length) {
+                        this.empty(false)
+                        this.addCardFormVisible(false)
+                    }else{
+                        this.empty(true)
+                        this.addCardFormVisible(true)
+                    }
+
+                    self.cardList = ko.observableArray(cardList)
+                }, this))
+                .fail(_.bind(function (ret) {
+                    this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                }, this))
+
             this.togglePaymentForm = function(){
                 if (window.team.isPhone()) {
                     location.href='/user-payment-add'
@@ -19,21 +32,18 @@
                 }
             }
 
-            self.cardList = ko.observableArray(cardData)
+            this.removeCard = function(card){
+                self.cardList.remove(card)
+                $.betterPost('/api/1/adyen/' + card.id + '/delete')
+                    .done(_.bind(function (data) {
+                        this.cardList.remove(card)
+                    }, this))
+                    .fail(_.bind(function (ret) {
+                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                    }, this))
 
-            self.removeCard = function(){
-                self.cardList.remove(this)
-                /*$.betterPost('/api/1/card/' + this.id + '/remove')
-                    .done(function (data) {
-                        self.cardList.remove(this)
-                    })
-                    .fail(function (ret) {
-                    })
-                    .always(function () {
-
-                    })*/
             }
-            self.settingDefault = function(){
+            self.setDefault = function(card){
                 this.isdefault = true
             }
         },
@@ -70,13 +80,7 @@
             this.expiryYear = ko.observable(nowYear)
             this.expiryMonthList = ko.observableArray(window.team.generateArray(12))
             this.expiryMonth = ko.observable(1)
-            
-            this.countryCodeList = ko.observableArray(_.map(JSON.parse($('#countryData').text()), function (country) {
-                country.name = window.team.countryMap[country.code]
-                country.countryCode = window.team.countryCodeMap[country.code]
-                return country
-            }))
-            this.country = ko.observable(this.user() ? _.find(this.countryCodeList(), {countryCode: this.user().country_code.toString()}) : this.countryCodeList()[0])
+            this.generationtime = new Date().toISOString()
 
             this.errorMsg = ko.observable()
             this.errorMsg.subscribe(function (msg) {
@@ -92,8 +96,6 @@
                     card_cvc: this.cardCVC(),
                     expiry_month: this.expiryMonth(),
                     expiry_year: this.expiryYear(),
-                    country: this.country(),
-                    card_postal_code: this.cardPostalCode()
                 }
                 return params 
             }, this)
@@ -154,19 +156,36 @@
             }
 
             this.submit = function(){
-                if(!this.validate('cardNumber', 'cardName', 'expiryYear','expiryMonth', 'cardCVC', 'country', 'cardPostalCode')) {
+                if(!this.validate('cardNumber', 'cardName', 'expiryYear','expiryMonth', 'cardCVC')) {
                     return
                 }
-                this.submitTicket()
+                this.addCard()
             }
-            this.submitTicket = function () {
-                /*$.betterPost('', this.params())
+            this.addCard = function () {
+                //TODO:
+                // generate time client side for testing only... Don't deploy on a
+                // real integration!!!
+                var key = '10001|CD589FCB1D6F086D6496A043D35402BB085101CC8AD97348FB1849003DBAB045A306AFD246E1E6835F166E646834E3B45BA166A2CC10275AF076737FC3CEFDF189E28EFB4B6C99DF2C319FE06B15AF450F727606B51DC811B51A8F315E472AB05BC4FA9B963739AE0B7C629FD1679B3002AC7C8EA25F055D60392AAD4B1A93A072049ECC019F22B8A553F6AFB9A3AD0B343DD33F8AFF14F9CC38739A8A91FE76B8B4F8DEC6EFC98989D0A2941A6683FBC348A9E75038D45958081322FDEB6764A70725504079AE9BB41A73C78299E6720EF8A050A6229995AFA5A8766B62672EA43B9828D451B468AD061CFCA75B46C8119913252E4C21DA794113EB61890E3D'
+                var options = {}
+                var cseInstance = window.window.adyen.encrypt.createEncryption(key, options)
+                var cardData = {
+                    number: this.cardNumber(),
+                    cvc: this.cardCVC(),
+                    holderName: this.cardName(),
+                    expiryMonth: ('0' +  this.expiryMonth()).slice(-2),
+                    expiryYear: '' + this.expiryYear(),
+                    generationtime: this.generationtime
+                }
+                var encryptedCardData = cseInstance.encrypt(cardData)
+
+                $.betterPost('/api/1/adyen/add', {card:encryptedCardData, default: true})
                     .done(_.bind(function (val) {
-                        this.visible(false)
+                        console.log(val)
+
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
-                    }, this))*/
+                    }, this))
             }
 
         },
@@ -177,7 +196,7 @@
     ko.components.register('kot-payment-list-phone', {
         viewModel: function(params) {
             var self = this
-            var cardData = JSON.parse($('#cardData').text())
+            var cardData = []
             self.cardList = ko.observableArray(cardData)
         },
         template: { element: 'kot-payment-list-phone-tpl' }
