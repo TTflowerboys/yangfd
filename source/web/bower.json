@@ -64,7 +64,7 @@
     "message": "https://github.com/lf2941270/message.git",
     "knockout": "3.3.0",
     "angular-scroll-glue": "2.0.6",
-    "adyen-cse-js": "0.1.19",
+    "adyen-cse-js": "0.1.19"
   },
   "resolutions": {
     "jquery": "2.1.0",
