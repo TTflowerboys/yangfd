@@ -2,38 +2,41 @@
 
     ko.components.register('kot-user-payment', {
         viewModel: function(params) {
-            var cardList = []
-            var self = this
+
+            this.cardList = ko.observableArray()
             this.addCardFormVisible = ko.observable()
             this.empty = ko.observable(true)
-            $.betterPost('/api/1/adyen/list')
-                .done(_.bind(function (val) {
-                    cardList = val
+            // $.betterPost('/api/1/adyen/list')
+            //     .done(_.bind(function (val) {
+            //         cardListData = val
 
-                    if (cardList.length) {
-                        this.empty(false)
-                        this.addCardFormVisible(false)
-                    }else{
-                        this.empty(true)
-                        this.addCardFormVisible(true)
-                    }
+            //         if (cardListData.length) {
+            //             this.empty(false)
+            //             this.addCardFormVisible(false)
+            //         }else{
+            //             this.empty(true)
+            //             this.addCardFormVisible(true)
+            //         }
 
-                    self.cardList = ko.observableArray(cardList)
-                }, this))
-                .fail(_.bind(function (ret) {
-                    this.errorMsg(window.getErrorMessageFromErrorCode(ret))
-                }, this))
+            //         self.cardList = ko.observableArray([])
+            //     }, this))
+            //     .fail(_.bind(function (ret) {
+            //         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+            //     }, this))
 
+            this.empty(true)
+            this.addCardFormVisible(true)
+            
             this.togglePaymentForm = function(){
                 if (window.team.isPhone()) {
                     location.href='/user-payment-add'
                 }else{
-                    this.visible(true)
+                    this.addCardFormVisible(true)
                 }
             }
 
             this.removeCard = function(card){
-                self.cardList.remove(card)
+                this.cardList.remove(card)
                 $.betterPost('/api/1/adyen/' + card.id + '/delete')
                     .done(_.bind(function (data) {
                         this.cardList.remove(card)
@@ -43,8 +46,8 @@
                     }, this))
 
             }
-            self.setDefault = function(card){
-                this.isdefault = true
+            this.setDefault = function(card){
+                card.isdefault = true
             }
         },
         template: { element: 'kot-user-payment-tpl' }
@@ -180,8 +183,7 @@
 
                 $.betterPost('/api/1/adyen/add', {card:encryptedCardData, default: true})
                     .done(_.bind(function (val) {
-                        console.log(val)
-
+                        window.console.log(val)
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
