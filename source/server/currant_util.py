@@ -99,7 +99,7 @@ def check_ip_and_redirect_domain(func):
     @f_app.util.wraps(func)
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
         try:
-            country = request.ip_country
+            # country = request.ip_country
             host = request.urlparts[1]
 
             # Don't redirect dev & test
@@ -107,11 +107,12 @@ def check_ip_and_redirect_domain(func):
                 # Special hack to remove "beta."
                 request_url = f_app.util.try_decode(request.url)
 
-                useragent = f_app.util.try_decode(request.get_header('User-Agent', ''))
-                if country == "CN" or useragent and "MicroMessenger" in useragent:
+                # useragent = f_app.util.try_decode(request.get_header('User-Agent', ''))
+                # if country == "CN" or useragent and "MicroMessenger" in useragent:
+                if True:
                     target_url = request_url.replace("youngfunding.co.uk", "yangfd.com")
-                    logger.debug("Visitor country detected:", country, "redirecting to yangfd.com if not already. Host:", host, "target_url:", target_url)
-                    assert host.endswith(("yangfd.com", "yangfd.cn")), redirect(target_url)
+                    # logger.debug("Visitor country detected:", country, "redirecting to yangfd.com if not already. Host:", host, "target_url:", target_url)
+                    assert host.endswith("yangfd.com"), redirect(target_url)
 
         except bottle.HTTPError:
             raise
