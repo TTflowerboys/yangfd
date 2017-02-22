@@ -5,33 +5,31 @@
 
             this.cardList = ko.observableArray()
             this.addCardFormVisible = ko.observable()
+            this.addCardButtonVisible = ko.observable()
             this.empty = ko.observable(true)
-            // $.betterPost('/api/1/adyen/list')
-            //     .done(_.bind(function (val) {
-            //         cardListData = val
 
-            //         if (cardListData.length) {
-            //             this.empty(false)
-            //             this.addCardFormVisible(false)
-            //         }else{
-            //             this.empty(true)
-            //             this.addCardFormVisible(true)
-            //         }
+            this.loadCardList = function() {
+                $.betterPost('/api/1/adyen/list')
+                    .done(_.bind(function (val) {
+                        var cardListData = val
+                        this.empty(cardListData.length === 0)
+                        this.addCardFormVisible(cardListData.length === 0)
+                        this.cardList = ko.observableArray([])
+                    }, this))
+                    .fail(_.bind(function (ret) {
+                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                    }, this))
+            }
 
-            //         self.cardList = ko.observableArray([])
-            //     }, this))
-            //     .fail(_.bind(function (ret) {
-            //         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
-            //     }, this))
+            this.loadCardList()
 
-            this.empty(true)
-            this.addCardFormVisible(true)
-            
+            this.addCardButtonVisible(true)
             this.togglePaymentForm = function(){
                 if (window.team.isPhone()) {
                     location.href='/user-payment-add'
                 }else{
                     this.addCardFormVisible(true)
+                    this.addCardButtonVisible(false)
                 }
             }
 
@@ -183,7 +181,7 @@
 
                 $.betterPost('/api/1/adyen/add', {card:encryptedCardData, default: true})
                     .done(_.bind(function (val) {
-                        window.console.log(val)
+                        this.loadCardList()
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))

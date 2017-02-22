@@ -6,7 +6,7 @@
         <h1>{{_('支付')}}</h1>
     </div>
     <div class="list_wrapper">
-        <div class="clearfix" data-bind="visible: cardList().length>0">
+        <div class="clearfix" data-bind="">
             <div class="list" data-bind="foreach: cardList">
                 <div class="cardListItems" data-bind="style: {backgroundImage: 'url(/static/images/card/payment_' + type + '.png)'}">
                     <i class="icon-trash remove" data-bind="click: $parent.removeCard(this)"></i>
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div data-bind="">
-                <div class="cardListItems cardListItemsAddBtn" data-bind="visible: !addCardFormVisible(),click: togglePaymentForm">
+                <div class="cardListItems cardListItemsAddBtn" data-bind="visible: addCardButtonVisible, click: togglePaymentForm">
                     <span class="addCardBtn"><i class="icon-add"></i>ADD PAYMENT</span>
                 </div>
             </div>
