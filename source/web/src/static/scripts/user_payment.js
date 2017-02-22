@@ -8,13 +8,20 @@
             this.addCardButtonVisible = ko.observable()
             this.empty = ko.observable(true)
 
+            this.errorMsg = ko.observable()
+            this.errorMsg.subscribe(function (msg) {
+                if(msg.length) {
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(msg)})
+                }
+            })
+
             this.loadCardList = function() {
                 $.betterPost('/api/1/adyen/list')
                     .done(_.bind(function (val) {
                         var cardListData = val
                         this.empty(cardListData.length === 0)
                         this.addCardFormVisible(cardListData.length === 0)
-                        this.cardList = ko.observableArray([])
+                        this.cardList(cardListData)
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
@@ -42,10 +49,16 @@
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
                     }, this))
-
             }
+
             this.setDefault = function(card){
-                card.isdefault = true
+                $.betterPost('/api/1/adyen/' + card.id + '/make_default')
+                    .done(_.bind(function (data) {
+                        this.loadCardList()
+                    }, this))
+                    .fail(_.bind(function (ret) {
+                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                    }, this))
             }
         },
         template: { element: 'kot-user-payment-tpl' }
