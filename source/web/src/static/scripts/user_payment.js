@@ -176,9 +176,7 @@
                 this.addCard()
             }
             this.addCard = function () {
-                //TODO:
-                // generate time client side for testing only... Don't deploy on a
-                // real integration!!!
+
                 var key = '10001|CD589FCB1D6F086D6496A043D35402BB085101CC8AD97348FB1849003DBAB045A306AFD246E1E6835F166E646834E3B45BA166A2CC10275AF076737FC3CEFDF189E28EFB4B6C99DF2C319FE06B15AF450F727606B51DC811B51A8F315E472AB05BC4FA9B963739AE0B7C629FD1679B3002AC7C8EA25F055D60392AAD4B1A93A072049ECC019F22B8A553F6AFB9A3AD0B343DD33F8AFF14F9CC38739A8A91FE76B8B4F8DEC6EFC98989D0A2941A6683FBC348A9E75038D45958081322FDEB6764A70725504079AE9BB41A73C78299E6720EF8A050A6229995AFA5A8766B62672EA43B9828D451B468AD061CFCA75B46C8119913252E4C21DA794113EB61890E3D'
                 var options = {}
                 var cseInstance = window.window.adyen.encrypt.createEncryption(key, options)
@@ -205,12 +203,29 @@
         template: { element: 'add-payment-form-tpl' }
     })
 
-    
     ko.components.register('kot-payment-list-phone', {
         viewModel: function(params) {
-            var self = this
-            var cardData = []
-            self.cardList = ko.observableArray(cardData)
+
+            this.cardList = ko.observableArray()
+
+            this.errorMsg = ko.observable()
+            this.errorMsg.subscribe(function (msg) {
+                if(msg.length) {
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(msg)})
+                }
+            })
+
+            this.loadCardList = function() {
+                $.betterPost('/api/1/adyen/list')
+                    .done(_.bind(function (val) {
+                        var cardListData = val
+                        this.cardList(cardListData)
+                    }, this))
+                    .fail(_.bind(function (ret) {
+                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                    }, this))
+            }
+            this.loadCardList()
         },
         template: { element: 'kot-payment-list-phone-tpl' }
     })

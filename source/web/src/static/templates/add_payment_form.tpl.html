@@ -14,7 +14,7 @@
                     <select class="ghostSelect" data-bind="chosen: expiryMonthList,
                     optionsText: function(item){return item},
                     value: expiryMonth"></select>
-                    <input class="inputWrapper cardCVC" type="text" placeholder="Code (CVV)" data-bind="value: cardCVC" required>
+                    <input class="inputWrapper cardCVC" type="text" placeholder="Code (CVC)" data-bind="value: cardCVC" required>
                 </div>
                 <input type="hidden" data-bind="value: generationtime" />
                 <div class="addPaymentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>

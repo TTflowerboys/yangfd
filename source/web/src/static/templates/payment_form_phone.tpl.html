@@ -4,23 +4,23 @@
 
         <div class="row">
             <div class="col">
-                <input type="text" data-bind="value: cardNumber" class="cardNO" placeholder="{{_('Card number')}}" required autocomplete="off"/>
+                <input type="text" size="20" autocomplete="off data-bind="value: cardNumber" class="cardNO" placeholder="{{_('Card number')}}" required autocomplete="off"/>
             </div>
             <div class="col">
-                <input type="text" data-bind="value: cardName" class="cardName" placeholder="{{_('Name on card')}}" required autocomplete="off"/>
+                <input type="text" size="20" autocomplete="off data-bind="value: cardName" class="cardName" placeholder="{{_('Name on card')}}" required autocomplete="off"/>
             </div>
         </div>
 
         <div class="row">
             <div class="title">{{_('Expiry Date')}}</div>
             <div class="col">
-                <p class="inputPlaceholder">{{_('expiryYear')}}</p>
+                <p class="inputPlaceholder">{{_('Expiry Year')}}</p>
                 <select class="expiryYear" data-bind="chosen: expiryYearList,
                     optionsText: function(item){return item},
                     value: expiryYear"></select>
             </div>
             <div class="col">
-                <p class="inputPlaceholder">{{_('expiryMonth')}}</p>
+                <p class="inputPlaceholder">{{_('Expiry Month')}}</p>
                 <select class="expiryMonth" data-bind="chosen: expiryMonthList,
                     optionsText: function(item){return item},
                     value: expiryMonth"></select>
@@ -28,23 +28,7 @@
         </div>
 
         <div class="row">
-            <input class="cardCVC" type="text" data-bind="value: cardCVC" placeholder="{{_('Code (CVV)')}}">
-        </div>
-
-        <div class="row">
-            <textarea id="countryData" style="display: none;">
-                {{json_dumps(country_list)}}
-            </textarea>
-            <div class="col">
-                <p class="inputPlaceholder">{{_('Country')}}</p>
-                <select data-bind="chosen: countryCodeList,
-                    optionsText: function(item){return item.name},
-                    value: country"></select>
-            </div>
-        </div>
-
-        <div class="row">
-            <input type="text" placeholder="Postal Code" data-bind="value: cardPostalCode" required>
+            <input class="cardCVC" type="text" data-bind="value: cardCVC" placeholder="{{_('Code (CVC)')}}">
         </div>
 
         <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
