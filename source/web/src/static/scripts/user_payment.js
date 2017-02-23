@@ -20,7 +20,7 @@
                     .done(_.bind(function (val) {
                         var cardListData = val
                         this.empty(cardListData.length === 0)
-                        this.addCardFormVisible(cardListData.length === 0)
+                        //this.addCardFormVisible(cardListData.length === 0)
                         this.cardList(cardListData)
                     }, this))
                     .fail(_.bind(function (ret) {

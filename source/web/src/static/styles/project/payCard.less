@@ -225,8 +225,12 @@
     }
 }
 
-.listPhone{
+.cardlistPhone{
     padding: 12px;
+    display: none;
+    @media @phone{
+        display: block;
+    }
     .cardListPhoneItem{
         position: relative;
         border: 1px solid #cbcbcb;
@@ -317,7 +321,9 @@
         }
     }
 }
-
+.addCardPhone{
+    padding: 12px;
+}
 .addCardPhoneBtn {
     display: none;
     width: 100%;
@@ -351,6 +357,8 @@
         display: block;
     }
 }
+
+
 
 
 

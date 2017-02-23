@@ -1,11 +1,11 @@
 <script type="text/template" id='kot-payment-list-phone-tpl'>
-    <div class="listPhone" data-bind="foreach: cardList">
+    <div class="cardlistPhone" data-bind="foreach: cardList">
         <a class="cardListPhoneItems" data-bind="attr: {'class':'cardListPhoneItems ' + $data.card_type, href: '/user-payment/'+ $data.id +'/details'}">
             <div class="setting-default" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">{{_('default payment')}}</div>
             <div class="cardNumber" data-bind="text: ($data.card_bin + 'xxxxxx' + $data.last_4)"></div>
         </a>
     </div>
-    <div class="listPhone">
+    <div class="addCardPhone">
         <a href="/user-payment-add" class="addCardPhoneBtn"><i class="icon-add"></i>ADD PAYMENT</a>
     </div>    
 </script>
