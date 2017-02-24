@@ -4,10 +4,10 @@
 
         <div class="row">
             <div class="col">
-                <input type="text" size="20" autocomplete="off data-bind="value: cardNumber" class="cardNO" placeholder="{{_('Card number')}}" required autocomplete="off"/>
+                <input type="text" size="20" autocomplete="off" data-bind="value: cardNumber" class="cardNO" placeholder="{{_('Card number')}}" required autocomplete="off"/>
             </div>
             <div class="col">
-                <input type="text" size="20" autocomplete="off data-bind="value: cardName" class="cardName" placeholder="{{_('Name on card')}}" required autocomplete="off"/>
+                <input type="text" size="20" autocomplete="off" data-bind="value: cardName" class="cardName" placeholder="{{_('Name on card')}}" required autocomplete="off"/>
             </div>
         </div>
 
@@ -32,10 +32,8 @@
         </div>
 
         <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
-        <button class="confirmButton button" data-bind="click: submit">{{_('提交')}}</button>
+        <button id="addCardButton" class="confirmButton button" data-bind="click: submit">{{_('提交')}}</button>
         <p class="hint">发布则表示您已经阅读并同意 <a href="" target="_blank">洋房东服务须知</a></p>
-
-
     </form>
 </div>
 

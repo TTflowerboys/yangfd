@@ -10,10 +10,9 @@
 
 <div class="content">
 	<textarea id="curCardData" style="display: none;">
-		
 	</textarea>
     <!-- @@include =./static/templates/payment_details_phone.tpl.html -->
-    <kot-payment-details-phone params="data: {'type': 'visa', 'isdefault': false, 'time': '1413677620.08', 'cardNumber': '6666 7777 8888 9999', 'id': '54430234915da40566a3ab9d'}"></kot-payment-details-phone>
+    <kot-payment-details-phone params='data: {{json_dumps(card)}}'></kot-payment-details-phone>
 </div>
 
 <!--@@close-->

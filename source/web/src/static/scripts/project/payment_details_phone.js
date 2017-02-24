@@ -7,28 +7,31 @@
             this.isdefault = this.data().isdefault
             this.type = this.data().type
 
-            this.removeCard = function(){
-                /*$.betterPost('/api/1/card/' + this.id + '/remove')
-                    .done(function (data) {
+            this.errorMsg = ko.observable()
+            this.errorMsg.subscribe(function (msg) {
+                if(msg.length) {
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(msg)})
+                }
+            })
+
+            this.removeCard = function(card){
+                $.betterPost('/api/1/adyen/' + card.id + '/delete')
+                    .done(_.bind(function (data) {
                         location.href = '/user-payment'
-                    })
-                    .fail(function (ret) {
-                    })
-                    .always(function () {
-
-                    })*/
+                    }, this))
+                    .fail(_.bind(function (ret) {
+                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                    }, this))
             }
-            this.setDefault = function(){
-                //window.console.log('setDefault')
-                /*$.betterPost('/api/1/card/' + this.id + '/remove')
-                    .done(function (data) {
-                        this.cardList.remove(this)
-                    })
-                    .fail(function (ret) {
-                    })
-                    .always(function () {
 
-                    })*/
+            this.setDefault = function(card){
+                $.betterPost('/api/1/adyen/' + card.id + '/make_default')
+                    .done(_.bind(function (data) {
+                        location.href = '/user-payment'
+                    }, this))
+                    .fail(_.bind(function (ret) {
+                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                    }, this))
             }
         },
         template: { element: 'kot-payment-details-phone-tpl' }

@@ -1,13 +1,13 @@
 <script type="text/template" id='kot-payment-details-phone-tpl'>
     <div class="cardlistPhone">
         <a class="cardListPhoneItem">
-            <img data-bind="attr: {src: '/static/images/card/payment_' + type + '.png'}">
-            <div class="setting-default" data-bind="visible: isdefault">{{_('default payment')}}</div>
-            <div class="cardNumber" data-bind="text: cardNumber"></div>
+            <img data-bind="attr: {src: '/static/images/card/payment_' + data().card_type + '.png'}">
+            <div class="setting-default" data-bind="visible: data().default">{{_('default payment')}}</div>
+            <div class="cardNumber" data-bind="text: (data().card_bin + 'xxxxxx' + data().last_4)"></div>
         </a>
     </div>
     <div class="cardlistPhone">
-        <button class="addCardPhoneBtn blue" data-bind="click: setDefault">{{_('default payment')}}</button>
-        <button class="addCardPhoneBtn red" data-bind="click: removeCard">{{_('remove')}}</button>
-    </div>    
+        <button class="addCardPhoneBtn blue" data-bind="click: function () {setDefault(data())}">{{_('default payment')}}</button>
+        <button class="addCardPhoneBtn red" data-bind="click: function () {removeCard(data())}">{{_('remove')}}</button>
+    </div>
 </script>

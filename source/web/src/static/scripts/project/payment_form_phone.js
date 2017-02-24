@@ -40,7 +40,7 @@
                         if(!this.cardName()) {
                             return errorList.push(window.i18n('姓名不能为空'))
                         }
-                        if(window.project.includePhoneOrEmail(this.params().card_name)) {
+                        if(window.project.includePhoneOrEmail(this.cardName())) {
                             return errorList.push(window.i18n('姓名中不能包含电话或者email'))
                         }
                     },
@@ -98,14 +98,16 @@
                     generationtime: this.generationtime
                 }
                 var encryptedCardData = cseInstance.encrypt(cardData)
-
+                $('#addCardButton').addClass('buttonLoading')
                 $.betterPost('/api/1/adyen/add', {card:encryptedCardData, default: true})
                     .done(_.bind(function (val) {
                         window.location.href = '/user-payment'
+                        $('#addCardButton').removeClass('buttonLoading')
 
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                        $('#addCardButton').removeClass('buttonLoading')
                     }, this))
             }
 

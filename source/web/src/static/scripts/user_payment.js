@@ -1,5 +1,7 @@
 (function (ko) {
 
+    var postbox = new ko.subscribable()
+
     ko.components.register('kot-user-payment', {
         viewModel: function(params) {
 
@@ -20,7 +22,6 @@
                     .done(_.bind(function (val) {
                         var cardListData = val
                         this.empty(cardListData.length === 0)
-                        //this.addCardFormVisible(cardListData.length === 0)
                         this.cardList(cardListData)
                     }, this))
                     .fail(_.bind(function (ret) {
@@ -29,6 +30,14 @@
             }
 
             this.loadCardList()
+
+            postbox.subscribe(function (newValue) {
+                if (newValue === 'refresh') {
+                    this.loadCardList()
+                    this.addCardFormVisible(false)
+                    this.addCardButtonVisible(true)
+                }
+            }, this, 'action')
 
             this.addCardButtonVisible(true)
             this.togglePaymentForm = function(){
@@ -111,7 +120,7 @@
                         if(!this.cardName()) {
                             return errorList.push(window.i18n('姓名不能为空'))
                         }
-                        if(window.project.includePhoneOrEmail(this.params().card_name)) {
+                        if(window.project.includePhoneOrEmail(this.cardName())) {
                             return errorList.push(window.i18n('姓名中不能包含电话或者email'))
                         }
                     },
@@ -169,13 +178,15 @@
                     generationtime: this.generationtime
                 }
                 var encryptedCardData = cseInstance.encrypt(cardData)
-
+                $('#addCardButton').addClass('buttonLoading')
                 $.betterPost('/api/1/adyen/add', {card:encryptedCardData, default: true})
                     .done(_.bind(function (val) {
-                        this.loadCardList()
+                        $('#addCardButton').removeClass('buttonLoading')
+                        postbox.notifySubscribers('refresh', 'action')
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                        $('#addCardButton').removeClass('buttonLoading')
                     }, this))
             }
 
