@@ -32,22 +32,12 @@
                 }
             })
 
-            this.params = ko.computed(function () {
-                var params = {
-                    card_name: this.cardName(),
-                    card_number: this.cardNumber(),
-                    card_cvc: this.cardCVC(),
-                    expiry_month: this.expiryMonth(),
-                    expiry_year: this.expiryYear(),
-                }
-                return params 
-            }, this)
-
             this.validate = function () {
                 var errorList = []
+
                 var config = {
                     cardName: function () {
-                        if(!this.params().card_name) {
+                        if(!this.cardName()) {
                             return errorList.push(window.i18n('姓名不能为空'))
                         }
                         if(window.project.includePhoneOrEmail(this.params().card_name)) {
@@ -55,22 +45,22 @@
                         }
                     },
                     cardNumber: function () {
-                        if(!this.params().card_number) {
+                        if(!this.cardNumber()) {
                             return errorList.push(window.i18n('请填写cardNumber'))
                         }
                     },
                     cardCVC: function () {
-                        if(!this.params().card_cvc) {
+                        if(!this.cardCVC()) {
                             return errorList.push(window.i18n('请填写cardCVC'))
                         }
                     },
                     expiryYear: function(){
-                        if(!this.params().expiry_year) {
+                        if(!this.expiryYear()) {
                             return errorList.push(window.i18n('请填写expiryYear'))
                         }
                     },
                     expiryMonth: function(){
-                        if(!this.params().expiry_month) {
+                        if(!this.expiryMonth()) {
                             return errorList.push(window.i18n('请填写expiryMonth'))
                         }
                     }
