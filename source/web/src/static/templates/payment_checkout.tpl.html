@@ -1,0 +1,44 @@
+<!--@@include=show_payment_form.tpl.html -->
+<!--@@include=add_payment_form.tpl.html -->
+
+<script type="text/template" id="kot-payment-checkout-tpl">
+    <div id="payment-info">
+        <show-payment-form></show-payment-form>    
+        <div class="payment-card">
+            <span class="switchBtn btn" data-bind="visible: !empty(),click: dropVisible"><i class="icon-down_arrow"></i></span>
+            <div data-bind="foreach: cardList">
+                <div class="payment-card-items" data-bind="visible: $data.default || $parent.dropItemsVisible">
+                    <div class="cc-card">
+                        <img data-bind="attr: {'src':'/static/images/card/payment_' + $data.card_type + '.png'}" alt="">
+                    </div>
+                    <div class="cc-cardno" data-bind="text: ($data.card_bin + ' xxxxxx ' + $data.last_4)"></div>
+                    <div class="default-card" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default payment</div>
+                </div>
+            </div>
+
+            <div class="payment-card-items" data-bind="visible: empty">
+                <a rel="modal:open" href="#cardFormModal">
+                    <div class="cc-card"><i class="icon-add"></i></div>
+                    <div class="add-btn">add payment</div>
+                </a>
+            </div>
+            <div class="payment-card-items" data-bind="visible: dropItemsVisible">
+                <a rel="modal:open" href="#cardFormModal">
+                    <div class="cc-card"><i class="icon-add"></i></div>
+                    <div class="add-btn">add payment</div>
+                </a>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn paymentSubmitBtn">提交</button>
+        </div>
+    </div>
+
+
+    <div class="modal" id="cardFormModal" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-title">Add payment Method</div>
+            <add-payment-form></add-payment-form>
+        </div>
+    </div>
+</script>

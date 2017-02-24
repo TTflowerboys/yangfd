@@ -233,3 +233,18 @@ def property_to_rent_publish_success(rent_ticket_id):
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     keywords = title + ',' + currant_util.get_country_name_by_code(rent_ticket["property"].get('country', {}).get('code', '')) + ',' + rent_ticket["property"].get('city', {}).get('name', '') + ',' + ','.join(currant_util.BASE_RENT_KEYWORDS_ARRAY)
     return currant_util.common_template("property_to_rent_publish_success", title=title, keywords=keywords, rent=rent_ticket)
+
+
+@f_get('/payment-checkout/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def payment_checkout(rent_intention_ticket_id):
+    rent_intention_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id], fuzzy_user_info=True)[0])
+    title = _('确认支付')
+    if rent_intention_ticket.get('interested_rent_tickets')[0].get('title'):
+        title = _(rent_intention_ticket.get('interested_rent_tickets')[0].get('title')) + '-' + title
+        if rent_intention_ticket.get('interested_rent_tickets')[0].get('status') == 'rent':
+            title = _('[已出租]') + title
+        elif rent_intention_ticket.get('interested_rent_tickets')[0].get('status') == 'draft':
+            title = _('[已下架]') + title
+    return currant_util.common_template("payment_checkout", title=title, rent_intention_ticket=rent_intention_ticket)

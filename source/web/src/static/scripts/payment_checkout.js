@@ -1,20 +1,20 @@
 (function (ko) {
-    window.openPaymentPopup = function (ticketId, isPopup) {
-        var args = arguments
-        $('body').trigger('openPaymentPopup', Array.prototype.slice.call(args))
-    }
-    ko.components.register('kot-payment-popup',{
-        viewModel: function(){
-            this.openPaymentPopup = function (ticketId, isPopup) {
-                return function () {
-                    window.openPaymentPopup(ticketId, isPopup)
-                }
-            }
+
+    ko.components.register('kot-payment-checkout', {
+        viewModel: function() {
 
             this.cardList = ko.observableArray()
-            this.visible = ko.observable()
+            this.addCardFormVisible = ko.observable()
+            this.addCardButtonVisible = ko.observable()
             this.empty = ko.observable(true)
             this.dropItemsVisible = ko.observable()
+
+            this.errorMsg = ko.observable()
+            this.errorMsg.subscribe(function (msg) {
+                if(msg.length) {
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(msg)})
+                }
+            })
 
             this.loadCardList = function() {
                 $.betterPost('/api/1/adyen/list')
@@ -29,37 +29,12 @@
             }
 
             this.loadCardList()
+
+            
             this.dropVisible = function(){
                 this.dropItemsVisible(true)
             }
 
-            this.step = ko.observable(this.cardList? 2: 1)
-
-            this.showForm = function(){
-                this.step(1)
-            }
-
-
-            this.open = function(isPopup){
-                this.visible(true)
-                if(isPopup) {
-                    var popup = $('#payment_popup')
-                    var wrapper = popup.find('.payment_wrapper')
-                    var headerHeight = wrapper.outerHeight() - wrapper.innerHeight()
-
-                    if (wrapper.outerHeight() - headerHeight > $(window).height()) {
-                        wrapper.css('top', $(window).scrollTop() - headerHeight)
-                    }
-                    else {
-                        wrapper.css('top',
-                            $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
-                    }
-                }
-            }
-            this.close = function(){
-                this.visible(false)
-            }
-            
             this.setDefault = function(card){
                 $.betterPost('/api/1/adyen/' + card.id + '/make_default')
                     .done(_.bind(function (data) {
@@ -69,25 +44,15 @@
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
                     }, this))
             }
-
-            this.ticketId = ko.observable()
-
-            var ticketId = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
-            var isShowPaymentPopup = window.location.href.match('showPaymentPopup=true')
-            if (isShowPaymentPopup) {
-                window.openPaymentPopup(ticketId, true)
-                this.open(true)
-            }
-
         },
-        template: { element: 'kot-payment-popup-tpl'}
+        template: { element: 'kot-payment-checkout-tpl' }
     })
 
 	ko.components.register('add-payment-form', {
         viewModel: function(params) {
-        	var nowYear = new Date().getFullYear()
+            var nowYear = new Date().getFullYear()
 
-        	function generateYearList(total) {
+            function generateYearList(total) {
                 total = total || 15
                 
                 return _.map(window.team.generateArray(15), function (val, index) {
@@ -109,12 +74,12 @@
             this.cardPostalCode = ko.observable()
             this.submitDisabled = ko.observable(true)
 
-        	this.expiryYearList = ko.observableArray(generateYearList(15))
+            this.expiryYearList = ko.observableArray(generateYearList(15))
             this.expiryYear = ko.observable(nowYear)
             this.expiryMonthList = ko.observableArray(window.team.generateArray(12))
             this.expiryMonth = ko.observable(1)
             this.generationtime = new Date().toISOString()
-            
+
             this.errorMsg = ko.observable()
             this.errorMsg.subscribe(function (msg) {
                 if(msg.length) {
@@ -128,7 +93,7 @@
                     card_number: this.cardNumber(),
                     card_cvc: this.cardCVC(),
                     expiry_month: this.expiryMonth(),
-                    expiry_year: this.expiryYear()
+                    expiry_year: this.expiryYear(),
                 }
                 return params 
             }, this)
@@ -163,6 +128,16 @@
                         if(!this.params().expiry_month) {
                             return errorList.push(window.i18n('请填写expiryMonth'))
                         }
+                    },
+                    country: function(){
+                        if (!this.params().country) {
+                            return errorList.push(window.i18n('请填写country'))
+                        }
+                    },
+                    cardPostalCode: function(){
+                        if (!this.params().card_postal_code) {
+                            return errorList.push(window.i18n('请填写cardPostalCode'))
+                        }
                     }
                 }
                 var keys = arguments.length ? Array.prototype.slice.call(arguments) : Object.keys(config)
@@ -182,9 +157,10 @@
                 if(!this.validate('cardNumber', 'cardName', 'expiryYear','expiryMonth', 'cardCVC')) {
                     return
                 }
-                this.submitTicket()
+                this.addCard()
             }
-            this.submitTicket = function () {
+            this.addCard = function () {
+
                 var key = '10001|CD589FCB1D6F086D6496A043D35402BB085101CC8AD97348FB1849003DBAB045A306AFD246E1E6835F166E646834E3B45BA166A2CC10275AF076737FC3CEFDF189E28EFB4B6C99DF2C319FE06B15AF450F727606B51DC811B51A8F315E472AB05BC4FA9B963739AE0B7C629FD1679B3002AC7C8EA25F055D60392AAD4B1A93A072049ECC019F22B8A553F6AFB9A3AD0B343DD33F8AFF14F9CC38739A8A91FE76B8B4F8DEC6EFC98989D0A2941A6683FBC348A9E75038D45958081322FDEB6764A70725504079AE9BB41A73C78299E6720EF8A050A6229995AFA5A8766B62672EA43B9828D451B468AD061CFCA75B46C8119913252E4C21DA794113EB61890E3D'
                 var options = {}
                 var cseInstance = window.window.adyen.encrypt.createEncryption(key, options)
@@ -200,8 +176,7 @@
 
                 $.betterPost('/api/1/adyen/add', {card:encryptedCardData, default: true})
                     .done(_.bind(function (val) {
-                        //this.loadCardList()
-                        this.step(1)
+                        location.href=location.href
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
@@ -213,27 +188,11 @@
     })
 
     ko.components.register('show-payment-form', {
-        viewModel: function() {
-        	this.cardList = ko.observableArray()
-
-            this.errorMsg = ko.observable()
-            this.errorMsg.subscribe(function (msg) {
-                if(msg.length) {
-                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(msg)})
-                }
-            })
-
-            this.loadCardList = function() {
-                $.betterPost('/api/1/adyen/list')
-                    .done(_.bind(function (val) {
-                        var cardListData = val
-                        this.cardList(cardListData)
-                    }, this))
-                    .fail(_.bind(function (ret) {
-                        this.errorMsg(window.getErrorMessageFromErrorCode(ret))
-                    }, this))
+        viewModel: function(params) {
+            this.isShow = ko.observable(false)
+            this.showPaymentDrop = function(){
+                this.isShow(this.isShow() ? false : true)
             }
-            this.loadCardList()
         },
         template: { element: 'show-payment-form-tpl' }
     })

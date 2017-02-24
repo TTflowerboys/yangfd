@@ -478,18 +478,16 @@
     .payment-card-items{
         height: 40px;
         line-height: 40px;
-        overflow: hidden;
         margin-bottom: 12px;
         .cc-card{
-            width: 72px;
+            width: 64px;
             height: 40px;
-            padding: 5px;
             background: #fff;
             border-radius: 2px;
-            box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
             margin-right: 20px;
             text-align: center;
-            line-height: 30px;
+            line-height: 40px;
             color: #00bee1;
             float: left;
             img{
@@ -514,6 +512,11 @@
             text-shadow: 1px 1px 1px #ccc;
             text-transform: uppercase;
         }
+        >a{
+            text-decoration: none;
+            width: 216px;
+            display: block;
+        }
     }
     .switchBtn{
         color: #00bee1;
@@ -525,7 +528,15 @@
     }
 }
 
-
+.paymentSubmitBtn{
+    width: 120px;
+    height: 42px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background-color: #00bfe1;
+    display: inline-block;
+}
 
 .addPaymentFormError{
     color: #e61919;
