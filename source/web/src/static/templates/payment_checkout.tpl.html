@@ -12,7 +12,7 @@
                         <img data-bind="attr: {'src':'/static/images/card/payment_' + $data.card_type + '.png'}" alt="">
                     </div>
                     <div class="cc-cardno" data-bind="text: ($data.card_bin + ' xxxxxx ' + $data.last_4)"></div>
-                    <div class="default-card" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default payment</div>
+                    <div class="default-card" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default</div>
                 </div>
             </div>
 
@@ -30,6 +30,7 @@
             </div>
         </div>
         <div style="margin-top: 32px;">
+            <a href="payment" class="btn showDetailBtn">提交</a>
             <button type="submit" class="btn paymentSubmitBtn">提交</button>
         </div>
         <div class="rules">

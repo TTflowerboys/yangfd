@@ -7,6 +7,10 @@
 .content{
     width: 728px;
     float: left;
+    @media @phone{
+        padding: 10px;
+        width: 100%;
+    }
     #cardFormModal{
         width: 664px;
         .modal-title{
@@ -20,6 +24,9 @@
     }
     .rules{
         margin-top: 62px;
+        @media @phone{
+            display: none;
+        }
         .title{
             color: #666;
             font-size: 26px;

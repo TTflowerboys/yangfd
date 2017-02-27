@@ -423,16 +423,27 @@
 #payment-info{
     width: 568px;
     margin: 0 auto;
+    @media @phone{
+        width: 100%;
+    }
     .payment-details{
         padding: 22px 38px 16px;
         border: 1px solid #ccc;
         background: #fff;
         margin-bottom: 12px;
+        @media @phone{
+            padding: 12px;
+        }
         &-main{
             width: 272px;
             float: left;
+            @media @phone{
+                float: none;
+                width: 100%;
+            }
             .time{
                 font-weight: bold;
+                font-size: 16px;
                 color: #939798;
                 line-height: 18px;
                 display: block;
@@ -443,6 +454,9 @@
                 display: block;
                 font-size: 14px;
                 line-height: 36px;
+                @media @phone{
+                    margin-bottom: 12px;
+                }
                 strong{
                     font-weight: bold;
                     font-size: 32px;
@@ -453,20 +467,41 @@
             width: 156px;
             float: right;
             font-size: 12px;
+            @media @phone{
+                float: none;
+                width: 100%;
+            }
             dl{
-                height: 20px;
                 line-height: 20px;
+                @media @phone{
+                    width: 33.33%;
+                    float: left;
+                }
                 dt{
                     color: #666;
                     float: left;
                     width: 76px;
+                    @media @phone{
+                        width: 100%;
+                        float: none;
+                    }
                 }
                 dd{
                     color: #00bee1;
                     float: right;
                     font-weight: bold;
                     font-size: 14px;
+                    margin-left: 0;
+                    @media @phone{
+                        width: 100%;
+                        float: none;
+                    }
                 }
+            }
+            &:after{
+                content: "";
+                display: table;
+                clear: both;
             }
         }
         &:after{
@@ -490,6 +525,12 @@
             line-height: 40px;
             color: #00bee1;
             float: left;
+            @media @phone{
+                width: 54px;
+                height: 34px;
+                margin-top: 3px;
+                margin-right: 8px;
+            }
             img{
                 vertical-align: top;
             }
@@ -499,7 +540,11 @@
             font-weight: bold;
             font-size: 20px;
             width: 220px;
-            float: left; 
+            float: left;
+            @media @phone{
+                width: 156px;
+                font-size: 16px;
+            } 
         }
         .default-card{
             color: #00bee1;
@@ -528,6 +573,10 @@
         color: #00bee1;
         border-color: transparent;
         float: right;
+        @media @phone{
+            padding: 2px 6px;
+            margin-top: 5px;
+        }
         &:hover{
             background: #e5e5e5;
         }
@@ -542,6 +591,18 @@
     color: #fff;
     background-color: #00bfe1;
     display: inline-block;
+    @media @phone{
+        width: 100%;
+    }
+}
+.showDetailBtn{
+    border: 1px solid #00bfe1;
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: #00bfe1;
+    background: transparent;
+    margin-bottom: 12px;
 }
 
 .addPaymentFormError{
