@@ -3,7 +3,7 @@
 
 <script type="text/template" id="kot-payment-checkout-tpl">
     <div id="payment-info">
-        <show-payment-form></show-payment-form>    
+        <show-payment-form  params="price: {{json_dumps(rent_intention_ticket.get('interested_rent_tickets')[0].get('price'))}},rentTime:{'rent_available_time': {{json_dumps(rent_intention_ticket.get('rent_available_time'))}},'rent_deadline_time': {{json_dumps(rent_intention_ticket.get('rent_deadline_time'))}}}"></show-payment-form>    
         <div class="payment-card">
             <span class="switchBtn btn" data-bind="visible: !empty(),click: dropVisible"><i class="icon-down_arrow"></i></span>
             <div data-bind="foreach: cardList">
