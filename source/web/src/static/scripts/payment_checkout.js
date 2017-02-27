@@ -187,13 +187,13 @@
         template: { element: 'add-payment-form-tpl' }
     })
 
-    ko.components.register('show-payment-form', {
+    ko.components.register('payment-abstract', {
         viewModel: function(params) {
             this.isShow = ko.observable(false)
             this.showPaymentDrop = function(){
                 this.isShow(this.isShow() ? false : true)
             }
         },
-        template: { element: 'show-payment-form-tpl' }
+        template: { element: 'payment-abstract-tpl' }
     })
 })(window.ko);

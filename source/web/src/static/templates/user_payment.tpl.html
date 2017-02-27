@@ -9,7 +9,7 @@
             <div class="list" data-bind="foreach: cardList">
                 <div class="cardListItems" data-bind="style: {backgroundImage: 'url(/static/images/card/payment_' + $data.card_type + '.png)'}">
                     <i class="icon-trash remove" data-bind="click: function(){ $parent.removeCard($data)}"></i>
-                    <div class="setting-default" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default payment</div>
+                    <div class="setDefault" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default payment</div>
                     <div class="cardNumber" data-bind="text: ($data.card_bin + 'xxxxxx' + $data.last_4)"></div>
                 </div>
             </div>

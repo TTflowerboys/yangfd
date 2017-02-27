@@ -1,8 +1,8 @@
 (function (ko) {
-	ko.components.register('show-payment-form', {
+	ko.components.register('payment-abstract', {
         viewModel: function(params) {
 
         },
-        template: { element: 'show-payment-form-tpl' }
+        template: { element: 'payment-abstract-tpl' }
     })
 })(window.ko);

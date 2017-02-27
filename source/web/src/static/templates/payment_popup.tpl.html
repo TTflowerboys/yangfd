@@ -1,5 +1,5 @@
 <!--@@include=add_payment_form.tpl.html -->
-<!--@@include=show_payment_form.tpl.html -->
+<!--@@include=payment_abstract.tpl.html -->
 <script type="text/template" id="kot-payment-popup-tpl">
     <div id="payment_popup" class="payment_popup" data-bind="visible: visible">
         <div class="payment_popup_shadow"></div>
@@ -11,26 +11,26 @@
 	            <h2 class="title" data-bind="visible: step() === 2">Payment Information</h2>
 
                 <div id="payment-info">
-                    <show-payment-form data-bind="visible: step() === 2"></show-payment-form>
+                    <payment-abstract data-bind="visible: step() === 2"></payment-abstract>
 
                     <div data-bind="visible: step() === 2">
-                        <div class="payment-card">
+                        <div class="paymentCard">
                             <span class="switchBtn btn" data-bind="visible: !empty(),click: dropVisible"><i class="icon-down_arrow"></i></span>
                             <div data-bind="foreach: cardList">
-                                <div class="payment-card-items" data-bind="visible: $data.default || $parent.dropItemsVisible">
+                                <div class="paymentCardItems" data-bind="visible: $data.default || $parent.dropItemsVisible">
                                     <div class="cc-card">
                                         <img data-bind="attr: {'src':'/static/images/card/payment_' + $data.card_type + '.png'}" alt="">
                                     </div>
                                     <div class="cc-cardno" data-bind="text: ($data.card_bin + ' xxxxxx ' + $data.last_4)"></div>
-                                    <div class="default-card" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default payment</div>
+                                    <div class="defaultCard" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default payment</div>
                                 </div>
                             </div>
 
-                            <div class="payment-card-items" data-bind="visible: empty,click: showForm">
+                            <div class="paymentCardItems" data-bind="visible: empty,click: showForm">
                                 <div class="cc-card"><i class="icon-add"></i></div>
                                 <div class="add-btn">add payment</div>
                             </div>
-                            <div class="payment-card-items" data-bind="visible: dropItemsVisible,click: showForm">
+                            <div class="paymentCardItems" data-bind="visible: dropItemsVisible,click: showForm">
                                 <div class="cc-card"><i class="icon-add"></i></div>
                                 <div class="add-btn">add payment</div>
                             </div>

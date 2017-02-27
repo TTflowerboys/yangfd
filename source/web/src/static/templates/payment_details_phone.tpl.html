@@ -2,7 +2,7 @@
     <div class="cardlistPhone">
         <a class="cardListPhoneItem">
             <img data-bind="attr: {src: '/static/images/card/payment_' + data().card_type + '.png'}">
-            <div class="setting-default" data-bind="visible: data().default">{{_('default payment')}}</div>
+            <div class="setDefault" data-bind="visible: data().default">{{_('default payment')}}</div>
             <div class="cardNumber" data-bind="text: (data().card_bin + 'xxxxxx' + data().last_4)"></div>
         </a>
     </div>

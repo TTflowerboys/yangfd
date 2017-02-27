@@ -212,7 +212,7 @@
         template: { element: 'add-payment-form-tpl' }
     })
 
-    ko.components.register('show-payment-form', {
+    ko.components.register('payment-abstract', {
         viewModel: function() {
         	this.cardList = ko.observableArray()
 
@@ -235,6 +235,6 @@
             }
             this.loadCardList()
         },
-        template: { element: 'show-payment-form-tpl' }
+        template: { element: 'payment-abstract-tpl' }
     })
 })(window.ko);
