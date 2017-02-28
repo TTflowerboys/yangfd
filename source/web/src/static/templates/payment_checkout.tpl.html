@@ -16,14 +16,22 @@
                 </div>
             </div>
 
-            <div class="paymentCardItems" data-bind="visible: empty">
-                <a rel="modal:open" href="#cardFormModal">
+            <div class="paymentCardItems hideInMobile">
+                <a rel="modal:open" href="#cardFormModal" data-bind="visible: empty">
+                    <div class="cc-card"><i class="icon-add"></i></div>
+                    <div class="add-btn">add payment</div>
+                </a>
+                <a rel="modal:open" href="#cardFormModal" data-bind="visible: dropItemsVisible">
                     <div class="cc-card"><i class="icon-add"></i></div>
                     <div class="add-btn">add payment</div>
                 </a>
             </div>
-            <div class="paymentCardItems" data-bind="visible: dropItemsVisible">
-                <a rel="modal:open" href="#cardFormModal">
+            <div class="paymentCardItems showInMobile">
+                <a href="/user-payment-add" data-bind="visible: empty">
+                    <div class="cc-card"><i class="icon-add"></i></div>
+                    <div class="add-btn">add payment</div>
+                </a>
+                <a href="/user-payment-add" data-bind="visible: dropItemsVisible">
                     <div class="cc-card"><i class="icon-add"></i></div>
                     <div class="add-btn">add payment</div>
                 </a>

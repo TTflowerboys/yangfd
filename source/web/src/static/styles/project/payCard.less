@@ -514,6 +514,17 @@
         height: 40px;
         line-height: 40px;
         margin-bottom: 12px;
+        &.hideInMobile{
+            @media @phone{
+                display: none;
+            }
+        }
+        &.showInMobile{
+            display: none;
+            @media @phone{
+                display: block;
+            }
+        }
         .cc-card{
             width: 64px;
             height: 40px;
@@ -598,11 +609,14 @@
 .showDetailBtn{
     border: 1px solid #00bfe1;
     width: 100%;
-    display: block;
+    display: none;
     text-align: center;
     color: #00bfe1;
     background: transparent;
     margin-bottom: 12px;
+    @media @phone{
+        display: block;
+    }
 }
 
 .addPaymentFormError{
