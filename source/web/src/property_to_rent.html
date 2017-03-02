@@ -563,11 +563,7 @@
             <div class="rentRequestFlow">
                 %if (not (user and user.get('id') == rent.get('creator_user',{}).get('id',''))) and rent.get('user'):
                     <button class="button red hiddenOnMobile ajaxButton" data-bind="click: function() { openChatRequestForm('{{rent.get('id')}}', true)}">
-                        %if is_student_house(rent):
-                        {{_('我要预订')}}
-                        %else:
                         {{_('我要咨询')}}
-                        %end
                     </button>
                 % end
                 % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
@@ -837,15 +833,11 @@
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
     <ul class="floatBar_phone">
         <li>
-            <a data-id="{{rent.get('id')}}" id="askToBookPhone">Ask To Book</a>            
+            <a data-id="{{rent.get('id')}}" id="askToBookPhone">{{_('预订')}}</a>            
         </li>
         <li>            
             <a data-id="{{rent.get('id')}}" id="chatPhone">
-                %if is_student_house(rent):
-                {{_('我要预订')}}
-                %else:
-                {{_('我要咨询')}}
-                %end
+                {{_('咨询')}}
             </a>            
         </li>
         <!-- <li class="favorite"
@@ -1152,7 +1144,7 @@
                     })
             }
             else {
-                location.href = '/signin?from='+location.href
+                location.href = '/host-chat-request?ticketId=' + ticketId + '&from=askToBookPhone'
                 $('.buttonLoading').trigger('end')
             }
         })

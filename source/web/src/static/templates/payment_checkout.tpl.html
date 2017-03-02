@@ -12,34 +12,34 @@
                         <img data-bind="attr: {'src':'/static/images/card/payment_' + $data.card_type + '.png'}" alt="">
                     </div>
                     <div class="cc-cardno" data-bind="text: ($data.card_bin + ' xxxxxx ' + $data.last_4)"></div>
-                    <div class="defaultCard" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default</div>
+                    <div class="defaultCard" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">{{_('设为默认')}}</div>
                 </div>
             </div>
 
             <div class="paymentCardItems hideInMobile">
                 <a rel="modal:open" href="#cardFormModal" data-bind="visible: empty">
                     <div class="cc-card"><i class="icon-add"></i></div>
-                    <div class="add-btn">add payment</div>
+                    <div class="add-btn">{{_('添加卡')}}</div>
                 </a>
                 <a rel="modal:open" href="#cardFormModal" data-bind="visible: dropItemsVisible">
                     <div class="cc-card"><i class="icon-add"></i></div>
-                    <div class="add-btn">add payment</div>
+                    <div class="add-btn">{{_('添加卡')}}</div>
                 </a>
             </div>
             <div class="paymentCardItems showInMobile">
                 <a href="/user-payment-add" data-bind="visible: empty">
                     <div class="cc-card"><i class="icon-add"></i></div>
-                    <div class="add-btn">add payment</div>
+                    <div class="add-btn">{{_('添加卡')}}</div>
                 </a>
                 <a href="/user-payment-add" data-bind="visible: dropItemsVisible">
                     <div class="cc-card"><i class="icon-add"></i></div>
-                    <div class="add-btn">add payment</div>
+                    <div class="add-btn">{{_('添加卡')}}</div>
                 </a>
             </div>
         </div>
         <div style="margin-top: 32px;">
-            <a href="" class="btn showDetailBtn">详情</a>
-            <button type="submit" class="btn paymentSubmitBtn">提交</button>
+            <a href="/user-chat/{{rent_intention_ticket.get('id')}}/order" class="btn showDetailBtn">{{_('详情')}}</a>
+            <button type="submit" class="btn paymentSubmitBtn">{{_('提交')}}</button>
         </div>
         <div class="rules">
             <div class="title">servers rules title</div>

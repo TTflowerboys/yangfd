@@ -41,11 +41,15 @@
                 }
             }
             this.step = ko.observable(1)
+
+            this.currentUrl = ko.observable()
+
             this.goNext = function () {
                 if(this.validateStep1()) {
                     this.step(this.step() + 1)
                     this.scrollTopOnMobile()
                 }
+                this.currentUrl = ko.observable(location.origin+location.pathname);
             }
             this.goPrev = function () {
                 this.errorMsg('')
@@ -53,9 +57,13 @@
                 this.scrollTopOnMobile()
             }
 
+            
             this.askToBook = function(){
-                this.errorMsg('please login...')
-                location.href = '/signin?from='+location.href
+                if(this.validateStep1()) {
+                    this.step(this.step() + 1)
+                    this.scrollTopOnMobile()
+                }                
+                this.currentUrl = ko.observable(location.origin+location.pathname+'?from=askToBook')
             }
 
             this.visible = ko.observable()
@@ -824,7 +832,11 @@
                         this.smsVerifyPhone()
                             .then(_.bind(function () {
                                 this.phoneVerified(true)
-                                this.submitTicket()
+                                if (this.currentUrl().match(/from=askToBook/)) {
+                                    this.submitTicket(true)
+                                }else{
+                                    this.submitTicket()
+                                }
                             }, this))
                             .fail(_.bind(function (ret) {
                                 this.errorMsg(window.getErrorMessageFromErrorCode(ret))
@@ -835,7 +847,11 @@
                     }
                 }
                 else {
-                    this.submitTicket()
+                    if (this.currentUrl().match(/from=askToBook/)) {
+                        this.submitTicket(true)
+                    }else{
+                        this.submitTicket()
+                    }
                 }
             }
 

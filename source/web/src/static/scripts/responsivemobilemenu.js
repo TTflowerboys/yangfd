@@ -62,7 +62,8 @@ $(function () {
         
         if (urlPath[1] === 'user-chat' || urlPath[1] === 'user_chat') {
             if(urlPath.slice(-1)[0] === 'order'){
-                location.href = '/user-chat/'+(location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/order/) || [])[1]+'/details'
+                //location.href = '/user-chat/'+(location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/order/) || [])[1]+'/details'
+                location.href = history.go(-1)
             }else{
                 location.href = '/user-chat'
             }

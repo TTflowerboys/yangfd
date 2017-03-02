@@ -141,7 +141,7 @@
                         </form>
                         <div class="step1" data-bind="visible: step() === 1">
                             <div class="action">
-                                <button class="btn btn_book" data-bind="click: !user() ? askToBook : askToBookSubmit">Ask to book</button>
+                                <button class="btn btn_book" data-bind="click: !user() ? askToBook : askToBookSubmit">{{_('预订')}}</button>
                                 <button class="btn btn_send ajaxButton" data-bind="click: !user() ? goNext : sendSubmit , text: !user() ? '{{_('下一步')}}': '{{_('发送')}}'"></button>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                                 <button class="actionButton ghostButton btn_book" data-bind="click: goPrev">{{_('上一步')}}</button>
                                 <button class="actionButton btn btn_send ajaxButton" data-bind="click: submit, disable: !user() ? true : submitDisabled()">{{_('提交')}}</button>
                             </div>                            
-                        </div>                       
+                        </div>
                         
                     </div>
                 </div>
