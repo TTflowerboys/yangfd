@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import logging
+from bson.objectid import ObjectId
 from app import f_app
 from libfelix.f_interface import f_get, redirect, template_gettext as _
 import currant_util
@@ -221,8 +222,10 @@ def user_payment_add(user):
 def user_payment_detail(card_id, user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('支付')
-    card = f_app.payment.adyen.card.get(card_id)
-    # TODO here card do not have id
+    card_list = f_app.payment.adyen.card.list(user["id"], {"_id": ObjectId(card_id)})
+    card = None
+    if len(card_list):
+        card = card_list[0]
 
     return currant_util.common_template("user_payment_details", user=user, title=title, card=card)
 
