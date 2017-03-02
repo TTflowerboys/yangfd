@@ -212,7 +212,7 @@ def user_payment(user):
 def user_payment_add(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('支付')
-    return currant_util.common_template("user_payment_phone", user=user, title=title)
+    return currant_util.common_template("user_payment_add", user=user, title=title)
 
 
 @f_get('/user-payment/<card_id:re:[0-9a-fA-F]{24}>/details')
