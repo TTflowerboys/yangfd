@@ -133,6 +133,8 @@ class common(f_common):
     adyen_merchant_account = "BrothersBridgeTechnologyLtdCOM"
     adyen_username = "ws@Company.BrothersBridgeTechnologyLtd"
     adyen_password = r"\<!{[ZL}-^hm2K9Pf1G#XNX/a"
+    adyen_hook_username = "AhliejuW5Aechi1id2me2ohwahNgae4s"
+    adyen_hook_password = "iibohJae5Fahr4iel2heib7Rae1Giequ"
 
     # sms_default_method = "clickatell"
     sms_default_method = "nexmo"
