@@ -865,7 +865,11 @@
                     message: this.params().description                    
                 })
                     .done(_.bind(function (val) {
-                        location.href = '/user-chat/'+ticketId+'/details'
+                        if (location.search.match(/from=askToBookPhone/)) {
+                            location.href = '/payment-checkout/'+ticketId
+                        }else{
+                            location.href = '/user-chat/'+ticketId+'/details'
+                        }
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))

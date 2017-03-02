@@ -836,7 +836,10 @@
     
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
     <ul class="floatBar_phone">
-        <li class="phone">            
+        <li>
+            <a data-id="{{rent.get('id')}}" id="askToBookPhone">Ask To Book</a>            
+        </li>
+        <li>            
             <a data-id="{{rent.get('id')}}" id="chatPhone">
                 %if is_student_house(rent):
                 {{_('我要预订')}}
@@ -845,7 +848,7 @@
                 %end
             </a>            
         </li>
-        <li class="favorite"
+        <!-- <li class="favorite"
             data-fn="addFav"
             data-rent-id="{{rent.get('id','')}}"
             style="{{ 'display:none' if is_favorited else ''}}"
@@ -859,7 +862,7 @@
             data-rent-id="{{rent.get('id','')}}"
             % end
             ><i class="icon-faveractive"></i></img>
-        </li>
+        </li> -->
     </ul>
     %end
 
@@ -1101,9 +1104,7 @@
          window.wechatShareSDK.init(wechatShareData)
      })()
 
-     /*
-      * Facebook share sdk
-      * */
+     
     
     $(function(){
         $('#chatPhone').click(function () {
@@ -1131,6 +1132,34 @@
             }
         })
 
+        $('#askToBookPhone').click(function () {
+            var ticketId = $(this).attr('data-id')
+            if (window.user) {
+                $.betterPost('/api/1/rent_intention_ticket/search', { interested_rent_tickets: ticketId, user_id: window.user.id})
+                    .done(function (data) {
+                        var array = data
+                        if (array && array.length > 0) {
+                            location.href = '/payment-checkout/'+array[0].id
+                        } else {
+                            location.href = '/host-chat-request?ticketId=' + ticketId + '&from=askToBookPhone'
+                        }
+                        $('.buttonLoading').trigger('end')
+
+                    })
+                    .fail(function (ret) {
+                        window.alert(window.getErrorMessageFromErrorCode(ret))
+                        $('.buttonLoading').trigger('end')
+                    })
+            }
+            else {
+                location.href = '/signin?from='+location.href
+                $('.buttonLoading').trigger('end')
+            }
+        })
+
+        /*
+          * Facebook share sdk
+          * */
         $.ajaxSetup({ cache: true });
         $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
             FB.init({
