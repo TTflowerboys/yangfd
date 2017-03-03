@@ -1,11 +1,34 @@
-<!--@@master = masters/user_master.html-->
+<!--@@master = masters/master.html-->
+
 <!--@@block = head-->
 <!--build:css(dist) /static/styles/project/user_payment_details.html.css-->
 <link rel="stylesheet" href="/static/styles/userPayment.css"/>
 <!--endbuild-->
-<link rel="stylesheet" href="/static/vendors/jquery/jquery-ui-1.10.3.custom.min.css"/>
-
 <!--@@close-->
+
+
+<!--@@block = custom_header-->
+<style>
+ .siteHeader_phone {
+     display: none;
+ }
+</style>
+<div class="paymentHeader_phone  rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+             <div class="rmm-button" data-href="/user-payment">
+                <img src="/static/images/common/header/phone/back.png"/>
+            </div>
+            <div id="rmm-center-wrapper" class="rmm-center">
+                <label id="title" class="title" for="">
+                    {{_('支付卡')}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<!--@@close-->
+
 <!--@@block = main -->
 
 <div class="content">

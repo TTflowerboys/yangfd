@@ -5,6 +5,30 @@
 <!--endbuild-->
 <!--@@close-->
 
+<!--@@block = custom_header-->
+<style>
+ .siteHeader_phone {
+     display: none;
+ }
+</style>
+<div class="chatHeader_phone rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            % url_path = request.urlparts[2]
+            % ticket_id = url_path.split('/')[2]
+            <div class="rmm-button" data-href="/user-chat/{{ticket_id}}/details">
+                <img class="iconBack" src="/static/images/common/header/phone/back.png">
+            </div>
+            <div class="rmm-center">
+                {{title}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--@@close-->
+
+
 <!--@@block = main-->
 
 <div class="chatWrap">

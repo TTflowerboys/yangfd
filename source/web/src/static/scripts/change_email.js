@@ -34,4 +34,3 @@ $('form[name=changeEmail]').submit(function (e) {
         resultArea.show()
     })
 })
-$('.rmm-button').removeClass('rmm-button-user').addClass('rmm-button-user-settings')

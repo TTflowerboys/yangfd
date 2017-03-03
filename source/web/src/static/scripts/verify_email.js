@@ -49,8 +49,6 @@ $('form[name=verifyEmail]').submit(function (e) {
     }
 })
 
-$('.rmm-button').removeClass('rmm-button-user').addClass('rmm-button-user-settings')
-
 if (team.isPhone()) {
     $('input[name=email]').attr('placeholder',window.i18n('邮箱'))
 }

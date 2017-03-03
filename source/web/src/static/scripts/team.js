@@ -573,7 +573,7 @@
                 'HKD': '$'
             }[code]
         },
-        initDisplayOfElement: function initDisplayOfElement () { //根据data-show-client初始化元素在不同客户端的显示或隐藏状态
+        initDisplayOfElement: function () { //根据data-show-client初始化元素在不同客户端的显示或隐藏状态
             $('[data-show-client]').each(function () {
                 var $this = $(this)
                 var clients = window.team.getClients()
