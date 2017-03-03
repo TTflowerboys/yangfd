@@ -9,9 +9,7 @@
 <!--@@block = main -->
 
 <div class="content">
-	<textarea id="curCardData" style="display: none;">
-	</textarea>
-    <!-- @@include =./static/templates/payment_details_phone.tpl.html -->
+    <!-- @@include =./static/templates/payment_details.tpl.html -->
     <kot-payment-details-phone params='data: {{json_dumps(card)}}'></kot-payment-details-phone>
 </div>
 
@@ -21,6 +19,6 @@
 <!--build:js /static/scripts/user_payment_details.html.js-->
 <script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
 <script src="/static/scripts/common_ko.js"></script>
-<script src="/static/scripts/project/payment_details_phone.js"></script>
+<script src="/static/scripts/project/payment_details.js"></script>
 <!--endbuild-->
 <!--@@close-->

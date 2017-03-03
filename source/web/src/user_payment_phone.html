@@ -1,0 +1,24 @@
+<!--@@master = masters/user_master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/project/user_payment_phone.html.css-->
+<link rel="stylesheet" href="/static/styles/paymentFormPhone.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+<!--@@block = main -->
+
+<div class="content">
+    <!-- @@include =./static/templates/payment_form_phone.tpl.html -->
+    <kot-payment-form-phone></kot-payment-form-phone>
+</div>
+
+<!--@@close-->
+
+<!--@@block=scripts-->
+<!--build:js /static/scripts/user_payment_phone.html.js-->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script type="text/javascript" src="/static/bower_components/adyen-cse-js/js/adyen.encrypt.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script src="/static/scripts/project/payment_form_phone.js"></script>
+<!--endbuild-->
+<!--@@close-->
