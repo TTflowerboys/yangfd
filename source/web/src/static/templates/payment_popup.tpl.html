@@ -22,22 +22,22 @@
                                         <img data-bind="attr: {'src':'/static/images/card/payment_' + $data.card_type + '.png'}" alt="">
                                     </div>
                                     <div class="cc-cardno" data-bind="text: ($data.card_bin + ' xxxxxx ' + $data.last_4)"></div>
-                                    <div class="defaultCard" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">default payment</div>
+                                    <div class="defaultCard" data-bind="visible: $data.default, click: function () {$parent.setDefault($data)}">{{_('设为默认')}}</div>
                                 </div>
                             </div>
 
                             <div class="paymentCardItems" data-bind="visible: empty,click: showForm">
                                 <div class="cc-card"><i class="icon-add"></i></div>
-                                <div class="add-btn">add payment</div>
+                                <div class="add-btn">{{_('添加卡')}}</div>
                             </div>
                             <div class="paymentCardItems" data-bind="visible: dropItemsVisible,click: showForm">
                                 <div class="cc-card"><i class="icon-add"></i></div>
-                                <div class="add-btn">add payment</div>
+                                <div class="add-btn">{{_('添加卡')}}</div>
                             </div>
                         </div>
                     </div>
 
-                    <div style="text-align: center"><button type="submit" class="btn btn-primary" data-bind="visible: step() === 2">提交</button></div>
+                    <div style="text-align: center"><button type="submit" class="btn btn-primary" data-bind="visible: step() === 2">{{_('提交')}}</button></div>
                 </div>
             </div>
             <button class="cancel" data-bind="click: close"><i class="icon-delete"></i></button>
