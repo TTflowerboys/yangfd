@@ -116,7 +116,7 @@ $(function () {
         }
     });
 
-    $('.rmm-toggled-controls .rmm-button').on('click',function(e){
+    $('.rmm-toggled-controls .rmm-button[data-href]').on('click',function(e){
         var $ele = $(e.delegateTarget)
         location.href = $ele.attr('data-href')
     });
