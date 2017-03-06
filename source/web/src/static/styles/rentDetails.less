@@ -1,6 +1,6 @@
 /*! Created by frank on 14-9-29.  */
 @import "project/popupSharePhone";
-
+@import "project/tips";
 body {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -190,11 +190,148 @@ body {
         @media @phone {
             display: none;
         }
+        .requirementRentFormError{ color: @red; }
+        .rentMeta{
+            .fl{
+                float: left;
+                width: 246px;
+            }
+            .fr{
+                float: right;
+                width: 100px;
+            }
+            &:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .title{
+
+            }
+            .rentTime{
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 0 6px;
+                height: 42px;
+                width: 246px;
+                background: #fff;
+                .date {
+                    width: 106px;
+                    display: inline-block;
+                    float: left;
+                    vertical-align: middle;
+                    input[type=text] {
+                        border: 0 none;
+                        outline: 0 none;
+                        height: 40px;
+                        width: 100%;
+                        font-size: 14px;
+                        vertical-align: middle;
+                        color: #999;
+                        text-align: center;
+                    }
+                }
+                > i {
+                    float: left;
+                    width: 20px;
+                    text-align: center;
+                    display: inline-block;
+                    vertical-align: middle;
+                    height: 40px;
+                    line-height: 40px;
+                    color: #ccc;
+                }
+            }
+            .UserType{                
+                border-radius: 4px;
+                height: 42px;
+                width: 100px;
+                background: #fff;
+                select {
+                    width: 100%;
+                }
+                .chosen-container .chosen-single {
+                    box-shadow: none;
+                    border: 1px solid #ccc;
+                }
+                 .chosen-container .chosen-drop {
+                    border-width: 1px;
+                }
+            }
+        }
+        .rentPeriod{
+
+            .items{
+                height: 22px;
+                line-height: 22px;
+                margin: 8px auto;
+                .price{
+                    float: right;
+                    font-weight: bold;
+                    font-size: 16px;
+                    &.red{
+                        color: @red;
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
 
         .propertyCard {
             hr { color: #ccc; }
             img { vertical-align: middle; }
             > h1 { color: #333; }
+            .header{
+                height: 66px;
+                margin-bottom: 10px;
+                > h1{
+                    padding-top: 10px;
+                    font-size: 18px;
+                    line-height: 22px;
+                    height: 54px;
+                    overflow: hidden;
+                }
+                .price_inner{
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 20px;
+                    line-height: 22px;
+                    padding: 12px 18px 10px;
+                    background: #ff0014;
+                    float: left;
+                    margin-right: 12px;
+                    .price_reference{
+                        font-size: 14px;
+                    }
+                    
+                }
+            }
+            .rent_period{
+                position: relative;
+                height: 40px;
+                line-height: 20px;
+                padding-left: 52px;
+                margin: 10px;
+                color: #555568;
+                font-weight: bold;
+                > i{
+                    position: absolute;
+                    top: 0;
+                    left: 2px;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 38px;
+                    color: #555568;
+                }
+                .title{
+                    font-weight: normal;
+                    color: #999;
+                    font-size: 13px;
+                    line-height: 16px;
+                }
+            }
             .partner, .noServiceFee, .canVisit{
                 display: inline-block;
                 margin: 5px auto 10px 0;
@@ -349,6 +486,21 @@ body {
         width: 100%;
         margin-top: 45px;
         margin-bottom: 45px;
+        &.rentRequestFlowBox{
+            margin-top: 0;
+            margin-bottom: 0;
+            text-align: center;
+        }
+        .linkButton{
+            color: @red;
+            text-decoration: underline;
+            text-align: center;
+            background: transparent;
+            border: 0;
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: bold;
+        }
         .button{
             width: 100%;
             height: 60px;

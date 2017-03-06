@@ -458,25 +458,31 @@
 
         <div class="aside">
             <div class="propertyCard">
-                <h1>{{rent.get('title','')}}</h1>
-                %if rent.get('no_handling_fee') or rent.get('can_visit'):
-                    %if rent.get('no_handling_fee'):
-                        <label class="noServiceFee">{{_('免服务费')}}</label>
-                    %end
-                    %if rent.get('can_visit'):
-                        <label class="canVisit">{{_('可实地看房')}}</label>
-                    %end
-                %else:
-                    <label class="publishDate">
-                        % if last_modified_time - publish_time > 1000 :
-                            %string = """<span>""" + str(last_modified_time) + """</span>"""
-                            {{!_('%s更新过') %string}}
-                        % else:
-                            %string = """<span>""" + str(publish_time) + """</span>"""
-                            {{!_('%s发布') %string}}
+                <div class="header">
+                    % if 'price' in rent and rent.get('price'):
+                    <div class="price_inner">
+                        <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
+                        <span data-type="formatted_currency">
+                            {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
+                        </span>
+                        {{_('/周')}}
+                        % if 'bill_covered' in rent and rent.get('bill_covered'):
+                            <span>
+                                {{_('，包Bill')}}
+                            </span>
                         % end
-                    </label>
-                %end                                                                    
+                        <div class="price_reference">
+                            <span data-tooltip data-placement="bottom" data-original-title="{{_('月价格')}}=({{_('周价格')}} x 52)/12">
+                            {{_('约')}}
+                            {{rent.get('price',{}).get('unit_symbol','')}}
+                            <span data-type="currency">{{int(float(rent.get('price',{}).get('value','')) * 52.0 / 12.0)}}</span>
+                            {{_('/月')}}
+                            </span>
+                        </div>
+                    </div>
+                    %end
+                    <h1>{{rent.get('title','')}}</h1>
+                </div>                                           
                 % if 'community' in rent['property'] or rent['property'].get('street') or ('zipcode' in rent['property'] and not rent.get('property',{}).get('partner')):
                     <div class="tag">
                         <i class="icon-location_fill"></i>
@@ -485,84 +491,42 @@
                         </label>
                     </div>
                 % end
-                % if 'price' in rent and rent.get('price'):
-                    <div class="rentPrice">
-                        <div class="priceBox">
-                            <div class="price_inner">
-                                <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
-                                <span data-type="formatted_currency">
-                                    {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
-                                </span>
-                                {{_('/周')}}
-                                % if 'bill_covered' in rent and rent.get('bill_covered'):
-                                    <span>
-                                        {{_('，包Bill')}}
-                                    </span>
-                                % end
-                                <div class="price_reference">
-                                    <span data-tooltip data-placement="right" data-original-title="{{_('月价格')}}=({{_('周价格')}} x 52)/12">
-                                    {{_('约')}}
-                                    {{rent.get('price',{}).get('unit_symbol','')}}
-                                    <span data-type="currency">{{int(float(rent.get('price',{}).get('value','')) * 52.0 / 12.0)}}</span>
-                                    {{_('/月')}}
-                                    </span>
-                                </div>
-                            </div>
-                            % if rent.get('status') == 'rent':
-                                <div class="rentOut verticalMiddleWrap">
-                                    {{_('已租出')}}
-                                </div>
-                            % end
-                        </div>
-                        <div class="seperator"></div>
-                        <ul class="priceItems">
-                            <li>
-                                {{_('最短租期')}}
-                                % if 'minimum_rent_period' in rent:
-                                    <strong>
-                                        <!--@@include=partials/get_rent_min_period.html  -->
-                                    </strong>
-                                % else :
-                                    <strong>
-                                        {{_('不限')}}
-                                    </strong>
-                                % end
-
-                                % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                                    % string1 = """<span data-utc-time='""" + str(rent.get('rent_available_time','')) + """'></span>"""
-                                % end
-                                % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
-                                    % string2 = string1 + """ <span data-utc-time='""" + str(rent.get('rent_deadline_time')) + """'> """
-                                    {{!_('%s至 ') %string2}}</span>
-                                % elif 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                                    {{!_('%s起 ') %string1}}
-                                % end
-                            </li>
-
-                            <li>
-                                {{_('押金')}}
-                                % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
-                                    <strong>
-                                        {{rent.get('deposit',{}).get('unit_symbol','')}}<span data-type="formatted_currency">{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}</span>
-                                    </strong>
-                                    % if 'deposit' in rent and rent.get('deposit',{}).get('localized_value'):
-                                        <span>
-                                            {{_('约')}}{{rent.get('deposit',{}).get('localized_unit_symbol')}}{{int(float(rent.get('deposit',{}).get('localized_value', 0)))}}
-                                        </span>
-                                    % end
-                                % else :
-                                    <strong>
-                                        {{_('面议')}}
-                                    </strong>
-                                % end
-                            </li>
-                        </ul>
-                    </div>
-                %end                
+                <div class="rent_period">
+                    <i class="icon-calender_homepage"></i>
+                    <div class="title">{{_('最短租期')}}</div>
+                    % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                        % string1 = """<span data-utc-time='""" + str(rent.get('rent_available_time','')) + """'></span>"""
+                    % end
+                    % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
+                        % string2 = string1 + """ <span data-utc-time='""" + str(rent.get('rent_deadline_time')) + """'> """
+                        {{!_('%s至 ') %string2}}</span>
+                    % elif 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                        {{!_('%s起 ') %string1}}
+                    % end
+                    % if 'minimum_rent_period' in rent:
+                        <strong>
+                            ,<!--@@include=partials/get_rent_min_period.html  -->
+                        </strong>
+                    % else :
+                        <strong>
+                            ,{{_('不限')}}
+                        </strong>
+                    % end
+                </div>
             </div>
-            <div class="rentRequestFlow">
+            %if rent.get('no_handling_fee'):
+                <label class="noServiceFee">{{_('免服务费')}}</label>
+            %end
+            
+            <!--@@include = static/templates/set_rent_period.tpl.html -->
+            <set-rent-period params="price: {{json_dumps(rent.get('price'))}}"></set-rent-period>
+
+            <div class="rentRequestFlow rentRequestFlowBox">
                 %if (not (user and user.get('id') == rent.get('creator_user',{}).get('id',''))) and rent.get('user'):
-                    <button class="button red hiddenOnMobile ajaxButton" data-bind="click: function() { openChatRequestForm('{{rent.get('id')}}', true)}">
+                    <button class="button red hiddenOnMobile ajaxButton" data-bind="click: function(){ checkRentPeroid('{{rent.get('id')}}','booked')}">
+                        {{_('支付')}}
+                    </button>
+                    <button class="linkButton hiddenOnMobile ajaxButton" data-bind="click: function() {checkRentPeroid('{{rent.get('id')}}')}">
                         {{_('我要咨询')}}
                     </button>
                 % end
@@ -827,8 +791,11 @@
     </div>
 
     <!--出租申请单-->
-    <!--@@include = static/templates/chat_request.tpl.html -->
-    <chat-request params="price: {{json_dumps(rent.get('price'))}}, holdingDeposit: {{json_dumps(rent.get('holding_deposit'))}}"></chat-request>
+    <!--@@include = static/templates/rent_signup_popup.tpl.html -->
+    <rent-signup-popup params="price: {{json_dumps(rent.get('price'))}}, holdingDeposit: {{json_dumps(rent.get('holding_deposit'))}}"></rent-signup-popup>
+    <textarea id="countryData" style="display: none;">
+        {{json_dumps(country_list)}}
+    </textarea>
     
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
     <ul class="floatBar_phone">
@@ -947,8 +914,7 @@
     <script src="/static/scripts/property_to_rent_actions.js"></script>
     <script src="/static/scripts/common_ko.js"></script>
     <script src="/static/scripts/featured_facility_ko.js"></script>
-    <script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
-    <script src="/static/scripts/chat_request.js"></script>
+    <script src="/static/scripts/rent_signup_popup.js"></script>
     <script src="/static/scripts/property_to_rent_ko.js"></script>
     <!--endbuild-->
     <script>

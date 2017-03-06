@@ -1,0 +1,48 @@
+<script type="text/template" id='set-rent-period-tpl'>
+    <div class="rentMeta">
+        <div class="fl">       
+            <div class="title">{{_('租期')}}</div>
+            <div class="rentTime">
+                <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentAvailableTimeFormated, timeEnabled: true}">
+                    <input data-bind="value: rentAvailableTimeFormated" type="text" class="" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
+                </div>
+                <i class="icon-nav-arrow-right"></i>
+                <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentDeadlineTimeFormated, timeEnabled: true}">
+                    <input data-bind="value: rentDeadlineTimeFormated" type="text" class="" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
+                </div>
+            </div>
+        </div>
+        <div class="fr">
+            <div class="title">{{_('入住人数')}}</div>
+            <div class="UserType">
+                % if _.lang == "en_GB":
+                <select data-bind="chosen: tenantCountList,
+                        optionsText: function(item){return item},
+                        value: tenantCount
+                        "></select>
+                %else:
+                <select data-bind="chosen: tenantCountList,
+                        optionsText: function(item){return item + window.i18n('人入住')},
+                        value: tenantCount
+                        "></select>
+                %end
+            </div>
+        </div>
+    </div>
+
+    <div class="rentPeriod">
+        <div class="items">
+            {{_('租金')}}<tips params="tips: '{{_('租金')}}'"></tips>
+            <div class="price">{{rent.get('price',{}).get('unit_symbol','')}}<span data-bind="text: rentPrice"></span></div>
+        </div>
+        <div class="items">
+            {{_('服务费')}}<tips params="tips: '{{_('服务费')}}'"></tips>
+            <div class="price">{{rent.get('price',{}).get('unit_symbol','')}}<span data-bind="text: serverPrice"></span></div>
+        </div>
+        <div class="items">
+            {{_('费用')}}
+            <div class="price red">{{rent.get('price',{}).get('unit_symbol','')}}<strong data-bind="text: curPrice"></strong></div>
+        </div>
+    </div>
+    <div class="requirementRentFormError" data-bind="html: rentErrorMsg, visible: rentErrorMsg"></div>
+</script>

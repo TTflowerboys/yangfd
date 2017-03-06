@@ -1,7 +1,7 @@
 <!--@@include chose_referrer.tpl.html  -->
 <!--@@include featured_facility_search_box.tpl.html-->
-<script type="text/template" id='chat-request-tpl'>
-    <div id="chat_request_popup" class="requirement_popup rentRequestContainer"  data-bind="css: 'inStep' + step(), visible: formWrapVisible">
+<script type="text/template" id='rent-signup-popup-tpl'>
+    <div id="rent_signup_popup" class="requirement_popup rentRequestContainer"  data-bind="visible: formWrapVisible">
         <div class="requirement_popup_shadow" data-bind="click: close"></div>
         <div class="requirement_wrapper">
             <div class="chatWrap clearfix">
@@ -24,58 +24,21 @@
                 <div class="chatCenter">
                     <div class="box_hd">
                         <form class="requirement_rent_form">
-                            <div class="step1" data-bind="visible: step() === 1">
-                                <div class="fl">                            
-                                    <div class="chatMeta">
-                                        <div class="chatTimer">
-                                            <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentAvailableTimeFormated, timeEnabled: true}">
-                                                <input data-bind="value: rentAvailableTimeFormated" type="text" class="" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
-                                            </div>
-                                            <i class="icon-nav-arrow-right"></i>
-                                            <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentDeadlineTimeFormated, timeEnabled: true}">
-                                                <input data-bind="value: rentDeadlineTimeFormated" type="text" class="" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
-                                            </div>                                    
-                                        </div>
-                                        <div class="chatUserType">
-                                            % if _.lang == "en_GB":
-                                            <select data-bind="chosen: tenantCountList,
-                                                    optionsText: function(item){return item},
-                                                    value: tenantCount
-                                                    "></select>
-                                            %else:
-                                            <select data-bind="chosen: tenantCountList,
-                                                    optionsText: function(item){return item + window.i18n('人入住')},
-                                                    value: tenantCount
-                                                    "></select>
-                                            %end
-                                        </div>
-                                    </div>
-                                    <div class="content">
-                                        <textarea class="edit_area" style="height: 5em;" rows="3" data-bind="value: description" placeholder="{{_('请填写您入住的原因和对房东的问题，比如: 我是来自中国北京的李雷，来London的ISE读Master。')}}"></textarea>
-                                        <div class="toolbar"><a href="javascript:;"><i class="icon-art"></i></a></div>
-                                    </div>
-                                </div>
-                                <div class="fr">
-                                    <a data-bind="attr:{href: !user() ? 'javascript:;' : '/user-settings'}">
-                                        <img data-bind="attr:{ src:face}" alt="{{_('租客')}}" class="avatar">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="step2" data-bind="visible: step() === 2">
+                            <div class="step2">
                                 <div class="row">
                                     <p class="title">{{_('姓名')}}</p>
-                                    <input class="name" type="text" data-bind="value: nickname"/><!--
-                                    --><select class="gender" data-bind="chosen: genderList,
-                                        optionsText: 'text',
-                                        optionsValue: 'value',
-                                        value: gender,
-                                        optionsCaption: '{{_('性别')}}'"></select><!--
-                                    --><select class="occupation" data-bind="chosen: occupationList,
-                                        optionsText: 'value',
-                                        optionsValue: 'id',
-                                        value: occupation,
-                                        optionsCaption: '{{_('职业')}}'"></select>
-                                        <featured-facility-search-box params="parentVM: $data, featuredFacilityType: 'hesa_university', placeholder: '{{_('请输入大学名称')}}'" data-bind="visible: getOccupationSlug(occupation()) === 'student'"></featured-facility-search-box>                                
+                                    <input class="name" type="text" data-bind="value: nickname"/>
+                                    <select class="gender" data-bind="chosen: genderList,
+                                    optionsText: 'text',
+                                    optionsValue: 'value',
+                                    value: gender,
+                                    optionsCaption: '{{_('性别')}}'"></select>
+                                    <select class="occupation" data-bind="chosen: occupationList,
+                                    optionsText: 'value',
+                                    optionsValue: 'id',
+                                    value: occupation,
+                                    optionsCaption: '{{_('职业')}}'"></select>
+                                    <featured-facility-search-box params="parentVM: $data, featuredFacilityType: 'hesa_university', placeholder: '{{_('请输入大学名称')}}'" data-bind="visible: getOccupationSlug(occupation()) === 'student'"></featured-facility-search-box>
                                 </div>
                                 <div class="row">
                                     <p class="title">{{_('生日')}}</p>
@@ -105,9 +68,7 @@
                                 <chosen-referrer params="vm: $data"></chosen-referrer>
                                 <div class="row">
                                     <p class="title">{{_('联系方式')}}</p>
-                                    <textarea id="countryData" style="display: none;">
-                                        {{json_dumps(country_list)}}
-                                    </textarea>
+
                                     <select class="countryCode" data-bind="chosen: countryCodeList,
                                         optionsText: function(item){return item.name + '(+' + item.countryCode + ')'},
                                         value: country,
@@ -139,17 +100,8 @@
                             </div>
                             <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
                         </form>
-                        <div class="step1" data-bind="visible: step() === 1">
-                            <div class="action">
-                                <button class="btn btn_book" data-bind="click: !user() ? askToBook : askToBookSubmit">{{_('预订')}}</button>
-                                <button class="btn btn_send ajaxButton" data-bind="click: !user() ? goNext : sendSubmit , text: !user() ? '{{_('下一步')}}': '{{_('发送')}}'"></button>
-                            </div>
-                        </div>
-                        <div class="step2" data-bind="visible: step() === 2">
-                            <div class="action">
-                                <button class="actionButton ghostButton btn_book" data-bind="click: goPrev">{{_('上一步')}}</button>
-                                <button class="actionButton btn btn_send ajaxButton" data-bind="click: submit, disable: !user() ? true : submitDisabled()">{{_('提交')}}</button>
-                            </div>                            
+                        <div>
+                            <button class="actionButton button red ajaxButton" data-bind="click: submit, disable: !user() ? true : submitDisabled()">{{_('提交')}}</button>
                         </div>
                         
                     </div>
