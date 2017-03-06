@@ -39,7 +39,7 @@
             {{_('服务费')}}<tips params="tips: '{{_('服务费')}}'"></tips>
             <div class="price">{{rent.get('price',{}).get('unit_symbol','')}}<span data-bind="text: serverPrice"></span></div>
         </div>
-        <div class="items">
+        <div class="items currentItems">
             {{_('费用')}}
             <div class="price red">{{rent.get('price',{}).get('unit_symbol','')}}<strong data-bind="text: curPrice"></strong></div>
         </div>

@@ -206,7 +206,8 @@ body {
                 clear: both;
             }
             .title{
-
+                margin-bottom: 5px;
+                font-size: 16px;
             }
             .rentTime{
                 border: 1px solid #ccc;
@@ -269,11 +270,17 @@ body {
                     float: right;
                     font-weight: bold;
                     font-size: 16px;
+                    color: #666;
                     &.red{
                         color: @red;
                         font-size: 20px;
-                        font-weight: bold;
+                        font-weight: bolder;
                     }
+                }
+                &.currentItems{
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #666;
                 }
             }
         }
@@ -312,7 +319,7 @@ body {
                 height: 40px;
                 line-height: 20px;
                 padding-left: 52px;
-                margin: 10px;
+                margin: 20px 0;
                 color: #555568;
                 font-weight: bold;
                 > i{
@@ -575,6 +582,24 @@ body {
             }
         }
     }
+    .rentActionsBox{
+        margin-top: 24px;
+        .rentActions{
+            >.fl{
+                float: none;
+                margin: 20px auto;
+                button{
+                    line-height: 28px;
+                    font-size: 16px;
+                    width: 100%;
+                }
+            }
+            >.actionsList{
+                float: none;
+                text-align: center;                
+            }
+        }
+    } 
 
     .rentPreferences {
         width: 100%;
