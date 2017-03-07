@@ -14,9 +14,7 @@
 <div class="chatHeader_phone rmm" >
     <div class="rmm-toggled rmm-closed rmm-center-closed">
         <div class="rmm-toggled-controls">
-            % url_path = request.urlparts[2]
-            % ticket_id = url_path.split('/')[2]
-            <div class="rmm-button" data-href="/user-chat/{{ticket_id}}/details">
+            <div class="rmm-button" onclick="history.go(-1)">
                 <img class="iconBack" src="/static/images/common/header/phone/back.png">
             </div>
             <div class="rmm-center">

@@ -1,10 +1,31 @@
-<!--@@master = masters/user_master.html-->
+<!--@@master = ./masters/master.html-->
 <!--@@block = head-->
 <!--build:css(dist) /static/styles/project/user_payment_phone.html.css-->
 <link rel="stylesheet" href="/static/styles/paymentFormPhone.css"/>
 <!--endbuild-->
+<!--@@close-->
+
+<!--@@block = custom_header-->
+<style>
+ .siteHeader_phone {
+     display: none;
+ }
+</style>
+<div class="chatHeader_phone rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button" onclick="history.go(-1)">
+                <img class="iconBack" src="/static/images/common/header/phone/back.png">
+            </div>
+            <div class="rmm-center">
+                {{title}}
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--@@close-->
+
 <!--@@block = main -->
 
 <div class="content">
