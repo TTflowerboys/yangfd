@@ -1,6 +1,7 @@
 <!--@@include=add_payment_form.tpl.html -->
 <!--@@include=payment_summary.tpl.html -->
 <script type="text/template" id="kot-payment-popup-tpl">
+    <button data-bind="click: function(){ openPaymentPopup('{{rent_intention_ticket.get('id')}}',true)}" class="paymentButton button">{{_('支付')}}</button>
     <div id="payment_popup" class="payment_popup" data-bind="visible: visible">
         <div class="payment_popup_shadow"></div>
         <div class="payment_wrapper">

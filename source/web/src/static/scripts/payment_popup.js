@@ -1,14 +1,8 @@
 (function (ko) {
-    window.openPaymentPopup = function (ticketId, isPopup) {
-        var args = arguments
-        $('body').trigger('openPaymentPopup', Array.prototype.slice.call(args))
-    }
     ko.components.register('kot-payment-popup',{
         viewModel: function(){
             this.openPaymentPopup = function (ticketId, isPopup) {
-                return function () {
-                    window.openPaymentPopup(ticketId, isPopup)
-                }
+                this.open(isPopup)
             }
 
             this.cardList = ko.observableArray()
@@ -48,11 +42,9 @@
                     var headerHeight = wrapper.outerHeight() - wrapper.innerHeight()
 
                     if (wrapper.outerHeight() - headerHeight > $(window).height()) {
-                        wrapper.css('top', $(window).scrollTop() - headerHeight)
-                    }
-                    else {
-                        wrapper.css('top',
-                            $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
+                        wrapper.css('top', -headerHeight)
+                    }else{
+                        wrapper.css('top', 0)
                     }
                 }
             }
@@ -69,16 +61,6 @@
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
                     }, this))
             }
-
-            this.ticketId = ko.observable()
-
-            var ticketId = (location.href.match(/user\-chat\/([0-9a-fA-F]{24})\/details/) || [])[1]
-            var isShowPaymentPopup = window.location.href.match('showPaymentPopup=true')
-            if (isShowPaymentPopup) {
-                window.openPaymentPopup(ticketId, true)
-                this.open(true)
-            }
-
         },
         template: { element: 'kot-payment-popup-tpl'}
     })
