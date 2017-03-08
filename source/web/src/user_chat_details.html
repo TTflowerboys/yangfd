@@ -147,7 +147,8 @@
             % end
             
             %if (user and user.get('id') == rent_intention_ticket.get('interested_rent_tickets')[0].get('user').get('id')):
-
+                <button class="paymentButton button">{{_('同意')}}</button>
+                <button class="rejectButton">{{_('拒绝')}}</button>
             % else:
                 <!-- @@include =./static/templates/payment_popup.tpl.html -->
                 <kot-payment-popup></kot-payment-popup>
