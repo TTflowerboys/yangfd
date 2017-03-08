@@ -24,7 +24,7 @@
 
             this.loadCardList()
             this.dropVisible = function(){
-                this.dropItemsVisible(true)
+                this.dropItemsVisible(this.dropItemsVisible()? false: true)
             }
 
             this.step = ko.observable(this.cardList? 2: 1)

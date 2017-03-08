@@ -32,7 +32,7 @@
 
             
             this.dropVisible = function(){
-                this.dropItemsVisible(true)
+                this.dropItemsVisible(this.dropItemsVisible()? false: true)
             }
 
             this.setDefault = function(card){
