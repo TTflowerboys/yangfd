@@ -56,6 +56,15 @@
                         <span>{%item.wechat%}</span>
                     </li>
                 </ul>
+
+                <h3><i class="fa fa-key"></i> {%$root.i18n('修改密码')%}</h3>
+                <form name="changePasswordForm" ng-submit="onChangePassword($event,changePasswordForm)">
+                    <input type="text" class="form-control ng-valid" id="randomString" required>
+                    <button class="btn btn-info" type="button" ng-click="onRandomString(8)"><i class="fa fa-refresh"></i>{%$root.i18n('自动生成')%}</button>
+                    <input type="hidden" ng-value="item.id" id="id">
+                    <button class="btn btn-info" type="submit">{%$root.i18n('确定')%}</button>
+                </form>
+
             </div>
         </div>
         <!--/row-->
