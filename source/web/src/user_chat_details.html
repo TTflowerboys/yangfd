@@ -24,7 +24,10 @@
             </div>
             % url_path = request.urlparts[2]
             % ticket_id = url_path.split('/')[2]
-            <div class="rmm-toggled-title" data-href="/user-chat/{{ticket_id}}/order">
+            <div class="rmm-toggled-title" style="right: 42px" data-href="/rent-period-edit/{{ticket_id}}">
+                <i class="icon-calender_homepage"></i>
+            </div>
+            <div class="rmm-toggled-title" style="right: 10px" data-href="/user-chat/{{ticket_id}}/order">
                 <i class="icon-files_homepage"></i>
             </div>
         </div>

@@ -230,6 +230,21 @@ def user_payment_detail(card_id, user):
     return currant_util.common_template("user_payment_details", user=user, title=title, card=card)
 
 
+@f_get('/rent-period-edit/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def rent_period_edit(rent_intention_ticket_id):
+    rent_intention_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id], fuzzy_user_info=True)[0])
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields())
+    if not user or (user.get('id') == rent_intention_ticket.get('interested_rent_tickets')[0].get('user', {}).get('id')):
+        redirect('/')
+    title = _('编辑租期')
+    if rent_intention_ticket.get('interested_rent_tickets')[0].get('title'):
+        title = _(rent_intention_ticket.get('interested_rent_tickets')[0].get('title')) + '-' + title
+
+    return currant_util.common_template("rent_period_edit-phone", title=title, rent_intention_ticket=rent_intention_ticket)
+
+
 @f_get('/user_invite', '/user-invite')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)

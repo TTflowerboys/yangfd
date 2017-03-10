@@ -1,0 +1,45 @@
+<!--@@master = ./masters/master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/rent_period_edit-phone.html.css-->
+<link rel="stylesheet" href="/static/styles/hostChatRequest.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block = custom_header-->
+<style>
+ .siteHeader_phone {
+     display: none;
+ }
+</style>
+<div class="chatHeader_phone rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button" onclick="history.go(-1)">
+                <img class="iconBack" src="/static/images/common/header/phone/back.png">
+            </div>
+            <div class="rmm-center">
+                {{title}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--@@close-->
+
+<!--@@block = main-->
+<textarea id="rentTicketData" style="display: none">
+    {{json_dumps(rent_intention_ticket)}}
+</textarea>
+<!--@@include static/templates/rent_period_edit_phone.tpl.html -->
+<rent-period-edit></rent-period-edit>
+<!--@@close-->
+
+<!--@@block = scripts -->
+<!--build:js /static/scripts/rent_period_edit-phone.html.js-->
+<script src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script src="/static/scripts/featured_facility_ko.js"></script>
+<script src="/static/scripts/project/rent_period_edit_popup_ko.js"></script>
+<!--endbuild-->
+<!--@@close -->
