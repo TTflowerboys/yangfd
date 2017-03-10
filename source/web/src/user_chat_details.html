@@ -90,7 +90,7 @@
             </div>
          </div>
         <dl class="userDetailsList">
-            <dt>{{_('租期')}}</dt>
+            <dt>{{_('租期')}} <a class="editButton" href="#editRentPeriodFormModal" rel="modal:open"><i class="icon-edit"></i>{{_('编辑')}}</a></dt>
             % if 'rent_available_time' in rent_intention_ticket and rent_intention_ticket.get('rent_available_time',''):
                 <dd>
                     <span>{{_('租期开始日期')}}</span>
@@ -199,7 +199,10 @@
 
 </div>
 
-
+<div class="modal" id="editRentPeriodFormModal" style="display: none;">
+    <!--@@include=./static/templates/edit_rent_period_form_popup.tpl.html -->    
+    <edit-rent-period-form-popup></edit-rent-period-form-popup>
+</div>
 <!--@@close-->
 
 <!--@@block = scripts -->
@@ -208,4 +211,5 @@
 <script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/user_chat_details.js"></script>
 <script src="/static/scripts/payment_popup.js"></script>
+<script src="/static/scripts/project/edit_rent_period_form_popup_ko.js"></script>
 <!--@@close -->

@@ -1,0 +1,43 @@
+<script id="edit-rent-period-form-popup-tpl" type="text/template">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-title">{{_('编辑租期信息')}}</div>
+                <div class="row">
+                        <div class="rentPeriod fl">       
+                            <div class="title">{{_('租期')}}</div>
+                            <div class="rentTime">
+                                <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentAvailableTimeFormated, timeEnabled: true}">
+                                    <input data-bind="value: rentAvailableTimeFormated" type="text" class="" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
+                                </div>
+                                <i class="icon-nav-arrow-right"></i>
+                                <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentDeadlineTimeFormated, timeEnabled: true}">
+                                    <input data-bind="value: rentDeadlineTimeFormated" type="text" class="" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tenantCount fr">
+                            <div class="title">{{_('入住人数')}}</div>
+                            <div class="UserType">
+                                % if _.lang == "en_GB":
+                                <select data-bind="chosen: tenantCountList,
+                                        optionsText: function(item){return item},
+                                        value: tenantCount
+                                        "></select>
+                                %else:
+                                <select data-bind="chosen: tenantCountList,
+                                        optionsText: function(item){return item + window.i18n('人入住')},
+                                        value: tenantCount
+                                        "></select>
+                                %end
+                            </div>
+                        </div>
+                </div>
+                <div class="addPaymentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="addCardButton" class="btn btn-primary" data-bind="click: submit">{{_('提交')}}</button>
+            </div>
+        </div>
+    </div>
+</script>

@@ -154,7 +154,69 @@
                 line-height: 38px;
             }
         }
-    }    
+    }
+}
+
+
+.modal-dialog{
+    .rentPeriod{
+        .rentTime {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 0 6px;
+            height: 42px;
+            width: 290px;
+            background: #fff;
+            .inputWrapper{border: 0;}
+            .date {
+                width: 120px;
+                display: inline-block;
+                float: left;
+                vertical-align: middle;
+                input[type=text] {
+                    border: 0 none;
+                    outline: 0 none;
+                    height: 40px;
+                    width: 100%;
+                    font-size: 14px;
+                    vertical-align: middle;
+                    color: #999;
+                    text-align: center;
+                }
+            }
+            > i {
+                float: left;
+                width: 20px;
+                text-align: center;
+                display: inline-block;
+                vertical-align: middle;
+                height: 40px;
+                line-height: 40px;
+                color: #ccc;
+            }
+        }
+    }
+    .tenantCount{
+        .UserType {
+            border-radius: 4px;
+            height: 42px;
+            width: 100px;
+            background: #fff;
+            select {
+                width: 100%;
+            }
+        }
+    }
+    .chosen-container .chosen-drop,.chosen-container .chosen-single{
+        border-width: 1px;
+    }
+}
+#editRentPeriodFormModal{
+    width: 510px;
+    .modal-footer{
+        margin-top: 22px;
+        text-align: center;
+    }
 }
 
 .cardListItems{
