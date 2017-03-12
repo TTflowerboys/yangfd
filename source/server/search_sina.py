@@ -605,7 +605,7 @@ def get_weibo_search_result(keywords_list):
     attachments = {}
 
     result_powerapple = crawler_powerapple('10141')
-    result_douban_group = reduce_overlap(crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome']))
+    result_douban_group = reduce_overlap(crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome', 'Good..Luck..', 'studentinuk', 'netbirds']))
 
     city_list = {}
     retry = 0
