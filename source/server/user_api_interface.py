@@ -407,11 +407,11 @@ def user_edit(user, params):
             abort(40325)
 
     if "password" in params:
-        user = f_app.user.get(user_id)
+        user_details = f_app.user.get(user_id)
 
         if "old_password" in params or set(user["role"]) & set(["admin", "jr_admin"]):
-            if "password" in user and "phone" in user and "old_password" in params:
-                f_app.user.login.auth(user["phone"], params.pop("old_password"), auth_only=True)
+            if "password" in user_details and "phone" in user_details and "old_password" in params:
+                f_app.user.login.auth(user_details["phone"], params.pop("old_password"), auth_only=True)
 
         else:
             abort(40098, logger.warning("Invalid params: current password not provided", exc_info=False))
