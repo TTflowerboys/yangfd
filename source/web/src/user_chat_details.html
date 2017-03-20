@@ -150,11 +150,12 @@
             % end
             
             %if (user and user.get('id') == rent_intention_ticket.get('interested_rent_tickets')[0].get('user').get('id')):
-                <button class="paymentButton button">{{_('同意')}}</button>
+                <a rel="modal:open" href="#cardFormModal" class="paymentButton button">{{_('同意')}}</a>
                 <button class="rejectButton">{{_('拒绝')}}</button>
             % else:
                 <!-- @@include =./static/templates/payment_popup.tpl.html -->
                 <kot-payment-popup></kot-payment-popup>
+                <button  class="paymentButton button cancel">{{_('取消')}}</button>
             % end
         </dl>
         </div>
@@ -205,6 +206,13 @@
 <div class="modal" id="editRentPeriodFormModal" style="display: none;">
     <!--@@include=./static/templates/edit_rent_period_form_popup.tpl.html -->    
     <edit-rent-period-form-popup></edit-rent-period-form-popup>
+</div>
+<div class="modal" id="cardFormModal" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-title">Add payment Method</div>
+        <!--@@include=./static/templates/add_payment_form.tpl.html -->
+        <add-payment-form></add-payment-form>
+    </div>
 </div>
 <!--@@close-->
 
