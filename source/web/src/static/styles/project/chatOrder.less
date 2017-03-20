@@ -126,17 +126,19 @@ body{
     }
 }
 .paymentButton{
-    background: #2bbde5!important;
+    background: #2bbde5;
     width: 100%;
     line-height: 22px;
     font-size: 16px;
     margin-top: 12px;    
-    &.cancel{
-        background: #ff6d76!important;
-    }
     &:hover{
-        opacity: .9;
-        filter: alpha(opacity=90);
+        background: #42c3e8;
+    }
+    &.cancel{
+        background: #ff6d76;
+        &:hover{
+            background: #f44336;
+        }
     }
 }
 .rejectButton{
