@@ -1,0 +1,126 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-text padding="0" />
+      <mj-all font-family="Helvetica, Arial, sans-serif" font-size="16px" color="#363636"/>
+    </mj-attributes>
+    <mj-style>
+      .blue {
+        color:#2BBDE5;
+      }
+      .big {
+        font-size: 20px;
+      }
+      .th{
+        font-weight: normal;
+        font-size: 16px;
+        color: #666666;
+        text-align: left;
+      }
+      .link{
+        font-weight: bold;
+        color: #2BBDE5;
+        text-decoration: none;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-container>
+      <!-- Company Header -->
+      <mj-section class="border">
+        <mj-image width="600" padding="0" src="/static/images/email/border.png"/>
+      </mj-section>
+      <mj-section class="logo">
+        <mj-image width="300" src="/static/images/email/yfd.png"/>
+      </mj-section>
+      <!-- Email Message -->
+      <mj-section class="message" width="500">
+        <mj-divider border-width="2px" border-color="#cccccc"/>
+        <mj-text align="left">
+          <h2>{{_('Hi XXXX')}}</h2>
+          <p>您在洋房东平台<span class="blue">[房源标题]</span>的预订申请 已经提交成功，感谢您使用洋房东！</p>
+          <p>请注意这不是预订确认邮件。在Host同意您的预订前，我们建议您与<span class="blue">[Host]</span>使用洋房东平台沟通系统与保持联系，及时与Host沟通。Host会在24小时内回应您，当然我们平台的host一般会很快地回复。一旦host xxx first name 回复您，我们会第一时间通知您。</p>
+          <p>您的预付款只有在host 接受预订时平台才会收取，如果超时或者房东拒绝系统会自动退款至您的账户中。</p>
+
+        </mj-text>
+      </mj-section>
+
+      <mj-section padding="0">
+          <mj-image padding="0" src="/static/images/email/spring_festival_email.png"/>
+      </mj-section>
+
+      <mj-section border="1px solid #ccc" padding="32">
+        <!-- Property Info -->
+        <mj-group width="100%" margin-top="22">
+          <mj-text align="center" color="#2BBDE5" font-size="22">房源标题房源标题</mj-text>
+        </mj-group>
+        <mj-divider border-width="12px" border-color="#fff"/>
+        <mj-group width="100%">
+          <mj-column width="58">
+            <mj-image padding="0 0 0 25" src="/static/images/icon/location.png" width="32"/>
+          </mj-column>
+          <mj-column width="442">
+            <mj-text align="left" color="#95989a" font-size="18" line-height="32px" padding-right="25">
+              37 bis, rue du Sentier 75002 Paris
+            </mj-text>
+          </mj-column>
+        </mj-group>
+
+        <mj-text align="center">
+          <h2>{{_('Ticket Detail')}}</h2>
+        </mj-text>
+        <mj-divider border-width="1px" border-color="#cccccc"/>
+        
+        <mj-group width="100%" align="center">
+          <mj-column>           
+            <mj-table padding-left="0" padding-right="0">
+              <tr>
+                <th class="th">{{_('预订人数')}}</th>
+                <td colspan="2" align="right" class="blue">1</td>
+              </tr>
+              <tr>   
+                <th class="th">{{_('房源类型')}}</th>
+                <td colspan="2" align="right" class="blue">Single room</td>
+              </tr>
+            </mj-table>
+            <mj-divider border-width="1px" border-color="#cccccc" padding-left="0" padding-right="0"/>
+            <mj-table padding-left="0" padding-right="0">
+              <tr>
+                <th class="th">{{_('入住日期')}}<br>{{_('搬出日期')}}</th>
+                <td><img src="/static/images/icon/arrow.png" width="34"/></td>
+                <td align="right" class="blue">Dec.12, 2016<br>Dec.12, 2017</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-group>
+
+        <mj-divider border-width="32px" border-color="#fff"/>
+        <mj-button href="#" width="100%" border="2px solid #2bbde5" color="#2bbde5" align="center" background-color="#fff"> 联系Host </mj-button>
+
+      </mj-section>
+
+      <!-- Company Footer -->
+      <mj-section>
+        <mj-text>
+          <p>
+            {{_('关于付款计划&退款条约')}}<br>
+            {{_('如果Host同意了您的预订，在您顺利入住24小时之后，Host将收到第一个租期费用。')}}<br>
+            {{_('您可以查看:')}}
+          </p>
+        </mj-text>
+        <mj-text>
+          <a class="link" href="">完整分期收款计划（带链接）</a><br>
+          <a class="link" href="">Cancellation Policy（带链接）</a><br>
+          <a class="link" href="">Security Deposit（带链接）</a><br>
+        </mj-text>
+        <mj-text>
+          <p>{{_('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')}}<br>Email：rental@youngfunding.co.uk</p>
+        <mj-text>
+      </mj-section>
+
+      <mj-section class="border">
+        <mj-image width="600" padding="0" src="/static/images/email/border.png"/>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>

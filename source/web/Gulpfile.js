@@ -328,13 +328,13 @@ gulp.task('build:CDN', ['build:fingerprint-admin-page-resource'], function () {
 // MJML
 
 gulp.task('mjml', function () {
-    return gulp.src(myPaths.src + 'static/mjmls/*.*')
+    return gulp.src(myPaths.src + 'static/mjmls/payment/*.*')
         .pipe(mjml())
-        .pipe(gulp.dest('./dist/static/emails/'))
+        .pipe(gulp.dest('./dist/static/emails/payment/'))
 })
 
 gulp.task('watch:mjml', ['mjml'], function () {
-    gulp.watch(myPaths.src + 'static/mjmls/*.*', ['mjml']).on('change', changeHanddler)
+    gulp.watch(myPaths.src + 'static/mjmls/payment/*.*', ['mjml']).on('change', changeHanddler)
     function changeHanddler(event) {
         console.log(event.type)
         console.log(event.path)
