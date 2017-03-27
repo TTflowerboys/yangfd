@@ -27,6 +27,9 @@
         color: #2BBDE5;
         text-decoration: none;
       }
+      .chat{position: relative;background-color:#2bbde5;border-radius: 3px;padding: 12px;margin: 0;width: 100%;min-height: 52px;}
+      .chat .arrow{position: absolute;left: -20px;display:block;width:0;height:0;border: 10px solid transparent;border-right-color: #2bbde5;overflow: hidden:}
+      .chat strong{font-size: 18px;display: block;margin-bottom: 10px;}
       .address{position: relative;padding: 0 12px 0 46px;color:#95989a;font-size:18px;line-height:24px;text-align: left;}
       .address img{position: absolute;left: 12px;top: -4px;}
     </mj-style>
@@ -45,7 +48,10 @@
         <mj-divider border-width="2px" border-color="#cccccc"/>
         <mj-text align="left">
           <h2>[Host]，您好</h2>
-          <p>在此我们恭喜您，[Guest]对您的[房源标题]（租期为[租客咨询提交的租期]）的预订已经得到确认！为了确保[Guest]能够顺利入住，我们建议您与[Guest]在入住前以及入住期间使用洋房东平台沟通系统保持联系，及时与Guest沟通。</p>
+          <p>[<span class="blue">Guest</span>]对您的[<span class="blue">房源标题</span>]（租期为[<span class="blue">租客咨询提交的租期</span>]）的预订已经取消。</p>
+        </mj-text>
+        <mj-text align="left" line-height="32px">
+          <h2>取消原因-<span class="blue">您在[Guest]的提交预订申请的48小时内并未及时作出回应。</span></h2>
         </mj-text>
       </mj-section>
 
@@ -67,22 +73,17 @@
                 37 bis, rue du Sentier 75002 Paris
             </p>
           </div>
-          </mj-column>
         </mj-raw>
 
         <mj-divider border-width="22px" border-color="#fff"/>
         <mj-text align="center">
-          <h2>咨询单号 - <b class="blue">咨询单编号</b></h2>
+          <h2>预订详情</h2>
         </mj-text>
         <mj-divider border-width="1px" border-color="#cccccc"/>
         
         <mj-group width="100%" align="center">
           <mj-column>           
             <mj-table padding-left="0" padding-right="0">
-              <tr>
-                <th align="left"><span class="key">{{_('Guest')}}</span></th>
-                <td colspan="2" align="right"><b class="value">Guest</b></td>
-              </tr>
               <tr>
                 <th align="left"><span class="key">{{_('预订人数')}}</span></th>
                 <td class="value" colspan="2" align="right"><b class="value">1</b></td>
@@ -91,6 +92,9 @@
                 <th align="left"><span class="key">{{_('房源类型')}}</span></th>
                 <td class="value" colspan="2" align="right"><b class="value">Single room</b></td>
               </tr>
+            </mj-table>
+            <mj-divider border-width="1px" border-color="#cccccc" padding-left="0" padding-right="0"/>
+            <mj-table>
               <tr>
                 <th align="left"><span class="key">{{_('入住日期')}}</span><br><b class="value">Dec.12, 2016</b></th>
                 <td><img src="/static/images/icon/arrow.png" width="34"/></td>
@@ -101,33 +105,21 @@
         </mj-group>
 
         <mj-divider border-width="1px" border-color="#cccccc"/>
-        <mj-table>
-          <tr>
-            <th align="left" class="totleKey"><span >{{_('预计您的收入')}}</span></th>
-            <td align="right" class="totleValue"><b>$ 12345</b></td>
-          </tr>
-        </mj-table>
-        <mj-button href="#" width="100%" border="2px solid #2bbde5" color="#2bbde5" align="center" background-color="#fff"> 联系Guest </mj-button>
+        <mj-divider border-width="22px" border-color="#fff"/>
+        <mj-image src="/static/images/chat/placeholder_host_small.png" width="100" height="100" border-radius="50%"/>
+        <mj-divider border-width="12px" border-color="#fff"/>
+        <mj-text align="center" color="#989898" line-height="24px">
+            <span class="blue">username</span><br>
+            <strong>Host</strong>
+        </mj-text>
 
       </mj-section>
 
       <!-- Company Footer -->
       <mj-section>
         <mj-text>
-          <h3>{{_('感谢您使用洋房东，祝您出租顺利！')}}</h3>
-          <p>
-            {{_('关于收款计划&退款条约')}}<br>
-            {{_('在Guest顺利入住后的24小时之后，您将收到平台转给您的第一期收益。')}}<br>
-            {{_('您可以查看:')}}
-          </p>
-        </mj-text>
-        <mj-text>
-          <a class="link" href="">完整分期收款计划（带链接）</a><br>
-          <a class="link" href="">Cancellation Policy（带链接）</a><br>
-          <a class="link" href="">Security Deposit（带链接）</a><br>
-        </mj-text>
-        <mj-text>
-          <p>{{_('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')}}<br>Email：rental@youngfunding.co.uk</p>
+          <p>[Guest]的预订已经取消。您作为房东的回复情况可能直接影响您的出租评价。</p>
+          <p>感谢您使用洋房东。</p>
         <mj-text>
       </mj-section>
 

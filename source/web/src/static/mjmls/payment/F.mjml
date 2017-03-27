@@ -50,7 +50,7 @@
       </mj-section>
 
       <mj-section padding="0">
-          <mj-image padding="0" src="/static/images/email/spring_festival_email.png"/>
+          <mj-image padding="0" src="/static/images/placeholder/img_rent_detail_holder.png"/>
       </mj-section>
 
       <mj-section border="1px solid #ccc" padding="32">

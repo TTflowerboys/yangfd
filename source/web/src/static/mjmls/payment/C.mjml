@@ -27,6 +27,7 @@
         color: #2BBDE5;
         text-decoration: none;
       }
+      .t-text{font-size: 14px;color: #989898;line-height:16px;margin-bottom: 6px;display: block;}
       .address{position: relative;padding: 0 12px 0 46px;color:#95989a;font-size:18px;line-height:24px;text-align: left;}
       .address img{position: absolute;left: 12px;top: -4px;}
     </mj-style>
@@ -44,8 +45,46 @@
       <mj-section class="message" width="500">
         <mj-divider border-width="2px" border-color="#cccccc"/>
         <mj-text align="left">
-          <h2>[Host]，您好</h2>
-          <p>在此我们恭喜您，[Guest]对您的[房源标题]（租期为[租客咨询提交的租期]）的预订已经得到确认！为了确保[Guest]能够顺利入住，我们建议您与[Guest]在入住前以及入住期间使用洋房东平台沟通系统保持联系，及时与Guest沟通。</p>
+          <h2>[Guest]，您好</h2>
+          <p>我们在此通知您，房东已经接受了您的预订申请。您预订房源所支付的预付款已经成功支付至平台。您的预订已确认！感谢您使用洋房东！</p>
+        </mj-text>
+      </mj-section>
+
+      <mj-section border-bottom="1px solid #ccc" padding="6 0">
+        <mj-column vertical-align="top" width="50%">
+          <mj-text>
+            <strong>Gusest</strong> <span class="key">No.123456789</span>
+          </mj-text>
+        </mj-column>
+        <mj-column vertical-align="top" width="50%">
+          <mj-text align="right">
+              <span class="key">Date: 2017/03/30</span>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section border-bottom="1px solid #ccc">
+        <mj-table padding-left="0" padding-right="0">
+          <tr>
+            <th align="left" rowspan="3" style="border-right:1px solid #ccc;text-align:left;padding-left: 5px;"><span class="t-text">Totle<br>支付总额</span><b class="value big">$ 1000</b></th>
+            <td class="value" align="left" style="padding-left: 16px;"><span class="t-text">HOLDING DEPOSIT<br>支付总额</span></td>
+            <td align="right"><strong>$ 12345</strong></td>
+          </tr>
+          <tr>
+            <td class="value" align="left" style="padding-left: 16px;"><span class="t-text">SERVICE FEE<br>支付总额</span></td>
+            <td align="right"><strong>$ 12345</strong></td>
+          </tr>
+          <tr>
+            <td class="value" align="left" style="padding-left: 16px;"><span class="t-text">SERVICE FEE VAT(20%)<br>支付总额</span></td>
+            <td align="right"><strong>$ 24690</strong></td>
+          </tr>
+        </mj-table>
+      </mj-section>
+
+
+      <mj-section>
+        <mj-text>
+          <p>为了确保您能够顺利入住，我们建议您与[<span class="blue">Host</span>]在入住前以及入住期间使用洋房东平台沟通系统保持联系，及时与Host沟通。<br>如果您 [<span class="blue">房源标题</span>]（租期为[<span class="blue">租客咨询提交的租期</span>]）入住时发现有任何问题，请您在入住后的24小时之内（即[入住日期和时间+24小时]）前通过电话或邮件与平台联系。</p>
         </mj-text>
       </mj-section>
 
@@ -107,17 +146,32 @@
             <td align="right" class="totleValue"><b>$ 12345</b></td>
           </tr>
         </mj-table>
+        <mj-divider border-width="1px" border-color="#cccccc"/>
+        <mj-divider border-width="22px" border-color="#fff"/>
+        <mj-image src="/static/images/chat/placeholder_host_small.png" width="100" height="100" border-radius="50%"/>
+        <mj-divider border-width="12px" border-color="#fff"/>
+        <mj-text align="center" color="#989898" line-height="24px">
+            <span class="blue">username</span><br>
+            <strong>Host</strong>
+        </mj-text>
+        <mj-divider border-width="22px" border-color="#fff"/>
+        <mj-table padding-left="0" padding-right="0">
+          <tr>
+            <td><span class="key">手机 </span><br><b class="value">+86 13007120000</b></td>
+            <td><span class="key">email</span><br><b class="value">Guest@gmail.com</b></td>
+          </tr>
+        </mj-table>
+        <mj-divider border-width="32px" border-color="#fff"/>
         <mj-button href="#" width="100%" border="2px solid #2bbde5" color="#2bbde5" align="center" background-color="#fff"> 联系Guest </mj-button>
-
       </mj-section>
+
 
       <!-- Company Footer -->
       <mj-section>
         <mj-text>
-          <h3>{{_('感谢您使用洋房东，祝您出租顺利！')}}</h3>
           <p>
-            {{_('关于收款计划&退款条约')}}<br>
-            {{_('在Guest顺利入住后的24小时之后，您将收到平台转给您的第一期收益。')}}<br>
+            {{_('关于付款计划&退款条约')}}<br>
+            {{_('在您顺利入住后的48小时之内，Host将收到平台转入的第一期收益。')}}<br>
             {{_('您可以查看:')}}
           </p>
         </mj-text>
