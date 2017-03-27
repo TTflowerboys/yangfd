@@ -3,6 +3,14 @@ from app import f_app
 from libfelix.f_interface import f_api
 
 
+@f_api("/adyen/<card_id>")
+@f_app.user.login.check(force=True)
+def adyen_card_info(card_id, user):
+    card = f_app.payment.adyen.card.get(card_id)
+    assert card["user_id"] == user["id"], abort(40300)
+    return card
+
+
 @f_api("/adyen/list")
 @f_app.user.login.check(force=True)
 def adyen_list(user):
