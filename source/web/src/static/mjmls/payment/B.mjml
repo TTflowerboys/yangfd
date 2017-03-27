@@ -27,6 +27,8 @@
         color: #2BBDE5;
         text-decoration: none;
       }
+      .address{position: relative;padding: 0 12px 0 46px;color:#95989a;font-size:18px;line-height:24px;text-align: left;}
+      .address img{position: absolute;left: 12px;top: -4px;}
     </mj-style>
   </mj-head>
   <mj-body>
@@ -57,16 +59,17 @@
           <mj-text align="center" color="#2BBDE5" font-size="22">房源标题房源标题</mj-text>
         </mj-group>
         <mj-divider border-width="12px" border-color="#fff"/>
-        <mj-group width="100%">
-          <mj-column width="58">
-            <mj-image padding="0 0 0 25" src="/static/images/icon/location.png" width="32"/>
+        
+        <mj-raw>
+          <div class="address">
+            <img src="/static/images/icon/location.png" width="32"/>
+            <p>
+                37 bis, rue du Sentier 75002 Paris
+            </p>
+          </div>
           </mj-column>
-          <mj-column width="442">
-            <mj-text align="left" color="#95989a" font-size="18" line-height="32px" padding-right="25">
-              37 bis, rue du Sentier 75002 Paris
-            </mj-text>
-          </mj-column>
-        </mj-group>
+        </mj-raw>
+
         <mj-divider border-width="22px" border-color="#fff"/>
         <mj-text align="center">
           <h2>咨询单号 - <b class="blue">咨询单编号</b></h2>

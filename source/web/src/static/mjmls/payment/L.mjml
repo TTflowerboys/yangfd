@@ -27,26 +27,14 @@
         color: #2BBDE5;
         text-decoration: none;
       }
-      .message{
-        position: relative;
-        background-color:#2bbde5;
-        border-radius: 3px;
-        padding: 12px;
-        margin: 0;
-        width: 100%;
-        min-height: 52px;
-      }
-      .message .arrow{
-        position: absolute;
-        left: -20px;
-        display:block;
-        width:0;
-        height:0;
-        border: 10px solid transparent;
-        border-right-color: #2bbde5;
-        overflow: hidden:
-      }
-      .message strong{font-size: 18px;display: block;margin-bottom: 10px;}
+      .chat{position: relative;background-color:#2bbde5;border-radius: 3px;padding: 12px;margin: 0;width: 100%;min-height: 52px;}
+      .chat .arrow{position: absolute;left: -20px;display:block;width:0;height:0;border: 10px solid transparent;border-right-color: #2bbde5;overflow: hidden:}
+      .chat strong{font-size: 18px;display: block;margin-bottom: 10px;}
+      .chatBox{color: #fff; font-size:14px;line-height:22px; padding-left:25px;}
+      .chatOut{padding-left:76px;padding-right:22px;text-align:left;}
+      .chatOut img{margin-left:-76px;float:left; border-radius:50%;}
+      .address{position: relative;padding: 0 12px 0 46px;color:#95989a;font-size:18px;line-height:24px;text-align: left;}
+      .address img{position: absolute;left: 12px;top: -4px;}
     </mj-style>
   </mj-head>
   <mj-body>
@@ -68,23 +56,23 @@
       </mj-section>
 
       <mj-section>
-        <mj-text align="left">
+        <mj-text align="left" line-height="32px">
           <h2>拒绝原因-<span class="blue">[房东写的拒绝原因文字]</span></h2>
         </mj-text>
-        <mj-group width="96%" padding="0 2%">
-          <mj-column width="76">
-            <mj-image padding="0" src="/static/images/chat/placeholder_host_small.png" width="76" height="76" border-radius="50%"/>
-          </mj-column>
-          <mj-column width="424">
-            <mj-text align="left" color="#fff" font-size="14" line-height="22px" padding-left="25">
-              <p class="message">
-              <i class="arrow"></i>
-              <strong>user</strong>
-              我们抱歉地通知您，您对房源</p>
-            </mj-text>
-          </mj-column>
-        </mj-group>
+        <mj-raw>
+          <div class="chatOut">
+            <img padding="0" src="/static/images/chat/placeholder_host_small.png" width="76" height="76"/>
+            <div class="chatBox" >
+                <p class="chat">
+                <i class="arrow"></i>
+                <strong>user</strong>
+                我们抱歉地通知您，您对房源</p>
+            </div>
+          </div>
+        </mj-raw>
       </mj-section>
+
+      
 
       <mj-section padding="0">
           <mj-image padding="0" src="/static/images/email/spring_festival_email.png"/>
@@ -96,16 +84,17 @@
           <mj-text align="center" color="#2BBDE5" font-size="22">房源标题房源标题</mj-text>
         </mj-group>
         <mj-divider border-width="12px" border-color="#fff"/>
-        <mj-group width="100%">
-          <mj-column width="58">
-            <mj-image padding="0 0 0 25" src="/static/images/icon/location.png" width="32"/>
+        
+        <mj-raw>
+          <div class="address">
+            <img src="/static/images/icon/location.png" width="32"/>
+            <p>
+                37 bis, rue du Sentier 75002 Paris
+            </p>
+          </div>
           </mj-column>
-          <mj-column>
-            <mj-text align="left" color="#95989a" font-size="18" line-height="32px" padding-right="25">
-              37 bis, rue du Sentier 75002 Paris
-            </mj-text>
-          </mj-column>
-        </mj-group>
+        </mj-raw>
+
         <mj-divider border-width="22px" border-color="#fff"/>
         <mj-text align="center">
           <h2>咨询单号 - <b class="blue">咨询单编号</b></h2>

@@ -30,6 +30,9 @@
       .chat{position: relative;background-color:#2bbde5;border-radius: 3px;padding: 12px;margin: 0;width: 100%;min-height: 52px;}
       .chat .arrow{position: absolute;left: -20px;display:block;width:0;height:0;border: 10px solid transparent;border-right-color: #2bbde5;overflow: hidden:}
       .chat strong{font-size: 18px;display: block;margin-bottom: 10px;}
+      .chatBox{color: #fff; font-size:14px;line-height:22px; padding-left:25px;}
+      .chatOut{padding-left:76px;padding-right:22px;text-align:left;}
+      .chatOut img{margin-left:-76px;float:left; border-radius:50%;}
       .address{position: relative;padding: 0 12px 0 46px;color:#95989a;font-size:18px;line-height:24px;text-align: left;}
       .address img{position: absolute;left: 12px;top: -4px;}
     </mj-style>
@@ -47,16 +50,26 @@
       <mj-section class="message" width="500">
         <mj-divider border-width="2px" border-color="#cccccc"/>
         <mj-text align="left">
-          <h2>[Guest]，您好</h2>
-          <p>我们抱歉地通知您，您对房源<span class="blue">[房源标题]</span>（租期为<span class="blue">[租客咨询提交的租期]</span>）的预订已经取消。房东<span class="blue">[Host]</span>拒绝了您的预订申请。</p>
+          <h2>[Host]，您好</h2>
+          <p><span class="blue">[Guest]</span>对您的<span class="blue">[房源标题]</span>（租期为<span class="blue">[租客咨询提交的租期]</span>）的预订已经取消。</p>
         </mj-text>
       </mj-section>
 
       <mj-section>
         <mj-text align="left" line-height="32px">
-          <h2>拒绝原因-<span class="blue">Host[Host]并未在48小时内回应您的预订申请。</span></h2>
+          <h2>拒绝原因-<span class="blue">房东选择的拒绝原因种类</span></h2>
         </mj-text>
-        
+        <mj-raw>
+          <div class="chatOut">
+            <img padding="0" src="/static/images/chat/placeholder_host_small.png" width="76" height="76"/>
+            <div class="chatBox" >
+                <p class="chat">
+                <i class="arrow"></i>
+                <strong>user</strong>
+                我们抱歉地通知您，您对房源</p>
+            </div>
+          </div>
+        </mj-raw>
       </mj-section>
 
       <mj-section padding="0">
@@ -90,10 +103,6 @@
           <mj-column>           
             <mj-table padding-left="0" padding-right="0">
               <tr>
-                <th align="left"><span class="key">{{_('Guest Name')}}</span></th>
-                <td colspan="2" align="right"><b class="value">Guest name</b></td>
-              </tr>
-              <tr>
                 <th align="left"><span class="key">{{_('预订人数')}}</span></th>
                 <td class="value" colspan="2" align="right"><b class="value">1</b></td>
               </tr>
@@ -101,6 +110,9 @@
                 <th align="left"><span class="key">{{_('房源类型')}}</span></th>
                 <td class="value" colspan="2" align="right"><b class="value">Single room</b></td>
               </tr>
+            </mj-table>
+            <mj-divider border-width="1px" border-color="#cccccc" padding-left="0" padding-right="0"/>
+            <mj-table padding-left="0" padding-right="0">              
               <tr>
                 <th align="left"><span class="key">{{_('入住日期')}}</span><br><b class="value">Dec.12, 2016</b></th>
                 <td><img src="/static/images/icon/arrow.png" width="34"/></td>
@@ -115,8 +127,7 @@
       <!-- Company Footer -->
       <mj-section>
         <mj-text>
-          <p>您的最后回复期限为 月日 gmt 时区 几点。回复[Guest]的预订咨询以维持高的回复率、优化您房源在平台的排名</p>
-          <p>如果您不正式接受或拒绝，[Guest]的预订申请将在48小时后过期。我们建议您尽快回复，以便房客可以开始计划他们的旅程！<br>谢谢！<br>洋房东团队</p>
+          <p>[Guest]的预订已经取消。<br>感谢您使用洋房东。</p>
         <mj-text>
       </mj-section>
 
