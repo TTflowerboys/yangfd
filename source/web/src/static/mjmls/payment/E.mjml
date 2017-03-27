@@ -1,0 +1,119 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-text padding="0" />
+      <mj-all font-family="Helvetica, Arial, sans-serif" font-size="16px" color="#363636"/>
+    </mj-attributes>
+    <mj-style>
+      .blue {
+        color:#2BBDE5;
+      }
+      .big {
+        font-size: 20px;
+      }
+      .key,.value{padding-top: 5px;padding-bottom: 5px;}
+      .totleKey,.totleValue{padding-top: 16px;padding-bottom: 16px;}
+      .key,.totleKey{
+        font-weight: normal;
+        font-size: 16px;
+        color: #666666;
+      }
+      .totleValue,.value{
+        font-weight: bold;
+        color: #2BBDE5;
+      }
+      .link{
+        font-weight: bold;
+        color: #2BBDE5;
+        text-decoration: none;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-container>
+      <!-- Company Header -->
+      <mj-section class="border">
+        <mj-image width="600" padding="0" src="/static/images/email/border.png"/>
+      </mj-section>
+      <mj-section class="logo">
+        <mj-image width="300" src="/static/images/email/yfd.png"/>
+      </mj-section>
+      <!-- Email Message -->
+      <mj-section class="message" width="500">
+        <mj-divider border-width="2px" border-color="#cccccc"/>
+        <mj-text align="left">
+          <h2>[Host]，您好</h2>
+          <p>太好了！ 你收到了来自洋房东平台<span class="blue">[Guest]</span> 的预订申请。<span class="blue">[Guest]</span> 希望于<span class="blue">[租客咨询提交的租期]</span> 期间在 <span class="blue">[房源标题]</span> 住宿。基于您 <span class="blue">[房源每晚的价格]</span> 每晚的价格，您此笔预计收益总共<span class="blue">[总费用]</span></p>
+        </mj-text>
+      </mj-section>
+
+      <mj-section padding="0">
+          <mj-image padding="0" src="/static/images/email/spring_festival_email.png"/>
+      </mj-section>
+
+      <mj-section border="1px solid #ccc" padding="32">
+        <!-- Property Info -->
+        <mj-group width="100%" margin-top="22">
+          <mj-text align="center" color="#2BBDE5" font-size="22">房源标题房源标题</mj-text>
+        </mj-group>
+        <mj-divider border-width="12px" border-color="#fff"/>
+        <mj-group width="100%">
+          <mj-column width="58">
+            <mj-image padding="0 0 0 25" src="/static/images/icon/location.png" width="32"/>
+          </mj-column>
+          <mj-column width="442">
+            <mj-text align="left" color="#95989a" font-size="18" line-height="32px" padding-right="25">
+              37 bis, rue du Sentier 75002 Paris
+            </mj-text>
+          </mj-column>
+        </mj-group>
+        <mj-divider border-width="22px" border-color="#fff"/>
+        <mj-text align="center">
+          <h2>咨询单号 - <b class="blue">咨询单编号</b></h2>
+        </mj-text>
+        <mj-divider border-width="1px" border-color="#cccccc"/>
+        
+        <mj-group width="100%" align="center">
+          <mj-column>           
+            <mj-table padding-left="0" padding-right="0">
+              <tr>
+                <th align="left"><span class="key">{{_('Guest Name')}}</span></th>
+                <td colspan="2" align="right"><b class="value">Guest name</b></td>
+              </tr>
+              <tr>
+                <th align="left"><span class="key">{{_('预订人数')}}</span></th>
+                <td class="value" colspan="2" align="right"><b class="value">1</b></td>
+              </tr>
+              <tr>   
+                <th align="left"><span class="key">{{_('房源类型')}}</span></th>
+                <td class="value" colspan="2" align="right"><b class="value">Single room</b></td>
+              </tr>
+              <tr>
+                <th align="left"><span class="key">{{_('入住日期')}}</span><br><b class="value">Dec.12, 2016</b></th>
+                <td><img src="/static/images/icon/arrow.png" width="34"/></td>
+                <td align="right"><span class="key">{{_('搬出日期')}}</span><br><b class="value">Dec.12, 2017</b></td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-group>
+
+        <mj-divider border-width="1px" border-color="#cccccc"/>
+        <mj-divider border-width="36px" border-color="#ffffff"/>        
+        <mj-button href="#" width="100%" border="2px solid #2bbde5" color="#2bbde5" align="center" background-color="#fff"> 查看详情/回复 </mj-button>
+
+      </mj-section>
+
+      <!-- Company Footer -->
+      <mj-section>
+        <mj-text>
+          <p>您的最后回复期限为 月日 gmt 时区 几点。回复[Guest]的预订咨询以维持高的回复率、优化您房源在平台的排名</p>
+          <p>如果您不正式接受或拒绝，[Guest]的预订申请将在48小时后过期。我们建议您尽快回复，以便房客可以开始计划他们的旅程！<br>谢谢！<br>洋房东团队</p>
+        <mj-text>
+      </mj-section>
+
+      <mj-section class="border">
+        <mj-image width="600" padding="0" src="/static/images/email/border.png"/>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
