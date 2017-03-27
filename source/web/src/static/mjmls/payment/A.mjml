@@ -11,11 +11,16 @@
       .big {
         font-size: 20px;
       }
-      .th{
+      .key,.value{padding-top: 5px;padding-bottom: 5px;}
+      .totleKey,.totleValue{padding-top: 16px;padding-bottom: 16px;}
+      .key,.totleKey{
         font-weight: normal;
         font-size: 16px;
         color: #666666;
-        text-align: left;
+      }
+      .totleValue,.value{
+        font-weight: bold;
+        color: #2BBDE5;
       }
       .link{
         font-weight: bold;
@@ -75,20 +80,20 @@
           <mj-column>           
             <mj-table padding-left="0" padding-right="0">
               <tr>
-                <th class="th">{{_('预订人数')}}</th>
-                <td colspan="2" align="right" class="blue">1</td>
+                <th align="left"><span class="key">{{_('预订人数')}}</span></th>
+                <td colspan="2" align="right"><b class="value">1</span></td>
               </tr>
               <tr>   
-                <th class="th">{{_('房源类型')}}</th>
-                <td colspan="2" align="right" class="blue">Single room</td>
+                <th align="left"><span class="key">{{_('房源类型')}}</span></th>
+                <td colspan="2" align="right"><b class="value">Single room</span></td>
               </tr>
             </mj-table>
             <mj-divider border-width="1px" border-color="#cccccc" padding-left="0" padding-right="0"/>
             <mj-table padding-left="0" padding-right="0">
               <tr>
-                <th class="th">{{_('入住日期')}}<br>{{_('搬出日期')}}</th>
+                <th align="left"><span class="key">{{_('入住日期')}}</span><br><b class="value">Dec.12, 2016</b></th>
                 <td><img src="/static/images/icon/arrow.png" width="34"/></td>
-                <td align="right" class="blue">Dec.12, 2016<br>Dec.12, 2017</td>
+                <td align="right"><span class="key">{{_('搬出日期')}}</span><br><b class="value">Dec.12, 2017</b></td>
               </tr>
             </mj-table>
           </mj-column>
