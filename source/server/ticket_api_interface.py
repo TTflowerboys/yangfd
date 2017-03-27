@@ -1039,6 +1039,64 @@ def rent_intention_ticket_chat_history(rent_intention_ticket_id, user, params):
     return f_app.message.chat.history(params["target_user_id"], params["user_id"], params=search_params, per_page=params.get("per_page"))
 
 
+@f_api('/rent_intention_ticket/<rent_intention_ticket_id>/generate_order')
+@f_app.user.login.check(force=True)
+def rent_intention_ticket_generate_order(rent_intention_ticket_id, user):
+    ticket = f_app.ticket.get(rent_intention_ticket_id)
+    assert user["id"] == ticket["user_id"], abort(40300)
+    assert len(ticket["interested_rent_tickets"]) == 1, abort(40000)
+    rent_ticket = f_app.ticket.get(ticket["interested_rent_tickets"][0])
+
+    old_orders = f_app.order.get(f_app.order.search({"ticket_id": ObjectId(rent_intention_ticket_id), "status": {"$nin": ["deleted", "canceled"]}}))
+    for order in old_orders:
+        if order["status"] not in ["unpaid", "pending"]:
+            abort(40300, "Unable to generate order if old orders are paid already")
+
+        f_app.order.cancel(order["id"])
+
+    week_fee = rent_ticket["price"]["value"]
+    night_rental_fee = week_fee / 7.0
+    night_count = (ticket["rent_deadline_time"] - ticket["rent_available_time"]).days
+    if night_count == 0:
+        night_count = 1
+    total_rental_fee = night_rental_fee * night_count
+    sessions = night_count / 28 + 1
+
+    if night_count < 5 * 7:
+        d = 0.12
+        sessions = 1
+    elif night_count < 8 * 7:
+        d = 0.098
+    elif night_count < 16 * 7:
+        d = 0.095
+    elif night_count < 21 * 7:
+        d = 0.085
+    elif night_count < 26 * 7:
+        d = 0.08
+    else:
+        d = 0.06
+
+    if sessions == 1:
+        due_now = (1 + d) * 1.2 * total_rental_fee
+
+    else:
+        due_now = (1 + d) * 1.2 * week_fee * 4
+        counted = due_now
+        for session in range(1, sessions - 1):
+            session_start_time = ticket["rent_available_time"] + timedelta(weeks=session * 4)
+            due_time = session_start_time - timedelta(weeks=2)
+            due_amount = (1 + d) * 1.2 * week_fee * 4
+            counted += due_amount
+            f_app.shop.item.buy(f_app.common.rent_item_id, order_params={"ticket_id": ObjectId(rent_intention_ticket_id), "async": True, "due_time": due_time}, params={"payment_method": "adyen"}, force_price=due_amount)
+
+        last_session_start_time = ticket["rent_available_time"] + timedelta(weeks=(sessions - 1) * 4)
+        last_session_due_time = last_session_start_time - timedelta(weeks=2)
+        last_session_due_amount = total_rental_fee - counted
+        f_app.shop.item.buy(f_app.common.rent_item_id, order_params={"ticket_id": ObjectId(rent_intention_ticket_id), "async": True, "due_time": last_session_due_time}, params={"payment_method": "adyen"}, force_price=last_session_due_amount)
+
+    f_app.shop.item.buy(f_app.common.rent_item_id, order_params={"ticket_id": ObjectId(rent_intention_ticket_id), "async": True}, params={"payment_method": "adyen"}, force_price=due_now)
+
+
 @f_api('/rent_request_ticket/search', params=dict(
     status=(list, None, str),
     per_page=int,

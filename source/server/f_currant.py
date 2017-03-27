@@ -522,6 +522,19 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "value": "其它"
         })
 
+    def v37(self, m):
+        rent_item = {
+            "status": "new",
+            "_id": ObjectId(f_app.common.rent_item_id),
+            "shop_id": ObjectId(f_app.common.virtual_shop_id),
+            "type": "normal",
+            "quantity": True,
+            "price": 1,
+            "status": "new",
+            "time": datetime.utcnow()
+        }
+        f_app.shop.item.get_database(m).update_one({"_id": rent_item["_id"]}, {"$set": rent_item}, upsert=True)
+
 
 currant_mongo_upgrade()
 

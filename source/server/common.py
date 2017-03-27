@@ -36,7 +36,7 @@ class common(f_common):
     mongo_dbname = "currant"
     mongo_server = "172.20.1.1"
     mongo_auth = False
-    mongo_dbversion = 36
+    mongo_dbversion = 37
 
     memcache_server = ["172.20.1.1:11211"]
     memcache_lib = "bmemcached"
@@ -65,6 +65,7 @@ class common(f_common):
 
     virtual_shop_id = "54bca9b46b8099382cf7a515"
     view_rent_ticket_contact_info_id = "523ac0ef5c8988c84d6022cb"
+    rent_item_id = "58d8e3f6ad16447820d3ef73"
 
     property_list_per_page = 10
 
