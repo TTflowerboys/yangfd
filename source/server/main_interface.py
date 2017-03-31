@@ -281,6 +281,11 @@ def reset_password_email_2(params):
     return currant_util.common_template("reset_password_email_2", title=title, user_id=params['user_id'], code=params['code'])
 
 
+@f_get('/payment/email_<tpl_file:re:[A-Z]{1}>')
+def email_tpl(tpl_file):
+    return currant_util.common_template("static/emails/payment/"+tpl_file)
+
+
 @f_get('/property-for-sale/create')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready

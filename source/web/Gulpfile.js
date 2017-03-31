@@ -60,7 +60,7 @@ gulp.task('bower', function () {
 
 //Debug
 
-gulp.task('debug', ['bower', 'lint', 'symlink', 'less2css', 'css-auto-prefix', 'html-extend', 'i18n', 'watch'], function () {
+gulp.task('debug', ['bower', 'lint', 'symlink', 'less2css', 'css-auto-prefix', 'html-extend', 'mjml', 'i18n', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
 
